@@ -1,0 +1,4 @@
+rootProject.name = 'caver-java-kas-ext'
+include 'rest-client'
+include 'core'
+
