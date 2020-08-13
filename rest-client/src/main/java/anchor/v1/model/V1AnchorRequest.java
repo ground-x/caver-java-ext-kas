@@ -16,6 +16,7 @@ package anchor.v1.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -30,7 +31,7 @@ public class V1AnchorRequest {
   private String operator = null;
 
   @SerializedName("payload")
-  private Payload payload = null;
+  private Map payload = null;
 
   public V1AnchorRequest operator(String operator) {
     this.operator = operator;
@@ -50,7 +51,7 @@ public class V1AnchorRequest {
     this.operator = operator;
   }
 
-  public V1AnchorRequest payload(Payload payload) {
+  public V1AnchorRequest payload(Map payload) {
     this.payload = payload;
     return this;
   }
@@ -60,11 +61,11 @@ public class V1AnchorRequest {
    * @return payload
   **/
   @ApiModelProperty(value = "")
-  public Payload getPayload() {
+  public Map getPayload() {
     return payload;
   }
 
-  public void setPayload(Payload payload) {
+  public void setPayload(Map payload) {
     this.payload = payload;
   }
 

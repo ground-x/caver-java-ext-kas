@@ -13,6 +13,7 @@
 
 package anchor.v1.model;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -32,7 +33,7 @@ public class V1OperatorTxResponse {
   private Integer code = null;
 
   @SerializedName("result")
-  private List<Result1> result = null;
+  private JsonObject result = null;
 
   public V1OperatorTxResponse code(Integer code) {
     this.code = code;
@@ -52,29 +53,29 @@ public class V1OperatorTxResponse {
     this.code = code;
   }
 
-  public V1OperatorTxResponse result(List<Result1> result) {
+  public V1OperatorTxResponse result(JsonObject result) {
     this.result = result;
     return this;
   }
 
-  public V1OperatorTxResponse addResultItem(Result1 resultItem) {
-    if (this.result == null) {
-      this.result = new ArrayList<Result1>();
-    }
-    this.result.add(resultItem);
-    return this;
-  }
+//  public V1OperatorTxResponse addResultItem(Result1 resultItem) {
+//    if (this.result == null) {
+//      this.result = new ArrayList<Result1>();
+//    }
+//    this.result.add(resultItem);
+//    return this;
+//  }
 
    /**
    * Get result
    * @return result
   **/
   @ApiModelProperty(value = "")
-  public List<Result1> getResult() {
+  public JsonObject getResult() {
     return result;
   }
 
-  public void setResult(List<Result1> result) {
+  public void setResult(JsonObject result) {
     this.result = result;
   }
 
