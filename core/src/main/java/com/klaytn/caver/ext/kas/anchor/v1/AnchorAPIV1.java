@@ -1,8 +1,7 @@
-package com.klaytn.caver.kas.anchor.v1;
+package com.klaytn.caver.ext.kas.anchor.v1;
 
 import anchor.v1.ApiClient;
 import anchor.v1.ApiException;
-import anchor.v1.ApiResponse;
 import anchor.v1.api.AnchorApi;
 import anchor.v1.model.*;
 

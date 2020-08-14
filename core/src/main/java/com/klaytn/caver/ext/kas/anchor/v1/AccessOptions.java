@@ -1,4 +1,4 @@
-package com.klaytn.caver.kas.anchor.v1;
+package com.klaytn.caver.ext.kas.anchor.v1;
 
 import com.squareup.okhttp.Credentials;
 

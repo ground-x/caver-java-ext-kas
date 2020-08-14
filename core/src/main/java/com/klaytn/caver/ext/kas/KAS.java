@@ -1,10 +1,9 @@
-package com.klaytn.caver.kas;
+package com.klaytn.caver.ext.kas;
 
 import com.klaytn.caver.Caver;
-import com.klaytn.caver.kas.anchor.v1.AnchorAPIV1;
-import com.klaytn.caver.kas.node.v1.NodeAPIV1;
+import com.klaytn.caver.ext.kas.anchor.v1.AnchorAPIV1;
+import com.klaytn.caver.rpc.RPC;
 import com.squareup.okhttp.Credentials;
-import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.http.HttpService;
 
 public class KAS extends Caver {
@@ -31,7 +30,7 @@ public class KAS extends Caver {
 
         //TODO : Temporary code.
         httpService.addHeader("x-chain-id", chainId);
-        this.getRpc().setWeb3jService(httpService);
+        this.rpc = new RPC(httpService);
 
         return this;
     }
