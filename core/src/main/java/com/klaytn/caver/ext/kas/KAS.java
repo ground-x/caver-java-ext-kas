@@ -2,12 +2,15 @@ package com.klaytn.caver.ext.kas;
 
 import com.klaytn.caver.Caver;
 import com.klaytn.caver.ext.kas.anchor.v1.AnchorAPIV1;
+import com.klaytn.caver.ext.kas.tokenhistory.v2.TokenHistoryAPIv2;
 import com.klaytn.caver.rpc.RPC;
 import com.squareup.okhttp.Credentials;
+import io.swagger.client.ApiClient;
 import org.web3j.protocol.http.HttpService;
 
 public class KAS extends Caver {
     private AnchorAPIV1 anchorAPI;
+    private TokenHistoryAPIv2 tokenHistoryAPI;
 
     public KAS() {
     }
@@ -17,8 +20,12 @@ public class KAS extends Caver {
     }
 
     public KAS enableAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        this.anchorAPI = new AnchorAPIV1(url, Credentials.basic(accessKeyId, secretAccessKey), chainId);
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
 
+        setAnchorAPI(new AnchorAPIV1(chainId, apiClient));
         return this;
     }
 
@@ -35,11 +42,30 @@ public class KAS extends Caver {
         return this;
     }
 
+    public KAS enableTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
+
+        setTokenHistoryAPI(new TokenHistoryAPIv2(chainId, apiClient));
+
+        return this;
+    }
+
     public AnchorAPIV1 getAnchorAPI() {
         return anchorAPI;
     }
 
     public void setAnchorAPI(AnchorAPIV1 anchorAPI) {
         this.anchorAPI = anchorAPI;
+    }
+
+    public TokenHistoryAPIv2 getTokenHistoryAPI() {
+        return tokenHistoryAPI;
+    }
+
+    public void setTokenHistoryAPI(TokenHistoryAPIv2 tokenHistoryAPI) {
+        this.tokenHistoryAPI = tokenHistoryAPI;
     }
 }

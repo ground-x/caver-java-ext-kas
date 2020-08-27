@@ -1,90 +1,121 @@
 package com.klaytn.caver.ext.kas.anchor.v1;
 
-import anchor.v1.ApiClient;
-import anchor.v1.ApiException;
-import anchor.v1.api.AnchorApi;
-import anchor.v1.model.*;
+import com.squareup.okhttp.Call;
+import io.swagger.client.ApiCallback;
+import io.swagger.client.ApiClient;
+import io.swagger.client.ApiException;
+import io.swagger.client.api.anchor.v1.api.DataAnchoringTransactionApi;
+import io.swagger.client.api.anchor.v1.api.OperatorApi;
+import io.swagger.client.api.anchor.v1.model.*;
+
 
 import java.util.Map;
 
 public class AnchorAPIV1 {
-    AnchorApi anchorApi;
-    String url;
-    String authorization;
+    DataAnchoringTransactionApi dataAnchoringTransactionApi;
+    OperatorApi operatorApi;
     String chainId;
 
-    public AnchorAPIV1(String url, String authorization, String chainId) {
-        this.url = url;
-        this.authorization = authorization;
-        this.chainId = chainId;
-
-        ApiClient apiClient = new ApiClient();
-        apiClient.setBasePath(url);
-        this.anchorApi = new AnchorApi(apiClient);
+    public AnchorAPIV1(String chainId, ApiClient anchorApiClient) {
+        setChainId(chainId);
+        setDataAnchoringTransactionApi(new DataAnchoringTransactionApi(anchorApiClient));
+        setOperatorApi(new OperatorApi(anchorApiClient));
     }
 
-    public V1AnchorResponse sendAnchoringData(String operatorId, Map payload) throws ApiException {
-        V1AnchorRequest anchorRequest = new V1AnchorRequest();
+    public AnchorBlockResponse sendAnchoringData(String operatorId, Map payload) throws ApiException {
+        AnchorBlockRequest anchorRequest = new AnchorBlockRequest();
         anchorRequest.setOperator(operatorId);
         anchorRequest.setPayload(payload);
 
-        return getAnchorApi().anchorBlock(getAuthorization(), "", anchorRequest);
+        return getDataAnchoringTransactionApi().anchorBlock(getChainId(), anchorRequest);
     }
 
-    public V1OperatorTxResponse getAnchoringTransaction(String operatorId, AnchorQueryParams queryParams) throws ApiException {
-        if(queryParams != null) {
-            return anchorApi.retrieveBlock(operatorId, getAuthorization(), null, queryParams.getSize(), queryParams.getFromDate(), queryParams.toDate, queryParams.getCursor());
-        } else {
-            return anchorApi.retrieveBlock(operatorId, getAuthorization(), null, 0, 0, 0, null);
-        }
+    public Call sendAnchoringDataAsync(String operatorId, Map payload, ApiCallback<AnchorBlockResponse> callback) throws ApiException {
+        AnchorBlockRequest anchorRequest = new AnchorBlockRequest();
+        anchorRequest.setOperator(operatorId);
+        anchorRequest.setPayload(payload);
+
+        return getDataAnchoringTransactionApi().anchorBlockAsync(getChainId(), anchorRequest, callback);
     }
 
-    public V1OperatorTxResponse1 getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
-        return anchorApi.retrieveanchoredtransaction(operatorId, txHash, getAuthorization(), null);
+    public RetirieveAnchorBlockResponse getAnchoringTransactions(String operatorId) throws ApiException {
+        AnchorQueryParams params = new AnchorQueryParams();
+        return getAnchoringTransactions(operatorId, params);
     }
 
-    public V1OperatorPayloadResponse getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
-        return anchorApi.getRetrieveanchoredtransaction(operatorId, payloadId, getAuthorization(), null);
+    public RetirieveAnchorBlockResponse getAnchoringTransactions(String operatorId, AnchorQueryParams queryParams) throws ApiException {
+        return dataAnchoringTransactionApi.retirieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate());
     }
 
-    public V1OperatorResponse getOperators(AnchorQueryParams queryParams) throws ApiException {
-        if(queryParams != null) {
-            return anchorApi.retrieveregisteredservicechainoperators(getAuthorization(), null, queryParams.getSize(), queryParams.getFromDate(), queryParams.toDate, queryParams.getCursor());
-        } else {
-            return anchorApi.retrieveregisteredservicechainoperators(getAuthorization(), null, 0, 0, 0, null);
-        }
+    public Call getAnchoringTransactionsAsync(String operatorId, ApiCallback<RetirieveAnchorBlockResponse> callback) throws ApiException {
+        AnchorQueryParams params = new AnchorQueryParams();
+        return getAnchoringTransactionsAsync(operatorId, params, callback);
     }
 
-    public V1OperatorResponse1 getOperator(String operatorId) throws ApiException {
-        return anchorApi.retrieveOperator(getAuthorization(), null, operatorId);
+    public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryParams queryParams, ApiCallback<RetirieveAnchorBlockResponse> callback) throws ApiException {
+        return dataAnchoringTransactionApi.retirieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate(), callback);
     }
 
-    public AnchorApi getAnchorApi() {
-        return anchorApi;
+    public GetAnchorBlockByTxResponse getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
+        return dataAnchoringTransactionApi.getAnchorBlockByTx(getChainId(), operatorId, txHash);
     }
 
-    public String getUrl() {
-        return url;
+    public Call getAnchoringTransactionByTxHashAsync(String operatorId, String txHash, ApiCallback<GetAnchorBlockByTxResponse> callback) throws ApiException {
+        return dataAnchoringTransactionApi.getAnchorBlockByTxAsync(getChainId(), operatorId, txHash, callback);
     }
 
-    public String getAuthorization() {
-        return authorization;
+    public GetAnchorBlockByPayloadIDResponse getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
+        return dataAnchoringTransactionApi.getAnchorBlockByPayloadID(getChainId(), operatorId, payloadId);
+    }
+
+    public Call getAnchoringTransactionByPayloadIdAsync(String operatorId, String payloadId, ApiCallback<GetAnchorBlockByPayloadIDResponse> callback) throws ApiException {
+        return dataAnchoringTransactionApi.getAnchorBlockByPayloadIDAsync(getChainId(), operatorId, payloadId, callback);
+    }
+
+    public RetrieveOperatorsResponse getOperators() throws ApiException {
+        AnchorQueryParams queryParams = new AnchorQueryParams();
+        return getOperators(queryParams);
+    }
+
+    public RetrieveOperatorsResponse getOperators(AnchorQueryParams queryParams) throws ApiException {
+        return getOperatorApi().retrieveOperators(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.toDate);
+    }
+
+    public Call getOperatorsAsync(ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
+        AnchorQueryParams queryParams = new AnchorQueryParams();
+        return getOperatorsAsync(queryParams, callback);
+    }
+
+    public Call getOperatorsAsync(AnchorQueryParams queryParams, ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
+        return getOperatorApi().retrieveOperatorsAsync(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.getToDate(), callback);
+    }
+
+    public GetOperatorResponse getOperator(String operatorId) throws ApiException {
+        return getOperatorApi().getOperator(chainId, operatorId);
+    }
+
+    public Call getOperatorAsync(String operatorId, ApiCallback<GetOperatorResponse> callback) throws ApiException {
+        return getOperatorApi().getOperatorAsync(chainId, operatorId, callback);
+    }
+
+    public DataAnchoringTransactionApi getDataAnchoringTransactionApi() {
+        return dataAnchoringTransactionApi;
+    }
+
+    public OperatorApi getOperatorApi() {
+        return operatorApi;
     }
 
     public String getChainId() {
         return chainId;
     }
 
-    public void setAnchorApi(AnchorApi anchorApi) {
-        this.anchorApi = anchorApi;
+    public void setDataAnchoringTransactionApi(DataAnchoringTransactionApi dataAnchoringTransactionApi) {
+        this.dataAnchoringTransactionApi = dataAnchoringTransactionApi;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setAuthorization(String authorization) {
-        this.authorization = authorization;
+    public void setOperatorApi(OperatorApi operatorApi) {
+        this.operatorApi = operatorApi;
     }
 
     public void setChainId(String chainId) {
