@@ -1,7 +1,5 @@
 package com.klaytn.caver.ext.kas.utils;
 
-import com.klaytn.caver.utils.Utils;
-
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -10,17 +8,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class KASUtils {
+    private static DateTimeFormatter pattern_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static DateTimeFormatter pattern_dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static DateTimeFormatter pattern_dateMilliTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
 
-    public static String convertDate(String date) {
+    /**
+     * convert date string to timestamp in seconds
+     * @param date The date to convert timestamp.
+     * @return String
+     */
+    public static String convertDateToTimestamp(String date) {
         LocalDateTime localDateTime;
         if(checkDateFormat(date)) {
             localDateTime = LocalDate.parse(date).atStartOfDay();
         } else if(checkDateTimeFormat(date)) {
-            localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            localDateTime = LocalDateTime.parse(date, pattern_dateTime);
         } else if(checkDateMilliTimeFormat(date)) {
-            localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"));
-        } else if(Utils.isHexStrict(date)) {
-            return date;
+            localDateTime = LocalDateTime.parse(date, pattern_dateMilliTime);
         } else {
             throw new InvalidParameterException("Unsupported parameters");
         }
@@ -29,9 +33,8 @@ public class KASUtils {
     }
 
     private static boolean checkDateFormat(String date) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            pattern.parse(date);
+            pattern_date.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -39,9 +42,8 @@ public class KASUtils {
     }
 
     private static boolean checkDateTimeFormat(String date) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
-            pattern.parse(date);
+            pattern_dateTime.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -49,9 +51,8 @@ public class KASUtils {
     }
 
     private static boolean checkDateMilliTimeFormat(String date) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");
         try {
-            pattern.parse(date);
+            pattern_dateMilliTime.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;
