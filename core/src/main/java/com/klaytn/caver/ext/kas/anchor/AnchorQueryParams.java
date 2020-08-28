@@ -1,5 +1,7 @@
 package com.klaytn.caver.ext.kas.anchor;
 
+import com.klaytn.caver.ext.kas.utils.KASUtils;
+
 public class AnchorQueryParams {
     long size;
     String fromDate;
@@ -9,10 +11,10 @@ public class AnchorQueryParams {
     public AnchorQueryParams() {
     }
 
-    public AnchorQueryParams(long size, String formDate, String toDate, String cursor) {
+    public AnchorQueryParams(long size, String fromDate, String toDate, String cursor) {
         this.size = size;
-        this.fromDate = formDate;
-        this.toDate = toDate;
+        setFromDate(fromDate);
+        setToDate(toDate);
         this.cursor = cursor;
     }
 
@@ -29,7 +31,11 @@ public class AnchorQueryParams {
     }
 
     public void setFromDate(String fromDate) {
-        this.fromDate = fromDate;
+        this.fromDate = KASUtils.convertDateToTimestamp(fromDate);
+    }
+
+    public void setFromDate(long fromDate) {
+        this.fromDate = Long.toString(fromDate);
     }
 
     public String getToDate() {
@@ -37,7 +43,11 @@ public class AnchorQueryParams {
     }
 
     public void setToDate(String toDate) {
-        this.toDate = toDate;
+        this.toDate = KASUtils.convertDateToTimestamp(toDate);
+    }
+
+    public void setToDate(long toDate) {
+        this.toDate = Long.toString(toDate);
     }
 
     public String getCursor() {
