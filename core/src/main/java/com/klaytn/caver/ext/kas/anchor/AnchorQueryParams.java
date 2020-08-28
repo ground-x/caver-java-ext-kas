@@ -1,4 +1,4 @@
-package com.klaytn.caver.ext.kas.anchor.v1;
+package com.klaytn.caver.ext.kas.anchor;
 
 public class AnchorQueryParams {
     long size;

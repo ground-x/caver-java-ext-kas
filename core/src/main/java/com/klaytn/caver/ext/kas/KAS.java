@@ -1,8 +1,8 @@
 package com.klaytn.caver.ext.kas;
 
 import com.klaytn.caver.Caver;
-import com.klaytn.caver.ext.kas.anchor.v1.AnchorAPIV1;
-import com.klaytn.caver.ext.kas.tokenhistory.v2.TokenHistoryAPIv2;
+import com.klaytn.caver.ext.kas.anchor.AnchorAPIV1;
+import com.klaytn.caver.ext.kas.tokenhistory.TokenHistoryAPIv2;
 import com.klaytn.caver.rpc.RPC;
 import com.squareup.okhttp.Credentials;
 import io.swagger.client.ApiClient;

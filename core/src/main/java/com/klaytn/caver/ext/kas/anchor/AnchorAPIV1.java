@@ -1,4 +1,4 @@
-package com.klaytn.caver.ext.kas.anchor.v1;
+package com.klaytn.caver.ext.kas.anchor;
 
 import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;

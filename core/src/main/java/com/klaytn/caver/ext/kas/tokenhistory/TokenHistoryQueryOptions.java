@@ -1,4 +1,4 @@
-package com.klaytn.caver.ext.kas.tokenhistory.v2;
+package com.klaytn.caver.ext.kas.tokenhistory;
 
 public class TokenHistoryQueryOptions {
     String caFilter;

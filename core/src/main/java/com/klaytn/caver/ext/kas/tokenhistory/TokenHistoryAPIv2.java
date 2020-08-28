@@ -1,11 +1,10 @@
-package com.klaytn.caver.ext.kas.tokenhistory.v2;
+package com.klaytn.caver.ext.kas.tokenhistory;
 
 import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.tokenhistory.v2.api.TokenHistoryApi;
-import io.swagger.client.api.tokenhistory.v2.model.FtContract;
 import io.swagger.client.api.tokenhistory.v2.model.FtContractDetail;
 import io.swagger.client.api.tokenhistory.v2.model.PageableFtContractDetails;
 import io.swagger.client.api.tokenhistory.v2.model.PageableTransfers;
