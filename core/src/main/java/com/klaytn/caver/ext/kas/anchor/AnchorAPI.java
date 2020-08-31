@@ -12,6 +12,9 @@ import io.swagger.client.api.anchor.v1.model.*;
 import java.security.InvalidParameterException;
 import java.util.Map;
 
+/**
+ * Representing an wrapping class tha connects Anchor APi.
+ */
 public class AnchorAPI {
 
     /**
@@ -129,6 +132,7 @@ public class AnchorAPI {
 
     /**
      * Get anchoring transaction with the given transaction hash.
+     * GET /v1/operator/{operator_id}/tx/{tx_hash}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param txHash A transaction hash used for getting anchoring transaction.
      * @return GetAnchorBlockByTxResponse
@@ -140,6 +144,7 @@ public class AnchorAPI {
 
     /**
      * Get anchoring transaction with the given transaction hash asynchronously.
+     * GET /v1/operator/{operator_id}/tx/{tx_hash}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param txHash A transaction hash used for getting anchoring transaction.
      * @param callback The callback function to handle response.
@@ -152,6 +157,7 @@ public class AnchorAPI {
 
     /**
      * Get anchoring transaction with the given payload id.
+     * GET /v1/operator/{operator_id}/payload/{payload_id}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param payloadId A payload id used for getting anchoring transaction.
      * @return GetAnchorBlockByPayloadIDResponse
@@ -163,6 +169,7 @@ public class AnchorAPI {
 
     /**
      * Get anchoring transaction with the given payload id asynchronously.
+     * GET /v1/operator/{operator_id}/payload/{payload_id}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param payloadId A payload id used for getting anchoring transaction.
      * @param callback The callback function to handle response.
@@ -175,6 +182,7 @@ public class AnchorAPI {
 
     /**
      * Get operator list.
+     * GET /v1/operator
      * @return RetrieveOperatorsResponse
      * @throws ApiException
      */
@@ -185,6 +193,7 @@ public class AnchorAPI {
 
     /**
      * Get operator list.
+     * GET /v1/operator
      * @param queryParams A query options object.
      * @return RetrieveOperatorsResponse
      * @throws ApiException
@@ -195,6 +204,7 @@ public class AnchorAPI {
 
     /**
      * Get operator list asynchronously.
+     * GET /v1/operator
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -206,6 +216,7 @@ public class AnchorAPI {
 
     /**
      * Get operator list asynchronously.
+     * GET /v1/operator
      * @param queryParams A query options object.
      * @param callback The callback function to handle response.
      * @return Call
@@ -217,6 +228,7 @@ public class AnchorAPI {
 
     /**
      * Get operator information.
+     * GET /v1/operator/{operator_id}
      * @param operatorId An operator address.
      * @return GetOperatorResponse
      * @throws ApiException
@@ -227,6 +239,7 @@ public class AnchorAPI {
 
     /**
      * Get operator information asynchronously.
+     * GET /v1/operator/{operator_id}
      * @param operatorId An operator address.
      * @param callback The callback function to handle response.
      * @return Call
