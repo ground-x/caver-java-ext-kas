@@ -555,8 +555,8 @@ public class DataAnchoringTransactionApi {
      * @return RetirieveAnchorBlockResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public RetirieveAnchorBlockResponse retirieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
-        ApiResponse<RetirieveAnchorBlockResponse> resp = retirieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromDate, toDate);
+    public RetrieveAnchorBlockResponse retirieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
+        ApiResponse<RetrieveAnchorBlockResponse> resp = retirieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromDate, toDate);
         return resp.getData();
     }
 
@@ -572,9 +572,9 @@ public class DataAnchoringTransactionApi {
      * @return ApiResponse&lt;RetirieveAnchorBlockResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<RetirieveAnchorBlockResponse> retirieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
+    public ApiResponse<RetrieveAnchorBlockResponse> retirieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
         com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromDate, toDate, null, null);
-        Type localVarReturnType = new TypeToken<RetirieveAnchorBlockResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<RetrieveAnchorBlockResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -591,7 +591,7 @@ public class DataAnchoringTransactionApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retirieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate, final ApiCallback<RetirieveAnchorBlockResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call retirieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate, final ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -613,7 +613,7 @@ public class DataAnchoringTransactionApi {
         }
 
         com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromDate, toDate, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<RetirieveAnchorBlockResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<RetrieveAnchorBlockResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

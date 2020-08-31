@@ -115,7 +115,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsTest() throws ApiException {
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID);
         assertEquals(0, txList.getCode().longValue());
     }
 
@@ -123,7 +123,7 @@ public class AnchorAPIV1Test {
     public void getAnchoringTransactionsWithSize() throws ApiException {
         AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
         anchorQueryParams.setSize(3);
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertEquals(0, txList.getCode().intValue());
 //        assertEquals(3, txList.getResult().getTxs().size());
@@ -133,7 +133,7 @@ public class AnchorAPIV1Test {
     public void getAnchoringTransactionsWithCursor() throws ApiException {
         AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
         anchorQueryParams.setSize(3);
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         String cursor = txList.getResult().getCursor();
         anchorQueryParams.setSize(3);
@@ -147,7 +147,7 @@ public class AnchorAPIV1Test {
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
         AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertEquals(0, txList.getCode().intValue());
 //        assertEquals(3, txList.getResult().getTxs().size());
@@ -157,7 +157,7 @@ public class AnchorAPIV1Test {
     public void getAnchoringTransactionsWithToDate() throws ApiException {
         AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
         anchorQueryParams.setToDate("2020-08-27 15:00:00");
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertEquals(0, txList.getCode().intValue());
 //        assertEquals(3, txList.getResult().getTxs().size());
@@ -168,7 +168,7 @@ public class AnchorAPIV1Test {
         AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
         anchorQueryParams.setToDate("2020-08-25 18:00:00");
-        RetirieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertEquals(0, txList.getCode().intValue());
 //        assertEquals(4, txList.getResult().getTxs().size());
@@ -313,17 +313,17 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsAsyncTest() {
-        CompletableFuture<RetirieveAnchorBlockResponse> completableFuture = new CompletableFuture();
+        CompletableFuture<RetrieveAnchorBlockResponse> completableFuture = new CompletableFuture();
 
         try {
-            kas.getAnchorAPI().getAnchoringTransactionsAsync(operatorID, new ApiCallback<RetirieveAnchorBlockResponse>() {
+            kas.getAnchorAPI().getAnchoringTransactionsAsync(operatorID, new ApiCallback<RetrieveAnchorBlockResponse>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(RetirieveAnchorBlockResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(RetrieveAnchorBlockResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 

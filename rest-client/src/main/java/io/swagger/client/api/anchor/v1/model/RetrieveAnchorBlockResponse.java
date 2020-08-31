@@ -27,14 +27,14 @@ import java.util.Objects;
 
 
 
-public class RetirieveAnchorBlockResponse {
+public class RetrieveAnchorBlockResponse {
   @SerializedName("code")
   private Long code = null;
 
   @SerializedName("result")
   private AnchorTransactions result = null;
 
-  public RetirieveAnchorBlockResponse code(Long code) {
+  public RetrieveAnchorBlockResponse code(Long code) {
     this.code = code;
     return this;
   }
@@ -52,7 +52,7 @@ public class RetirieveAnchorBlockResponse {
     this.code = code;
   }
 
-  public RetirieveAnchorBlockResponse result(AnchorTransactions result) {
+  public RetrieveAnchorBlockResponse result(AnchorTransactions result) {
     this.result = result;
     return this;
   }
@@ -79,7 +79,7 @@ public class RetirieveAnchorBlockResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RetirieveAnchorBlockResponse retirieveAnchorBlockResponse = (RetirieveAnchorBlockResponse) o;
+    RetrieveAnchorBlockResponse retirieveAnchorBlockResponse = (RetrieveAnchorBlockResponse) o;
     return Objects.equals(this.code, retirieveAnchorBlockResponse.code) &&
         Objects.equals(this.result, retirieveAnchorBlockResponse.result);
   }
