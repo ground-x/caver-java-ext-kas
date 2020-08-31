@@ -2,16 +2,16 @@ package com.klaytn.caver.ext.kas.anchor;
 
 import com.klaytn.caver.ext.kas.utils.KASUtils;
 
-public class AnchorQueryParams {
+public class AnchorQueryOptions {
     long size;
     String fromDate;
     String toDate;
     String cursor;
 
-    public AnchorQueryParams() {
+    public AnchorQueryOptions() {
     }
 
-    public AnchorQueryParams(long size, String fromDate, String toDate, String cursor) {
+    public AnchorQueryOptions(long size, String fromDate, String toDate, String cursor) {
         this.size = size;
         setFromDate(fromDate);
         setToDate(toDate);

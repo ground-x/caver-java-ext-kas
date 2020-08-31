@@ -85,7 +85,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public RetrieveAnchorBlockResponse getAnchoringTransactions(String operatorId) throws ApiException {
-        AnchorQueryParams params = new AnchorQueryParams();
+        AnchorQueryOptions params = new AnchorQueryOptions();
         return getAnchoringTransactions(operatorId, params);
     }
 
@@ -97,7 +97,7 @@ public class AnchorAPI {
      * @return RetrieveAnchorBlockResponse
      * @throws ApiException
      */
-    public RetrieveAnchorBlockResponse getAnchoringTransactions(String operatorId, AnchorQueryParams queryParams) throws ApiException {
+    public RetrieveAnchorBlockResponse getAnchoringTransactions(String operatorId, AnchorQueryOptions queryParams) throws ApiException {
         return dataAnchoringTransactionApi.retirieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate());
     }
 
@@ -110,7 +110,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public Call getAnchoringTransactionsAsync(String operatorId, ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
-        AnchorQueryParams params = new AnchorQueryParams();
+        AnchorQueryOptions params = new AnchorQueryOptions();
         return getAnchoringTransactionsAsync(operatorId, params, callback);
     }
 
@@ -123,7 +123,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryParams queryParams, ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
+    public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryOptions queryParams, ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
         return dataAnchoringTransactionApi.retirieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate(), callback);
     }
 
@@ -179,7 +179,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public RetrieveOperatorsResponse getOperators() throws ApiException {
-        AnchorQueryParams queryParams = new AnchorQueryParams();
+        AnchorQueryOptions queryParams = new AnchorQueryOptions();
         return getOperators(queryParams);
     }
 
@@ -189,7 +189,7 @@ public class AnchorAPI {
      * @return RetrieveOperatorsResponse
      * @throws ApiException
      */
-    public RetrieveOperatorsResponse getOperators(AnchorQueryParams queryParams) throws ApiException {
+    public RetrieveOperatorsResponse getOperators(AnchorQueryOptions queryParams) throws ApiException {
         return getOperatorApi().retrieveOperators(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.toDate);
     }
 
@@ -200,7 +200,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public Call getOperatorsAsync(ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
-        AnchorQueryParams queryParams = new AnchorQueryParams();
+        AnchorQueryOptions queryParams = new AnchorQueryOptions();
         return getOperatorsAsync(queryParams, callback);
     }
 
@@ -211,7 +211,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getOperatorsAsync(AnchorQueryParams queryParams, ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
+    public Call getOperatorsAsync(AnchorQueryOptions queryParams, ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
         return getOperatorApi().retrieveOperatorsAsync(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.getToDate(), callback);
     }
 

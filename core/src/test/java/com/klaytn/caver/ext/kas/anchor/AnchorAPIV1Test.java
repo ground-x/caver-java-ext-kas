@@ -59,7 +59,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getOperatorsWithSizeTest() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3);
         RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
 
@@ -69,7 +69,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getOperatorsWithCursorTest() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3);
         RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
 
@@ -81,7 +81,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getOperatorsWithFromDateTest() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-25");
 
         RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
@@ -90,7 +90,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getOperatorsWithToDateTest() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setToDate("2020-08-25");
 
         RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
@@ -99,7 +99,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getOperatorsWithDateTest() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-17");
         anchorQueryParams.setToDate("2020-08-25");
 
@@ -121,7 +121,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsWithSize() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3);
         RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
@@ -131,7 +131,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsWithCursor() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3);
         RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
@@ -145,7 +145,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
         RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
@@ -155,7 +155,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsWithToDate() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setToDate("2020-08-27 15:00:00");
         RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
@@ -165,7 +165,7 @@ public class AnchorAPIV1Test {
 
     @Test
     public void getAnchoringTransactionsWithDate() throws ApiException {
-        AnchorQueryParams anchorQueryParams = new AnchorQueryParams();
+        AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
         anchorQueryParams.setToDate("2020-08-25 18:00:00");
         RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
