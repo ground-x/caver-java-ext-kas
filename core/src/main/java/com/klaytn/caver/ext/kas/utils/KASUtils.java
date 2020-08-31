@@ -19,6 +19,10 @@ public class KASUtils {
      */
     public static String convertDateToTimestamp(String date) {
         LocalDateTime localDateTime;
+        if(KASUtils.isTimeStamp(date)) {
+            return date;
+        }
+
         if(checkDateFormat(date)) {
             localDateTime = LocalDate.parse(date).atStartOfDay();
         } else if(checkDateTimeFormat(date)) {
@@ -32,7 +36,7 @@ public class KASUtils {
         return Long.toString(Timestamp.valueOf(localDateTime).getTime() / 1000);
     }
 
-    private static boolean checkDateFormat(String date) {
+    static boolean checkDateFormat(String date) {
         try {
             pattern_date.parse(date);
             return true;
@@ -41,7 +45,7 @@ public class KASUtils {
         }
     }
 
-    private static boolean checkDateTimeFormat(String date) {
+    static boolean checkDateTimeFormat(String date) {
         try {
             pattern_dateTime.parse(date);
             return true;
@@ -50,12 +54,22 @@ public class KASUtils {
         }
     }
 
-    private static boolean checkDateMilliTimeFormat(String date) {
+    static boolean checkDateMilliTimeFormat(String date) {
         try {
             pattern_dateMilliTime.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    static boolean isTimeStamp(String data) {
+        try {
+            Long.parseLong(data, 10);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
 }

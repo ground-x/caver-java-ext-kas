@@ -17,10 +17,12 @@ public class KASUtilsTest {
         String testDate1 = "2020-08-01 09:00:00";
         String testDate2 = "2020-08-01";
         String testDate3 = "2020-08-01 09:00:00:111";
+        String testDate4 = "1596240000";
 
         assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate1));
         assertEquals("1596207600", KASUtils.convertDateToTimestamp(testDate2));
         assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate3));
+        assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate4));
     }
 
     @Test
@@ -28,7 +30,7 @@ public class KASUtilsTest {
         expectedException.expect(InvalidParameterException.class);
         expectedException.expectMessage("Unsupported parameters");
 
-        String invalidDate = "2020-08-01invalid";
+        String invalidDate = "0xaabbccee";
         KASUtils.convertDateToTimestamp(invalidDate);
     }
 }
