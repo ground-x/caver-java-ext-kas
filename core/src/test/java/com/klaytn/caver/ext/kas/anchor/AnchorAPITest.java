@@ -6,8 +6,11 @@ import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.anchor.v1.model.*;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +19,10 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.junit.Assert.*;
 
-public class AnchorAPIV1Test {
+public class AnchorAPITest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     static String operatorID = "0x0Ea563A80f5ea22C174030416E7fCdbeD920D5EB";
     static String basPath = "https://anchor-api.dev.klaytn.com";
     static String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
@@ -49,6 +55,39 @@ public class AnchorAPIV1Test {
         AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
 
         assertEquals(0, res.getCode().intValue());
+    }
+
+    @Test
+    public void sendAnchoringDataWithNoIdTest() throws ApiException {
+        expectedException.expect(NullPointerException.class);
+        expectedException.expectMessage("Payload must have an 'id' of String type.");
+
+        Map payload = new HashMap();
+        payload.put("field", "1");
+        payload.put("filed2", 4);
+        AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
+    }
+
+    @Test
+    public void sendAnchoringDataWithDuplicatedIdTest() throws ApiException {
+        expectedException.expect(InvalidParameterException.class);
+        expectedException.expectMessage("Payload id must be String type.");
+
+        Random random = new Random();
+        String id = Integer.toString(random.nextInt());
+
+        Map payload = new HashMap();
+        payload.put("id", id);
+        payload.put("field", "1");
+        payload.put("filed2", 4);
+        AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
+
+        Map payload_duplicated = new HashMap();
+        payload.put("id", id);
+        payload.put("field", "2");
+        payload.put("filed2", 5);
+
+        res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
     }
 
     @Test
