@@ -77,17 +77,10 @@ public class AnchorAPITest {
         String id = Integer.toString(random.nextInt());
 
         Map payload = new HashMap();
-        payload.put("id", id);
+        payload.put("id", 1000);
         payload.put("field", "1");
         payload.put("filed2", 4);
         AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
-
-        Map payload_duplicated = new HashMap();
-        payload.put("id", id);
-        payload.put("field", "2");
-        payload.put("filed2", 5);
-
-        res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
     }
 
     @Test

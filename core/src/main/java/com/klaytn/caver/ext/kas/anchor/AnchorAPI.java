@@ -286,7 +286,7 @@ public class AnchorAPI {
 
     private void checkPayload(Map payload) {
         if(payload.get("id") == null) throw new NullPointerException("Payload must have an 'id' of String type.");
-        if(payload.get("id") instanceof String) throw new InvalidParameterException("Payload id must be String type.");
+        if(!(payload.get("id") instanceof String)) throw new InvalidParameterException("Payload id must be String type.");
     }
 
 }
