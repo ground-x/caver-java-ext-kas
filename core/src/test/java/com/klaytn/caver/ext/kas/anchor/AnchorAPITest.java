@@ -69,7 +69,7 @@ public class AnchorAPITest {
     }
 
     @Test
-    public void sendAnchoringDataWithDuplicatedIdTest() throws ApiException {
+    public void sendAnchoringDataWithIdTypeTest() throws ApiException {
         expectedException.expect(InvalidParameterException.class);
         expectedException.expectMessage("Payload id must be String type.");
 
