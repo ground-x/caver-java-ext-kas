@@ -33,7 +33,6 @@ public class KAS extends Caver {
         HttpService httpService = new HttpService(url);
 
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
-        httpService.addHeader("x-krn", "krn:"+chainId+":node");
 
         //TODO : Temporary code.
         httpService.addHeader("x-chain-id", chainId);

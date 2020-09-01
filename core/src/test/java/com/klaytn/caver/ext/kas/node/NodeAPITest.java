@@ -1,20 +1,18 @@
 package com.klaytn.caver.ext.kas.node;
 
-import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.ext.kas.KAS;
 import com.klaytn.caver.kct.kip17.KIP17;
 import com.klaytn.caver.kct.kip17.KIP17DeployParams;
-import com.klaytn.caver.kct.kip7.KIP7;
-import com.klaytn.caver.kct.kip7.KIP7DeployParams;
 import com.klaytn.caver.methods.request.CallObject;
 import com.klaytn.caver.methods.request.KlayFilter;
 import com.klaytn.caver.methods.request.KlayLogFilter;
-import com.klaytn.caver.methods.response.*;
 import com.klaytn.caver.methods.response.Boolean;
+import com.klaytn.caver.methods.response.*;
+import com.klaytn.caver.transaction.type.ValueTransfer;
 import com.klaytn.caver.utils.ChainId;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
+import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;
@@ -23,40 +21,41 @@ import org.web3j.utils.Numeric;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 public class NodeAPITest {
     static KAS kas;
-    static final String accessKey = "72ec21002ad2de341fd8e15801b5f80035ac8f5c";
-    static final String secretAccessKey = "932424d7ca203ec601528155097e3d527722ec3e";
+    static final String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
+    static final String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
 
-    static final String account = "0x69eaca9c1f4778b5615c1f9590e8a67a70dd76c5";
-    static final String privateKey = "0x618f96289f403540ef6b030886dea850b5871367fbb0d9525d24f1d24336aef7";
+    static final String privateKey = "0xc34442bae4b74023081d8fb05003eb13f11c40d6fc79b9f30c9caa036947ffe8";
+    static SingleKeyring testKeyring;
+    static String account;
 
     static KIP17 kip17Contract;
-    static final String kip17ContractAddress = "0xeb18ce7952bc50650afc07ed52b879b2188c029f";
+
+    static long blockNumber = 19037067;
+    static String blockHash = "0x9743edbd9463c725efdb2050262560b8c11a7e4ddde46b7e94165dab76af3567";
+    static String transactionHash = "0xbf0ca9b24a51a089ad4a9e41607a50cfbe7fa76f658d64437e885b42af075ec2";
 
     @BeforeClass
     public static void config() throws Exception {
         kas = new KAS();
-        kas.wallet.add(KeyringFactory.createFromPrivateKey(privateKey));
-        kas.enableNodeAPI("https://node-api.beta.klaytn.io/v1/klaytn", "1001", accessKey, secretAccessKey);
+        testKeyring = (SingleKeyring)kas.wallet.add(KeyringFactory.createFromPrivateKey(privateKey));
+        account = testKeyring.getAddress();
 
-//        deployContract(kas);
+        kas.enableNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
+
+        deployContract(kas);
     }
 
-    public static void deployContract(KAS kas) throws Exception{
+    public static void deployContract(KAS kas) throws Exception {
         KIP17DeployParams deployParams = new KIP17DeployParams("KIP17", "KIP17");
-        kip17Contract = KIP17.deploy(kas, deployParams, account);
+        kip17Contract = KIP17.deploy(kas, deployParams, testKeyring.getAddress());
 
         System.out.println("Contract address : " + kip17Contract.getContractAddress());
     }
@@ -65,7 +64,7 @@ public class NodeAPITest {
     @Test
     public void accountCreatedTest() {
         try {
-            Boolean created = kas.rpc.klay.accountCreated(account).send();
+            Boolean created = kas.rpc.klay.accountCreated(testKeyring.getAddress()).send();
             if(created.hasError()) {
                 throw new IOException(created.getError().getMessage());
             }
@@ -122,7 +121,7 @@ public class NodeAPITest {
     @Test
     public void getCodeTest() {
         try {
-            Bytes res = kas.rpc.klay.getCode("0xc77ea4d397f90c1b3bded5ba5cb94a3c5bca6af7").send();
+            Bytes res = kas.rpc.klay.getCode(kip17Contract.getContractAddress()).send();
 
             if(res.hasError()) {
                 throw new IOException(res.getError().getMessage());
@@ -172,7 +171,7 @@ public class NodeAPITest {
     @Test
     public void getBlockByNumberTest() {
         try {
-            Block response = kas.rpc.klay.getBlockByNumber(DefaultBlockParameterName.LATEST, true).send();
+            Block response = kas.rpc.klay.getBlockByNumber(blockNumber, true).send();
             Block.BlockData<Transaction.TransactionData> block = response.getResult();
             assertNotNull(block.getHash());
 
@@ -188,7 +187,6 @@ public class NodeAPITest {
     @Test
     public void getBlockByHashTest() {
         try {
-            String blockHash = "0x42e183e677f320ba11174330edaab8142b613c5e184ffa532dc648e9a3a1ce4d";
             Block responseByHash = kas.rpc.klay.getBlockByHash(blockHash, true).send();
 
             assertEquals(blockHash, responseByHash.getResult().getHash());
@@ -205,8 +203,6 @@ public class NodeAPITest {
     @Test
     public void getBlockReceiptsTest() {
         try {
-            String blockHash = "0x7b016db250e822c3caf7b8edffedb31f370ccc434c644a41f3709fd977b0c8b5";
-
             BlockTransactionReceipts blockReceipts = kas.rpc.klay.getBlockReceipts(blockHash).send();
             assertEquals(blockHash, blockReceipts.getResult().get(0).getBlockHash());
         } catch (Exception e) {
@@ -218,10 +214,10 @@ public class NodeAPITest {
     @Test
     public void getBlockTransactionCountByNumberTest() {
         try {
-            Block response = kas.rpc.klay.getBlockByNumber(DefaultBlockParameterName.LATEST, true).send();
+            Block response = kas.rpc.klay.getBlockByNumber(blockNumber, true).send();
             Block.BlockData<Transaction.TransactionData> testBlock = response.getResult();
 
-            Quantity responseByNumber = kas.rpc.klay.getTransactionCountByNumber(
+            Quantity responseByNumber = kas.rpc.klay.getBlockTransactionCountByNumber(
                     new DefaultBlockParameterNumber(Numeric.toBigInt(testBlock.getNumber()))).send();
             BigInteger result = responseByNumber.getValue();
             assertEquals(testBlock.getTransactions().size(), result.intValue());
@@ -234,10 +230,10 @@ public class NodeAPITest {
     @Test
     public void getBlockTransactionCountByHash() {
         try {
-            Block response = kas.rpc.klay.getBlockByNumber(DefaultBlockParameterName.LATEST, true).send();
+            Block response = kas.rpc.klay.getBlockByNumber(blockNumber, true).send();
             Block.BlockData<Transaction.TransactionData> testBlock = response.getResult();
 
-            Quantity responseByHash = kas.rpc.klay.getTransactionCountByHash(testBlock.getHash()).send();
+            Quantity responseByHash = kas.rpc.klay.getBlockTransactionCountByHash(testBlock.getHash()).send();
             BigInteger result = responseByHash.getValue();
             assertEquals(testBlock.getTransactions().size(), result.intValue());
         } catch (Exception e) {
@@ -248,7 +244,7 @@ public class NodeAPITest {
 
     @Test
     public void getBlockWithConsensusInfoByHashTest() throws Exception {
-        Block response = kas.rpc.klay.getBlockByNumber(DefaultBlockParameterName.LATEST, true).send();
+        Block response = kas.rpc.klay.getBlockByNumber(blockNumber, true).send();
         Block.BlockData<Transaction.TransactionData> testBlock = response.getResult();
 
         BlockWithConsensusInfo responseInfo = kas.rpc.klay.getBlockWithConsensusInfoByHash(testBlock.getHash()).send();
@@ -258,7 +254,7 @@ public class NodeAPITest {
 
     @Test
     public void getBlockWithConsensusInfoByNumberTest() throws Exception {
-        Block response = kas.rpc.klay.getBlockByNumber(DefaultBlockParameterName.LATEST, true).send();
+        Block response = kas.rpc.klay.getBlockByNumber(blockNumber, true).send();
         Block.BlockData<Transaction.TransactionData> testBlock = response.getResult();
 
         BlockWithConsensusInfo responseInfo = kas.rpc.klay.getBlockWithConsensusInfoByNumber(
@@ -311,12 +307,11 @@ public class NodeAPITest {
     @Test
     public void callTest() {
         try {
-            KIP17 kip17 = new KIP17(kas, kip17ContractAddress);
-            String encoded = kip17.getMethod("symbol").encodeABI(Collections.emptyList());
+            String encoded = kip17Contract.getMethod("symbol").encodeABI(Collections.emptyList());
 
             CallObject callObject = CallObject.createCallObject(
                     account,
-                    kip17ContractAddress,
+                    kip17Contract.getContractAddress(),
                     new BigInteger("100000000", 16),
                     new BigInteger("5d21dba00", 16),
                     new BigInteger("0", 16),
@@ -334,13 +329,11 @@ public class NodeAPITest {
 
     @Test
     public void estimateGasTest() throws Exception {
-        KIP17 kip17 = new KIP17(kas);
-
-        String encoded = kip17.getMethod("pause").encodeABI(Collections.emptyList());
+        String encoded = kip17Contract.getMethod("pause").encodeABI(Collections.emptyList());
 
         CallObject callObject = CallObject.createCallObject(
                 account,
-                kip17ContractAddress,
+                kip17Contract.getContractAddress(),
                 new BigInteger("100000000", 16),
                 new BigInteger("5d21dba00", 16),
                 new BigInteger("0", 16),
@@ -353,12 +346,11 @@ public class NodeAPITest {
 
     @Test
     public void estimateComputationCostTest() throws Exception {
-        KIP17 kip17 = new KIP17(kas);
-        String encoded = kip17.getMethod("pause").encodeABI(Collections.emptyList());
+        String encoded = kip17Contract.getMethod("pause").encodeABI(Collections.emptyList());
 
         CallObject callObject = CallObject.createCallObject(
                 account,
-                kip17ContractAddress,
+                kip17Contract.getContractAddress(),
                 new BigInteger("100000000", 16),
                 new BigInteger("5d21dba00", 16),
                 new BigInteger("0", 16),
@@ -371,16 +363,12 @@ public class NodeAPITest {
 
     @Test
     public void getTransactionByBlockHashAndIndexTest() throws Exception {
-        String blockHash = "0x7b016db250e822c3caf7b8edffedb31f370ccc434c644a41f3709fd977b0c8b5";
         Transaction res = kas.rpc.klay.getTransactionByBlockHashAndIndex(blockHash, 0).send();
         assertEquals(blockHash, res.getResult().getBlockHash());
     }
 
     @Test
     public void getTransactionByBlockNumberAndIndexTest() throws IOException {
-        long blockNumber = 35826799;
-        String blockHash = "0x7b016db250e822c3caf7b8edffedb31f370ccc434c644a41f3709fd977b0c8b5";
-
         Transaction res = kas.rpc.klay.getTransactionByBlockNumberAndIndex(
                 blockNumber,
                 0).send();
@@ -389,8 +377,6 @@ public class NodeAPITest {
 //
     @Test
     public void getTransactionByHashTest() throws Exception {
-        String transactionHash = "0x3d98b0614f34b8769ecb462a11b311ab231a90e17125b3a37f874159069ab46a";
-
         Transaction response = kas.rpc.klay.getTransactionByHash(transactionHash).send();
         Transaction.TransactionData result = response.getResult();
         assertEquals(transactionHash, result.getHash());
@@ -399,10 +385,24 @@ public class NodeAPITest {
 
     @Test
     public void getTransactionReceiptTest() throws Exception {
-        String transactionHash = "0x3d98b0614f34b8769ecb462a11b311ab231a90e17125b3a37f874159069ab46a";
-
         TransactionReceipt response = kas.rpc.klay.getTransactionReceipt(transactionHash).send();
         assertEquals(transactionHash, response.getResult().getTransactionHash());
+    }
+
+    @Test
+    public void sendRawTransactionTest() throws Exception {
+        ValueTransfer valueTransfer = new ValueTransfer.Builder()
+                .setKlaytnCall(kas.rpc.getKlay())
+                .setFrom(account)
+                .setTo(KeyringFactory.generate().getAddress())
+                .setValue(BigInteger.valueOf(1))
+                .setGas(BigInteger.valueOf(25000))
+                .build();
+
+        kas.wallet.sign(account, valueTransfer);
+
+        Bytes32 txHash = kas.rpc.klay.sendRawTransaction(valueTransfer).send();
+        assertNotNull(txHash);
     }
 
 
@@ -442,25 +442,20 @@ public class NodeAPITest {
 
 
     @Test
-    @Ignore
     public void getFilterChangesTest() throws Exception {
         KlayLogs response = kas.rpc.klay.getFilterChanges(
-                "d5b93cf592b2050aee314767a02976c5").send();
-        List<KlayLogs.LogResult> result = response.getResult();
-        assertTrue("need test data", false);
+                "").send();
+        assertNotNull(response);
     }
 
     @Test
-    @Ignore
     public void getFilterLogsTest() throws Exception {
         KlayLogs response = kas.rpc.klay.getFilterLogs(
                 "0xf9081aeb4a0dc3109959748c659c8cd7").send();
-        List<KlayLogs.LogResult> result = response.getResult();
-        assertTrue("need test data", false);
+        assertNotNull(response);
     }
 
     @Test
-    @Ignore
     public void getLogsTest() throws Exception {
         KlayLogFilter filter = new KlayLogFilter(
                 DefaultBlockParameterName.EARLIEST,
@@ -468,8 +463,7 @@ public class NodeAPITest {
                 account,
                 "0xe2649fe9fbaa75601408fc54200e3f9b2128e8fec7cea96c9a65b9caf905c9e3");
         KlayLogs response = kas.rpc.klay.getLogs(filter).send();
-        List<KlayLogs.LogResult> result = response.getResult();
-        assertTrue("need test data", false);
+        assertNotNull(response);
     }
 
     @Test
@@ -499,11 +493,9 @@ public class NodeAPITest {
     }
 
     @Test
-    @Ignore
     public void uninstallFilterTest() throws Exception {
         Boolean response = kas.rpc.klay.uninstallFilter("0x0").send();
-        java.lang.Boolean result = response.getResult();
-        assertTrue("need test data", false);
+        assertNotNull(response);
     }
 
     @Test
