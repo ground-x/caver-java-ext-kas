@@ -2,7 +2,7 @@ package com.klaytn.caver.ext.kas;
 
 import com.klaytn.caver.Caver;
 import com.klaytn.caver.ext.kas.anchor.AnchorAPI;
-import com.klaytn.caver.ext.kas.tokenhistory.TokenHistoryAPIv2;
+import com.klaytn.caver.ext.kas.tokenhistory.TokenHistoryAPI;
 import com.klaytn.caver.rpc.RPC;
 import com.squareup.okhttp.Credentials;
 import io.swagger.client.ApiClient;
@@ -10,7 +10,7 @@ import org.web3j.protocol.http.HttpService;
 
 public class KAS extends Caver {
     private AnchorAPI anchorAPI;
-    private TokenHistoryAPIv2 tokenHistoryAPI;
+    private TokenHistoryAPI tokenHistoryAPI;
 
     public KAS() {
     }
@@ -47,7 +47,7 @@ public class KAS extends Caver {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setTokenHistoryAPI(new TokenHistoryAPIv2(chainId, apiClient));
+        setTokenHistoryAPI(new TokenHistoryAPI(chainId, apiClient));
 
         return this;
     }
@@ -60,11 +60,11 @@ public class KAS extends Caver {
         this.anchorAPI = anchorAPI;
     }
 
-    public TokenHistoryAPIv2 getTokenHistoryAPI() {
+    public TokenHistoryAPI getTokenHistoryAPI() {
         return tokenHistoryAPI;
     }
 
-    public void setTokenHistoryAPI(TokenHistoryAPIv2 tokenHistoryAPI) {
+    public void setTokenHistoryAPI(TokenHistoryAPI tokenHistoryAPI) {
         this.tokenHistoryAPI = tokenHistoryAPI;
     }
 }

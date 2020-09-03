@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collection;
 
 public class KASUtils {
     private static DateTimeFormatter pattern_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -34,6 +35,23 @@ public class KASUtils {
         }
 
         return Long.toString(Timestamp.valueOf(localDateTime).getTime() / 1000);
+    }
+
+    public static String parameterToString(Object param) {
+        if (param == null) {
+            return "";
+        } else if (param instanceof Collection) {
+            StringBuilder b = new StringBuilder();
+            for (Object o : (Collection)param) {
+                if (b.length() > 0) {
+                    b.append(",");
+                }
+                b.append(String.valueOf(o));
+            }
+            return b.toString();
+        } else {
+            return String.valueOf(param);
+        }
     }
 
     static boolean checkDateFormat(String date) {
