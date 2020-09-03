@@ -46,8 +46,8 @@ public class TokenHistoryApi {
 
     /**
      * Build call for getTransfers
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param presets (required) (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param presets (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -132,8 +132,8 @@ public class TokenHistoryApi {
     /**
      * getTransfers
      * 거래내역을 통합 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉩니다.   ## FT/NFT 거래내역 조회 결과에 포함된 KlayTransfer   FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. 이것은 FT/NFT 토큰 전송은 기본적으로 FT/NFT 컨트랙트 함수의 실행이기 때문이며 &#x60;transfer&#x60;는 토큰 전송 함수를 실행하는 트랜잭션에 대응하는 &#x60;KlayTransfer&#x60;를 응답에 포함합니다. 컨트랙트 함수를 실행하는 트랜잭션들은 대체로 KLAY를 전송하지 않기 때문에 FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다.    ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 KLAY, FT, NFT 중 한 가지 유형을 골라 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 한 번에 불러올 수 있는 거래내역은 최대 과거 6개월 분량입니다(Unix time, 블록 두 경우 모두 해당).  ## Preset  * &#x60;presets&#x60; 쿼리 파라미터는 필수 파라미터입니다 * [Preset](https://www.klaytn.com)은 KAS Console에서 사전에 생성되어 있어야 합니다 * Preset ID는 KAS Console에서 확인하실 수 있습니다 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param presets (required) (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param presets (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -149,8 +149,8 @@ public class TokenHistoryApi {
     /**
      * getTransfers
      * 거래내역을 통합 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉩니다.   ## FT/NFT 거래내역 조회 결과에 포함된 KlayTransfer   FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. 이것은 FT/NFT 토큰 전송은 기본적으로 FT/NFT 컨트랙트 함수의 실행이기 때문이며 &#x60;transfer&#x60;는 토큰 전송 함수를 실행하는 트랜잭션에 대응하는 &#x60;KlayTransfer&#x60;를 응답에 포함합니다. 컨트랙트 함수를 실행하는 트랜잭션들은 대체로 KLAY를 전송하지 않기 때문에 FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다.    ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 KLAY, FT, NFT 중 한 가지 유형을 골라 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 한 번에 불러올 수 있는 거래내역은 최대 과거 6개월 분량입니다(Unix time, 블록 두 경우 모두 해당).  ## Preset  * &#x60;presets&#x60; 쿼리 파라미터는 필수 파라미터입니다 * [Preset](https://www.klaytn.com)은 KAS Console에서 사전에 생성되어 있어야 합니다 * Preset ID는 KAS Console에서 확인하실 수 있습니다 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param presets (required) (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param presets (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -167,8 +167,8 @@ public class TokenHistoryApi {
     /**
      * getTransfers (asynchronously)
      * 거래내역을 통합 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉩니다.   ## FT/NFT 거래내역 조회 결과에 포함된 KlayTransfer   FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. 이것은 FT/NFT 토큰 전송은 기본적으로 FT/NFT 컨트랙트 함수의 실행이기 때문이며 &#x60;transfer&#x60;는 토큰 전송 함수를 실행하는 트랜잭션에 대응하는 &#x60;KlayTransfer&#x60;를 응답에 포함합니다. 컨트랙트 함수를 실행하는 트랜잭션들은 대체로 KLAY를 전송하지 않기 때문에 FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다.    ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 KLAY, FT, NFT 중 한 가지 유형을 골라 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 한 번에 불러올 수 있는 거래내역은 최대 과거 6개월 분량입니다(Unix time, 블록 두 경우 모두 해당).  ## Preset  * &#x60;presets&#x60; 쿼리 파라미터는 필수 파라미터입니다 * [Preset](https://www.klaytn.com)은 KAS Console에서 사전에 생성되어 있어야 합니다 * Preset ID는 KAS Console에서 확인하실 수 있습니다 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param presets (required) (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param presets (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -205,11 +205,11 @@ public class TokenHistoryApi {
     }
     /**
      * Build call for getTransfersByEoa
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
-     * @param kind [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
+     * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
-     * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
+     * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param progressListener Progress listener
@@ -229,7 +229,7 @@ public class TokenHistoryApi {
         if (kind != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
         if (caFilter != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("caFilter", caFilter));
+        localVarQueryParams.addAll(apiClient.parameterToPair("ca-filter", caFilter));
         if (range != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("range", range));
         if (size != null)
@@ -292,12 +292,12 @@ public class TokenHistoryApi {
 
     /**
      * getTransfersByEoa
-     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 EOA &#x3D;&#x3D; &#x60;to&#x60;이고, EOA가 토큰을 보냈다면 EOA &#x3D;&#x3D;&#x60;from&#x60;입니다.       거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 &#x60;to&#x60;가, 토큰을 보냈다면 &#x60;from&#x60;이 EOA와 같습니다.     거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
-     * @param kind [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
+     * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
-     * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
+     * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return PageableTransfers
@@ -310,12 +310,12 @@ public class TokenHistoryApi {
 
     /**
      * getTransfersByEoa
-     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 EOA &#x3D;&#x3D; &#x60;to&#x60;이고, EOA가 토큰을 보냈다면 EOA &#x3D;&#x3D;&#x60;from&#x60;입니다.       거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 &#x60;to&#x60;가, 토큰을 보냈다면 &#x60;from&#x60;이 EOA와 같습니다.     거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
-     * @param kind [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
+     * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
-     * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
+     * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return ApiResponse&lt;PageableTransfers&gt;
@@ -329,12 +329,12 @@ public class TokenHistoryApi {
 
     /**
      * getTransfersByEoa (asynchronously)
-     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 EOA &#x3D;&#x3D; &#x60;to&#x60;이고, EOA가 토큰을 보냈다면 EOA &#x3D;&#x3D;&#x60;from&#x60;입니다.       거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * 특정 EOA의 토큰 거래내역을 조회합니다. 기능적으로 &#x60;GET /v2/transfer&#x60;와 같습니다. 단, 결과로 반환된 Transfer 객체에서 이 EOA가 토큰을 받았다면 &#x60;to&#x60;가, 토큰을 보냈다면 &#x60;from&#x60;이 EOA와 같습니다.     거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다.  ## 거래유형  * &#x60;kind&#x60; 파라메터를 설정하여 여러 유형의 거래내역을 조회할 수 있습니다 * &#x60;kind&#x60;가 설정되지 않으면 모든 유형의 거래내역이 조회됩니다  ## 조회기간  * &#x60;range&#x60;의 경우 &#x60;range&#x3D;{from},{to}&#x60; 포맷으로 질의합니다 * &#x60;{from}&#x60;과 &#x60;{to}&#x60;가 정수일 경우 Unix time으로, 16진수 문자열일 경우 블록 번호로 간주합니다 * &#x60;{to}&#x60;값이 없는 경우 현재 시간 또는 최신 블록 번호가 사용됩니다 * 최대 검색기간은 6개월로 제한됩니다 (Unix time, 블록 두 경우 모두 해당) 
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
-     * @param kind [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
+     * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회 (optional)
      * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
-     * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
+     * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -369,19 +369,19 @@ public class TokenHistoryApi {
     }
     /**
      * Build call for getTransfersByTxHash
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param txHash 조회할 트랜잭션 해시 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param transactionHash 조회할 트랜잭션 해시 (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getTransfersByTxHashCall(String xChainId, String txHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getTransfersByTxHashCall(String xChainId, String transactionHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/transfer/txhash/{txHash}"
-            .replaceAll("\\{" + "txHash" + "\\}", apiClient.escapeString(txHash.toString()));
+        String localVarPath = "/v2/transfer/tx/{transaction-hash}"
+            .replaceAll("\\{" + "transaction-hash" + "\\}", apiClient.escapeString(transactionHash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -421,20 +421,20 @@ public class TokenHistoryApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getTransfersByTxHashValidateBeforeCall(String xChainId, String txHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getTransfersByTxHashValidateBeforeCall(String xChainId, String transactionHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling getTransfersByTxHash(Async)");
         }
         
-        // verify the required parameter 'txHash' is set
-        if (txHash == null) {
-            throw new ApiException("Missing the required parameter 'txHash' when calling getTransfersByTxHash(Async)");
+        // verify the required parameter 'transactionHash' is set
+        if (transactionHash == null) {
+            throw new ApiException("Missing the required parameter 'transactionHash' when calling getTransfersByTxHash(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = getTransfersByTxHashCall(xChainId, txHash, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getTransfersByTxHashCall(xChainId, transactionHash, progressListener, progressRequestListener);
         return call;
 
     }
@@ -442,26 +442,26 @@ public class TokenHistoryApi {
     /**
      * getTransfersByTxHash
      * 트랜잭션 해시로 거래내역을 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param txHash 조회할 트랜잭션 해시 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param transactionHash 조회할 트랜잭션 해시 (required)
      * @return Transfers
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Transfers getTransfersByTxHash(String xChainId, String txHash) throws ApiException {
-        ApiResponse<Transfers> resp = getTransfersByTxHashWithHttpInfo(xChainId, txHash);
+    public Transfers getTransfersByTxHash(String xChainId, String transactionHash) throws ApiException {
+        ApiResponse<Transfers> resp = getTransfersByTxHashWithHttpInfo(xChainId, transactionHash);
         return resp.getData();
     }
 
     /**
      * getTransfersByTxHash
      * 트랜잭션 해시로 거래내역을 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param txHash 조회할 트랜잭션 해시 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param transactionHash 조회할 트랜잭션 해시 (required)
      * @return ApiResponse&lt;Transfers&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Transfers> getTransfersByTxHashWithHttpInfo(String xChainId, String txHash) throws ApiException {
-        com.squareup.okhttp.Call call = getTransfersByTxHashValidateBeforeCall(xChainId, txHash, null, null);
+    public ApiResponse<Transfers> getTransfersByTxHashWithHttpInfo(String xChainId, String transactionHash) throws ApiException {
+        com.squareup.okhttp.Call call = getTransfersByTxHashValidateBeforeCall(xChainId, transactionHash, null, null);
         Type localVarReturnType = new TypeToken<Transfers>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -469,13 +469,13 @@ public class TokenHistoryApi {
     /**
      * getTransfersByTxHash (asynchronously)
      * 트랜잭션 해시로 거래내역을 조회합니다. 거래내역은 KLAY 전송 (&#x60;KlayTransfer&#x60;), FT 전송 (&#x60;FtTransfer&#x60;), NFT 전송 (&#x60;NftTransfer&#x60;)으로 나뉘며 FT, NFT 전송의 경우 토큰 전송을 실행한 &#x60;KlayTransfer&#x60; 전송내역이 조회 결과에 포함됩니다. FT, NFT 전송을 실행한 &#x60;KlayTransfer&#x60;의 &#x60;value&#x60;는 0일 수 있습니다. 이와 관련된 자세한 설명은 &#x60;GET /v2/transfer&#x60;를 참조하여 주시기 바랍니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param txHash 조회할 트랜잭션 해시 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param transactionHash 조회할 트랜잭션 해시 (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getTransfersByTxHashAsync(String xChainId, String txHash, final ApiCallback<Transfers> callback) throws ApiException {
+    public com.squareup.okhttp.Call getTransfersByTxHashAsync(String xChainId, String transactionHash, final ApiCallback<Transfers> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -496,7 +496,7 @@ public class TokenHistoryApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getTransfersByTxHashValidateBeforeCall(xChainId, txHash, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getTransfersByTxHashValidateBeforeCall(xChainId, transactionHash, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Transfers>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

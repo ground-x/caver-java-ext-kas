@@ -46,9 +46,9 @@ public class TokenApi {
 
     /**
      * Build call for getNftById
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -58,9 +58,9 @@ public class TokenApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/nft/{nftAddress}/token/{tokenId}"
-            .replaceAll("\\{" + "nftAddress" + "\\}", apiClient.escapeString(nftAddress.toString()))
-            .replaceAll("\\{" + "tokenId" + "\\}", apiClient.escapeString(tokenId.toString()));
+        String localVarPath = "/v2/contract/nft/{nft-address}/token/{token-id}"
+            .replaceAll("\\{" + "nft-address" + "\\}", apiClient.escapeString(nftAddress.toString()))
+            .replaceAll("\\{" + "token-id" + "\\}", apiClient.escapeString(tokenId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -126,9 +126,9 @@ public class TokenApi {
     /**
      * getNftById
      * 특정 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @return Nft
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -140,9 +140,9 @@ public class TokenApi {
     /**
      * getNftById
      * 특정 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @return ApiResponse&lt;Nft&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -155,9 +155,9 @@ public class TokenApi {
     /**
      * getNftById (asynchronously)
      * 특정 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -190,7 +190,7 @@ public class TokenApi {
     }
     /**
      * Build call for getNftsByContractAddress
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param nftAddress  (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -203,8 +203,8 @@ public class TokenApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/nft/{nftAddress}/token"
-            .replaceAll("\\{" + "nftAddress" + "\\}", apiClient.escapeString(nftAddress.toString()));
+        String localVarPath = "/v2/contract/nft/{nft-address}/token"
+            .replaceAll("\\{" + "nft-address" + "\\}", apiClient.escapeString(nftAddress.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -269,7 +269,7 @@ public class TokenApi {
     /**
      * getNftsByContractAddress
      * NFT 컨트랙트를 지정하면, 이 NFT 컨트랙트에서 발행된 모든 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param nftAddress  (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -284,7 +284,7 @@ public class TokenApi {
     /**
      * getNftsByContractAddress
      * NFT 컨트랙트를 지정하면, 이 NFT 컨트랙트에서 발행된 모든 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param nftAddress  (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -300,7 +300,7 @@ public class TokenApi {
     /**
      * getNftsByContractAddress (asynchronously)
      * NFT 컨트랙트를 지정하면, 이 NFT 컨트랙트에서 발행된 모든 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param nftAddress  (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -336,8 +336,8 @@ public class TokenApi {
     }
     /**
      * Build call for getNftsByOwnerAddress
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 컨트랙트 주소 (required)
      * @param ownerAddress 조회할 EOA 주소 (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -350,9 +350,9 @@ public class TokenApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/nft/{nftAddress}/owner/{ownerAddress}"
-            .replaceAll("\\{" + "nftAddress" + "\\}", apiClient.escapeString(nftAddress.toString()))
-            .replaceAll("\\{" + "ownerAddress" + "\\}", apiClient.escapeString(ownerAddress.toString()));
+        String localVarPath = "/v2/contract/nft/{nft-address}/owner/{owner-address}"
+            .replaceAll("\\{" + "nft-address" + "\\}", apiClient.escapeString(nftAddress.toString()))
+            .replaceAll("\\{" + "owner-address" + "\\}", apiClient.escapeString(ownerAddress.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -422,8 +422,8 @@ public class TokenApi {
     /**
      * getNftsByOwnerAddress
      * NFT 컨트랙트와 EOA를 지정하면, 이 NFT 컨트랙트에서 발행된 NFT 중 EOA가 가지고 있는 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 컨트랙트 주소 (required)
      * @param ownerAddress 조회할 EOA 주소 (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -438,8 +438,8 @@ public class TokenApi {
     /**
      * getNftsByOwnerAddress
      * NFT 컨트랙트와 EOA를 지정하면, 이 NFT 컨트랙트에서 발행된 NFT 중 EOA가 가지고 있는 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 컨트랙트 주소 (required)
      * @param ownerAddress 조회할 EOA 주소 (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -455,8 +455,8 @@ public class TokenApi {
     /**
      * getNftsByOwnerAddress (asynchronously)
      * NFT 컨트랙트와 EOA를 지정하면, 이 NFT 컨트랙트에서 발행된 NFT 중 EOA가 가지고 있는 NFT의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 컨트랙트 주소 (required)
      * @param ownerAddress 조회할 EOA 주소 (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)

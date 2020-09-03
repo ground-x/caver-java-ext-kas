@@ -48,7 +48,7 @@ public class TokenContractApi {
 
     /**
      * Build call for getFtContractDetail
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
      * @param ftAddress FT 컨트랙트 주소 (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -59,8 +59,8 @@ public class TokenContractApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/ft/{ftAddress}"
-            .replaceAll("\\{" + "ftAddress" + "\\}", apiClient.escapeString(ftAddress.toString()));
+        String localVarPath = "/v2/contract/ft/{ft-address}"
+            .replaceAll("\\{" + "ft-address" + "\\}", apiClient.escapeString(ftAddress.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -121,7 +121,7 @@ public class TokenContractApi {
     /**
      * getFtContractDetail
      * 라벨링된 FT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
      * @param ftAddress FT 컨트랙트 주소 (required)
      * @return FtContractDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -134,7 +134,7 @@ public class TokenContractApi {
     /**
      * getFtContractDetail
      * 라벨링된 FT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
      * @param ftAddress FT 컨트랙트 주소 (required)
      * @return ApiResponse&lt;FtContractDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -148,7 +148,7 @@ public class TokenContractApi {
     /**
      * getFtContractDetail (asynchronously)
      * 라벨링된 FT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
      * @param ftAddress FT 컨트랙트 주소 (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -182,7 +182,7 @@ public class TokenContractApi {
     }
     /**
      * Build call for getListOfNftContracts
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 [kip, erc] (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -260,7 +260,7 @@ public class TokenContractApi {
     /**
      * getListOfNftContracts
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 [kip, erc] (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -276,7 +276,7 @@ public class TokenContractApi {
     /**
      * getListOfNftContracts
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 [kip, erc] (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -293,7 +293,7 @@ public class TokenContractApi {
     /**
      * getListOfNftContracts (asynchronously)
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 [kip, erc] (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -330,7 +330,7 @@ public class TokenContractApi {
     }
     /**
      * Build call for getListofFtContracts
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 (&#39;kip&#39; for KIPs, &#39;erc&#39; for ERCs, none for both) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -408,7 +408,7 @@ public class TokenContractApi {
     /**
      * getListofFtContracts
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 (&#39;kip&#39; for KIPs, &#39;erc&#39; for ERCs, none for both) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -424,7 +424,7 @@ public class TokenContractApi {
     /**
      * getListofFtContracts
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 (&#39;kip&#39; for KIPs, &#39;erc&#39; for ERCs, none for both) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -441,7 +441,7 @@ public class TokenContractApi {
     /**
      * getListofFtContracts (asynchronously)
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
      * @param type 컨트랙트 타입 (&#39;kip&#39; for KIPs, &#39;erc&#39; for ERCs, none for both) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -478,8 +478,8 @@ public class TokenContractApi {
     }
     /**
      * Build call for getNftContractDetail
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param nftAddress  (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param nftAddress NFT 컨트랙트 주소 (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -489,8 +489,8 @@ public class TokenContractApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/nft/{nftAddress}"
-            .replaceAll("\\{" + "nftAddress" + "\\}", apiClient.escapeString(nftAddress.toString()));
+        String localVarPath = "/v2/contract/nft/{nft-address}"
+            .replaceAll("\\{" + "nft-address" + "\\}", apiClient.escapeString(nftAddress.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -551,8 +551,8 @@ public class TokenContractApi {
     /**
      * getNftContractDetail
      * 라벨링된 NFT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param nftAddress  (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param nftAddress NFT 컨트랙트 주소 (required)
      * @return NftContractDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -564,8 +564,8 @@ public class TokenContractApi {
     /**
      * getNftContractDetail
      * 라벨링된 NFT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param nftAddress  (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param nftAddress NFT 컨트랙트 주소 (required)
      * @return ApiResponse&lt;NftContractDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -578,8 +578,8 @@ public class TokenContractApi {
     /**
      * getNftContractDetail (asynchronously)
      * 라벨링된 NFT 컨트랙트 1개의 정보를 불러옵니다. 
-     * @param xChainId (required) Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param nftAddress  (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param nftAddress NFT 컨트랙트 주소 (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

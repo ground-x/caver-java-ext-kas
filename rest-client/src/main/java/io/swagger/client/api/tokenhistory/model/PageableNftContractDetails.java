@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * PageableNftContractDetails
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-01T02:14:40.553Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-03T07:40:07.509Z")
 
 
 
@@ -31,8 +31,8 @@ public class PageableNftContractDetails {
   @SerializedName("items")
   private List<NftContractDetail> items = new ArrayList<NftContractDetail>();
 
-  @SerializedName("nextCursor")
-  private String nextCursor = null;
+  @SerializedName("cursor")
+  private String cursor = null;
 
   public PageableNftContractDetails items(List<NftContractDetail> items) {
     this.items = items;
@@ -57,22 +57,22 @@ public class PageableNftContractDetails {
     this.items = items;
   }
 
-  public PageableNftContractDetails nextCursor(String nextCursor) {
-    this.nextCursor = nextCursor;
+  public PageableNftContractDetails cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
    * 다음 페이지 커서
-   * @return nextCursor
+   * @return cursor
   **/
   @ApiModelProperty(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, value = "다음 페이지 커서")
-  public String getNextCursor() {
-    return nextCursor;
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setNextCursor(String nextCursor) {
-    this.nextCursor = nextCursor;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
 
@@ -86,12 +86,12 @@ public class PageableNftContractDetails {
     }
     PageableNftContractDetails pageableNftContractDetails = (PageableNftContractDetails) o;
     return Objects.equals(this.items, pageableNftContractDetails.items) &&
-        Objects.equals(this.nextCursor, pageableNftContractDetails.nextCursor);
+        Objects.equals(this.cursor, pageableNftContractDetails.cursor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, nextCursor);
+    return Objects.hash(items, cursor);
   }
 
 
@@ -101,7 +101,7 @@ public class PageableNftContractDetails {
     sb.append("class PageableNftContractDetails {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    nextCursor: ").append(toIndentedString(nextCursor)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

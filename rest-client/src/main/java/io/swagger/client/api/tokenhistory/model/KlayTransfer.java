@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * KlayTransfer
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-01T02:14:40.553Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-03T07:40:07.509Z")
 
 
 

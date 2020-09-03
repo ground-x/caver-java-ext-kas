@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * NftOwnershipChange
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-01T02:14:40.553Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-09-03T07:40:07.509Z")
 
 
 
@@ -77,10 +77,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * 소유권이 변경된 시점 (timestamp)
+   * NFT 소유권이 변경된 시점 (timestamp)
    * @return timestamp
   **/
-  @ApiModelProperty(example = "1592180992", required = true, value = "소유권이 변경된 시점 (timestamp)")
+  @ApiModelProperty(example = "1592180992", required = true, value = "NFT 소유권이 변경된 시점 (timestamp)")
   public Long getTimestamp() {
     return timestamp;
   }

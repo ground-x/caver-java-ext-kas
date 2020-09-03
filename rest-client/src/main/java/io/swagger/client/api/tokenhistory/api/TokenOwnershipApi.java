@@ -45,9 +45,9 @@ public class TokenOwnershipApi {
 
     /**
      * Build call for getListOfNftOwnershipChanges
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param progressListener Progress listener
@@ -59,9 +59,9 @@ public class TokenOwnershipApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/v2/contract/nft/{nftAddress}/token/{tokenId}/history"
-            .replaceAll("\\{" + "nftAddress" + "\\}", apiClient.escapeString(nftAddress.toString()))
-            .replaceAll("\\{" + "tokenId" + "\\}", apiClient.escapeString(tokenId.toString()));
+        String localVarPath = "/v2/contract/nft/{nft-address}/token/{token-id}/history"
+            .replaceAll("\\{" + "nft-address" + "\\}", apiClient.escapeString(nftAddress.toString()))
+            .replaceAll("\\{" + "token-id" + "\\}", apiClient.escapeString(tokenId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -131,9 +131,9 @@ public class TokenOwnershipApi {
     /**
      * getListOfNftOwnershipChanges
      * 특정 NFT의 소유권 변경 기록을 조회합니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return PageableNftOwnershipChanges
@@ -147,9 +147,9 @@ public class TokenOwnershipApi {
     /**
      * getListOfNftOwnershipChanges
      * 특정 NFT의 소유권 변경 기록을 조회합니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return ApiResponse&lt;PageableNftOwnershipChanges&gt;
@@ -164,9 +164,9 @@ public class TokenOwnershipApi {
     /**
      * getListOfNftOwnershipChanges (asynchronously)
      * 특정 NFT의 소유권 변경 기록을 조회합니다. 
-     * @param xChainId (required) Klaytn 네트워크 체인 ID (1001 or 8217) (required)
-     * @param nftAddress NFT 컨트랙트 주소 (required)
-     * @param tokenId NFT ID (required)
+     * @param xChainId Klaytn 네트워크 체인 ID (1001 or 8217) (required)
+     * @param nftAddress 조회할 NFT 컨트랙트 주소 (required)
+     * @param tokenId 조회할 NFT ID (16진수) (required)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param callback The callback to be executed when the API call finishes
