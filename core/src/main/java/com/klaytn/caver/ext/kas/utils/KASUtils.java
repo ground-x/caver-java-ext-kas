@@ -1,5 +1,7 @@
 package com.klaytn.caver.ext.kas.utils;
 
+import com.klaytn.caver.utils.Utils;
+
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -54,6 +56,20 @@ public class KASUtils {
         }
     }
 
+    public static boolean isTimeStamp(String data) {
+        try {
+            Long.parseLong(data, 10);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isBlockNumber(String data) {
+        return Utils.isHexStrict(data);
+    }
+
     static boolean checkDateFormat(String date) {
         try {
             pattern_date.parse(date);
@@ -79,15 +95,5 @@ public class KASUtils {
         } catch (DateTimeParseException e) {
             return false;
         }
-    }
-
-    static boolean isTimeStamp(String data) {
-        try {
-            Long.parseLong(data, 10);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        return true;
     }
 }

@@ -61,11 +61,20 @@ public class TokenHistoryQueryOptions {
         this.kind = KASUtils.parameterToString(kind);
     }
 
-    public void setRange(String range) {
-        setRange(Arrays.asList(range));
+    public void setRange(String from) {
+        String fromData;
+        if(KASUtils.isBlockNumber(from)) {
+            fromData = from;
+        } else {
+            fromData = KASUtils.convertDateToTimestamp(from);
+        }
+        this.range = fromData;
     }
 
-    public void setRange(List<String> range) {
+    public void setRange(String from, String to) {
+        if(!checkRangeValid(from, to)) {
+            throw new InvalidParameterException("The range parameter('from', 'to') must have same type(block number(hex) / timestamp(decimal))");
+        }
         this.range = KASUtils.parameterToString(range);
     }
 
@@ -83,5 +92,17 @@ public class TokenHistoryQueryOptions {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    private boolean checkRangeValid(String from, String to) {
+        if(KASUtils.isTimeStamp(from) && KASUtils.isBlockNumber(from)) {
+            return false;
+        }
+
+        if(KASUtils.isTimeStamp(from)) {
+            return KASUtils.isTimeStamp(to);
+        } else {
+            return KASUtils.isBlockNumber(to);
+        }
     }
 }
