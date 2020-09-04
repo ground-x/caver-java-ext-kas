@@ -54,28 +54,31 @@ public class TokenHistoryQueryOptions {
         setKind(Arrays.asList(kind));
     }
 
-    public void setKind(List<String> kind) {
-        if(kind.size() > 3) {
+    public void setKind(List<String> kinds) {
+        if(kinds.size() > 3) {
             throw new InvalidParameterException("The 'kind' option must have up to 3 items. ['klay', 'ft', 'nft']");
         }
-        this.kind = KASUtils.parameterToString(kind);
+
+        boolean isMatch = kinds.stream().anyMatch(item -> (!item.equals("klay") && !item.equals("ft") && !item.equals("nft")));
+        if(isMatch) {
+            throw new InvalidParameterException("The kind option must have one of the following: ['klay', 'ft', 'nft']");
+        }
+
+        this.kind = KASUtils.parameterToString(kinds);
     }
 
     public void setRange(String from) {
-        String fromData;
-        if(KASUtils.isBlockNumber(from)) {
-            fromData = from;
-        } else {
-            fromData = KASUtils.convertDateToTimestamp(from);
-        }
-        this.range = fromData;
+        this.range = convertTime(from);
     }
 
     public void setRange(String from, String to) {
-        if(!checkRangeValid(from, to)) {
+        String fromData = convertTime(from);
+        String toData = convertTime(to);
+
+        if(!checkRangeValid(fromData, toData)) {
             throw new InvalidParameterException("The range parameter('from', 'to') must have same type(block number(hex) / timestamp(decimal))");
         }
-        this.range = KASUtils.parameterToString(range);
+        this.range = KASUtils.parameterToString(Arrays.asList(fromData, toData));
     }
 
     public void setSize(Long size) {
@@ -94,7 +97,7 @@ public class TokenHistoryQueryOptions {
         this.type = type;
     }
 
-    private boolean checkRangeValid(String from, String to) {
+    boolean checkRangeValid(String from, String to) {
         if(KASUtils.isTimeStamp(from) && KASUtils.isBlockNumber(from)) {
             return false;
         }
@@ -105,4 +108,13 @@ public class TokenHistoryQueryOptions {
             return KASUtils.isBlockNumber(to);
         }
     }
+
+    String convertTime(String data) {
+        if(KASUtils.isBlockNumber(data)) {
+            return data;
+        } else {
+            return KASUtils.convertDateToTimestamp(data);
+        }
+    }
+
 }
