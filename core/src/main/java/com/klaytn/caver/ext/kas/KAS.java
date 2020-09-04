@@ -34,7 +34,6 @@ public class KAS extends Caver {
 
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
 
-        //TODO : Temporary code.
         httpService.addHeader("x-chain-id", chainId);
         this.rpc = new RPC(httpService);
 
