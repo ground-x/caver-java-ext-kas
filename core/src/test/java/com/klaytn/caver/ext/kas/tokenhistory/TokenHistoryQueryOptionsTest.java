@@ -8,6 +8,7 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TokenHistoryQueryOptionsTest {
     @Rule
@@ -118,5 +119,52 @@ public class TokenHistoryQueryOptionsTest {
 
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setRange(from, to);
+    }
+
+    @Test
+    public void setStatusTest() {
+        String status = "failed";
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setStatus(status);
+
+        assertEquals(status, options.getStatus());
+    }
+
+    @Test
+    public void invalidStatusTest() {
+        expectedException.expect(InvalidParameterException.class);
+        expectedException.expectMessage("The status parameter have one of the following: [completed, processing, failed, cancelled");
+
+        String status = "invalid";
+
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setStatus(status);
+
+        assertEquals(status, options.getStatus());
+    }
+
+    @Test
+    public void setTypeTest() {
+        String type = "kip";
+
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setType(type);
+        assertEquals(type, options.getType());
+
+        options.setType("erc");
+        assertEquals("erc", options.getType());
+
+        options.setType(null);
+        assertNull(options.getType());
+    }
+
+    @Test
+    public void invalidTypeTest() {
+        expectedException.expect(InvalidParameterException.class);
+        expectedException.expectMessage("The type parameter have one of the following: ['kip', 'erc', empty string(or null)]");
+
+        String type = "invalid";
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setType(type);
     }
 }

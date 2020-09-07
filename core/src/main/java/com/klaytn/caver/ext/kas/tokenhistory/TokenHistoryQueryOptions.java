@@ -90,10 +90,18 @@ public class TokenHistoryQueryOptions {
     }
 
     public void setStatus(String status) {
+        if(!status.equals("completed") && !status.equals("processing") && !status.equals("failed") && !status.equals("cancelled")) {
+            throw new InvalidParameterException("The status parameter have one of the following: [completed, processing, failed, cancelled");
+        }
         this.status = status;
     }
 
     public void setType(String type) {
+        if(type == null || type.isEmpty()) {
+            type = null;
+        } else if(!type.equals("kip") && !type.equals("erc")) {
+            throw new InvalidParameterException("The type parameter have one of the following: ['kip', 'erc', empty string(or null)]");
+        }
         this.type = type;
     }
 
