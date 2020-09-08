@@ -10,67 +10,45 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
- * Operator 의 결제 설정 정보
+ * 오퍼레이터 결제 정보
  */
-@ApiModel(description = "Operator 의 결제 설정 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "오퍼레이터 결제 정보")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class OperatorSetting {
-  @SerializedName("feepayer")
-  private String feepayer = null;
+  @SerializedName("useGlobalFeePayer")
+  private Boolean useGlobalFeePayer = null;
 
-  @SerializedName("use_global_feepayer")
-  private Boolean useGlobalFeepayer = null;
-
-  @SerializedName("use_operator")
+  @SerializedName("useOperator")
   private Boolean useOperator = null;
 
-  public OperatorSetting feepayer(String feepayer) {
-    this.feepayer = feepayer;
+  public OperatorSetting useGlobalFeePayer(Boolean useGlobalFeePayer) {
+    this.useGlobalFeePayer = useGlobalFeePayer;
     return this;
   }
 
    /**
-   * KAS 사용자의 feepayer 계정 주소
-   * @return feepayer
+   * 글로벌 대납 계정 사용 여부
+   * @return useGlobalFeePayer
   **/
-  @ApiModelProperty(example = "3.1132554184930025E47", value = "KAS 사용자의 feepayer 계정 주소")
-  public String getFeepayer() {
-    return feepayer;
+  @Schema(example = "true", required = true, description = "글로벌 대납 계정 사용 여부")
+  public Boolean isUseGlobalFeePayer() {
+    return useGlobalFeePayer;
   }
 
-  public void setFeepayer(String feepayer) {
-    this.feepayer = feepayer;
-  }
-
-  public OperatorSetting useGlobalFeepayer(Boolean useGlobalFeepayer) {
-    this.useGlobalFeepayer = useGlobalFeepayer;
-    return this;
-  }
-
-   /**
-   * Global feepayer 사용 여부
-   * @return useGlobalFeepayer
-  **/
-  @ApiModelProperty(example = "false", required = true, value = "Global feepayer 사용 여부")
-  public Boolean isUseGlobalFeepayer() {
-    return useGlobalFeepayer;
-  }
-
-  public void setUseGlobalFeepayer(Boolean useGlobalFeepayer) {
-    this.useGlobalFeepayer = useGlobalFeepayer;
+  public void setUseGlobalFeePayer(Boolean useGlobalFeePayer) {
+    this.useGlobalFeePayer = useGlobalFeePayer;
   }
 
   public OperatorSetting useOperator(Boolean useOperator) {
@@ -79,10 +57,10 @@ public class OperatorSetting {
   }
 
    /**
-   * Operator 결제 사용 여부
+   * 오퍼레이터 결제 사용 여부
    * @return useOperator
   **/
-  @ApiModelProperty(example = "false", required = true, value = "Operator 결제 사용 여부")
+  @Schema(example = "true", required = true, description = "오퍼레이터 결제 사용 여부")
   public Boolean isUseOperator() {
     return useOperator;
   }
@@ -101,14 +79,13 @@ public class OperatorSetting {
       return false;
     }
     OperatorSetting operatorSetting = (OperatorSetting) o;
-    return Objects.equals(this.feepayer, operatorSetting.feepayer) &&
-        Objects.equals(this.useGlobalFeepayer, operatorSetting.useGlobalFeepayer) &&
+    return Objects.equals(this.useGlobalFeePayer, operatorSetting.useGlobalFeePayer) &&
         Objects.equals(this.useOperator, operatorSetting.useOperator);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feepayer, useGlobalFeepayer, useOperator);
+    return Objects.hash(useGlobalFeePayer, useOperator);
   }
 
 
@@ -117,8 +94,7 @@ public class OperatorSetting {
     StringBuilder sb = new StringBuilder();
     sb.append("class OperatorSetting {\n");
     
-    sb.append("    feepayer: ").append(toIndentedString(feepayer)).append("\n");
-    sb.append("    useGlobalFeepayer: ").append(toIndentedString(useGlobalFeepayer)).append("\n");
+    sb.append("    useGlobalFeePayer: ").append(toIndentedString(useGlobalFeePayer)).append("\n");
     sb.append("    useOperator: ").append(toIndentedString(useOperator)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -136,4 +112,3 @@ public class OperatorSetting {
   }
 
 }
-

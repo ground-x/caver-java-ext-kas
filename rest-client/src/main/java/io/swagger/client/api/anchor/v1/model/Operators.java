@@ -10,31 +10,31 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.Operator;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 /**
- * operator 목록
+ * 오퍼레이터 목록
  */
-@ApiModel(description = "operator 목록")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "오퍼레이터 목록")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class Operators {
   @SerializedName("cursor")
   private String cursor = null;
 
-  @SerializedName("operators")
-  private List<Operator> operators = null;
+  @SerializedName("items")
+  private List<Operator> items = null;
 
   public Operators cursor(String cursor) {
     this.cursor = cursor;
@@ -42,10 +42,10 @@ public class Operators {
   }
 
    /**
-   * 이전 조회에서 마지막으로 조회된 문서
+   * 마지막 검색 위치를 나타내는 커서 정보
    * @return cursor
   **/
-  @ApiModelProperty(required = true, value = "이전 조회에서 마지막으로 조회된 문서")
+  @Schema(required = true, description = "마지막 검색 위치를 나타내는 커서 정보")
   public String getCursor() {
     return cursor;
   }
@@ -54,30 +54,30 @@ public class Operators {
     this.cursor = cursor;
   }
 
-  public Operators operators(List<Operator> operators) {
-    this.operators = operators;
+  public Operators items(List<Operator> items) {
+    this.items = items;
     return this;
   }
 
-  public Operators addOperatorsItem(Operator operatorsItem) {
-    if (this.operators == null) {
-      this.operators = new ArrayList<Operator>();
+  public Operators addItemsItem(Operator itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<Operator>();
     }
-    this.operators.add(operatorsItem);
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * Get operators
-   * @return operators
+   * Get items
+   * @return items
   **/
-  @ApiModelProperty(value = "")
-  public List<Operator> getOperators() {
-    return operators;
+  @Schema(description = "")
+  public List<Operator> getItems() {
+    return items;
   }
 
-  public void setOperators(List<Operator> operators) {
-    this.operators = operators;
+  public void setItems(List<Operator> items) {
+    this.items = items;
   }
 
 
@@ -91,12 +91,12 @@ public class Operators {
     }
     Operators operators = (Operators) o;
     return Objects.equals(this.cursor, operators.cursor) &&
-        Objects.equals(this.operators, operators.operators);
+        Objects.equals(this.items, operators.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, operators);
+    return Objects.hash(cursor, items);
   }
 
 
@@ -106,7 +106,7 @@ public class Operators {
     sb.append("class Operators {\n");
     
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    operators: ").append(toIndentedString(operators)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -123,4 +123,3 @@ public class Operators {
   }
 
 }
-

@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.swagger.client.*;
-import io.swagger.client.api.anchor.v1.model.*;
+import io.swagger.client.api.anchor.v1.model.AnchorBlockRequest;
+import io.swagger.client.api.anchor.v1.model.AnchorBlockStatus;
+import io.swagger.client.api.anchor.v1.model.AnchorBlockTransactions;
+import io.swagger.client.api.anchor.v1.model.AnchorTransactions;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -45,7 +47,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Build call for anchorBlock
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -54,7 +56,7 @@ public class DataAnchoringTransactionApi {
      */
     public com.squareup.okhttp.Call anchorBlockCall(String xChainId, AnchorBlockRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
-
+        
         // create path and map variables
         String localVarPath = "/v1/anchor";
 
@@ -82,7 +84,7 @@ public class DataAnchoringTransactionApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -91,61 +93,63 @@ public class DataAnchoringTransactionApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] { "auth" };
+        String[] localVarAuthNames = new String[] { "basic" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call anchorBlockValidateBeforeCall(String xChainId, AnchorBlockRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling anchorBlock(Async)");
         }
         
-
         com.squareup.okhttp.Call call = anchorBlockCall(xChainId, body, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
-     * AnchorBlock
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
+     * 앵커링 트랜잭션 생성
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return AnchorBlockResponse
+     * @return AnchorBlockStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AnchorBlockResponse anchorBlock(String xChainId, AnchorBlockRequest body) throws ApiException {
-        ApiResponse<AnchorBlockResponse> resp = anchorBlockWithHttpInfo(xChainId, body);
+    public AnchorBlockStatus anchorBlock(String xChainId, AnchorBlockRequest body) throws ApiException {
+        ApiResponse<AnchorBlockStatus> resp = anchorBlockWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
     /**
-     * AnchorBlock
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
+     * 앵커링 트랜잭션 생성
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;AnchorBlockResponse&gt;
+     * @return ApiResponse&lt;AnchorBlockStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AnchorBlockResponse> anchorBlockWithHttpInfo(String xChainId, AnchorBlockRequest body) throws ApiException {
+    public ApiResponse<AnchorBlockStatus> anchorBlockWithHttpInfo(String xChainId, AnchorBlockRequest body) throws ApiException {
         com.squareup.okhttp.Call call = anchorBlockValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<AnchorBlockResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorBlockStatus>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * AnchorBlock (asynchronously)
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
+     * 앵커링 트랜잭션 생성 (asynchronously)
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call anchorBlockAsync(String xChainId, AnchorBlockRequest body, final ApiCallback<AnchorBlockResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call anchorBlockAsync(String xChainId, AnchorBlockRequest body, final ApiCallback<AnchorBlockStatus> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -167,15 +171,15 @@ public class DataAnchoringTransactionApi {
         }
 
         com.squareup.okhttp.Call call = anchorBlockValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AnchorBlockResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorBlockStatus>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for getAnchorBlockByPayloadID
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param payloadId (required) Payload ID (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param payloadId 페이로드 ID (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -183,11 +187,11 @@ public class DataAnchoringTransactionApi {
      */
     public com.squareup.okhttp.Call getAnchorBlockByPayloadIDCall(String xChainId, String operatorId, String payloadId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
-        String localVarPath = "/v1/operator/{operator_id}/payload/{payload_id}"
-            .replaceAll("\\{" + "operator_id" + "\\}", apiClient.escapeString(operatorId.toString()))
-            .replaceAll("\\{" + "payload_id" + "\\}", apiClient.escapeString(payloadId.toString()));
+        String localVarPath = "/v1/operator/{operator-id}/payload/{payload-id}"
+            .replaceAll("\\{" + "operator-id" + "\\}", apiClient.escapeString(operatorId.toString()))
+            .replaceAll("\\{" + "payload-id" + "\\}", apiClient.escapeString(payloadId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -205,7 +209,7 @@ public class DataAnchoringTransactionApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json"
+            
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -213,7 +217,7 @@ public class DataAnchoringTransactionApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -222,74 +226,74 @@ public class DataAnchoringTransactionApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] { "auth" };
+        String[] localVarAuthNames = new String[] { "basic" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getAnchorBlockByPayloadIDValidateBeforeCall(String xChainId, String operatorId, String payloadId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling getAnchorBlockByPayloadID(Async)");
         }
-        
         // verify the required parameter 'operatorId' is set
         if (operatorId == null) {
             throw new ApiException("Missing the required parameter 'operatorId' when calling getAnchorBlockByPayloadID(Async)");
         }
-        
         // verify the required parameter 'payloadId' is set
         if (payloadId == null) {
             throw new ApiException("Missing the required parameter 'payloadId' when calling getAnchorBlockByPayloadID(Async)");
         }
         
-
         com.squareup.okhttp.Call call = getAnchorBlockByPayloadIDCall(xChainId, operatorId, payloadId, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
-     * GetAnchorBlockByPayloadID
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param payloadId (required) Payload ID (required)
-     * @return GetAnchorBlockByPayloadIDResponse
+     * 페이로드로 앵커링 트랜잭션 조회
+     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param payloadId 페이로드 ID (required)
+     * @return AnchorBlockTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public GetAnchorBlockByPayloadIDResponse getAnchorBlockByPayloadID(String xChainId, String operatorId, String payloadId) throws ApiException {
-        ApiResponse<GetAnchorBlockByPayloadIDResponse> resp = getAnchorBlockByPayloadIDWithHttpInfo(xChainId, operatorId, payloadId);
+    public AnchorBlockTransactions getAnchorBlockByPayloadID(String xChainId, String operatorId, String payloadId) throws ApiException {
+        ApiResponse<AnchorBlockTransactions> resp = getAnchorBlockByPayloadIDWithHttpInfo(xChainId, operatorId, payloadId);
         return resp.getData();
     }
 
     /**
-     * GetAnchorBlockByPayloadID
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param payloadId (required) Payload ID (required)
-     * @return ApiResponse&lt;GetAnchorBlockByPayloadIDResponse&gt;
+     * 페이로드로 앵커링 트랜잭션 조회
+     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param payloadId 페이로드 ID (required)
+     * @return ApiResponse&lt;AnchorBlockTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetAnchorBlockByPayloadIDResponse> getAnchorBlockByPayloadIDWithHttpInfo(String xChainId, String operatorId, String payloadId) throws ApiException {
+    public ApiResponse<AnchorBlockTransactions> getAnchorBlockByPayloadIDWithHttpInfo(String xChainId, String operatorId, String payloadId) throws ApiException {
         com.squareup.okhttp.Call call = getAnchorBlockByPayloadIDValidateBeforeCall(xChainId, operatorId, payloadId, null, null);
-        Type localVarReturnType = new TypeToken<GetAnchorBlockByPayloadIDResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * GetAnchorBlockByPayloadID (asynchronously)
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param payloadId (required) Payload ID (required)
+     * 페이로드로 앵커링 트랜잭션 조회 (asynchronously)
+     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param payloadId 페이로드 ID (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAnchorBlockByPayloadIDAsync(String xChainId, String operatorId, String payloadId, final ApiCallback<GetAnchorBlockByPayloadIDResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getAnchorBlockByPayloadIDAsync(String xChainId, String operatorId, String payloadId, final ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -311,27 +315,27 @@ public class DataAnchoringTransactionApi {
         }
 
         com.squareup.okhttp.Call call = getAnchorBlockByPayloadIDValidateBeforeCall(xChainId, operatorId, payloadId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<GetAnchorBlockByPayloadIDResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for getAnchorBlockByTx
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param txHash (required) 트랜잭션 해시값 (required)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param transactionHash 트랜잭션 해시 (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getAnchorBlockByTxCall(String xChainId, String operatorId, String txHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getAnchorBlockByTxCall(String xChainId, String operatorId, String transactionHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
-        String localVarPath = "/v1/operator/{operator_id}/tx/{tx_hash}"
-            .replaceAll("\\{" + "operator_id" + "\\}", apiClient.escapeString(operatorId.toString()))
-            .replaceAll("\\{" + "tx_hash" + "\\}", apiClient.escapeString(txHash.toString()));
+        String localVarPath = "/v1/operator/{operator-id}/tx/{transaction-hash}"
+            .replaceAll("\\{" + "operator-id" + "\\}", apiClient.escapeString(operatorId.toString()))
+            .replaceAll("\\{" + "transaction-hash" + "\\}", apiClient.escapeString(transactionHash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -349,7 +353,7 @@ public class DataAnchoringTransactionApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json"
+            
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -357,7 +361,7 @@ public class DataAnchoringTransactionApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -366,74 +370,74 @@ public class DataAnchoringTransactionApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] { "auth" };
+        String[] localVarAuthNames = new String[] { "basic" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getAnchorBlockByTxValidateBeforeCall(String xChainId, String operatorId, String txHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+    private com.squareup.okhttp.Call getAnchorBlockByTxValidateBeforeCall(String xChainId, String operatorId, String transactionHash, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling getAnchorBlockByTx(Async)");
         }
-        
         // verify the required parameter 'operatorId' is set
         if (operatorId == null) {
             throw new ApiException("Missing the required parameter 'operatorId' when calling getAnchorBlockByTx(Async)");
         }
-        
-        // verify the required parameter 'txHash' is set
-        if (txHash == null) {
-            throw new ApiException("Missing the required parameter 'txHash' when calling getAnchorBlockByTx(Async)");
+        // verify the required parameter 'transactionHash' is set
+        if (transactionHash == null) {
+            throw new ApiException("Missing the required parameter 'transactionHash' when calling getAnchorBlockByTx(Async)");
         }
         
-
-        com.squareup.okhttp.Call call = getAnchorBlockByTxCall(xChainId, operatorId, txHash, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getAnchorBlockByTxCall(xChainId, operatorId, transactionHash, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
-     * GetAnchorBlockByTx
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param txHash (required) 트랜잭션 해시값 (required)
-     * @return GetAnchorBlockByTxResponse
+     * 트랜잭션 해시로 앵커링 트랜잭션 조회
+     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param transactionHash 트랜잭션 해시 (required)
+     * @return AnchorBlockTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public GetAnchorBlockByTxResponse getAnchorBlockByTx(String xChainId, String operatorId, String txHash) throws ApiException {
-        ApiResponse<GetAnchorBlockByTxResponse> resp = getAnchorBlockByTxWithHttpInfo(xChainId, operatorId, txHash);
+    public AnchorBlockTransactions getAnchorBlockByTx(String xChainId, String operatorId, String transactionHash) throws ApiException {
+        ApiResponse<AnchorBlockTransactions> resp = getAnchorBlockByTxWithHttpInfo(xChainId, operatorId, transactionHash);
         return resp.getData();
     }
 
     /**
-     * GetAnchorBlockByTx
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param txHash (required) 트랜잭션 해시값 (required)
-     * @return ApiResponse&lt;GetAnchorBlockByTxResponse&gt;
+     * 트랜잭션 해시로 앵커링 트랜잭션 조회
+     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param transactionHash 트랜잭션 해시 (required)
+     * @return ApiResponse&lt;AnchorBlockTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetAnchorBlockByTxResponse> getAnchorBlockByTxWithHttpInfo(String xChainId, String operatorId, String txHash) throws ApiException {
-        com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, txHash, null, null);
-        Type localVarReturnType = new TypeToken<GetAnchorBlockByTxResponse>(){}.getType();
+    public ApiResponse<AnchorBlockTransactions> getAnchorBlockByTxWithHttpInfo(String xChainId, String operatorId, String transactionHash) throws ApiException {
+        com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, transactionHash, null, null);
+        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * GetAnchorBlockByTx (asynchronously)
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param txHash (required) 트랜잭션 해시값 (required)
+     * 트랜잭션 해시로 앵커링 트랜잭션 조회 (asynchronously)
+     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param transactionHash 트랜잭션 해시 (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAnchorBlockByTxAsync(String xChainId, String operatorId, String txHash, final ApiCallback<GetAnchorBlockByTxResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getAnchorBlockByTxAsync(String xChainId, String operatorId, String transactionHash, final ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -454,30 +458,30 @@ public class DataAnchoringTransactionApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, txHash, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<GetAnchorBlockByTxResponse>(){}.getType();
+        com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, transactionHash, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for retirieveAnchorBlock
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param size (optional) 검색할 계정의 최대 사이즈 (optional)
-     * @param cursor (optional) 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromDate (optional) 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
-     * @param toDate (optional) 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
+     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call retirieveAnchorBlockCall(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call retirieveAnchorBlockCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
-        String localVarPath = "/v1/operator/{operator_id}/tx"
-            .replaceAll("\\{" + "operator_id" + "\\}", apiClient.escapeString(operatorId.toString()));
+        String localVarPath = "/v1/operator/{operator-id}/tx"
+            .replaceAll("\\{" + "operator-id" + "\\}", apiClient.escapeString(operatorId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -485,10 +489,10 @@ public class DataAnchoringTransactionApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
         if (cursor != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
-        if (fromDate != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("from-date", fromDate));
-        if (toDate != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("to-date", toDate));
+        if (fromTimestamp != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("from-timestamp", fromTimestamp));
+        if (toTimestamp != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("to-timestamp", toTimestamp));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (xChainId != null)
@@ -503,7 +507,7 @@ public class DataAnchoringTransactionApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json"
+            
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -511,7 +515,7 @@ public class DataAnchoringTransactionApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -520,78 +524,79 @@ public class DataAnchoringTransactionApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] { "auth" };
+        String[] localVarAuthNames = new String[] { "basic" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call retirieveAnchorBlockValidateBeforeCall(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+    private com.squareup.okhttp.Call retirieveAnchorBlockValidateBeforeCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling retirieveAnchorBlock(Async)");
         }
-        
         // verify the required parameter 'operatorId' is set
         if (operatorId == null) {
             throw new ApiException("Missing the required parameter 'operatorId' when calling retirieveAnchorBlock(Async)");
         }
         
-
-        com.squareup.okhttp.Call call = retirieveAnchorBlockCall(xChainId, operatorId, size, cursor, fromDate, toDate, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retirieveAnchorBlockCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
-     * RetirieveAnchorBlock
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param size (optional) 검색할 계정의 최대 사이즈 (optional)
-     * @param cursor (optional) 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromDate (optional) 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
-     * @param toDate (optional) 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @return RetirieveAnchorBlockResponse
+     * 오퍼레이터로 앵커링 트랜잭션 목록 조회
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
+     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * @return AnchorTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public RetrieveAnchorBlockResponse retirieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
-        ApiResponse<RetrieveAnchorBlockResponse> resp = retirieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromDate, toDate);
+    public AnchorTransactions retirieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
+        ApiResponse<AnchorTransactions> resp = retirieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp);
         return resp.getData();
     }
 
     /**
-     * RetirieveAnchorBlock
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param size (optional) 검색할 계정의 최대 사이즈 (optional)
-     * @param cursor (optional) 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromDate (optional) 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
-     * @param toDate (optional) 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @return ApiResponse&lt;RetirieveAnchorBlockResponse&gt;
+     * 오퍼레이터로 앵커링 트랜잭션 목록 조회
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
+     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * @return ApiResponse&lt;AnchorTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<RetrieveAnchorBlockResponse> retirieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate) throws ApiException {
-        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromDate, toDate, null, null);
-        Type localVarReturnType = new TypeToken<RetrieveAnchorBlockResponse>(){}.getType();
+    public ApiResponse<AnchorTransactions> retirieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
+        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, null, null);
+        Type localVarReturnType = new TypeToken<AnchorTransactions>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * RetirieveAnchorBlock (asynchronously)
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다. 
-     * @param xChainId (required) Klaytn Chain ID로 default KRN 사용시에는 필수적으로 요구되며, KRN을 사용시에는 생략할 수 있음. (required)
-     * @param operatorId (required) Operator 계정 주소 (required)
-     * @param size (optional) 검색할 계정의 최대 사이즈 (optional)
-     * @param cursor (optional) 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromDate (optional) 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
-     * @param toDate (optional) 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * 오퍼레이터로 앵커링 트랜잭션 목록 조회 (asynchronously)
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
+     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retirieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, String fromDate, String toDate, final ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call retirieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ApiCallback<AnchorTransactions> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -612,8 +617,8 @@ public class DataAnchoringTransactionApi {
             };
         }
 
-        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromDate, toDate, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<RetrieveAnchorBlockResponse>(){}.getType();
+        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AnchorTransactions>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

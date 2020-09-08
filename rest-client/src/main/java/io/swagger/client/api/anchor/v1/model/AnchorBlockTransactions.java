@@ -10,52 +10,45 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.AnchroBlockPayload;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
- * Anchor 트랜잭션 정보
+ * 앵커링 트랜잭션 정보
  */
-@ApiModel(description = "Anchor 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "앵커링 트랜잭션 정보")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class AnchorBlockTransactions {
   @SerializedName("payload")
-  private Map<String, Object> payload = new HashMap<String, Object>();
+  private AnchroBlockPayload payload = null;
 
-  @SerializedName("transaction_hash")
+  @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  public AnchorBlockTransactions payload(Map<String, Object> payload) {
+  public AnchorBlockTransactions payload(AnchroBlockPayload payload) {
     this.payload = payload;
     return this;
   }
 
-  public AnchorBlockTransactions putPayloadItem(String key, Object payloadItem) {
-    this.payload.put(key, payloadItem);
-    return this;
-  }
-
    /**
-   * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
+   * Get payload
    * @return payload
   **/
-  @ApiModelProperty(required = true, value = "anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
-  public Map<String, Object> getPayload() {
+  @Schema(required = true, description = "")
+  public AnchroBlockPayload getPayload() {
     return payload;
   }
 
-  public void setPayload(Map<String, Object> payload) {
+  public void setPayload(AnchroBlockPayload payload) {
     this.payload = payload;
   }
 
@@ -65,10 +58,10 @@ public class AnchorBlockTransactions {
   }
 
    /**
-   * Anchor 트랜잭션의 트랜잭션 해시
+   * 앵커링 트랜잭션의 트랜잭션 해시
    * @return transactionHash
   **/
-  @ApiModelProperty(example = "2.880795681947599E76", required = true, value = "Anchor 트랜잭션의 트랜잭션 해시")
+  @Schema(example = "0x5aeb4ddc5d77b9ce977a87461573da00c0aed0ac59962892ecf58ec09296e79d", required = true, description = "앵커링 트랜잭션의 트랜잭션 해시")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -120,4 +113,3 @@ public class AnchorBlockTransactions {
   }
 
 }
-

@@ -10,31 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
- * Anchor 트랜잭션 정보
+ * 앵커링 트랜잭션 정보
  */
-@ApiModel(description = "Anchor 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "앵커링 트랜잭션 정보")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class AnchorTransaction {
-  @SerializedName("created_at")
+  @SerializedName("createdAt")
   private Long createdAt = null;
 
-  @SerializedName("payload_id")
+  @SerializedName("payloadId")
   private String payloadId = null;
 
-  @SerializedName("transaction_hash")
+  @SerializedName("transactionHash")
   private String transactionHash = null;
 
   public AnchorTransaction createdAt(Long createdAt) {
@@ -43,10 +42,10 @@ public class AnchorTransaction {
   }
 
    /**
-   * Anchor 트랜잭션 생성 시간
+   * 앵커링 트랜잭션 생성 시간
    * @return createdAt
   **/
-  @ApiModelProperty(example = "1597645410", required = true, value = "Anchor 트랜잭션 생성 시간")
+  @Schema(example = "1599142860", required = true, description = "앵커링 트랜잭션 생성 시간")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -61,10 +60,10 @@ public class AnchorTransaction {
   }
 
    /**
-   * Payload ID
+   * 페이로드 ID
    * @return payloadId
   **/
-  @ApiModelProperty(example = "unique_custom_id", required = true, value = "Payload ID")
+  @Schema(example = "c61cc0d0-5878-450e-bec8-bf73d6184798", required = true, description = "페이로드 ID")
   public String getPayloadId() {
     return payloadId;
   }
@@ -79,10 +78,10 @@ public class AnchorTransaction {
   }
 
    /**
-   * Anchor 트랜잭션의 트랜잭션 해시
+   * 앵커링 트랜잭션의 트랜잭션 해시
    * @return transactionHash
   **/
-  @ApiModelProperty(example = "2.880795681947599E76", required = true, value = "Anchor 트랜잭션의 트랜잭션 해시")
+  @Schema(example = "0x5aeb4ddc5d77b9ce977a87461573da00c0aed0ac59962892ecf58ec09296e79d", required = true, description = "앵커링 트랜잭션의 트랜잭션 해시")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -136,4 +135,3 @@ public class AnchorTransaction {
   }
 
 }
-

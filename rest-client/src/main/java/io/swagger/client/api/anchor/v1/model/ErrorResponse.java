@@ -10,23 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
  * this response contains error description.
  */
-@ApiModel(description = "this response contains error description.")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "this response contains error description.")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;
@@ -40,10 +39,10 @@ public class ErrorResponse {
   }
 
    /**
-   * service code(xxx) + error code (xxxx)
+   * 서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)
    * @return code
   **/
-  @ApiModelProperty(example = "2101", required = true, value = "service code(xxx) + error code (xxxx)")
+  @Schema(example = "2101", required = true, description = "서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)")
   public Long getCode() {
     return code;
   }
@@ -58,10 +57,10 @@ public class ErrorResponse {
   }
 
    /**
-   * error message
+   * 에러 메세지
    * @return message
   **/
-  @ApiModelProperty(example = "all configured accounts have insufficient funds", required = true, value = "error message")
+  @Schema(example = "all configured accounts have insufficient funds", required = true, description = "에러 메세지")
   public String getMessage() {
     return message;
   }
@@ -113,4 +112,3 @@ public class ErrorResponse {
   }
 
 }
-

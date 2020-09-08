@@ -10,23 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
-
 /**
- * Anchor용 Operator 정보
+ * 오퍼레이터 정보
  */
-@ApiModel(description = "Anchor용 Operator 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "오퍼레이터 정보")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class Operator {
   @SerializedName("operator")
   private String operator = null;
@@ -40,10 +34,10 @@ public class Operator {
   }
 
    /**
-   * Operator의 클레이튼 계정주소
+   * 오퍼레이터 클레이튼 계정 주소
    * @return operator
   **/
-  @ApiModelProperty(example = "1.0062918494800645E48", required = true, value = "Operator의 클레이튼 계정주소")
+  @Schema(example = "0x6945B46Add33ABD0576b4D99B4c86Fe28c0Ad026", required = true, description = "오퍼레이터 클레이튼 계정 주소")
   public String getOperator() {
     return operator;
   }
@@ -61,7 +55,7 @@ public class Operator {
    * Get setting
    * @return setting
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public OperatorSetting getSetting() {
     return setting;
   }
@@ -113,4 +107,3 @@ public class Operator {
   }
 
 }
-

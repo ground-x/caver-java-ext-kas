@@ -10,31 +10,29 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api.anchor.v1.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.AnchroBlockPayload;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
  * anchor block request schema
  */
-@ApiModel(description = "anchor block request schema")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-08-27T05:34:32.459Z")
-
-
-
+@Schema(description = "anchor block request schema")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
 public class AnchorBlockRequest {
   @SerializedName("operator")
   private String operator = null;
 
   @SerializedName("payload")
-  private Map<String, Object> payload = new HashMap<String, Object>();
+  private AnchroBlockPayload payload = null;
 
   public AnchorBlockRequest operator(String operator) {
     this.operator = operator;
@@ -45,7 +43,7 @@ public class AnchorBlockRequest {
    * operator 계정 주소
    * @return operator
   **/
-  @ApiModelProperty(required = true, value = "operator 계정 주소")
+  @Schema(required = true, description = "operator 계정 주소")
   public String getOperator() {
     return operator;
   }
@@ -54,26 +52,21 @@ public class AnchorBlockRequest {
     this.operator = operator;
   }
 
-  public AnchorBlockRequest payload(Map<String, Object> payload) {
+  public AnchorBlockRequest payload(AnchroBlockPayload payload) {
     this.payload = payload;
     return this;
   }
 
-  public AnchorBlockRequest putPayloadItem(String key, Object payloadItem) {
-    this.payload.put(key, payloadItem);
-    return this;
-  }
-
    /**
-   * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
+   * Get payload
    * @return payload
   **/
-  @ApiModelProperty(required = true, value = "anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
-  public Map<String, Object> getPayload() {
+  @Schema(required = true, description = "")
+  public AnchroBlockPayload getPayload() {
     return payload;
   }
 
-  public void setPayload(Map<String, Object> payload) {
+  public void setPayload(AnchroBlockPayload payload) {
     this.payload = payload;
   }
 
@@ -120,4 +113,3 @@ public class AnchorBlockRequest {
   }
 
 }
-

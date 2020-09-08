@@ -14,40 +14,15 @@ package io.swagger.client.api.anchor.v1.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 /**
- * 앵커링 상태 응답
+ * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
  */
-@Schema(description = "앵커링 상태 응답")
+@Schema(description = "anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
-public class AnchorBlockStatus {
-  @SerializedName("status")
-  private String status = null;
-
-  public AnchorBlockStatus status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * 앵커링 성공 여부
-   * @return status
-  **/
-  @Schema(example = "succeed", required = true, description = "앵커링 성공 여부")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
+public class AnchroBlockPayload extends HashMap<String, Object> {
 
   @Override
   public boolean equals(Object o) {
@@ -57,22 +32,20 @@ public class AnchorBlockStatus {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AnchorBlockStatus anchorBlockStatus = (AnchorBlockStatus) o;
-    return Objects.equals(this.status, anchorBlockStatus.status);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status);
+    return Objects.hash(super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AnchorBlockStatus {\n");
-    
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("class AnchroBlockPayload {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }
