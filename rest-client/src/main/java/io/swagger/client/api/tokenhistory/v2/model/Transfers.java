@@ -10,17 +10,39 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.Objects;
-
 /**
- * TransferArray
+ * Transfers
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class TransferArray extends ArrayList<AnyOfTransferArrayItems> {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class Transfers {
+  @SerializedName("items")
+  private TransferArray items = null;
+
+  public Transfers items(TransferArray items) {
+    this.items = items;
+    return this;
+  }
+
+   /**
+   * Get items
+   * @return items
+  **/
+  @Schema(required = true, description = "")
+  public TransferArray getItems() {
+    return items;
+  }
+
+  public void setItems(TransferArray items) {
+    this.items = items;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -30,20 +52,22 @@ public class TransferArray extends ArrayList<AnyOfTransferArrayItems> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    Transfers transfers = (Transfers) o;
+    return Objects.equals(this.items, transfers.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(items);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferArray {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("class Transfers {\n");
+    
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }

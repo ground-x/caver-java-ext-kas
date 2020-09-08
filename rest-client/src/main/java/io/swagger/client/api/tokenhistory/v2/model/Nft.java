@@ -10,18 +10,17 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
-
 /**
  * Nft
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
 public class Nft {
   @SerializedName("owner")
   private String owner = null;

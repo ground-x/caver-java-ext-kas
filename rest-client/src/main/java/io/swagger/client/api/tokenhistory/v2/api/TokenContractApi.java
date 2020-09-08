@@ -10,14 +10,14 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.api;
+package io.swagger.client.api.tokenhistory.v2.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.swagger.client.*;
-import io.swagger.client.api.tokenhistory.model.FtContractDetail;
-import io.swagger.client.api.tokenhistory.model.NftContractDetail;
-import io.swagger.client.api.tokenhistory.model.PageableFtContractDetails;
-import io.swagger.client.api.tokenhistory.model.PageableNftContractDetails;
+import io.swagger.client.api.tokenhistory.v2.model.FtContractDetail;
+import io.swagger.client.api.tokenhistory.v2.model.NftContractDetail;
+import io.swagger.client.api.tokenhistory.v2.model.PageableFtContractDetails;
+import io.swagger.client.api.tokenhistory.v2.model.PageableNftContractDetails;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

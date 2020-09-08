@@ -5,11 +5,11 @@ import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
-import io.swagger.client.api.tokenhistory.api.TokenApi;
-import io.swagger.client.api.tokenhistory.api.TokenContractApi;
-import io.swagger.client.api.tokenhistory.api.TokenHistoryApi;
-import io.swagger.client.api.tokenhistory.api.TokenOwnershipApi;
-import io.swagger.client.api.tokenhistory.model.*;
+import io.swagger.client.api.tokenhistory.v2.api.TokenApi;
+import io.swagger.client.api.tokenhistory.v2.api.TokenContractApi;
+import io.swagger.client.api.tokenhistory.v2.api.TokenHistoryApi;
+import io.swagger.client.api.tokenhistory.v2.api.TokenOwnershipApi;
+import io.swagger.client.api.tokenhistory.v2.model.*;
 
 import java.util.Arrays;
 import java.util.List;

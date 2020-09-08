@@ -10,40 +10,17 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
-
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
+package io.swagger.client.api.tokenhistory.v2.model;
 
 import java.util.Objects;
+import java.util.ArrayList;
 
 /**
- * Transfers
+ * TransferArray
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class Transfers {
-  @SerializedName("items")
-  private TransferArray items = null;
-
-  public Transfers items(TransferArray items) {
-    this.items = items;
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @Schema(required = true, description = "")
-  public TransferArray getItems() {
-    return items;
-  }
-
-  public void setItems(TransferArray items) {
-    this.items = items;
-  }
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class TransferArray extends ArrayList<AnyOfTransferArrayItems> {
 
   @Override
   public boolean equals(Object o) {
@@ -53,22 +30,20 @@ public class Transfers {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Transfers transfers = (Transfers) o;
-    return Objects.equals(this.items, transfers.items);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Transfers {\n");
-    
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("class TransferArray {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

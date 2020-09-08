@@ -10,24 +10,23 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
-
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
+package io.swagger.client.api.tokenhistory.v2.model;
 
 import java.util.Objects;
 
+import com.google.gson.annotations.SerializedName;
+import io.swagger.client.model.NftContract;
+import io.swagger.client.model.Transaction;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
- * FtTransfer
+ * NftTransfer
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class FtTransfer implements AnyOfTransferArrayItems {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class NftTransfer implements AnyOfTransferArrayItems {
   @SerializedName("contract")
-  private FtContract contract = null;
-
-  @SerializedName("formattedValue")
-  private String formattedValue = null;
+  private NftContract contract = null;
 
   @SerializedName("from")
   private String from = null;
@@ -41,10 +40,10 @@ public class FtTransfer implements AnyOfTransferArrayItems {
   @SerializedName("transferType")
   private String transferType = null;
 
-  @SerializedName("value")
-  private String value = null;
+  @SerializedName("tokenId")
+  private String tokenId = null;
 
-  public FtTransfer contract(FtContract contract) {
+  public NftTransfer contract(NftContract contract) {
     this.contract = contract;
     return this;
   }
@@ -54,33 +53,15 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * @return contract
   **/
   @Schema(required = true, description = "")
-  public FtContract getContract() {
+  public NftContract getContract() {
     return contract;
   }
 
-  public void setContract(FtContract contract) {
+  public void setContract(NftContract contract) {
     this.contract = contract;
   }
 
-  public FtTransfer formattedValue(String formattedValue) {
-    this.formattedValue = formattedValue;
-    return this;
-  }
-
-   /**
-   * decimal을 적용한 변환값
-   * @return formattedValue
-  **/
-  @Schema(example = "0.000000000000000002", required = true, description = "decimal을 적용한 변환값")
-  public String getFormattedValue() {
-    return formattedValue;
-  }
-
-  public void setFormattedValue(String formattedValue) {
-    this.formattedValue = formattedValue;
-  }
-
-  public FtTransfer from(String from) {
+  public NftTransfer from(String from) {
     this.from = from;
     return this;
   }
@@ -98,7 +79,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.from = from;
   }
 
-  public FtTransfer to(String to) {
+  public NftTransfer to(String to) {
     this.to = to;
     return this;
   }
@@ -116,7 +97,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.to = to;
   }
 
-  public FtTransfer transaction(Transaction transaction) {
+  public NftTransfer transaction(Transaction transaction) {
     this.transaction = transaction;
     return this;
   }
@@ -134,7 +115,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.transaction = transaction;
   }
 
-  public FtTransfer transferType(String transferType) {
+  public NftTransfer transferType(String transferType) {
     this.transferType = transferType;
     return this;
   }
@@ -143,7 +124,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * 거래내역 유형
    * @return transferType
   **/
-  @Schema(example = "ft", required = true, description = "거래내역 유형")
+  @Schema(example = "nft", required = true, description = "거래내역 유형")
   public String getTransferType() {
     return transferType;
   }
@@ -152,22 +133,22 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.transferType = transferType;
   }
 
-  public FtTransfer value(String value) {
-    this.value = value;
+  public NftTransfer tokenId(String tokenId) {
+    this.tokenId = tokenId;
     return this;
   }
 
    /**
-   * 전송한 토큰 개수 (16진수)
-   * @return value
+   * 토큰 식별자 (16진수)
+   * @return tokenId
   **/
-  @Schema(example = "0xa", required = true, description = "전송한 토큰 개수 (16진수)")
-  public String getValue() {
-    return value;
+  @Schema(example = "0x1", required = true, description = "토큰 식별자 (16진수)")
+  public String getTokenId() {
+    return tokenId;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setTokenId(String tokenId) {
+    this.tokenId = tokenId;
   }
 
 
@@ -179,34 +160,32 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FtTransfer ftTransfer = (FtTransfer) o;
-    return Objects.equals(this.contract, ftTransfer.contract) &&
-        Objects.equals(this.formattedValue, ftTransfer.formattedValue) &&
-        Objects.equals(this.from, ftTransfer.from) &&
-        Objects.equals(this.to, ftTransfer.to) &&
-        Objects.equals(this.transaction, ftTransfer.transaction) &&
-        Objects.equals(this.transferType, ftTransfer.transferType) &&
-        Objects.equals(this.value, ftTransfer.value);
+    NftTransfer nftTransfer = (NftTransfer) o;
+    return Objects.equals(this.contract, nftTransfer.contract) &&
+        Objects.equals(this.from, nftTransfer.from) &&
+        Objects.equals(this.to, nftTransfer.to) &&
+        Objects.equals(this.transaction, nftTransfer.transaction) &&
+        Objects.equals(this.transferType, nftTransfer.transferType) &&
+        Objects.equals(this.tokenId, nftTransfer.tokenId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contract, formattedValue, from, to, transaction, transferType, value);
+    return Objects.hash(contract, from, to, transaction, transferType, tokenId);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FtTransfer {\n");
+    sb.append("class NftTransfer {\n");
     
     sb.append("    contract: ").append(toIndentedString(contract)).append("\n");
-    sb.append("    formattedValue: ").append(toIndentedString(formattedValue)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transaction: ").append(toIndentedString(transaction)).append("\n");
     sb.append("    transferType: ").append(toIndentedString(transferType)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -10,18 +10,19 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
-
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
+package io.swagger.client.api.tokenhistory.v2.model;
 
 import java.util.Objects;
+
+import com.google.gson.annotations.SerializedName;
+import io.swagger.client.model.Link;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * FtContractDetail
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
 public class FtContractDetail {
   @SerializedName("address")
   private String address = null;

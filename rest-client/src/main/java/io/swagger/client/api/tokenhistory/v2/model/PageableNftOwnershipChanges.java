@@ -10,33 +10,34 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
+
+import java.util.Objects;
 
 import com.google.gson.annotations.SerializedName;
+import io.swagger.client.model.NftOwnershipChange;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 /**
- * PageableNftContractDetails
+ * PageableNftOwnershipChanges
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class PageableNftContractDetails {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class PageableNftOwnershipChanges {
   @SerializedName("items")
-  private List<NftContractDetail> items = new ArrayList<NftContractDetail>();
+  private List<NftOwnershipChange> items = new ArrayList<NftOwnershipChange>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableNftContractDetails items(List<NftContractDetail> items) {
+  public PageableNftOwnershipChanges items(List<NftOwnershipChange> items) {
     this.items = items;
     return this;
   }
 
-  public PageableNftContractDetails addItemsItem(NftContractDetail itemsItem) {
+  public PageableNftOwnershipChanges addItemsItem(NftOwnershipChange itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -46,15 +47,15 @@ public class PageableNftContractDetails {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<NftContractDetail> getItems() {
+  public List<NftOwnershipChange> getItems() {
     return items;
   }
 
-  public void setItems(List<NftContractDetail> items) {
+  public void setItems(List<NftOwnershipChange> items) {
     this.items = items;
   }
 
-  public PageableNftContractDetails cursor(String cursor) {
+  public PageableNftOwnershipChanges cursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
@@ -81,9 +82,9 @@ public class PageableNftContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableNftContractDetails pageableNftContractDetails = (PageableNftContractDetails) o;
-    return Objects.equals(this.items, pageableNftContractDetails.items) &&
-        Objects.equals(this.cursor, pageableNftContractDetails.cursor);
+    PageableNftOwnershipChanges pageableNftOwnershipChanges = (PageableNftOwnershipChanges) o;
+    return Objects.equals(this.items, pageableNftOwnershipChanges.items) &&
+        Objects.equals(this.cursor, pageableNftOwnershipChanges.cursor);
   }
 
   @Override
@@ -95,7 +96,7 @@ public class PageableNftContractDetails {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableNftContractDetails {\n");
+    sb.append("class PageableNftOwnershipChanges {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");

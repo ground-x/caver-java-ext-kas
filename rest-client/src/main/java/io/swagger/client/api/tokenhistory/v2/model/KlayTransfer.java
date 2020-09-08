@@ -10,19 +10,19 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
+
+import java.util.Objects;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Objects;
-
 /**
- * Transaction
+ * KlayTransfer
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class Transaction {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class KlayTransfer implements AnyOfTransferArrayItems {
   @SerializedName("feePayer")
   private String feePayer = null;
 
@@ -35,11 +35,17 @@ public class Transaction {
   @SerializedName("from")
   private String from = null;
 
-  @SerializedName("timestamp")
-  private Long timestamp = null;
+  @SerializedName("to")
+  private String to = null;
 
   @SerializedName("transactionHash")
   private String transactionHash = null;
+
+  @SerializedName("transactionIndex")
+  private Integer transactionIndex = null;
+
+  @SerializedName("transferType")
+  private String transferType = null;
 
   @SerializedName("typeInt")
   private Integer typeInt = null;
@@ -47,7 +53,7 @@ public class Transaction {
   @SerializedName("value")
   private String value = null;
 
-  public Transaction feePayer(String feePayer) {
+  public KlayTransfer feePayer(String feePayer) {
     this.feePayer = feePayer;
     return this;
   }
@@ -65,7 +71,7 @@ public class Transaction {
     this.feePayer = feePayer;
   }
 
-  public Transaction feeRatio(Integer feeRatio) {
+  public KlayTransfer feeRatio(Integer feeRatio) {
     this.feeRatio = feeRatio;
     return this;
   }
@@ -83,7 +89,7 @@ public class Transaction {
     this.feeRatio = feeRatio;
   }
 
-  public Transaction fee(String fee) {
+  public KlayTransfer fee(String fee) {
     this.fee = fee;
     return this;
   }
@@ -101,16 +107,16 @@ public class Transaction {
     this.fee = fee;
   }
 
-  public Transaction from(String from) {
+  public KlayTransfer from(String from) {
     this.from = from;
     return this;
   }
 
    /**
-   * 트랜잭션을 전송한 사람의 EOA 주소 (20-byte)
+   * 보낸 사람 EOA 주소 (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "트랜잭션을 전송한 사람의 EOA 주소 (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "보낸 사람 EOA 주소 (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -119,34 +125,34 @@ public class Transaction {
     this.from = from;
   }
 
-  public Transaction timestamp(Long timestamp) {
-    this.timestamp = timestamp;
+  public KlayTransfer to(String to) {
+    this.to = to;
     return this;
   }
 
    /**
-   * 트랜잭션 발생 시간 (timestamp)
-   * @return timestamp
+   * 받은 사람 EOA 주소 (20-byte)
+   * @return to
   **/
-  @Schema(example = "1592180992", required = true, description = "트랜잭션 발생 시간 (timestamp)")
-  public Long getTimestamp() {
-    return timestamp;
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "받은 사람 EOA 주소 (20-byte)")
+  public String getTo() {
+    return to;
   }
 
-  public void setTimestamp(Long timestamp) {
-    this.timestamp = timestamp;
+  public void setTo(String to) {
+    this.to = to;
   }
 
-  public Transaction transactionHash(String transactionHash) {
+  public KlayTransfer transactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * 트랜잭션 해시 (32-byte)
+   * 트랜잭션 해시
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "트랜잭션 해시 (32-byte)")
+  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "트랜잭션 해시")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -155,7 +161,43 @@ public class Transaction {
     this.transactionHash = transactionHash;
   }
 
-  public Transaction typeInt(Integer typeInt) {
+  public KlayTransfer transactionIndex(Integer transactionIndex) {
+    this.transactionIndex = transactionIndex;
+    return this;
+  }
+
+   /**
+   * 트랜잭션 인덱스
+   * @return transactionIndex
+  **/
+  @Schema(example = "1", required = true, description = "트랜잭션 인덱스")
+  public Integer getTransactionIndex() {
+    return transactionIndex;
+  }
+
+  public void setTransactionIndex(Integer transactionIndex) {
+    this.transactionIndex = transactionIndex;
+  }
+
+  public KlayTransfer transferType(String transferType) {
+    this.transferType = transferType;
+    return this;
+  }
+
+   /**
+   * 거래내역 유형
+   * @return transferType
+  **/
+  @Schema(example = "klay", required = true, description = "거래내역 유형")
+  public String getTransferType() {
+    return transferType;
+  }
+
+  public void setTransferType(String transferType) {
+    this.transferType = transferType;
+  }
+
+  public KlayTransfer typeInt(Integer typeInt) {
     this.typeInt = typeInt;
     return this;
   }
@@ -164,7 +206,7 @@ public class Transaction {
    * 트랜잭션 유형
    * @return typeInt
   **/
-  @Schema(example = "10", required = true, description = "트랜잭션 유형")
+  @Schema(example = "50", required = true, description = "트랜잭션 유형")
   public Integer getTypeInt() {
     return typeInt;
   }
@@ -173,7 +215,7 @@ public class Transaction {
     this.typeInt = typeInt;
   }
 
-  public Transaction value(String value) {
+  public KlayTransfer value(String value) {
     this.value = value;
     return this;
   }
@@ -200,34 +242,38 @@ public class Transaction {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Transaction transaction = (Transaction) o;
-    return Objects.equals(this.feePayer, transaction.feePayer) &&
-        Objects.equals(this.feeRatio, transaction.feeRatio) &&
-        Objects.equals(this.fee, transaction.fee) &&
-        Objects.equals(this.from, transaction.from) &&
-        Objects.equals(this.timestamp, transaction.timestamp) &&
-        Objects.equals(this.transactionHash, transaction.transactionHash) &&
-        Objects.equals(this.typeInt, transaction.typeInt) &&
-        Objects.equals(this.value, transaction.value);
+    KlayTransfer klayTransfer = (KlayTransfer) o;
+    return Objects.equals(this.feePayer, klayTransfer.feePayer) &&
+        Objects.equals(this.feeRatio, klayTransfer.feeRatio) &&
+        Objects.equals(this.fee, klayTransfer.fee) &&
+        Objects.equals(this.from, klayTransfer.from) &&
+        Objects.equals(this.to, klayTransfer.to) &&
+        Objects.equals(this.transactionHash, klayTransfer.transactionHash) &&
+        Objects.equals(this.transactionIndex, klayTransfer.transactionIndex) &&
+        Objects.equals(this.transferType, klayTransfer.transferType) &&
+        Objects.equals(this.typeInt, klayTransfer.typeInt) &&
+        Objects.equals(this.value, klayTransfer.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, feeRatio, fee, from, timestamp, transactionHash, typeInt, value);
+    return Objects.hash(feePayer, feeRatio, fee, from, to, transactionHash, transactionIndex, transferType, typeInt, value);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Transaction {\n");
+    sb.append("class KlayTransfer {\n");
     
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
     sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    transactionIndex: ").append(toIndentedString(transactionIndex)).append("\n");
+    sb.append("    transferType: ").append(toIndentedString(transferType)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");

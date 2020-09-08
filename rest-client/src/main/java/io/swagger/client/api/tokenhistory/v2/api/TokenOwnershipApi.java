@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.api;
+package io.swagger.client.api.tokenhistory.v2.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.swagger.client.*;
-import io.swagger.client.api.tokenhistory.model.PageableNftOwnershipChanges;
+import io.swagger.client.api.tokenhistory.v2.model.PageableNftOwnershipChanges;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

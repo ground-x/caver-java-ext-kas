@@ -10,21 +10,24 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
+
+import java.util.Objects;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Objects;
-
 /**
- * NftContract
+ * FtContract
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T01:26:53.182Z[GMT]")
-public class NftContract {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+public class FtContract {
   @SerializedName("address")
   private String address = null;
+
+  @SerializedName("decimals")
+  private Long decimals = null;
 
   @SerializedName("name")
   private String name = null;
@@ -35,7 +38,7 @@ public class NftContract {
   @SerializedName("status")
   private String status = null;
 
-  public NftContract address(String address) {
+  public FtContract address(String address) {
     this.address = address;
     return this;
   }
@@ -53,7 +56,25 @@ public class NftContract {
     this.address = address;
   }
 
-  public NftContract name(String name) {
+  public FtContract decimals(Long decimals) {
+    this.decimals = decimals;
+    return this;
+  }
+
+   /**
+   * 토큰 자릿수
+   * @return decimals
+  **/
+  @Schema(example = "8", required = true, description = "토큰 자릿수")
+  public Long getDecimals() {
+    return decimals;
+  }
+
+  public void setDecimals(Long decimals) {
+    this.decimals = decimals;
+  }
+
+  public FtContract name(String name) {
     this.name = name;
     return this;
   }
@@ -62,7 +83,7 @@ public class NftContract {
    * 토큰 이름
    * @return name
   **/
-  @Schema(example = "Test contract", required = true, description = "토큰 이름")
+  @Schema(example = "Test Coin", required = true, description = "토큰 이름")
   public String getName() {
     return name;
   }
@@ -71,7 +92,7 @@ public class NftContract {
     this.name = name;
   }
 
-  public NftContract symbol(String symbol) {
+  public FtContract symbol(String symbol) {
     this.symbol = symbol;
     return this;
   }
@@ -89,7 +110,7 @@ public class NftContract {
     this.symbol = symbol;
   }
 
-  public NftContract status(String status) {
+  public FtContract status(String status) {
     this.status = status;
     return this;
   }
@@ -98,7 +119,7 @@ public class NftContract {
    * 컨트랙트 라벨링 상태 (completed, processing, failed, cancelled)
    * @return status
   **/
-  @Schema(example = "completed", description = "컨트랙트 라벨링 상태 (completed, processing, failed, cancelled)")
+  @Schema(example = "completed", required = true, description = "컨트랙트 라벨링 상태 (completed, processing, failed, cancelled)")
   public String getStatus() {
     return status;
   }
@@ -116,25 +137,27 @@ public class NftContract {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NftContract nftContract = (NftContract) o;
-    return Objects.equals(this.address, nftContract.address) &&
-        Objects.equals(this.name, nftContract.name) &&
-        Objects.equals(this.symbol, nftContract.symbol) &&
-        Objects.equals(this.status, nftContract.status);
+    FtContract ftContract = (FtContract) o;
+    return Objects.equals(this.address, ftContract.address) &&
+        Objects.equals(this.decimals, ftContract.decimals) &&
+        Objects.equals(this.name, ftContract.name) &&
+        Objects.equals(this.symbol, ftContract.symbol) &&
+        Objects.equals(this.status, ftContract.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, name, symbol, status);
+    return Objects.hash(address, decimals, name, symbol, status);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NftContract {\n");
+    sb.append("class FtContract {\n");
     
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    decimals: ").append(toIndentedString(decimals)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");

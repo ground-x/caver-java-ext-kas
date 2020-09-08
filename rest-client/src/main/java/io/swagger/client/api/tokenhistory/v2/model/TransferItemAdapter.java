@@ -1,4 +1,4 @@
-package io.swagger.client.api.tokenhistory.model;
+package io.swagger.client.api.tokenhistory.v2.model;
 
 import com.google.gson.*;
 

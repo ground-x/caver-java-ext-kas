@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.api.tokenhistory.api;
+package io.swagger.client.api.tokenhistory.v2.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.swagger.client.*;
-import io.swagger.client.api.tokenhistory.model.Nft;
-import io.swagger.client.api.tokenhistory.model.PageableNfts;
+import io.swagger.client.api.tokenhistory.v2.model.Nft;
+import io.swagger.client.api.tokenhistory.v2.model.PageableNfts;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
