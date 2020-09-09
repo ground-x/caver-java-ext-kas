@@ -12,11 +12,10 @@
 
 package io.swagger.client.api.tokenhistory.v2.model;
 
-import java.util.Objects;
-
 import com.google.gson.annotations.SerializedName;
-import io.swagger.client.model.TransferArray;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.Objects;
 
 /**
  * PageableTransfers

@@ -5,7 +5,6 @@ import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiException;
 import io.swagger.client.JSON;
-import io.swagger.client.api.tokenhistory.model.*;
 import io.swagger.client.api.tokenhistory.v2.model.*;
 import org.junit.BeforeClass;
 import org.junit.Test;

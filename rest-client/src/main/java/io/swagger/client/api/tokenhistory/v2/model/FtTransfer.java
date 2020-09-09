@@ -12,12 +12,10 @@
 
 package io.swagger.client.api.tokenhistory.v2.model;
 
-import java.util.Objects;
-
 import com.google.gson.annotations.SerializedName;
-import io.swagger.client.model.FtContract;
-import io.swagger.client.model.Transaction;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.Objects;
 
 /**
  * FtTransfer
