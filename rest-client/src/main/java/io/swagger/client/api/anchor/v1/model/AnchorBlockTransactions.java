@@ -12,29 +12,23 @@
 
 package io.swagger.client.api.anchor.v1.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.AnchroBlockPayload;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+
+import java.util.Objects;
 /**
  * 앵커링 트랜잭션 정보
  */
 @Schema(description = "앵커링 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
 public class AnchorBlockTransactions {
   @SerializedName("payload")
-  private AnchroBlockPayload payload = null;
+  private AnchorBlockPayload payload = null;
 
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  public AnchorBlockTransactions payload(AnchroBlockPayload payload) {
+  public AnchorBlockTransactions payload(AnchorBlockPayload payload) {
     this.payload = payload;
     return this;
   }
@@ -44,11 +38,11 @@ public class AnchorBlockTransactions {
    * @return payload
   **/
   @Schema(required = true, description = "")
-  public AnchroBlockPayload getPayload() {
+  public AnchorBlockPayload getPayload() {
     return payload;
   }
 
-  public void setPayload(AnchroBlockPayload payload) {
+  public void setPayload(AnchorBlockPayload payload) {
     this.payload = payload;
   }
 

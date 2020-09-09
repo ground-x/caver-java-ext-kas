@@ -12,17 +12,79 @@
 
 package io.swagger.client.api.anchor.v1.model;
 
-import java.util.Objects;
-import java.util.Arrays;
+import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.Objects;
 /**
- * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
+ * Anchor Payload 데이터
  */
-@Schema(description = "anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
-public class AnchroBlockPayload extends HashMap<String, Object> {
+@Schema(description = "Anchor Payload 데이터")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T00:57:55.859Z[GMT]")
+public class AnchroBlockPayload {
+  @SerializedName("custom_field1")
+  private String customField1 = null;
+
+  @SerializedName("custom_field2")
+  private String customField2 = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  public AnchroBlockPayload customField1(String customField1) {
+    this.customField1 = customField1;
+    return this;
+  }
+
+   /**
+   * Get customField1
+   * @return customField1
+  **/
+  @Schema(example = "field1", description = "")
+  public String getCustomField1() {
+    return customField1;
+  }
+
+  public void setCustomField1(String customField1) {
+    this.customField1 = customField1;
+  }
+
+  public AnchroBlockPayload customField2(String customField2) {
+    this.customField2 = customField2;
+    return this;
+  }
+
+   /**
+   * Get customField2
+   * @return customField2
+  **/
+  @Schema(example = "field2", description = "")
+  public String getCustomField2() {
+    return customField2;
+  }
+
+  public void setCustomField2(String customField2) {
+    this.customField2 = customField2;
+  }
+
+  public AnchroBlockPayload id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * 페이로드 ID
+   * @return id
+  **/
+  @Schema(example = "c61cc0d0-5878-450e-bec8-bf73d6184798", required = true, description = "페이로드 ID")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -32,12 +94,15 @@ public class AnchroBlockPayload extends HashMap<String, Object> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    AnchroBlockPayload anchroBlockPayload = (AnchroBlockPayload) o;
+    return Objects.equals(this.customField1, anchroBlockPayload.customField1) &&
+        Objects.equals(this.customField2, anchroBlockPayload.customField2) &&
+        Objects.equals(this.id, anchroBlockPayload.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(customField1, customField2, id);
   }
 
 
@@ -45,7 +110,10 @@ public class AnchroBlockPayload extends HashMap<String, Object> {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AnchroBlockPayload {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    
+    sb.append("    customField1: ").append(toIndentedString(customField1)).append("\n");
+    sb.append("    customField2: ").append(toIndentedString(customField2)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

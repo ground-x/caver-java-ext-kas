@@ -464,7 +464,7 @@ public class DataAnchoringTransactionApi {
         return call;
     }
     /**
-     * Build call for retirieveAnchorBlock
+     * Build call for retrieveAnchorBlock
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param size 검색할 계정의 최대 사이즈 (optional)
@@ -476,7 +476,7 @@ public class DataAnchoringTransactionApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call retirieveAnchorBlockCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call retrieveAnchorBlockCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -529,17 +529,17 @@ public class DataAnchoringTransactionApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call retirieveAnchorBlockValidateBeforeCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call retrieveAnchorBlockValidateBeforeCall(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling retirieveAnchorBlock(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveAnchorBlock(Async)");
         }
         // verify the required parameter 'operatorId' is set
         if (operatorId == null) {
-            throw new ApiException("Missing the required parameter 'operatorId' when calling retirieveAnchorBlock(Async)");
+            throw new ApiException("Missing the required parameter 'operatorId' when calling retrieveAnchorBlock(Async)");
         }
         
-        com.squareup.okhttp.Call call = retirieveAnchorBlockCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retrieveAnchorBlockCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
         return call;
 
         
@@ -560,8 +560,8 @@ public class DataAnchoringTransactionApi {
      * @return AnchorTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AnchorTransactions retirieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
-        ApiResponse<AnchorTransactions> resp = retirieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp);
+    public AnchorTransactions retrieveAnchorBlock(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
+        ApiResponse<AnchorTransactions> resp = retrieveAnchorBlockWithHttpInfo(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp);
         return resp.getData();
     }
 
@@ -577,8 +577,8 @@ public class DataAnchoringTransactionApi {
      * @return ApiResponse&lt;AnchorTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AnchorTransactions> retirieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
-        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, null, null);
+    public ApiResponse<AnchorTransactions> retrieveAnchorBlockWithHttpInfo(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
+        com.squareup.okhttp.Call call = retrieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, null, null);
         Type localVarReturnType = new TypeToken<AnchorTransactions>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -596,7 +596,7 @@ public class DataAnchoringTransactionApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retirieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ApiCallback<AnchorTransactions> callback) throws ApiException {
+    public com.squareup.okhttp.Call retrieveAnchorBlockAsync(String xChainId, String operatorId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ApiCallback<AnchorTransactions> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -617,7 +617,7 @@ public class DataAnchoringTransactionApi {
             };
         }
 
-        com.squareup.okhttp.Call call = retirieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retrieveAnchorBlockValidateBeforeCall(xChainId, operatorId, size, cursor, fromTimestamp, toTimestamp, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<AnchorTransactions>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

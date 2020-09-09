@@ -11,13 +11,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class AnchorAPITest {
     @Rule
@@ -48,13 +48,12 @@ public class AnchorAPITest {
     public void sendAnchoringDataTest() throws ApiException {
         Random random = new Random();
 
-        Map payload = new HashMap();
+        AnchorBlockPayload payload = new AnchorBlockPayload();
         payload.put("id", Integer.toString(random.nextInt()));
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
-
-        assertEquals(0, res.getCode().intValue());
+        AnchorBlockStatus res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
+        assertNotNull(res);
     }
 
     @Test
@@ -62,10 +61,10 @@ public class AnchorAPITest {
         expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Payload must have an 'id' of String type.");
 
-        Map payload = new HashMap();
+        AnchorBlockPayload payload = new AnchorBlockPayload();
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
+        AnchorBlockStatus res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
     }
 
     @Test
@@ -76,39 +75,37 @@ public class AnchorAPITest {
         Random random = new Random();
         String id = Integer.toString(random.nextInt());
 
-        Map payload = new HashMap();
+        AnchorBlockPayload payload = new AnchorBlockPayload();
         payload.put("id", 1000);
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockResponse res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
+        AnchorBlockStatus res = kas.getAnchorAPI().sendAnchoringData(operatorID, payload);
     }
 
     @Test
     public void getOperatorsTest() throws ApiException {
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators();
-        assertEquals((long)0, operatorList.getCode().longValue());
+        Operators res = kas.getAnchorAPI().getOperators();
+        assertNotNull(res);
     }
 
     @Test
     public void getOperatorsWithSizeTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setSize(3);
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        anchorQueryParams.setSize((long)3);
 
-        assertEquals(0, operatorList.getCode().intValue());
-//        assertEquals(3, operatorList.getResult().getOperators().size());
+        Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
     public void getOperatorsWithCursorTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setSize(3);
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        anchorQueryParams.setSize((long)3);
+        Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
 
-        anchorQueryParams.setCursor(operatorList.getResult().getCursor());
-        operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
-
-        assertEquals(0, operatorList.getCode().intValue());
+        anchorQueryParams.setCursor(res.getCursor());
+        res = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
@@ -116,8 +113,8 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-25");
 
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
-        assertEquals(0, operatorList.getCode().intValue());
+        Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
@@ -125,8 +122,8 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setToDate("2020-08-25");
 
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
-        assertEquals(0, operatorList.getCode().intValue());
+        Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
@@ -135,64 +132,61 @@ public class AnchorAPITest {
         anchorQueryParams.setFromDate("2020-08-17");
         anchorQueryParams.setToDate("2020-08-25");
 
-        RetrieveOperatorsResponse operatorList = kas.getAnchorAPI().getOperators(anchorQueryParams);
-        assertEquals(0, operatorList.getCode().intValue());
+        Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
     public void getOperatorTest() throws ApiException {
-        GetOperatorResponse operator = kas.getAnchorAPI().getOperator(operatorID);
-        assertEquals((long)0, operator.getCode().longValue());
+        Operator res = kas.getAnchorAPI().getOperator(operatorID);
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsTest() throws ApiException {
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID);
-        assertEquals(0, txList.getCode().longValue());
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID);
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsWithSize() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setSize(3);
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        anchorQueryParams.setSize((long)3);
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
-        assertEquals(0, txList.getCode().intValue());
-//        assertEquals(3, txList.getResult().getTxs().size());
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsWithCursor() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setSize(3);
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        anchorQueryParams.setSize((long)3);
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
-        String cursor = txList.getResult().getCursor();
-        anchorQueryParams.setSize(3);
+        String cursor = res.getCursor();
+        anchorQueryParams.setSize((long)3);
         anchorQueryParams.setCursor(cursor);
 
-        txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
-        assertEquals(0, txList.getCode().intValue());
+        res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
-        assertEquals(0, txList.getCode().intValue());
-//        assertEquals(3, txList.getResult().getTxs().size());
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsWithToDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setToDate("2020-08-27 15:00:00");
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
-        assertEquals(0, txList.getCode().intValue());
-//        assertEquals(3, txList.getResult().getTxs().size());
+        assertNotNull(res);
     }
 
     @Test
@@ -200,48 +194,47 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromDate("2020-08-20 15:00:00");
         anchorQueryParams.setToDate("2020-08-25 18:00:00");
-        RetrieveAnchorBlockResponse txList = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
+        AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
-        assertEquals(0, txList.getCode().intValue());
-//        assertEquals(4, txList.getResult().getTxs().size());
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionByTxHash() throws ApiException {
         String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
-        GetAnchorBlockByTxResponse txbytxHash = kas.getAnchorAPI().getAnchoringTransactionByTxHash(operatorID, txHash);
+        AnchorBlockTransactions res = kas.getAnchorAPI().getAnchoringTransactionByTxHash(operatorID, txHash);
 
-        assertEquals(0, txbytxHash.getCode().longValue());
+        assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionByPayloadId() throws ApiException {
         String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
-        GetAnchorBlockByPayloadIDResponse res = kas.getAnchorAPI().getAnchoringTransactionByPayloadId(operatorID, payloadId);
+        AnchorBlockTransactions res = kas.getAnchorAPI().getAnchoringTransactionByPayloadId(operatorID, payloadId);
 
-        assertEquals(0, res.getCode().longValue());
+        assertNotNull(res);
     }
 
     @Test
     public void sendAnchoringDataAsyncTest() {
         Random random = new Random();
 
-        Map payload = new HashMap();
+        AnchorBlockPayload payload = new AnchorBlockPayload();
         payload.put("id", Integer.toString(random.nextInt()));
         payload.put("field", "1");
         payload.put("filed2", 4);
 
-        CompletableFuture<AnchorBlockResponse> future = new CompletableFuture();
+        CompletableFuture<AnchorBlockStatus> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchorAPI().sendAnchoringDataAsync(operatorID, payload, new ApiCallback<AnchorBlockResponse>() {
+            Call res = kas.getAnchorAPI().sendAnchoringDataAsync(operatorID, payload, new ApiCallback<AnchorBlockStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(AnchorBlockResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorBlockStatus result, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.complete(result);
                 }
 
@@ -259,7 +252,7 @@ public class AnchorAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, future.get().getCode().intValue());
+                assertNotNull(future.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,17 +262,17 @@ public class AnchorAPITest {
 
     @Test
     public void getOperatorsAsyncTest() {
-        CompletableFuture<RetrieveOperatorsResponse> future = new CompletableFuture();
+        CompletableFuture<Operators> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchorAPI().getOperatorsAsync(new ApiCallback<RetrieveOperatorsResponse>() {
+            Call res = kas.getAnchorAPI().getOperatorsAsync(new ApiCallback<Operators>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(RetrieveOperatorsResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(Operators result, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.complete(result);
                 }
 
@@ -297,7 +290,7 @@ public class AnchorAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, future.get().getCode().intValue());
+                assertNotNull(future.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -307,17 +300,17 @@ public class AnchorAPITest {
 
     @Test
     public void getOperatorAsyncTest() {
-        CompletableFuture<GetOperatorResponse> future = new CompletableFuture();
+        CompletableFuture<Operator> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchorAPI().getOperatorAsync(operatorID, new ApiCallback<GetOperatorResponse>() {
+            Call res = kas.getAnchorAPI().getOperatorAsync(operatorID, new ApiCallback<Operator>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(GetOperatorResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(Operator result, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.complete(result);
                 }
 
@@ -335,7 +328,7 @@ public class AnchorAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, future.get().getCode().intValue());
+                assertNotNull(future.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -345,17 +338,17 @@ public class AnchorAPITest {
 
     @Test
     public void getAnchoringTransactionsAsyncTest() {
-        CompletableFuture<RetrieveAnchorBlockResponse> completableFuture = new CompletableFuture();
+        CompletableFuture<AnchorTransactions> completableFuture = new CompletableFuture();
 
         try {
-            kas.getAnchorAPI().getAnchoringTransactionsAsync(operatorID, new ApiCallback<RetrieveAnchorBlockResponse>() {
+            kas.getAnchorAPI().getAnchoringTransactionsAsync(operatorID, new ApiCallback<AnchorTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(RetrieveAnchorBlockResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorTransactions result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 
@@ -373,7 +366,7 @@ public class AnchorAPITest {
             if(completableFuture.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, completableFuture.get().getCode().intValue());
+                assertNotNull(completableFuture.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -384,16 +377,16 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByTxHashAsyncTest() {
         String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
-        CompletableFuture<GetAnchorBlockByTxResponse> completableFuture = new CompletableFuture();
+        CompletableFuture<AnchorBlockTransactions> completableFuture = new CompletableFuture();
         try {
-            kas.getAnchorAPI().getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<GetAnchorBlockByTxResponse>() {
+            kas.getAnchorAPI().getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<AnchorBlockTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(GetAnchorBlockByTxResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorBlockTransactions result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 
@@ -411,7 +404,7 @@ public class AnchorAPITest {
             if(completableFuture.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, completableFuture.get().getCode().intValue());
+                assertNotNull(completableFuture.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -422,18 +415,18 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByPayloadIdAsyncTest() {
         String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
-        CompletableFuture<GetAnchorBlockByPayloadIDResponse> completableFuture = new CompletableFuture<>();
+        CompletableFuture<AnchorBlockTransactions> completableFuture = new CompletableFuture<>();
 
         try {
 
-            kas.getAnchorAPI().getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<GetAnchorBlockByPayloadIDResponse>() {
+            kas.getAnchorAPI().getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<AnchorBlockTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(GetAnchorBlockByPayloadIDResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorBlockTransactions result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 
@@ -451,7 +444,7 @@ public class AnchorAPITest {
             if(completableFuture.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertEquals(0, completableFuture.get().getCode().intValue());
+                assertNotNull(completableFuture.get());
             }
         } catch (Exception e) {
             e.printStackTrace();

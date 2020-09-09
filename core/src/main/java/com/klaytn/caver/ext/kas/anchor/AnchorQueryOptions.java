@@ -10,17 +10,17 @@ public class AnchorQueryOptions {
     /**
      * Maximum number of data to query.
      */
-    long size;
+    Long size;
 
     /**
      * The starting date of the data to be queried.
      */
-    String fromDate;
+    Long fromDate;
 
     /**
      * The ending date of the data to be queried.
      */
-    String toDate;
+    Long toDate;
 
     /**
      * Information of the last retrieved cursor.
@@ -51,7 +51,7 @@ public class AnchorQueryOptions {
      * Getter function for size.
      * @return long
      */
-    public long getSize() {
+    public Long getSize() {
         return size;
     }
 
@@ -59,7 +59,7 @@ public class AnchorQueryOptions {
      * Setter function for size.
      * @param size Maximum number of data to query.
      */
-    public void setSize(long size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 
@@ -67,7 +67,7 @@ public class AnchorQueryOptions {
      * Getter function for fromDate.
      * @return String
      */
-    public String getFromDate() {
+    public Long getFromDate() {
         return fromDate;
     }
 
@@ -76,14 +76,23 @@ public class AnchorQueryOptions {
      * @param fromDate The starting date of the data to be queried.
      */
     public void setFromDate(String fromDate) {
-        this.fromDate = KASUtils.convertDateToTimestamp(fromDate);
+        long date = Long.parseLong(KASUtils.convertDateToTimestamp(fromDate));
+        setFromDate(date);
+    }
+
+    /**
+     * Setter function for fromDate
+     * @param fromDate The starting date of the data to be queried.
+     */
+    public void setFromDate(Long fromDate) {
+        this.fromDate = fromDate;
     }
 
     /**
      * Getter function for toDate
      * @return String
      */
-    public String getToDate() {
+    public Long getToDate() {
         return toDate;
     }
 
@@ -92,7 +101,16 @@ public class AnchorQueryOptions {
      * @param toDate
      */
     public void setToDate(String toDate) {
-        this.toDate = KASUtils.convertDateToTimestamp(toDate);
+        long date = Long.parseLong(KASUtils.convertDateToTimestamp(toDate));
+        setToDate(date);
+    }
+
+    /**
+     * Setter function for toDate
+     * @param toDate
+     */
+    public void setToDate(Long toDate) {
+        this.toDate = toDate;
     }
 
     /**

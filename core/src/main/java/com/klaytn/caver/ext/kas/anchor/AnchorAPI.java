@@ -51,10 +51,11 @@ public class AnchorAPI {
      * @return AnchorBlockResponse
      * @throws ApiException
      */
-    public AnchorBlockResponse sendAnchoringData(String operatorId, Map payload) throws ApiException {
+    public AnchorBlockStatus sendAnchoringData(String operatorId, AnchorBlockPayload payload) throws ApiException {
         checkPayload(payload);
 
         AnchorBlockRequest anchorRequest = new AnchorBlockRequest();
+
         anchorRequest.setOperator(operatorId);
         anchorRequest.setPayload(payload);
 
@@ -70,7 +71,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call sendAnchoringDataAsync(String operatorId, Map payload, ApiCallback<AnchorBlockResponse> callback) throws ApiException {
+    public Call sendAnchoringDataAsync(String operatorId, AnchorBlockPayload payload, ApiCallback<AnchorBlockStatus> callback) throws ApiException {
         checkPayload(payload);
 
         AnchorBlockRequest anchorRequest = new AnchorBlockRequest();
@@ -87,7 +88,7 @@ public class AnchorAPI {
      * @return RetrieveAnchorBlockResponse
      * @throws ApiException
      */
-    public RetrieveAnchorBlockResponse getAnchoringTransactions(String operatorId) throws ApiException {
+    public AnchorTransactions getAnchoringTransactions(String operatorId) throws ApiException {
         AnchorQueryOptions params = new AnchorQueryOptions();
         return getAnchoringTransactions(operatorId, params);
     }
@@ -100,8 +101,8 @@ public class AnchorAPI {
      * @return RetrieveAnchorBlockResponse
      * @throws ApiException
      */
-    public RetrieveAnchorBlockResponse getAnchoringTransactions(String operatorId, AnchorQueryOptions queryParams) throws ApiException {
-        return dataAnchoringTransactionApi.retirieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate());
+    public AnchorTransactions getAnchoringTransactions(String operatorId, AnchorQueryOptions queryParams) throws ApiException {
+        return dataAnchoringTransactionApi.retrieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate());
     }
 
     /**
@@ -112,7 +113,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionsAsync(String operatorId, ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
+    public Call getAnchoringTransactionsAsync(String operatorId, ApiCallback<AnchorTransactions> callback) throws ApiException {
         AnchorQueryOptions params = new AnchorQueryOptions();
         return getAnchoringTransactionsAsync(operatorId, params, callback);
     }
@@ -126,8 +127,8 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryOptions queryParams, ApiCallback<RetrieveAnchorBlockResponse> callback) throws ApiException {
-        return dataAnchoringTransactionApi.retirieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate(), callback);
+    public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryOptions queryParams, ApiCallback<AnchorTransactions> callback) throws ApiException {
+        return dataAnchoringTransactionApi.retrieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate(), callback);
     }
 
     /**
@@ -138,7 +139,7 @@ public class AnchorAPI {
      * @return GetAnchorBlockByTxResponse
      * @throws ApiException
      */
-    public GetAnchorBlockByTxResponse getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
+    public AnchorBlockTransactions getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByTx(getChainId(), operatorId, txHash);
     }
 
@@ -151,7 +152,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionByTxHashAsync(String operatorId, String txHash, ApiCallback<GetAnchorBlockByTxResponse> callback) throws ApiException {
+    public Call getAnchoringTransactionByTxHashAsync(String operatorId, String txHash, ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByTxAsync(getChainId(), operatorId, txHash, callback);
     }
 
@@ -163,7 +164,7 @@ public class AnchorAPI {
      * @return GetAnchorBlockByPayloadIDResponse
      * @throws ApiException
      */
-    public GetAnchorBlockByPayloadIDResponse getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
+    public AnchorBlockTransactions getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByPayloadID(getChainId(), operatorId, payloadId);
     }
 
@@ -176,7 +177,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionByPayloadIdAsync(String operatorId, String payloadId, ApiCallback<GetAnchorBlockByPayloadIDResponse> callback) throws ApiException {
+    public Call getAnchoringTransactionByPayloadIdAsync(String operatorId, String payloadId, ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByPayloadIDAsync(getChainId(), operatorId, payloadId, callback);
     }
 
@@ -186,7 +187,7 @@ public class AnchorAPI {
      * @return RetrieveOperatorsResponse
      * @throws ApiException
      */
-    public RetrieveOperatorsResponse getOperators() throws ApiException {
+    public Operators getOperators() throws ApiException {
         AnchorQueryOptions queryParams = new AnchorQueryOptions();
         return getOperators(queryParams);
     }
@@ -198,7 +199,7 @@ public class AnchorAPI {
      * @return RetrieveOperatorsResponse
      * @throws ApiException
      */
-    public RetrieveOperatorsResponse getOperators(AnchorQueryOptions queryParams) throws ApiException {
+    public Operators getOperators(AnchorQueryOptions queryParams) throws ApiException {
         return getOperatorApi().retrieveOperators(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.toDate);
     }
 
@@ -209,7 +210,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getOperatorsAsync(ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
+    public Call getOperatorsAsync(ApiCallback<Operators> callback) throws ApiException {
         AnchorQueryOptions queryParams = new AnchorQueryOptions();
         return getOperatorsAsync(queryParams, callback);
     }
@@ -222,7 +223,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getOperatorsAsync(AnchorQueryOptions queryParams, ApiCallback<RetrieveOperatorsResponse> callback) throws ApiException {
+    public Call getOperatorsAsync(AnchorQueryOptions queryParams, ApiCallback<Operators> callback) throws ApiException {
         return getOperatorApi().retrieveOperatorsAsync(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.getToDate(), callback);
     }
 
@@ -233,7 +234,7 @@ public class AnchorAPI {
      * @return GetOperatorResponse
      * @throws ApiException
      */
-    public GetOperatorResponse getOperator(String operatorId) throws ApiException {
+    public Operator getOperator(String operatorId) throws ApiException {
         return getOperatorApi().getOperator(chainId, operatorId);
     }
 
@@ -245,7 +246,7 @@ public class AnchorAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call getOperatorAsync(String operatorId, ApiCallback<GetOperatorResponse> callback) throws ApiException {
+    public Call getOperatorAsync(String operatorId, ApiCallback<Operator> callback) throws ApiException {
         return getOperatorApi().getOperatorAsync(chainId, operatorId, callback);
     }
 

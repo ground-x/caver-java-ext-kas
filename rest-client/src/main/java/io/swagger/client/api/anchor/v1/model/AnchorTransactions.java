@@ -12,23 +12,17 @@
 
 package io.swagger.client.api.anchor.v1.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.AnchorTransaction;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 /**
  * 앵커링 트랜잭션 목록
  */
 @Schema(description = "앵커링 트랜잭션 목록")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
 public class AnchorTransactions {
   @SerializedName("cursor")
   private String cursor = null;

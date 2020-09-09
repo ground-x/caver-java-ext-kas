@@ -10,13 +10,12 @@
  * Do not edit the class manually.
  */
 
-package io.swagger.client.model;
+package io.swagger.client.api.anchor.v1.model;
 
-import java.util.Objects;
-import java.util.Arrays;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 /**
  * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
  */
@@ -25,7 +24,7 @@ import java.util.Map;
 public class AnchorBlockPayload extends HashMap<String, Object> {
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -54,7 +53,7 @@ public class AnchorBlockPayload extends HashMap<String, Object> {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

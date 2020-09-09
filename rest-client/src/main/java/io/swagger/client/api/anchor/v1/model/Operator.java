@@ -20,7 +20,7 @@ import java.util.Objects;
  * 오퍼레이터 정보
  */
 @Schema(description = "오퍼레이터 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
 public class Operator {
   @SerializedName("operator")
   private String operator = null;

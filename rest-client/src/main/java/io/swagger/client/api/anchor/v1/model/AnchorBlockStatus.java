@@ -25,7 +25,7 @@ import java.io.IOException;
  * 앵커링 상태 응답
  */
 @Schema(description = "앵커링 상태 응답")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:23:51.989Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
 public class AnchorBlockStatus {
   @SerializedName("status")
   private String status = null;
