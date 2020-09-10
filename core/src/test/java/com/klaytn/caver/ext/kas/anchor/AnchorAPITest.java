@@ -111,7 +111,7 @@ public class AnchorAPITest {
     @Test
     public void getOperatorsWithFromDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setFromDate("2020-08-25");
+        anchorQueryParams.setFromTimestamp("2020-08-25");
 
         Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
         assertNotNull(res);
@@ -120,7 +120,7 @@ public class AnchorAPITest {
     @Test
     public void getOperatorsWithToDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToDate("2020-08-25");
+        anchorQueryParams.setToTimestamp("2020-08-25");
 
         Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
         assertNotNull(res);
@@ -129,8 +129,8 @@ public class AnchorAPITest {
     @Test
     public void getOperatorsWithDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setFromDate("2020-08-17");
-        anchorQueryParams.setToDate("2020-08-25");
+        anchorQueryParams.setFromTimestamp("2020-08-17");
+        anchorQueryParams.setToTimestamp("2020-08-25");
 
         Operators res = kas.getAnchorAPI().getOperators(anchorQueryParams);
         assertNotNull(res);
@@ -174,7 +174,7 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setFromDate("2020-08-20 15:00:00");
+        anchorQueryParams.setFromTimestamp("2020-08-20 15:00:00");
         AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertNotNull(res);
@@ -183,7 +183,7 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithToDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToDate("2020-08-27 15:00:00");
+        anchorQueryParams.setToTimestamp("2020-08-27 15:00:00");
         AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertNotNull(res);
@@ -192,8 +192,8 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setFromDate("2020-08-20 15:00:00");
-        anchorQueryParams.setToDate("2020-08-25 18:00:00");
+        anchorQueryParams.setFromTimestamp("2020-08-20 15:00:00");
+        anchorQueryParams.setToTimestamp("2020-08-25 18:00:00");
         AnchorTransactions res = kas.getAnchorAPI().getAnchoringTransactions(operatorID, anchorQueryParams);
 
         assertNotNull(res);

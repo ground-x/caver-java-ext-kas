@@ -15,12 +15,12 @@ public class AnchorQueryOptions {
     /**
      * The starting date of the data to be queried.
      */
-    Long fromDate;
+    Long fromTimestamp;
 
     /**
      * The ending date of the data to be queried.
      */
-    Long toDate;
+    Long toTimestamp;
 
     /**
      * Information of the last retrieved cursor.
@@ -36,14 +36,14 @@ public class AnchorQueryOptions {
     /**
      * Creates an AnchorQueryOptions instance.
      * @param size Maximum number of data to query.
-     * @param fromDate The starting date of the data to be queried.
-     * @param toDate The ending date of the data to be queried.
+     * @param fromTimestamp The starting date of the data to be queried.
+     * @param toTimestamp The ending date of the data to be queried.
      * @param cursor Information of the last retrieved cursor.
      */
-    public AnchorQueryOptions(long size, String fromDate, String toDate, String cursor) {
+    public AnchorQueryOptions(long size, String fromTimestamp, String toTimestamp, String cursor) {
         this.size = size;
-        setFromDate(fromDate);
-        setToDate(toDate);
+        setFromTimestamp(fromTimestamp);
+        setToTimestamp(toTimestamp);
         this.cursor = cursor;
     }
 
@@ -67,16 +67,16 @@ public class AnchorQueryOptions {
      * Getter function for fromDate.
      * @return String
      */
-    public Long getFromDate() {
-        return fromDate;
+    public Long getFromTimestamp() {
+        return fromTimestamp;
     }
 
     /**
      * Setter function for fromDate
-     * @param fromDate The starting date of the data to be queried.
+     * @param fromTimestamp The starting date of the data to be queried.
      */
-    public void setFromDate(String fromDate) {
-        long date = Long.parseLong(KASUtils.convertDateToTimestamp(fromDate));
+    public void setFromTimestamp(String fromTimestamp) {
+        long date = Long.parseLong(KASUtils.convertDateToTimestamp(fromTimestamp));
         setFromDate(date);
     }
 
@@ -85,23 +85,23 @@ public class AnchorQueryOptions {
      * @param fromDate The starting date of the data to be queried.
      */
     public void setFromDate(Long fromDate) {
-        this.fromDate = fromDate;
+        this.fromTimestamp = fromDate;
     }
 
     /**
      * Getter function for toDate
      * @return String
      */
-    public Long getToDate() {
-        return toDate;
+    public Long getToTimestamp() {
+        return toTimestamp;
     }
 
     /**
      * Setter function for toDate
-     * @param toDate
+     * @param toTimestamp
      */
-    public void setToDate(String toDate) {
-        long date = Long.parseLong(KASUtils.convertDateToTimestamp(toDate));
+    public void setToTimestamp(String toTimestamp) {
+        long date = Long.parseLong(KASUtils.convertDateToTimestamp(toTimestamp));
         setToDate(date);
     }
 
@@ -110,7 +110,7 @@ public class AnchorQueryOptions {
      * @param toDate
      */
     public void setToDate(Long toDate) {
-        this.toDate = toDate;
+        this.toTimestamp = toDate;
     }
 
     /**

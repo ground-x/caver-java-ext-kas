@@ -102,7 +102,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public AnchorTransactions getAnchoringTransactions(String operatorId, AnchorQueryOptions queryParams) throws ApiException {
-        return dataAnchoringTransactionApi.retrieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate());
+        return dataAnchoringTransactionApi.retrieveAnchorBlock(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromTimestamp(), queryParams.getToTimestamp());
     }
 
     /**
@@ -128,7 +128,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public Call getAnchoringTransactionsAsync(String operatorId, AnchorQueryOptions queryParams, ApiCallback<AnchorTransactions> callback) throws ApiException {
-        return dataAnchoringTransactionApi.retrieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromDate(), queryParams.getToDate(), callback);
+        return dataAnchoringTransactionApi.retrieveAnchorBlockAsync(getChainId(), operatorId, queryParams.getSize(), queryParams.getCursor() , queryParams.getFromTimestamp(), queryParams.getToTimestamp(), callback);
     }
 
     /**
@@ -200,7 +200,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public Operators getOperators(AnchorQueryOptions queryParams) throws ApiException {
-        return getOperatorApi().retrieveOperators(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.toDate);
+        return getOperatorApi().retrieveOperators(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromTimestamp(), queryParams.toTimestamp);
     }
 
     /**
@@ -224,7 +224,7 @@ public class AnchorAPI {
      * @throws ApiException
      */
     public Call getOperatorsAsync(AnchorQueryOptions queryParams, ApiCallback<Operators> callback) throws ApiException {
-        return getOperatorApi().retrieveOperatorsAsync(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromDate(), queryParams.getToDate(), callback);
+        return getOperatorApi().retrieveOperatorsAsync(getChainId(), queryParams.getSize(), queryParams.getCursor(), queryParams.getFromTimestamp(), queryParams.getToTimestamp(), callback);
     }
 
     /**
