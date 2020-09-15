@@ -72,6 +72,10 @@ public class WalletAPI {
         return getAccountApi().multisigAccountUpdate(chainId, address, request);
     }
 
+    public AccountsByPubkey getAccountByPublicKey(String publicKey) throws ApiException {
+        return getAccountApi().retrieveAccountsByPubkey(chainId ,publicKey);
+    }
+
     public TransactionResult requestLegacyTransaction(LegacyTransactionRequest request) throws ApiException {
         return getBasicTransactionApi().legacyTransaction(chainId, request);
     }
@@ -84,7 +88,7 @@ public class WalletAPI {
         return getBasicTransactionApi().contractDeployTransaction(chainId, request);
     }
 
-    public TransactionResult requestSmartContractExecution(ContractExecutionTransactionRequest request, boolean submit) throws ApiException {
+    public TransactionResult requestSmartContractExecution(ContractExecutionTransactionRequest request) throws ApiException {
         return getBasicTransactionApi().contractExecutionTransaction(chainId, request);
     }
 
