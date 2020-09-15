@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 컨트랙트 실행 트랜잭션 요청 스키마
  */
 @Schema(description = "컨트랙트 실행 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class ContractExecutionTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -34,14 +35,14 @@ public class ContractExecutionTransactionRequest {
   @SerializedName("input")
   private String input = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
-
-  @SerializedName("gasLimit")
+  @SerializedName("gas_limit")
   private Long gasLimit = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
+
+  @SerializedName("gas")
+  private Long gas = null;
 
   public ContractExecutionTransactionRequest from(String from) {
     this.from = from;
@@ -115,34 +116,16 @@ public class ContractExecutionTransactionRequest {
     this.input = input;
   }
 
-  public ContractExecutionTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 보내는 트랜잭션을 식별하는 유일한 값
-   * @return nonce
-  **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
   public ContractExecutionTransactionRequest gasLimit(Long gasLimit) {
     this.gasLimit = gasLimit;
     return this;
   }
 
    /**
-   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
+   * Get gasLimit
    * @return gasLimit
   **/
-  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  @Schema(example = "1000000", description = "")
   public Long getGasLimit() {
     return gasLimit;
   }
@@ -169,6 +152,24 @@ public class ContractExecutionTransactionRequest {
     this.submit = submit;
   }
 
+  public ContractExecutionTransactionRequest gas(Long gas) {
+    this.gas = gas;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
+   * @return gas
+  **/
+  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  public Long getGas() {
+    return gas;
+  }
+
+  public void setGas(Long gas) {
+    this.gas = gas;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -183,14 +184,14 @@ public class ContractExecutionTransactionRequest {
         Objects.equals(this.value, contractExecutionTransactionRequest.value) &&
         Objects.equals(this.to, contractExecutionTransactionRequest.to) &&
         Objects.equals(this.input, contractExecutionTransactionRequest.input) &&
-        Objects.equals(this.nonce, contractExecutionTransactionRequest.nonce) &&
         Objects.equals(this.gasLimit, contractExecutionTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, contractExecutionTransactionRequest.submit);
+        Objects.equals(this.submit, contractExecutionTransactionRequest.submit) &&
+        Objects.equals(this.gas, contractExecutionTransactionRequest.gas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, to, input, nonce, gasLimit, submit);
+    return Objects.hash(from, value, to, input, gasLimit, submit, gas);
   }
 
 
@@ -203,9 +204,9 @@ public class ContractExecutionTransactionRequest {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("}");
     return sb.toString();
   }

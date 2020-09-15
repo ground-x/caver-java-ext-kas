@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
- * Multisig를 위한 키 정보
+ * MultisigKey
  */
-@Schema(description = "Multisig를 위한 키 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class MultisigKey {
   @SerializedName("publicKey")
   private String publicKey = null;
@@ -34,10 +35,10 @@ public class MultisigKey {
   }
 
    /**
-   * 클레이튼 계정의 공개키
+   * Get publicKey
    * @return publicKey
   **/
-  @Schema(example = "0x04cdccfb99b2905561e3dd886687b429a004718f11b04914f17ce68fd3a0db46c598a45da85caa61fe84cb78a0f2eaa9983ec7b8805a93ef9428eb1350a8558237", required = true, description = "클레이튼 계정의 공개키")
+  @Schema(example = "0x04c8901b732a08330d4b7a3d95841e82450f67ae290dadaf8941886913693a15c1819c7401768dea360b96fe02dca34db78d433c6ef4802a0866f4aa3b222f1d7e", description = "")
   public String getPublicKey() {
     return publicKey;
   }
@@ -52,10 +53,10 @@ public class MultisigKey {
   }
 
    /**
-   * 해당 공개키의 가중치
+   * Get weight
    * @return weight
   **/
-  @Schema(example = "3", required = true, description = "해당 공개키의 가중치")
+  @Schema(example = "3", description = "")
   public Long getWeight() {
     return weight;
   }

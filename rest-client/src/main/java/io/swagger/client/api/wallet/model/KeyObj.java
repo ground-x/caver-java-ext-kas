@@ -16,13 +16,14 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * KeyObj
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class KeyObj {
-  @SerializedName("keyType")
+  @SerializedName("key_type")
   private Long keyType = null;
 
   @SerializedName("key")

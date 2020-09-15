@@ -15,43 +15,75 @@ package io.swagger.client.api.wallet.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * 계정 정보 목록
+ * FeePayerSignaturesObj
  */
-@Schema(description = "계정 정보 목록")
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class Accounts {
-  @SerializedName("items")
-  private List<Account> items = null;
+public class FeePayerSignaturesObj {
+  @SerializedName("R")
+  private String R = null;
 
-  public Accounts items(List<Account> items) {
-    this.items = items;
-    return this;
-  }
+  @SerializedName("S")
+  private String S = null;
 
-  public Accounts addItemsItem(Account itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Account>();
-    }
-    this.items.add(itemsItem);
+  @SerializedName("V")
+  private String V = null;
+
+  public FeePayerSignaturesObj R(String R) {
+    this.R = R;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Get R
+   * @return R
   **/
-  @Schema(description = "")
-  public List<Account> getItems() {
-    return items;
+  @Schema(example = "0xd94aa19287f89572f2f5660856d16e32bc2c0192d7443a55af614bcdec0e1e8", description = "")
+  public String getR() {
+    return R;
   }
 
-  public void setItems(List<Account> items) {
-    this.items = items;
+  public void setR(String R) {
+    this.R = R;
+  }
+
+  public FeePayerSignaturesObj S(String S) {
+    this.S = S;
+    return this;
+  }
+
+   /**
+   * Get S
+   * @return S
+  **/
+  @Schema(example = "0x424324292dd04da3930679bd5774723d12ed9e553f3a18eaacb4b89d85a26537", description = "")
+  public String getS() {
+    return S;
+  }
+
+  public void setS(String S) {
+    this.S = S;
+  }
+
+  public FeePayerSignaturesObj V(String V) {
+    this.V = V;
+    return this;
+  }
+
+   /**
+   * Get V
+   * @return V
+  **/
+  @Schema(example = "0x7f5", description = "")
+  public String getV() {
+    return V;
+  }
+
+  public void setV(String V) {
+    this.V = V;
   }
 
 
@@ -63,22 +95,26 @@ public class Accounts {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
+    FeePayerSignaturesObj feePayerSignaturesObj = (FeePayerSignaturesObj) o;
+    return Objects.equals(this.R, feePayerSignaturesObj.R) &&
+        Objects.equals(this.S, feePayerSignaturesObj.S) &&
+        Objects.equals(this.V, feePayerSignaturesObj.V);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(R, S, V);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Accounts {\n");
+    sb.append("class FeePayerSignaturesObj {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    R: ").append(toIndentedString(R)).append("\n");
+    sb.append("    S: ").append(toIndentedString(S)).append("\n");
+    sb.append("    V: ").append(toIndentedString(V)).append("\n");
     sb.append("}");
     return sb.toString();
   }

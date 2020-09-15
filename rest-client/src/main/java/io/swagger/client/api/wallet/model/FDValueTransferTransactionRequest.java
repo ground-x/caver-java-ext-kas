@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 대납 클레이 전송 트랜잭션 요청 스키마
  */
 @Schema(description = "대납 클레이 전송 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class FDValueTransferTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -34,17 +35,11 @@ public class FDValueTransferTransactionRequest {
   @SerializedName("memo")
   private String memo = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
-
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
-
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
 
   public FDValueTransferTransactionRequest from(String from) {
     this.from = from;
@@ -118,40 +113,22 @@ public class FDValueTransferTransactionRequest {
     this.memo = memo;
   }
 
-  public FDValueTransferTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 보내는 트랜잭션을 식별하는 유일한 값
-   * @return nonce
-  **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
-  public FDValueTransferTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public FDValueTransferTransactionRequest gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public FDValueTransferTransactionRequest submit(Boolean submit) {
@@ -172,24 +149,6 @@ public class FDValueTransferTransactionRequest {
     this.submit = submit;
   }
 
-  public FDValueTransferTransactionRequest feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-    return this;
-  }
-
-   /**
-   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
-   * @return feeRatio
-  **/
-  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
-  public Long getFeeRatio() {
-    return feeRatio;
-  }
-
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -204,15 +163,13 @@ public class FDValueTransferTransactionRequest {
         Objects.equals(this.value, fdValueTransferTransactionRequest.value) &&
         Objects.equals(this.to, fdValueTransferTransactionRequest.to) &&
         Objects.equals(this.memo, fdValueTransferTransactionRequest.memo) &&
-        Objects.equals(this.nonce, fdValueTransferTransactionRequest.nonce) &&
-        Objects.equals(this.gasLimit, fdValueTransferTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, fdValueTransferTransactionRequest.submit) &&
-        Objects.equals(this.feeRatio, fdValueTransferTransactionRequest.feeRatio);
+        Objects.equals(this.gas, fdValueTransferTransactionRequest.gas) &&
+        Objects.equals(this.submit, fdValueTransferTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, to, memo, nonce, gasLimit, submit, feeRatio);
+    return Objects.hash(from, value, to, memo, gas, submit);
   }
 
 
@@ -225,10 +182,8 @@ public class FDValueTransferTransactionRequest {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    memo: ").append(toIndentedString(memo)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

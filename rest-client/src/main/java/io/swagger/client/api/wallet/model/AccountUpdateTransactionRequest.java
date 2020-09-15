@@ -16,23 +16,21 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 계정 업데이트 트랜잭션 요청 스키마
  */
 @Schema(description = "계정 업데이트 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class AccountUpdateTransactionRequest {
   @SerializedName("from")
   private String from = null;
 
   @SerializedName("accountKey")
-  private AccountKey accountKey = null;
+  private AccountUpdateKey accountKey = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
-
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
@@ -55,7 +53,7 @@ public class AccountUpdateTransactionRequest {
     this.from = from;
   }
 
-  public AccountUpdateTransactionRequest accountKey(AccountKey accountKey) {
+  public AccountUpdateTransactionRequest accountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
     return this;
   }
@@ -64,49 +62,31 @@ public class AccountUpdateTransactionRequest {
    * Get accountKey
    * @return accountKey
   **/
-  @Schema(required = true, description = "")
-  public AccountKey getAccountKey() {
+  @Schema(description = "")
+  public AccountUpdateKey getAccountKey() {
     return accountKey;
   }
 
-  public void setAccountKey(AccountKey accountKey) {
+  public void setAccountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
   }
 
-  public AccountUpdateTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 보내는 트랜잭션을 식별하는 유일한 값
-   * @return nonce
-  **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
-  public AccountUpdateTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public AccountUpdateTransactionRequest gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public AccountUpdateTransactionRequest submit(Boolean submit) {
@@ -139,14 +119,13 @@ public class AccountUpdateTransactionRequest {
     AccountUpdateTransactionRequest accountUpdateTransactionRequest = (AccountUpdateTransactionRequest) o;
     return Objects.equals(this.from, accountUpdateTransactionRequest.from) &&
         Objects.equals(this.accountKey, accountUpdateTransactionRequest.accountKey) &&
-        Objects.equals(this.nonce, accountUpdateTransactionRequest.nonce) &&
-        Objects.equals(this.gasLimit, accountUpdateTransactionRequest.gasLimit) &&
+        Objects.equals(this.gas, accountUpdateTransactionRequest.gas) &&
         Objects.equals(this.submit, accountUpdateTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, accountKey, nonce, gasLimit, submit);
+    return Objects.hash(from, accountKey, gas, submit);
   }
 
 
@@ -157,8 +136,7 @@ public class AccountUpdateTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");
     return sb.toString();

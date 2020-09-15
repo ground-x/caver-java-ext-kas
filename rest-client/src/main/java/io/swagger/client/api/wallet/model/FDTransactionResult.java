@@ -18,11 +18,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * Klaytn에 전송한 수수료 대납 트랜잭션 정보
  */
 @Schema(description = "Klaytn에 전송한 수수료 대납 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class FDTransactionResult {
   @SerializedName("feePayer")
   private String feePayer = null;
@@ -30,8 +31,8 @@ public class FDTransactionResult {
   @SerializedName("from")
   private String from = null;
 
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("gasPrice")
   private String gasPrice = null;
@@ -105,22 +106,22 @@ public class FDTransactionResult {
     this.from = from;
   }
 
-  public FDTransactionResult gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public FDTransactionResult gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public FDTransactionResult gasPrice(String gasPrice) {
@@ -359,7 +360,7 @@ public class FDTransactionResult {
     FDTransactionResult fdTransactionResult = (FDTransactionResult) o;
     return Objects.equals(this.feePayer, fdTransactionResult.feePayer) &&
         Objects.equals(this.from, fdTransactionResult.from) &&
-        Objects.equals(this.gasLimit, fdTransactionResult.gasLimit) &&
+        Objects.equals(this.gas, fdTransactionResult.gas) &&
         Objects.equals(this.gasPrice, fdTransactionResult.gasPrice) &&
         Objects.equals(this.input, fdTransactionResult.input) &&
         Objects.equals(this.nonce, fdTransactionResult.nonce) &&
@@ -376,7 +377,7 @@ public class FDTransactionResult {
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, from, gasLimit, gasPrice, input, nonce, status, to, transactionId, typeInt, value, rlp, signatures, transactionHash, accountKey);
+    return Objects.hash(feePayer, from, gas, gasPrice, input, nonce, status, to, transactionId, typeInt, value, rlp, signatures, transactionHash, accountKey);
   }
 
 
@@ -387,7 +388,7 @@ public class FDTransactionResult {
     
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");

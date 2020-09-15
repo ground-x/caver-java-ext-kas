@@ -16,35 +16,18 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * rlp 이용 트랜잭션 요청 스키마
  */
 @Schema(description = "rlp 이용 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class ProcessRLPRequest {
-  @SerializedName("rlp")
-  private String rlp = null;
-
   @SerializedName("submit")
   private Boolean submit = null;
 
-  public ProcessRLPRequest rlp(String rlp) {
-    this.rlp = rlp;
-    return this;
-  }
-
-   /**
-   * RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.
-   * @return rlp
-  **/
-  @Schema(required = true, description = "RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.")
-  public String getRlp() {
-    return rlp;
-  }
-
-  public void setRlp(String rlp) {
-    this.rlp = rlp;
-  }
+  @SerializedName("rlp")
+  private String rlp = null;
 
   public ProcessRLPRequest submit(Boolean submit) {
     this.submit = submit;
@@ -64,6 +47,24 @@ public class ProcessRLPRequest {
     this.submit = submit;
   }
 
+  public ProcessRLPRequest rlp(String rlp) {
+    this.rlp = rlp;
+    return this;
+  }
+
+   /**
+   * RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.
+   * @return rlp
+  **/
+  @Schema(example = "0x28f901aa808505d21dba00830f42408080941912815891d07a9874536f6d2446ec8580642058b9013a60806040526000805534801561001457600080fd5b50610116806100246000396000f3006080604052600436106053576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306661abd14605857806342cbb15c146080578063d14e62b81460a8575b600080fd5b348015606357600080fd5b50606a60d2565b6040518082815260200191505060405180910390f35b348015608b57600080fd5b50609260d8565b6040518082815260200191505060405180910390f35b34801560b357600080fd5b5060d06004803603810190808035906020019092919050505060e0565b005b60005481565b600043905090565b80600081905550505600a165627a7a7230582064856de85a2706463526593b08dd790054536042ef66d3204018e6790a2208d100298080f847f8458207f6a0509de4e189a13f1e024b0fa00da6f7c519710f3f14b2d28ef91aa2904e5d619fa07dae5868cb6d037e0849ef2d28985549619d16b01a40d8412cad65c0711f1e75", required = true, description = "RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.")
+  public String getRlp() {
+    return rlp;
+  }
+
+  public void setRlp(String rlp) {
+    this.rlp = rlp;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -74,13 +75,13 @@ public class ProcessRLPRequest {
       return false;
     }
     ProcessRLPRequest processRLPRequest = (ProcessRLPRequest) o;
-    return Objects.equals(this.rlp, processRLPRequest.rlp) &&
-        Objects.equals(this.submit, processRLPRequest.submit);
+    return Objects.equals(this.submit, processRLPRequest.submit) &&
+        Objects.equals(this.rlp, processRLPRequest.rlp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rlp, submit);
+    return Objects.hash(submit, rlp);
   }
 
 
@@ -89,8 +90,8 @@ public class ProcessRLPRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProcessRLPRequest {\n");
     
-    sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 유저 대납 클레이 전송 트랜잭션 요청 스키마
  */
 @Schema(description = "유저 대납 클레이 전송 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class FDUserValueTransferTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -34,20 +35,14 @@ public class FDUserValueTransferTransactionRequest {
   @SerializedName("memo")
   private String memo = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
-
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
 
   @SerializedName("feePayer")
   private String feePayer = null;
-
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
 
   public FDUserValueTransferTransactionRequest from(String from) {
     this.from = from;
@@ -121,40 +116,22 @@ public class FDUserValueTransferTransactionRequest {
     this.memo = memo;
   }
 
-  public FDUserValueTransferTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 보내는 트랜잭션을 식별하는 유일한 값
-   * @return nonce
-  **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
-  public FDUserValueTransferTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public FDUserValueTransferTransactionRequest gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public FDUserValueTransferTransactionRequest submit(Boolean submit) {
@@ -193,24 +170,6 @@ public class FDUserValueTransferTransactionRequest {
     this.feePayer = feePayer;
   }
 
-  public FDUserValueTransferTransactionRequest feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-    return this;
-  }
-
-   /**
-   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
-   * @return feeRatio
-  **/
-  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
-  public Long getFeeRatio() {
-    return feeRatio;
-  }
-
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -225,16 +184,14 @@ public class FDUserValueTransferTransactionRequest {
         Objects.equals(this.value, fdUserValueTransferTransactionRequest.value) &&
         Objects.equals(this.to, fdUserValueTransferTransactionRequest.to) &&
         Objects.equals(this.memo, fdUserValueTransferTransactionRequest.memo) &&
-        Objects.equals(this.nonce, fdUserValueTransferTransactionRequest.nonce) &&
-        Objects.equals(this.gasLimit, fdUserValueTransferTransactionRequest.gasLimit) &&
+        Objects.equals(this.gas, fdUserValueTransferTransactionRequest.gas) &&
         Objects.equals(this.submit, fdUserValueTransferTransactionRequest.submit) &&
-        Objects.equals(this.feePayer, fdUserValueTransferTransactionRequest.feePayer) &&
-        Objects.equals(this.feeRatio, fdUserValueTransferTransactionRequest.feeRatio);
+        Objects.equals(this.feePayer, fdUserValueTransferTransactionRequest.feePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, to, memo, nonce, gasLimit, submit, feePayer, feeRatio);
+    return Objects.hash(from, value, to, memo, gas, submit, feePayer);
   }
 
 
@@ -247,11 +204,9 @@ public class FDUserValueTransferTransactionRequest {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    memo: ").append(toIndentedString(memo)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

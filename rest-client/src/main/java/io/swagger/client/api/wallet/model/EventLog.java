@@ -20,30 +20,36 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 다중 서명 계정에 관한 정보
+ * 트랜잭션이 생성한 로그들
  */
-@Schema(description = "다중 서명 계정에 관한 정보")
+@Schema(description = "트랜잭션이 생성한 로그들")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class MultisigAccount {
+public class EventLog {
   @SerializedName("address")
   private String address = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("blockHash")
+  private String blockHash = null;
 
-  @SerializedName("multiSigKeys")
-  private List<MultisigKey> multiSigKeys = null;
+  @SerializedName("blockNumber")
+  private String blockNumber = null;
 
-  @SerializedName("threshold")
-  private Long threshold = null;
+  @SerializedName("data")
+  private String data = null;
+
+  @SerializedName("logIndex")
+  private String logIndex = null;
+
+  @SerializedName("topics")
+  private List<String> topics = null;
 
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
+  @SerializedName("transactionIndex")
+  private String transactionIndex = null;
 
-  public MultisigAccount address(String address) {
+  public EventLog address(String address) {
     this.address = address;
     return this;
   }
@@ -52,7 +58,7 @@ public class MultisigAccount {
    * 클레이튼 계정주소
    * @return address
   **/
-  @Schema(example = "0xa809284C83b901eD106Aba4Ccda14628Af128e14", required = true, description = "클레이튼 계정주소")
+  @Schema(example = "0x270f21fbf544e5f87b4988c521315a87ce24acf2", required = true, description = "클레이튼 계정주소")
   public String getAddress() {
     return address;
   }
@@ -61,78 +67,114 @@ public class MultisigAccount {
     this.address = address;
   }
 
-  public MultisigAccount krn(String krn) {
-    this.krn = krn;
+  public EventLog blockHash(String blockHash) {
+    this.blockHash = blockHash;
     return this;
   }
 
    /**
-   * KAS KRN
-   * @return krn
+   * 트랜잭션이 포함된 블록해시
+   * @return blockHash
   **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
-  public String getKrn() {
-    return krn;
+  @Schema(example = "0x276e6efcc01b27c992b0663cc843baebc9dbb167cf0cd7e74808c21c97a74182", required = true, description = "트랜잭션이 포함된 블록해시")
+  public String getBlockHash() {
+    return blockHash;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setBlockHash(String blockHash) {
+    this.blockHash = blockHash;
   }
 
-  public MultisigAccount multiSigKeys(List<MultisigKey> multiSigKeys) {
-    this.multiSigKeys = multiSigKeys;
-    return this;
-  }
-
-  public MultisigAccount addMultiSigKeysItem(MultisigKey multiSigKeysItem) {
-    if (this.multiSigKeys == null) {
-      this.multiSigKeys = new ArrayList<MultisigKey>();
-    }
-    this.multiSigKeys.add(multiSigKeysItem);
+  public EventLog blockNumber(String blockNumber) {
+    this.blockNumber = blockNumber;
     return this;
   }
 
    /**
-   * Get multiSigKeys
-   * @return multiSigKeys
+   * 트랜잭션이 포함된 블럭번호
+   * @return blockNumber
+  **/
+  @Schema(example = "0x24bb088", required = true, description = "트랜잭션이 포함된 블럭번호")
+  public String getBlockNumber() {
+    return blockNumber;
+  }
+
+  public void setBlockNumber(String blockNumber) {
+    this.blockNumber = blockNumber;
+  }
+
+  public EventLog data(String data) {
+    this.data = data;
+    return this;
+  }
+
+   /**
+   * 트랜잭션 데이터
+   * @return data
+  **/
+  @Schema(example = "0x010000000000000000000000000000000000000000000000000000000000000000000000000000000000000001021e96a79de1b663753935ac856c2cfc51ce8c0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000005f5f226d0000000000000000000000000000000000000000000000000000000000000020efefefefefefef00000000000000000000000000000000000000000000000000", required = true, description = "트랜잭션 데이터")
+  public String getData() {
+    return data;
+  }
+
+  public void setData(String data) {
+    this.data = data;
+  }
+
+  public EventLog logIndex(String logIndex) {
+    this.logIndex = logIndex;
+    return this;
+  }
+
+   /**
+   * 로그 인덱스
+   * @return logIndex
+  **/
+  @Schema(example = "0x0", required = true, description = "로그 인덱스")
+  public String getLogIndex() {
+    return logIndex;
+  }
+
+  public void setLogIndex(String logIndex) {
+    this.logIndex = logIndex;
+  }
+
+  public EventLog topics(List<String> topics) {
+    this.topics = topics;
+    return this;
+  }
+
+  public EventLog addTopicsItem(String topicsItem) {
+    if (this.topics == null) {
+      this.topics = new ArrayList<String>();
+    }
+    this.topics.add(topicsItem);
+    return this;
+  }
+
+   /**
+   * Get topics
+   * @return topics
   **/
   @Schema(description = "")
-  public List<MultisigKey> getMultiSigKeys() {
-    return multiSigKeys;
+  public List<String> getTopics() {
+    return topics;
   }
 
-  public void setMultiSigKeys(List<MultisigKey> multiSigKeys) {
-    this.multiSigKeys = multiSigKeys;
+  public void setTopics(List<String> topics) {
+    this.topics = topics;
   }
 
-  public MultisigAccount threshold(Long threshold) {
-    this.threshold = threshold;
-    return this;
-  }
-
-   /**
-   * 다중 서명 트랜잭션을 생성하는 데 필요한 가중치 합계 기준값.
-   * @return threshold
-  **/
-  @Schema(example = "4", required = true, description = "다중 서명 트랜잭션을 생성하는 데 필요한 가중치 합계 기준값.")
-  public Long getThreshold() {
-    return threshold;
-  }
-
-  public void setThreshold(Long threshold) {
-    this.threshold = threshold;
-  }
-
-  public MultisigAccount transactionHash(String transactionHash) {
+  public EventLog transactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * Get transactionHash
+   * 해당 트랜잭션에 대한 해시값
    * @return transactionHash
   **/
-  @Schema(example = "0xcd6c6a785bccbbb821e7fb0b3e1c15c0d35d6017706f843dd9cf7f3f4d3a452a", description = "")
+  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", required = true, description = "해당 트랜잭션에 대한 해시값")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -141,22 +183,22 @@ public class MultisigAccount {
     this.transactionHash = transactionHash;
   }
 
-  public MultisigAccount updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public EventLog transactionIndex(String transactionIndex) {
+    this.transactionIndex = transactionIndex;
     return this;
   }
 
    /**
-   * 해당 계정 정보를 마지막으로 업데이트한 시간
-   * @return updatedAt
+   * 해당 트랜잭션에 대한 인덱스
+   * @return transactionIndex
   **/
-  @Schema(example = "1599187391", required = true, description = "해당 계정 정보를 마지막으로 업데이트한 시간")
-  public Long getUpdatedAt() {
-    return updatedAt;
+  @Schema(example = "0x0", required = true, description = "해당 트랜잭션에 대한 인덱스")
+  public String getTransactionIndex() {
+    return transactionIndex;
   }
 
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setTransactionIndex(String transactionIndex) {
+    this.transactionIndex = transactionIndex;
   }
 
 
@@ -168,32 +210,36 @@ public class MultisigAccount {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigAccount multisigAccount = (MultisigAccount) o;
-    return Objects.equals(this.address, multisigAccount.address) &&
-        Objects.equals(this.krn, multisigAccount.krn) &&
-        Objects.equals(this.multiSigKeys, multisigAccount.multiSigKeys) &&
-        Objects.equals(this.threshold, multisigAccount.threshold) &&
-        Objects.equals(this.transactionHash, multisigAccount.transactionHash) &&
-        Objects.equals(this.updatedAt, multisigAccount.updatedAt);
+    EventLog eventLog = (EventLog) o;
+    return Objects.equals(this.address, eventLog.address) &&
+        Objects.equals(this.blockHash, eventLog.blockHash) &&
+        Objects.equals(this.blockNumber, eventLog.blockNumber) &&
+        Objects.equals(this.data, eventLog.data) &&
+        Objects.equals(this.logIndex, eventLog.logIndex) &&
+        Objects.equals(this.topics, eventLog.topics) &&
+        Objects.equals(this.transactionHash, eventLog.transactionHash) &&
+        Objects.equals(this.transactionIndex, eventLog.transactionIndex);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, multiSigKeys, threshold, transactionHash, updatedAt);
+    return Objects.hash(address, blockHash, blockNumber, data, logIndex, topics, transactionHash, transactionIndex);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigAccount {\n");
+    sb.append("class EventLog {\n");
     
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    multiSigKeys: ").append(toIndentedString(multiSigKeys)).append("\n");
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+    sb.append("    blockHash: ").append(toIndentedString(blockHash)).append("\n");
+    sb.append("    blockNumber: ").append(toIndentedString(blockNumber)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    logIndex: ").append(toIndentedString(logIndex)).append("\n");
+    sb.append("    topics: ").append(toIndentedString(topics)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    transactionIndex: ").append(toIndentedString(transactionIndex)).append("\n");
     sb.append("}");
     return sb.toString();
   }

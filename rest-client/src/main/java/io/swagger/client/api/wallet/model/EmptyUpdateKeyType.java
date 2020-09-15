@@ -15,43 +15,33 @@ package io.swagger.client.api.wallet.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * 계정 정보 목록
+ * 해당 계정 키로 새롭게 사용할 계정 키(AccountKey)
  */
-@Schema(description = "계정 정보 목록")
+@Schema(description = "해당 계정 키로 새롭게 사용할 계정 키(AccountKey)")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class Accounts {
-  @SerializedName("items")
-  private List<Account> items = null;
+public class EmptyUpdateKeyType implements OneOfAccountUpdateKey {
+  @SerializedName("keyType")
+  private Long keyType = null;
 
-  public Accounts items(List<Account> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Accounts addItemsItem(Account itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Account>();
-    }
-    this.items.add(itemsItem);
+  public EmptyUpdateKeyType keyType(Long keyType) {
+    this.keyType = keyType;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * 계정키의 타입
+   * @return keyType
   **/
-  @Schema(description = "")
-  public List<Account> getItems() {
-    return items;
+  @Schema(description = "계정키의 타입")
+  public Long getKeyType() {
+    return keyType;
   }
 
-  public void setItems(List<Account> items) {
-    this.items = items;
+  public void setKeyType(Long keyType) {
+    this.keyType = keyType;
   }
 
 
@@ -63,22 +53,22 @@ public class Accounts {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
+    EmptyUpdateKeyType emptyUpdateKeyType = (EmptyUpdateKeyType) o;
+    return Objects.equals(this.keyType, emptyUpdateKeyType.keyType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(keyType);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Accounts {\n");
+    sb.append("class EmptyUpdateKeyType {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

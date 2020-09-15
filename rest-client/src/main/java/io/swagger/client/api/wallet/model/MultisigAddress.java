@@ -15,43 +15,54 @@ package io.swagger.client.api.wallet.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * 계정 정보 목록
+ * Multisig 연관 계정
  */
-@Schema(description = "계정 정보 목록")
+@Schema(description = "Multisig 연관 계정")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class Accounts {
-  @SerializedName("items")
-  private List<Account> items = null;
+public class MultisigAddress {
+  @SerializedName("address")
+  private String address = null;
 
-  public Accounts items(List<Account> items) {
-    this.items = items;
-    return this;
-  }
+  @SerializedName("weight")
+  private Long weight = null;
 
-  public Accounts addItemsItem(Account itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Account>();
-    }
-    this.items.add(itemsItem);
+  public MultisigAddress address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Multisig 계정 주소
+   * @return address
   **/
-  @Schema(description = "")
-  public List<Account> getItems() {
-    return items;
+  @Schema(example = "0xc6C9356887b7F7887918Bf577417E5D8De253295", required = true, description = "Multisig 계정 주소")
+  public String getAddress() {
+    return address;
   }
 
-  public void setItems(List<Account> items) {
-    this.items = items;
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public MultisigAddress weight(Long weight) {
+    this.weight = weight;
+    return this;
+  }
+
+   /**
+   * Multisig 계정의 가중치
+   * @return weight
+  **/
+  @Schema(example = "3", required = true, description = "Multisig 계정의 가중치")
+  public Long getWeight() {
+    return weight;
+  }
+
+  public void setWeight(Long weight) {
+    this.weight = weight;
   }
 
 
@@ -63,22 +74,24 @@ public class Accounts {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
+    MultisigAddress multisigAddress = (MultisigAddress) o;
+    return Objects.equals(this.address, multisigAddress.address) &&
+        Objects.equals(this.weight, multisigAddress.weight);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(address, weight);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Accounts {\n");
+    sb.append("class MultisigAddress {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
     sb.append("}");
     return sb.toString();
   }

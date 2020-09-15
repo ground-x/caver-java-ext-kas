@@ -12,16 +12,14 @@
 
 package io.swagger.client.api.wallet.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.util.HashMap;
 import java.util.Objects;
+
 /**
- * 계정키
+ * Key
  */
-@Schema(description = "계정키")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
-public class Key extends HashMap<String, Object> {
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+public class Key {
 
   @Override
   public boolean equals(Object o) {
@@ -31,12 +29,12 @@ public class Key extends HashMap<String, Object> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash();
   }
 
 
@@ -44,7 +42,7 @@ public class Key extends HashMap<String, Object> {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Key {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    
     sb.append("}");
     return sb.toString();
   }

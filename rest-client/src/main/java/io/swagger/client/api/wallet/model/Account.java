@@ -15,12 +15,15 @@ package io.swagger.client.api.wallet.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
 /**
  * 계정 정보
  */
 @Schema(description = "계정 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class Account {
   @SerializedName("address")
   private String address = null;
@@ -42,6 +45,12 @@ public class Account {
 
   @SerializedName("updatedAt")
   private Long updatedAt = null;
+
+  @SerializedName("multiSigKeys")
+  private List<MultisigKey> multiSigKeys = null;
+
+  @SerializedName("threshold")
+  private Long threshold = null;
 
   public Account address(String address) {
     this.address = address;
@@ -169,6 +178,50 @@ public class Account {
     this.updatedAt = updatedAt;
   }
 
+  public Account multiSigKeys(List<MultisigKey> multiSigKeys) {
+    this.multiSigKeys = multiSigKeys;
+    return this;
+  }
+
+  public Account addMultiSigKeysItem(MultisigKey multiSigKeysItem) {
+    if (this.multiSigKeys == null) {
+      this.multiSigKeys = new ArrayList<MultisigKey>();
+    }
+    this.multiSigKeys.add(multiSigKeysItem);
+    return this;
+  }
+
+   /**
+   * Get multiSigKeys
+   * @return multiSigKeys
+  **/
+  @Schema(description = "")
+  public List<MultisigKey> getMultiSigKeys() {
+    return multiSigKeys;
+  }
+
+  public void setMultiSigKeys(List<MultisigKey> multiSigKeys) {
+    this.multiSigKeys = multiSigKeys;
+  }
+
+  public Account threshold(Long threshold) {
+    this.threshold = threshold;
+    return this;
+  }
+
+   /**
+   * Get threshold
+   * @return threshold
+  **/
+  @Schema(example = "4", description = "")
+  public Long getThreshold() {
+    return threshold;
+  }
+
+  public void setThreshold(Long threshold) {
+    this.threshold = threshold;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -185,12 +238,14 @@ public class Account {
         Objects.equals(this.keyId, account.keyId) &&
         Objects.equals(this.krn, account.krn) &&
         Objects.equals(this.publicKey, account.publicKey) &&
-        Objects.equals(this.updatedAt, account.updatedAt);
+        Objects.equals(this.updatedAt, account.updatedAt) &&
+        Objects.equals(this.multiSigKeys, account.multiSigKeys) &&
+        Objects.equals(this.threshold, account.threshold);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, chainId, createdAt, keyId, krn, publicKey, updatedAt);
+    return Objects.hash(address, chainId, createdAt, keyId, krn, publicKey, updatedAt, multiSigKeys, threshold);
   }
 
 
@@ -206,6 +261,8 @@ public class Account {
     sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
     sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    multiSigKeys: ").append(toIndentedString(multiSigKeys)).append("\n");
+    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
     sb.append("}");
     return sb.toString();
   }

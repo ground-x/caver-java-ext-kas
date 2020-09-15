@@ -18,11 +18,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * 다중 서명 트랜잭션의 현재 상태
  */
 @Schema(description = "다중 서명 트랜잭션의 현재 상태")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class MultisigTransactionStatus {
   @SerializedName("reminders")
   private List<String> reminders = null;
@@ -36,17 +37,14 @@ public class MultisigTransactionStatus {
   @SerializedName("threshold")
   private Long threshold = null;
 
-  @SerializedName("transactionID")
-  private String transactionID = null;
+  @SerializedName("transactionId")
+  private String transactionId = null;
 
   @SerializedName("weight")
   private Long weight = null;
 
   @SerializedName("transactionHash")
   private String transactionHash = null;
-
-  @SerializedName("transactionId")
-  private String transactionId = null;
 
   public MultisigTransactionStatus reminders(List<String> reminders) {
     this.reminders = reminders;
@@ -83,7 +81,7 @@ public class MultisigTransactionStatus {
    * 해당 트랜잭션이 서명을 받았을 때, 그 서명들이 가지는 가중치
    * @return signedWeight
   **/
-  @Schema(example = "1", description = "해당 트랜잭션이 서명을 받았을 때, 그 서명들이 가지는 가중치")
+  @Schema(example = "1", required = true, description = "해당 트랜잭션이 서명을 받았을 때, 그 서명들이 가지는 가중치")
   public Long getSignedWeight() {
     return signedWeight;
   }
@@ -101,7 +99,7 @@ public class MultisigTransactionStatus {
    * 트랜잭션의 현재 상태
    * @return status
   **/
-  @Schema(example = "Signed", description = "트랜잭션의 현재 상태")
+  @Schema(example = "Signed", required = true, description = "트랜잭션의 현재 상태")
   public String getStatus() {
     return status;
   }
@@ -119,7 +117,7 @@ public class MultisigTransactionStatus {
    * 이 트랜잭션이 전송되는 데 필요한 가중치 총합
    * @return threshold
   **/
-  @Schema(example = "4", description = "이 트랜잭션이 전송되는 데 필요한 가중치 총합")
+  @Schema(example = "4", required = true, description = "이 트랜잭션이 전송되는 데 필요한 가중치 총합")
   public Long getThreshold() {
     return threshold;
   }
@@ -128,22 +126,22 @@ public class MultisigTransactionStatus {
     this.threshold = threshold;
   }
 
-  public MultisigTransactionStatus transactionID(String transactionID) {
-    this.transactionID = transactionID;
+  public MultisigTransactionStatus transactionId(String transactionId) {
+    this.transactionId = transactionId;
     return this;
   }
 
    /**
-   * Get transactionID
-   * @return transactionID
+   * 다중 서명 트랜잭션을 식별하는 ID
+   * @return transactionId
   **/
-  @Schema(example = "0xfa275dba88d197a85504ef70e0dd2640acc708817e9eb3933d7850acfb048649", description = "")
-  public String getTransactionID() {
-    return transactionID;
+  @Schema(example = "0xfa275dba88d197a85504ef70e0dd2640acc708817e9eb3933d7850acfb048649", required = true, description = "다중 서명 트랜잭션을 식별하는 ID")
+  public String getTransactionId() {
+    return transactionId;
   }
 
-  public void setTransactionID(String transactionID) {
-    this.transactionID = transactionID;
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
   }
 
   public MultisigTransactionStatus weight(Long weight) {
@@ -155,7 +153,7 @@ public class MultisigTransactionStatus {
    * 트랜잭션의 연관된 Multisig account 전체의 가중치 합
    * @return weight
   **/
-  @Schema(example = "1", description = "트랜잭션의 연관된 Multisig account 전체의 가중치 합")
+  @Schema(example = "1", required = true, description = "트랜잭션의 연관된 Multisig account 전체의 가중치 합")
   public Long getWeight() {
     return weight;
   }
@@ -173,31 +171,13 @@ public class MultisigTransactionStatus {
    * Get transactionHash
    * @return transactionHash
   **/
-  @Schema(example = "0xfc7ae0de8b3b3c0edcbf30a7715dddbae72cd29d638c71f9257466370615f358", description = "")
+  @Schema(example = "0x81f2ff422eae9b40d65b7a6f1e3c5ca598f83d1473ccc87e53d51b875fe75c82", description = "")
   public String getTransactionHash() {
     return transactionHash;
   }
 
   public void setTransactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
-  }
-
-  public MultisigTransactionStatus transactionId(String transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
-
-   /**
-   * 다중 서명 트랜잭션을 식별하는 ID
-   * @return transactionId
-  **/
-  @Schema(example = "0xa0cabe28c75aa6babbf7e85b5033641c46d0f2e7b714e47103716695d454a45a", required = true, description = "다중 서명 트랜잭션을 식별하는 ID")
-  public String getTransactionId() {
-    return transactionId;
-  }
-
-  public void setTransactionId(String transactionId) {
-    this.transactionId = transactionId;
   }
 
 
@@ -214,15 +194,14 @@ public class MultisigTransactionStatus {
         Objects.equals(this.signedWeight, multisigTransactionStatus.signedWeight) &&
         Objects.equals(this.status, multisigTransactionStatus.status) &&
         Objects.equals(this.threshold, multisigTransactionStatus.threshold) &&
-        Objects.equals(this.transactionID, multisigTransactionStatus.transactionID) &&
+        Objects.equals(this.transactionId, multisigTransactionStatus.transactionId) &&
         Objects.equals(this.weight, multisigTransactionStatus.weight) &&
-        Objects.equals(this.transactionHash, multisigTransactionStatus.transactionHash) &&
-        Objects.equals(this.transactionId, multisigTransactionStatus.transactionId);
+        Objects.equals(this.transactionHash, multisigTransactionStatus.transactionHash);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reminders, signedWeight, status, threshold, transactionID, weight, transactionHash, transactionId);
+    return Objects.hash(reminders, signedWeight, status, threshold, transactionId, weight, transactionHash);
   }
 
 
@@ -235,10 +214,9 @@ public class MultisigTransactionStatus {
     sb.append("    signedWeight: ").append(toIndentedString(signedWeight)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    transactionID: ").append(toIndentedString(transactionID)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

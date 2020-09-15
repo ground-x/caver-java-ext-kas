@@ -18,11 +18,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * Pending 트랜잭션
  */
 @Schema(description = "Pending 트랜잭션")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class PendedTransaction {
   @SerializedName("address")
   private String address = null;
@@ -34,7 +35,7 @@ public class PendedTransaction {
   private Long createdAt = null;
 
   @SerializedName("multiSigKeys")
-  private List<MultisigAccount> multiSigKeys = null;
+  private List<MultisigAddress> multiSigKeys = null;
 
   @SerializedName("status")
   private Long status = null;
@@ -108,14 +109,14 @@ public class PendedTransaction {
     this.createdAt = createdAt;
   }
 
-  public PendedTransaction multiSigKeys(List<MultisigAccount> multiSigKeys) {
+  public PendedTransaction multiSigKeys(List<MultisigAddress> multiSigKeys) {
     this.multiSigKeys = multiSigKeys;
     return this;
   }
 
-  public PendedTransaction addMultiSigKeysItem(MultisigAccount multiSigKeysItem) {
+  public PendedTransaction addMultiSigKeysItem(MultisigAddress multiSigKeysItem) {
     if (this.multiSigKeys == null) {
-      this.multiSigKeys = new ArrayList<MultisigAccount>();
+      this.multiSigKeys = new ArrayList<MultisigAddress>();
     }
     this.multiSigKeys.add(multiSigKeysItem);
     return this;
@@ -126,11 +127,11 @@ public class PendedTransaction {
    * @return multiSigKeys
   **/
   @Schema(description = "")
-  public List<MultisigAccount> getMultiSigKeys() {
+  public List<MultisigAddress> getMultiSigKeys() {
     return multiSigKeys;
   }
 
-  public void setMultiSigKeys(List<MultisigAccount> multiSigKeys) {
+  public void setMultiSigKeys(List<MultisigAddress> multiSigKeys) {
     this.multiSigKeys = multiSigKeys;
   }
 

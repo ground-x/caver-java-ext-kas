@@ -18,35 +18,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * 보류중인 트랜잭션 목록
  */
 @Schema(description = "보류중인 트랜잭션 목록")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class MultisigTransactions {
-  @SerializedName("cursor")
-  private String cursor = null;
-
   @SerializedName("items")
   private List<PendedTransaction> items = null;
-
-  public MultisigTransactions cursor(String cursor) {
-    this.cursor = cursor;
-    return this;
-  }
-
-   /**
-   * 마지막 검색 위치를 나타내는 커서 정보
-   * @return cursor
-  **/
-  @Schema(required = true, description = "마지막 검색 위치를 나타내는 커서 정보")
-  public String getCursor() {
-    return cursor;
-  }
-
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
-  }
 
   public MultisigTransactions items(List<PendedTransaction> items) {
     this.items = items;
@@ -84,13 +64,12 @@ public class MultisigTransactions {
       return false;
     }
     MultisigTransactions multisigTransactions = (MultisigTransactions) o;
-    return Objects.equals(this.cursor, multisigTransactions.cursor) &&
-        Objects.equals(this.items, multisigTransactions.items);
+    return Objects.equals(this.items, multisigTransactions.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(items);
   }
 
 
@@ -99,7 +78,6 @@ public class MultisigTransactions {
     StringBuilder sb = new StringBuilder();
     sb.append("class MultisigTransactions {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();

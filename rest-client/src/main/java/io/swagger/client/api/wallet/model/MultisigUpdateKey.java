@@ -20,38 +20,59 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 계정 정보 목록
+ * MultisigUpdateKey
  */
-@Schema(description = "계정 정보 목록")
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class Accounts {
-  @SerializedName("items")
-  private List<Account> items = null;
+public class MultisigUpdateKey {
+  @SerializedName("threshold")
+  private Long threshold = null;
 
-  public Accounts items(List<Account> items) {
-    this.items = items;
-    return this;
-  }
+  @SerializedName("weightedKeys")
+  private List<MultisigKey> weightedKeys = null;
 
-  public Accounts addItemsItem(Account itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Account>();
-    }
-    this.items.add(itemsItem);
+  public MultisigUpdateKey threshold(Long threshold) {
+    this.threshold = threshold;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * 가중치 합계를 검증하는 기준치
+   * @return threshold
   **/
-  @Schema(description = "")
-  public List<Account> getItems() {
-    return items;
+  @Schema(description = "가중치 합계를 검증하는 기준치")
+  public Long getThreshold() {
+    return threshold;
   }
 
-  public void setItems(List<Account> items) {
-    this.items = items;
+  public void setThreshold(Long threshold) {
+    this.threshold = threshold;
+  }
+
+  public MultisigUpdateKey weightedKeys(List<MultisigKey> weightedKeys) {
+    this.weightedKeys = weightedKeys;
+    return this;
+  }
+
+  public MultisigUpdateKey addWeightedKeysItem(MultisigKey weightedKeysItem) {
+    if (this.weightedKeys == null) {
+      this.weightedKeys = new ArrayList<MultisigKey>();
+    }
+    this.weightedKeys.add(weightedKeysItem);
+    return this;
+  }
+
+   /**
+   * Get weightedKeys
+   * @return weightedKeys
+  **/
+  @Schema(description = "")
+  public List<MultisigKey> getWeightedKeys() {
+    return weightedKeys;
+  }
+
+  public void setWeightedKeys(List<MultisigKey> weightedKeys) {
+    this.weightedKeys = weightedKeys;
   }
 
 
@@ -63,22 +84,24 @@ public class Accounts {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
+    MultisigUpdateKey multisigUpdateKey = (MultisigUpdateKey) o;
+    return Objects.equals(this.threshold, multisigUpdateKey.threshold) &&
+        Objects.equals(this.weightedKeys, multisigUpdateKey.weightedKeys);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(threshold, weightedKeys);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Accounts {\n");
+    sb.append("class MultisigUpdateKey {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+    sb.append("    weightedKeys: ").append(toIndentedString(weightedKeys)).append("\n");
     sb.append("}");
     return sb.toString();
   }

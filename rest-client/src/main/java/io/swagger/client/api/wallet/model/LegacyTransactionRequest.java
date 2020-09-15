@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 레거시 트랜잭션 요청 스키마
  */
 @Schema(description = "레거시 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class LegacyTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -31,14 +32,17 @@ public class LegacyTransactionRequest {
   @SerializedName("to")
   private String to = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
+  @SerializedName("input")
+  private String input = null;
 
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
+
+  @SerializedName("gas_limit")
+  private Long gasLimit = null;
 
   public LegacyTransactionRequest from(String from) {
     this.from = from;
@@ -49,7 +53,7 @@ public class LegacyTransactionRequest {
    * 트랜잭션을 보내는 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
+  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -67,7 +71,7 @@ public class LegacyTransactionRequest {
    * peb 단위로 환산된 KLAY
    * @return value
   **/
-  @Schema(example = "0x121111111111111111", description = "peb 단위로 환산된 KLAY")
+  @Schema(example = "0x12", description = "peb 단위로 환산된 KLAY")
   public String getValue() {
     return value;
   }
@@ -85,7 +89,7 @@ public class LegacyTransactionRequest {
    * KLAY를 받는 Klaytn 계정 주소
    * @return to
   **/
-  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", description = "KLAY를 받는 Klaytn 계정 주소")
+  @Schema(example = "0x2F87Ba64de5526F7880F21481Effbf950f70005c", description = "KLAY를 받는 Klaytn 계정 주소")
   public String getTo() {
     return to;
   }
@@ -94,40 +98,40 @@ public class LegacyTransactionRequest {
     this.to = to;
   }
 
-  public LegacyTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
+  public LegacyTransactionRequest input(String input) {
+    this.input = input;
     return this;
   }
 
    /**
-   * 보내는 트랜잭션을 식별하는 유일한 값
-   * @return nonce
+   * 보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터
+   * @return input
   **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
-  public Long getNonce() {
-    return nonce;
+  @Schema(example = "{{input}}", description = "보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터")
+  public String getInput() {
+    return input;
   }
 
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
+  public void setInput(String input) {
+    this.input = input;
   }
 
-  public LegacyTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public LegacyTransactionRequest gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public LegacyTransactionRequest submit(Boolean submit) {
@@ -148,6 +152,24 @@ public class LegacyTransactionRequest {
     this.submit = submit;
   }
 
+  public LegacyTransactionRequest gasLimit(Long gasLimit) {
+    this.gasLimit = gasLimit;
+    return this;
+  }
+
+   /**
+   * Get gasLimit
+   * @return gasLimit
+  **/
+  @Schema(example = "1000000", description = "")
+  public Long getGasLimit() {
+    return gasLimit;
+  }
+
+  public void setGasLimit(Long gasLimit) {
+    this.gasLimit = gasLimit;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -161,14 +183,15 @@ public class LegacyTransactionRequest {
     return Objects.equals(this.from, legacyTransactionRequest.from) &&
         Objects.equals(this.value, legacyTransactionRequest.value) &&
         Objects.equals(this.to, legacyTransactionRequest.to) &&
-        Objects.equals(this.nonce, legacyTransactionRequest.nonce) &&
-        Objects.equals(this.gasLimit, legacyTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, legacyTransactionRequest.submit);
+        Objects.equals(this.input, legacyTransactionRequest.input) &&
+        Objects.equals(this.gas, legacyTransactionRequest.gas) &&
+        Objects.equals(this.submit, legacyTransactionRequest.submit) &&
+        Objects.equals(this.gasLimit, legacyTransactionRequest.gasLimit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, to, nonce, gasLimit, submit);
+    return Objects.hash(from, value, to, input, gas, submit, gasLimit);
   }
 
 
@@ -180,9 +203,10 @@ public class LegacyTransactionRequest {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    input: ").append(toIndentedString(input)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -12,15 +12,59 @@
 
 package io.swagger.client.api.wallet.model;
 
+import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
- * 컨트랙트 주소. 만약 컨트랙트 배포가 아니면 &#x60;null&#x60; 값을 가짐.
+ * 해당 계정 키로 새롭게 사용할 계정 키(AccountKey)
  */
-@Schema(description = "컨트랙트 주소. 만약 컨트랙트 배포가 아니면 `null` 값을 가짐.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
-public class ContractAddress {
+@Schema(description = "해당 계정 키로 새롭게 사용할 계정 키(AccountKey)")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+public class PubkeyUpdateKeyType implements OneOfAccountUpdateKey {
+  @SerializedName("keyType")
+  private Long keyType = null;
+
+  @SerializedName("key")
+  private String key = null;
+
+  public PubkeyUpdateKeyType keyType(Long keyType) {
+    this.keyType = keyType;
+    return this;
+  }
+
+   /**
+   * 계정키의 타입
+   * @return keyType
+  **/
+  @Schema(description = "계정키의 타입")
+  public Long getKeyType() {
+    return keyType;
+  }
+
+  public void setKeyType(Long keyType) {
+    this.keyType = keyType;
+  }
+
+  public PubkeyUpdateKeyType key(String key) {
+    this.key = key;
+    return this;
+  }
+
+   /**
+   * 계정의 공개키
+   * @return key
+  **/
+  @Schema(description = "계정의 공개키")
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -30,20 +74,24 @@ public class ContractAddress {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return true;
+    PubkeyUpdateKeyType pubkeyUpdateKeyType = (PubkeyUpdateKeyType) o;
+    return Objects.equals(this.keyType, pubkeyUpdateKeyType.keyType) &&
+        Objects.equals(this.key, pubkeyUpdateKeyType.key);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash();
+    return Objects.hash(keyType, key);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ContractAddress {\n");
+    sb.append("class PubkeyUpdateKeyType {\n");
     
+    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -12,86 +12,9 @@
 
 package io.swagger.client.api.wallet.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 /**
- * 계정 정보 목록
- */
-@Schema(description = "계정 정보 목록")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
-public class Accounts {
-  @SerializedName("items")
-  private List<Account> items = null;
-
-  public Accounts items(List<Account> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Accounts addItemsItem(Account itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Account>();
-    }
-    this.items.add(itemsItem);
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @Schema(description = "")
-  public List<Account> getItems() {
-    return items;
-  }
-
-  public void setItems(List<Account> items) {
-    this.items = items;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(items);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Accounts {\n");
-    
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+* OneOfAccountUpdateKey
+*/
+public interface OneOfAccountUpdateKey {
 
 }

@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 대납 취소 트랜잭션 요청 스키마
  */
 @Schema(description = "대납 취소 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class FDCancelTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -28,17 +29,17 @@ public class FDCancelTransactionRequest {
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
-
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
 
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
+  @SerializedName("transaction_hash")
+  private String transactionHash = null;
+
+  @SerializedName("gas_limit")
+  private Long gasLimit = null;
 
   public FDCancelTransactionRequest from(String from) {
     this.from = from;
@@ -76,40 +77,22 @@ public class FDCancelTransactionRequest {
     this.transactionHash = transactionHash;
   }
 
-  public FDCancelTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 보낸 트랜잭션을 식별하는 유일한 값. 취소하고자 하는 nonce 값
-   * @return nonce
-  **/
-  @Schema(example = "0", description = "보낸 트랜잭션을 식별하는 유일한 값. 취소하고자 하는 nonce 값")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
-  public FDCancelTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public FDCancelTransactionRequest gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gasLimit
+   * @return gas
   **/
   @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public FDCancelTransactionRequest submit(Boolean submit) {
@@ -130,22 +113,40 @@ public class FDCancelTransactionRequest {
     this.submit = submit;
   }
 
-  public FDCancelTransactionRequest feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
+  public FDCancelTransactionRequest transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
-   * @return feeRatio
+   * Get transactionHash
+   * @return transactionHash
   **/
-  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
-  public Long getFeeRatio() {
-    return feeRatio;
+  @Schema(example = "0x02e13becf638cac359381fa5dfc3ef8f598a90cceb9842eb714019bcd883fd59", description = "")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public FDCancelTransactionRequest gasLimit(Long gasLimit) {
+    this.gasLimit = gasLimit;
+    return this;
+  }
+
+   /**
+   * Get gasLimit
+   * @return gasLimit
+  **/
+  @Schema(example = "1000000", description = "")
+  public Long getGasLimit() {
+    return gasLimit;
+  }
+
+  public void setGasLimit(Long gasLimit) {
+    this.gasLimit = gasLimit;
   }
 
 
@@ -160,15 +161,15 @@ public class FDCancelTransactionRequest {
     FDCancelTransactionRequest fdCancelTransactionRequest = (FDCancelTransactionRequest) o;
     return Objects.equals(this.from, fdCancelTransactionRequest.from) &&
         Objects.equals(this.transactionHash, fdCancelTransactionRequest.transactionHash) &&
-        Objects.equals(this.nonce, fdCancelTransactionRequest.nonce) &&
-        Objects.equals(this.gasLimit, fdCancelTransactionRequest.gasLimit) &&
+        Objects.equals(this.gas, fdCancelTransactionRequest.gas) &&
         Objects.equals(this.submit, fdCancelTransactionRequest.submit) &&
-        Objects.equals(this.feeRatio, fdCancelTransactionRequest.feeRatio);
+        Objects.equals(this.transactionHash, fdCancelTransactionRequest.transactionHash) &&
+        Objects.equals(this.gasLimit, fdCancelTransactionRequest.gasLimit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, transactionHash, nonce, gasLimit, submit, feeRatio);
+    return Objects.hash(from, transactionHash, gas, submit, transactionHash, gasLimit);
   }
 
 
@@ -179,10 +180,10 @@ public class FDCancelTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -18,20 +18,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * 트랜잭션 영수증
  */
 @Schema(description = "트랜잭션 영수증")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class TransactionReceipt {
   @SerializedName("blockHash")
   private String blockHash = null;
 
   @SerializedName("blockNumber")
   private String blockNumber = null;
-
-  @SerializedName("contractAddress")
-  private ContractAddress contractAddress = null;
 
   @SerializedName("from")
   private String from = null;
@@ -52,7 +50,7 @@ public class TransactionReceipt {
   private String input = null;
 
   @SerializedName("logs")
-  private List<Object> logs = null;
+  private List<EventLog> logs = null;
 
   @SerializedName("logsBloom")
   private String logsBloom = null;
@@ -87,6 +85,18 @@ public class TransactionReceipt {
   @SerializedName("value")
   private String value = null;
 
+  @SerializedName("codeFormat")
+  private String codeFormat = null;
+
+  @SerializedName("contractAddress")
+  private String contractAddress = null;
+
+  @SerializedName("feePayer")
+  private String feePayer = null;
+
+  @SerializedName("feePayerSignatures")
+  private List<FeePayerSignaturesObj> feePayerSignatures = null;
+
   public TransactionReceipt blockHash(String blockHash) {
     this.blockHash = blockHash;
     return this;
@@ -96,7 +106,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션이 있는 블록의 해시값
    * @return blockHash
   **/
-  @Schema(example = "0x421648a9920d4f97e60dc1d93c62e2b0c2f3a8df5ddb79252ce693974ef7806c", required = true, description = "해당 트랜잭션이 있는 블록의 해시값")
+  @Schema(example = "0x276e6efcc01b27c992b0663cc843baebc9dbb167cf0cd7e74808c21c97a74182", description = "해당 트랜잭션이 있는 블록의 해시값")
   public String getBlockHash() {
     return blockHash;
   }
@@ -114,31 +124,13 @@ public class TransactionReceipt {
    * 해당 트랜잭션이 있는 블록의 번호
    * @return blockNumber
   **/
-  @Schema(example = "0xba", required = true, description = "해당 트랜잭션이 있는 블록의 번호")
+  @Schema(example = "0x24bb088", description = "해당 트랜잭션이 있는 블록의 번호")
   public String getBlockNumber() {
     return blockNumber;
   }
 
   public void setBlockNumber(String blockNumber) {
     this.blockNumber = blockNumber;
-  }
-
-  public TransactionReceipt contractAddress(ContractAddress contractAddress) {
-    this.contractAddress = contractAddress;
-    return this;
-  }
-
-   /**
-   * Get contractAddress
-   * @return contractAddress
-  **/
-  @Schema(required = true, description = "")
-  public ContractAddress getContractAddress() {
-    return contractAddress;
-  }
-
-  public void setContractAddress(ContractAddress contractAddress) {
-    this.contractAddress = contractAddress;
   }
 
   public TransactionReceipt from(String from) {
@@ -150,7 +142,7 @@ public class TransactionReceipt {
    * 트랜잭션을 보낸 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(example = "0x325dbaf78b393dc2115138c86a58f897ed413aff", required = true, description = "트랜잭션을 보낸 Klaytn 계정 주소")
+  @Schema(example = "0x3e3733b256c93f9d759e33c9939258068bd5957d", description = "트랜잭션을 보낸 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -168,7 +160,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값
    * @return gas
   **/
-  @Schema(example = "0xf4240", required = true, description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값")
+  @Schema(example = "0xf4240", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값")
   public String getGas() {
     return gas;
   }
@@ -186,7 +178,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용
    * @return gasPrice
   **/
-  @Schema(example = "0x5d21dba00", required = true, description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용")
+  @Schema(example = "0x5d21dba00", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용")
   public String getGasPrice() {
     return gasPrice;
   }
@@ -204,7 +196,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)
    * @return gasUsed
   **/
-  @Schema(example = "0x5398", required = true, description = "해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)")
+  @Schema(example = "0x55478", description = "해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)")
   public String getGasUsed() {
     return gasUsed;
   }
@@ -222,7 +214,7 @@ public class TransactionReceipt {
    * 트랜잭션 데이터 해시
    * @return hash
   **/
-  @Schema(example = "0x62cbe2b959dd80b2dae88ccac3caba51c056989d2cb00bf7b4136c4945cc4644", required = true, description = "트랜잭션 데이터 해시")
+  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "트랜잭션 데이터 해시")
   public String getHash() {
     return hash;
   }
@@ -240,7 +232,7 @@ public class TransactionReceipt {
    * 보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터
    * @return input
   **/
-  @Schema(example = "0x6d656d6f", description = "보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터")
+  @Schema(example = "0x4867ba1500000000000000000000000000000000000000000000000000000000000000c000000000000000000000000001021e96a79de1b663753935ac856c2cfc51ce8c000000000000000000000000270f21fbf544e5f87b4988c521315a87ce24acf200000000000000000000000000000000000000000000000000000000000000009dbb36061e9a8cb752a9e8abd17e459d7577eaf614f351dfac0b3b3a2d4fca7400000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000041efc087a54f954b416b6d051775770336f26d65442306145f8148ee2d2181012d5d49e2d3bd51b22456bb69f5adda7e21c93750aa0c4bfd8a99e6bd17584d10a41b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a401db711901000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c8c7395e3e64e69471ed11debbff2a0ffb89d5b00000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000020efefefefefefef0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", description = "보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터")
   public String getInput() {
     return input;
   }
@@ -249,14 +241,14 @@ public class TransactionReceipt {
     this.input = input;
   }
 
-  public TransactionReceipt logs(List<Object> logs) {
+  public TransactionReceipt logs(List<EventLog> logs) {
     this.logs = logs;
     return this;
   }
 
-  public TransactionReceipt addLogsItem(Object logsItem) {
+  public TransactionReceipt addLogsItem(EventLog logsItem) {
     if (this.logs == null) {
-      this.logs = new ArrayList<Object>();
+      this.logs = new ArrayList<EventLog>();
     }
     this.logs.add(logsItem);
     return this;
@@ -267,11 +259,11 @@ public class TransactionReceipt {
    * @return logs
   **/
   @Schema(description = "")
-  public List<Object> getLogs() {
+  public List<EventLog> getLogs() {
     return logs;
   }
 
-  public void setLogs(List<Object> logs) {
+  public void setLogs(List<EventLog> logs) {
     this.logs = logs;
   }
 
@@ -284,7 +276,7 @@ public class TransactionReceipt {
    * 관련 로그를 빨리 찾기 위해 사용된 Bloom 필터
    * @return logsBloom
   **/
-  @Schema(example = "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", required = true, description = "관련 로그를 빨리 찾기 위해 사용된 Bloom 필터")
+  @Schema(example = "0x00000000000000000000000000000000000000000040000000000000200000000000000000000000000001000000000000000000000200000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000800000000000000000000000000000000000080000000000000000000000000000000000000000000800000000000800000000", description = "관련 로그를 빨리 찾기 위해 사용된 Bloom 필터")
   public String getLogsBloom() {
     return logsBloom;
   }
@@ -302,7 +294,7 @@ public class TransactionReceipt {
    * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
    * @return nonce
   **/
-  @Schema(example = "0x1", required = true, description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
+  @Schema(example = "0x26dc3", description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
   public String getNonce() {
     return nonce;
   }
@@ -320,7 +312,7 @@ public class TransactionReceipt {
    * 대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값
    * @return senderTxHash
   **/
-  @Schema(example = "0x62cbe2b959dd80b2dae88ccac3caba51c056989d2cb00bf7b4136c4945cc4644", description = "대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값")
+  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값")
   public String getSenderTxHash() {
     return senderTxHash;
   }
@@ -364,7 +356,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션의 상태. 아직 txpool에 있을 경우 &#x60;Pending&#x60;, 성공한 트랜잭션의 경우 &#x60;Committed&#x60;, 실패한 트랜잭션의 경우 &#x60;CommitError&#x60;로 표시함.
    * @return status
   **/
-  @Schema(example = "Committed", required = true, description = "해당 트랜잭션의 상태. 아직 txpool에 있을 경우 `Pending`, 성공한 트랜잭션의 경우 `Committed`, 실패한 트랜잭션의 경우 `CommitError`로 표시함.")
+  @Schema(example = "Committed", description = "해당 트랜잭션의 상태. 아직 txpool에 있을 경우 `Pending`, 성공한 트랜잭션의 경우 `Committed`, 실패한 트랜잭션의 경우 `CommitError`로 표시함.")
   public String getStatus() {
     return status;
   }
@@ -382,7 +374,7 @@ public class TransactionReceipt {
    * KLAY를 받는 Klaytn 계정 주소
    * @return to
   **/
-  @Schema(example = "0x2f87ba64de5526f7880f21481effbf950f70005c", required = true, description = "KLAY를 받는 Klaytn 계정 주소")
+  @Schema(example = "0x01021e96a79de1b663753935ac856c2cfc51ce8c", description = "KLAY를 받는 Klaytn 계정 주소")
   public String getTo() {
     return to;
   }
@@ -400,7 +392,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션의 해시값
    * @return transactionHash
   **/
-  @Schema(example = "0x62cbe2b959dd80b2dae88ccac3caba51c056989d2cb00bf7b4136c4945cc4644", required = true, description = "해당 트랜잭션의 해시값")
+  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "해당 트랜잭션의 해시값")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -418,7 +410,7 @@ public class TransactionReceipt {
    * 트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서
    * @return transactionIndex
   **/
-  @Schema(example = "0x0", required = true, description = "트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서")
+  @Schema(example = "0x0", description = "트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서")
   public String getTransactionIndex() {
     return transactionIndex;
   }
@@ -436,7 +428,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션 타입를 나타내는 문자값
    * @return type
   **/
-  @Schema(example = "TxTypeValueTransferMemo", required = true, description = "해당 트랜잭션 타입를 나타내는 문자값")
+  @Schema(example = "TxTypeSmartContractExecution", description = "해당 트랜잭션 타입를 나타내는 문자값")
   public String getType() {
     return type;
   }
@@ -454,7 +446,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션 타입을 나타내는 숫자값
    * @return typeInt
   **/
-  @Schema(example = "16", required = true, description = "해당 트랜잭션 타입을 나타내는 숫자값")
+  @Schema(example = "48", description = "해당 트랜잭션 타입을 나타내는 숫자값")
   public Long getTypeInt() {
     return typeInt;
   }
@@ -472,13 +464,93 @@ public class TransactionReceipt {
    * peb 단위로 환산된 KLAY
    * @return value
   **/
-  @Schema(example = "0x100", required = true, description = "peb 단위로 환산된 KLAY")
+  @Schema(example = "0x0", description = "peb 단위로 환산된 KLAY")
   public String getValue() {
     return value;
   }
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public TransactionReceipt codeFormat(String codeFormat) {
+    this.codeFormat = codeFormat;
+    return this;
+  }
+
+   /**
+   * 스마트 컨트랙트의 코드 포맷
+   * @return codeFormat
+  **/
+  @Schema(example = "0x0", description = "스마트 컨트랙트의 코드 포맷")
+  public String getCodeFormat() {
+    return codeFormat;
+  }
+
+  public void setCodeFormat(String codeFormat) {
+    this.codeFormat = codeFormat;
+  }
+
+  public TransactionReceipt contractAddress(String contractAddress) {
+    this.contractAddress = contractAddress;
+    return this;
+  }
+
+   /**
+   * 컨트랙트 주소. 만약 컨트랙트 배포가 아니면 &#x60;null&#x60; 값을 가짐.
+   * @return contractAddress
+  **/
+  @Schema(example = "0x0a868e321c0c689c2093001fdf7ecdb9d3ed79e1", required = true, description = "컨트랙트 주소. 만약 컨트랙트 배포가 아니면 `null` 값을 가짐.")
+  public String getContractAddress() {
+    return contractAddress;
+  }
+
+  public void setContractAddress(String contractAddress) {
+    this.contractAddress = contractAddress;
+  }
+
+  public TransactionReceipt feePayer(String feePayer) {
+    this.feePayer = feePayer;
+    return this;
+  }
+
+   /**
+   * 트랜잭션 수수료를 대납할 계정 주소
+   * @return feePayer
+  **/
+  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", description = "트랜잭션 수수료를 대납할 계정 주소")
+  public String getFeePayer() {
+    return feePayer;
+  }
+
+  public void setFeePayer(String feePayer) {
+    this.feePayer = feePayer;
+  }
+
+  public TransactionReceipt feePayerSignatures(List<FeePayerSignaturesObj> feePayerSignatures) {
+    this.feePayerSignatures = feePayerSignatures;
+    return this;
+  }
+
+  public TransactionReceipt addFeePayerSignaturesItem(FeePayerSignaturesObj feePayerSignaturesItem) {
+    if (this.feePayerSignatures == null) {
+      this.feePayerSignatures = new ArrayList<FeePayerSignaturesObj>();
+    }
+    this.feePayerSignatures.add(feePayerSignaturesItem);
+    return this;
+  }
+
+   /**
+   * Get feePayerSignatures
+   * @return feePayerSignatures
+  **/
+  @Schema(description = "")
+  public List<FeePayerSignaturesObj> getFeePayerSignatures() {
+    return feePayerSignatures;
+  }
+
+  public void setFeePayerSignatures(List<FeePayerSignaturesObj> feePayerSignatures) {
+    this.feePayerSignatures = feePayerSignatures;
   }
 
 
@@ -493,7 +565,6 @@ public class TransactionReceipt {
     TransactionReceipt transactionReceipt = (TransactionReceipt) o;
     return Objects.equals(this.blockHash, transactionReceipt.blockHash) &&
         Objects.equals(this.blockNumber, transactionReceipt.blockNumber) &&
-        Objects.equals(this.contractAddress, transactionReceipt.contractAddress) &&
         Objects.equals(this.from, transactionReceipt.from) &&
         Objects.equals(this.gas, transactionReceipt.gas) &&
         Objects.equals(this.gasPrice, transactionReceipt.gasPrice) &&
@@ -511,12 +582,16 @@ public class TransactionReceipt {
         Objects.equals(this.transactionIndex, transactionReceipt.transactionIndex) &&
         Objects.equals(this.type, transactionReceipt.type) &&
         Objects.equals(this.typeInt, transactionReceipt.typeInt) &&
-        Objects.equals(this.value, transactionReceipt.value);
+        Objects.equals(this.value, transactionReceipt.value) &&
+        Objects.equals(this.codeFormat, transactionReceipt.codeFormat) &&
+        Objects.equals(this.contractAddress, transactionReceipt.contractAddress) &&
+        Objects.equals(this.feePayer, transactionReceipt.feePayer) &&
+        Objects.equals(this.feePayerSignatures, transactionReceipt.feePayerSignatures);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(blockHash, blockNumber, contractAddress, from, gas, gasPrice, gasUsed, hash, input, logs, logsBloom, nonce, senderTxHash, signatures, status, to, transactionHash, transactionIndex, type, typeInt, value);
+    return Objects.hash(blockHash, blockNumber, from, gas, gasPrice, gasUsed, hash, input, logs, logsBloom, nonce, senderTxHash, signatures, status, to, transactionHash, transactionIndex, type, typeInt, value, codeFormat, contractAddress, feePayer, feePayerSignatures);
   }
 
 
@@ -527,7 +602,6 @@ public class TransactionReceipt {
     
     sb.append("    blockHash: ").append(toIndentedString(blockHash)).append("\n");
     sb.append("    blockNumber: ").append(toIndentedString(blockNumber)).append("\n");
-    sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
@@ -546,6 +620,10 @@ public class TransactionReceipt {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    codeFormat: ").append(toIndentedString(codeFormat)).append("\n");
+    sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
+    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feePayerSignatures: ").append(toIndentedString(feePayerSignatures)).append("\n");
     sb.append("}");
     return sb.toString();
   }

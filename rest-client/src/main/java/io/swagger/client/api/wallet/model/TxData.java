@@ -16,17 +16,18 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * TxData
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class TxData {
   @SerializedName("from")
   private String from = null;
 
-  @SerializedName("gasLimit")
-  private Long gasLimit = null;
+  @SerializedName("gas")
+  private Long gas = null;
 
   @SerializedName("gasPrice")
   private String gasPrice = null;
@@ -61,22 +62,22 @@ public class TxData {
     this.from = from;
   }
 
-  public TxData gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public TxData gas(Long gas) {
+    this.gas = gas;
     return this;
   }
 
    /**
-   * Get gasLimit
-   * @return gasLimit
+   * Get gas
+   * @return gas
   **/
   @Schema(example = "1000000", description = "")
-  public Long getGasLimit() {
-    return gasLimit;
+  public Long getGas() {
+    return gas;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public TxData gasPrice(String gasPrice) {
@@ -180,7 +181,7 @@ public class TxData {
     }
     TxData txData = (TxData) o;
     return Objects.equals(this.from, txData.from) &&
-        Objects.equals(this.gasLimit, txData.gasLimit) &&
+        Objects.equals(this.gas, txData.gas) &&
         Objects.equals(this.gasPrice, txData.gasPrice) &&
         Objects.equals(this.input, txData.input) &&
         Objects.equals(this.to, txData.to) &&
@@ -190,7 +191,7 @@ public class TxData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, gasLimit, gasPrice, input, to, typeInt, value);
+    return Objects.hash(from, gas, gasPrice, input, to, typeInt, value);
   }
 
 
@@ -200,7 +201,7 @@ public class TxData {
     sb.append("class TxData {\n");
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");

@@ -16,41 +16,21 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * rlp 이용 유저 대납 트랜잭션 요청 스키마
  */
 @Schema(description = "rlp 이용 유저 대납 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T06:06:45.693Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
 public class FDUserProcessRLPRequest {
-  @SerializedName("rlp")
-  private String rlp = null;
-
   @SerializedName("feePayer")
   private String feePayer = null;
-
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
 
-  public FDUserProcessRLPRequest rlp(String rlp) {
-    this.rlp = rlp;
-    return this;
-  }
-
-   /**
-   * RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.
-   * @return rlp
-  **/
-  @Schema(required = true, description = "RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.")
-  public String getRlp() {
-    return rlp;
-  }
-
-  public void setRlp(String rlp) {
-    this.rlp = rlp;
-  }
+  @SerializedName("rlp")
+  private String rlp = null;
 
   public FDUserProcessRLPRequest feePayer(String feePayer) {
     this.feePayer = feePayer;
@@ -61,31 +41,13 @@ public class FDUserProcessRLPRequest {
    * 트랜잭션 수수료를 대납할 계정 주소
    * @return feePayer
   **/
-  @Schema(example = "0x85B98485444c89880cD9C48807CEF727C296F2da", required = true, description = "트랜잭션 수수료를 대납할 계정 주소")
+  @Schema(example = "0x85B98485444c89880cD9C48807CEF727C296F2da", description = "트랜잭션 수수료를 대납할 계정 주소")
   public String getFeePayer() {
     return feePayer;
   }
 
   public void setFeePayer(String feePayer) {
     this.feePayer = feePayer;
-  }
-
-  public FDUserProcessRLPRequest feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-    return this;
-  }
-
-   /**
-   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
-   * @return feeRatio
-  **/
-  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
-  public Long getFeeRatio() {
-    return feeRatio;
-  }
-
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
   }
 
   public FDUserProcessRLPRequest submit(Boolean submit) {
@@ -106,6 +68,24 @@ public class FDUserProcessRLPRequest {
     this.submit = submit;
   }
 
+  public FDUserProcessRLPRequest rlp(String rlp) {
+    this.rlp = rlp;
+    return this;
+  }
+
+   /**
+   * RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.
+   * @return rlp
+  **/
+  @Schema(example = "0x29f90208028505d21dba00830f4240808094a9183ed590ebedf06d415ae684e3f18d06789f8db9013a60806040526000805534801561001457600080fd5b50610116806100246000396000f3006080604052600436106053576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306661abd14605857806342cbb15c146080578063d14e62b81460a8575b600080fd5b348015606357600080fd5b50606a60d2565b6040518082815260200191505060405180910390f35b348015608b57600080fd5b50609260d8565b6040518082815260200191505060405180910390f35b34801560b357600080fd5b5060d06004803603810190808035906020019092919050505060e0565b005b60005481565b600043905090565b80600081905550505600a165627a7a7230582064856de85a2706463526593b08dd790054536042ef66d3204018e6790a2208d100298080f847f8458207f6a0fc68cc5474f42ffbe03e8d41cee79ef1e9368a9dacf2ec3fc6827dd8c185a87ca010e5bda93af1690362902b49ffbbe82504ec58f6336a5d5465dd34819b532edb94c9bfddabf2c38396b097c8fabe9151955413995df847f8458207f6a0e656faff9a85eaff513d6ad8f74b77f2d51e59d0f2d124a0b93e0856e400e42ea073fcc27414719ea1da2dc1b840a481168bb6b69a3c0e7493c8e7e7bea17e31e0", required = true, description = "RLP 값으로 Klaytn RLP 포맷인 SigRLP 또는 TxHashRLP을 받음.")
+  public String getRlp() {
+    return rlp;
+  }
+
+  public void setRlp(String rlp) {
+    this.rlp = rlp;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -116,15 +96,14 @@ public class FDUserProcessRLPRequest {
       return false;
     }
     FDUserProcessRLPRequest fdUserProcessRLPRequest = (FDUserProcessRLPRequest) o;
-    return Objects.equals(this.rlp, fdUserProcessRLPRequest.rlp) &&
-        Objects.equals(this.feePayer, fdUserProcessRLPRequest.feePayer) &&
-        Objects.equals(this.feeRatio, fdUserProcessRLPRequest.feeRatio) &&
-        Objects.equals(this.submit, fdUserProcessRLPRequest.submit);
+    return Objects.equals(this.feePayer, fdUserProcessRLPRequest.feePayer) &&
+        Objects.equals(this.submit, fdUserProcessRLPRequest.submit) &&
+        Objects.equals(this.rlp, fdUserProcessRLPRequest.rlp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rlp, feePayer, feeRatio, submit);
+    return Objects.hash(feePayer, submit, rlp);
   }
 
 
@@ -133,10 +112,9 @@ public class FDUserProcessRLPRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class FDUserProcessRLPRequest {\n");
     
-    sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("}");
     return sb.toString();
   }
