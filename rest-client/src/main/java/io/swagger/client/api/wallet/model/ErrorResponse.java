@@ -21,7 +21,7 @@ import java.util.Objects;
  * this response contains error description.
  */
 @Schema(description = "this response contains error description.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;

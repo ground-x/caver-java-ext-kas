@@ -21,13 +21,16 @@ import java.util.Objects;
  * 유저 대납 앵커 트랜잭션 요청 스키마
  */
 @Schema(description = "유저 대납 앵커 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class FDUserAnchorTransactionRequest {
   @SerializedName("from")
   private String from = null;
 
   @SerializedName("input")
   private String input = null;
+
+  @SerializedName("nonce")
+  private Long nonce = null;
 
   @SerializedName("gas")
   private Long gas = null;
@@ -37,6 +40,9 @@ public class FDUserAnchorTransactionRequest {
 
   @SerializedName("feePayer")
   private String feePayer = null;
+
+  @SerializedName("feeRatio")
+  private Long feeRatio = null;
 
   public FDUserAnchorTransactionRequest from(String from) {
     this.from = from;
@@ -65,13 +71,31 @@ public class FDUserAnchorTransactionRequest {
    * 트랜잭션에 첨부되는 데이터로 여기에서는 메인 체인에 앵커링하려는 데이터
    * @return input
   **/
-  @Schema(example = "{{input}}", required = true, description = "트랜잭션에 첨부되는 데이터로 여기에서는 메인 체인에 앵커링하려는 데이터")
+  @Schema(example = "0x123", required = true, description = "트랜잭션에 첨부되는 데이터로 여기에서는 메인 체인에 앵커링하려는 데이터")
   public String getInput() {
     return input;
   }
 
   public void setInput(String input) {
     this.input = input;
+  }
+
+  public FDUserAnchorTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
+  **/
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public FDUserAnchorTransactionRequest gas(Long gas) {
@@ -128,6 +152,24 @@ public class FDUserAnchorTransactionRequest {
     this.feePayer = feePayer;
   }
 
+  public FDUserAnchorTransactionRequest feeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+    return this;
+  }
+
+   /**
+   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
+   * @return feeRatio
+  **/
+  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
+  public Long getFeeRatio() {
+    return feeRatio;
+  }
+
+  public void setFeeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -140,14 +182,16 @@ public class FDUserAnchorTransactionRequest {
     FDUserAnchorTransactionRequest fdUserAnchorTransactionRequest = (FDUserAnchorTransactionRequest) o;
     return Objects.equals(this.from, fdUserAnchorTransactionRequest.from) &&
         Objects.equals(this.input, fdUserAnchorTransactionRequest.input) &&
+        Objects.equals(this.nonce, fdUserAnchorTransactionRequest.nonce) &&
         Objects.equals(this.gas, fdUserAnchorTransactionRequest.gas) &&
         Objects.equals(this.submit, fdUserAnchorTransactionRequest.submit) &&
-        Objects.equals(this.feePayer, fdUserAnchorTransactionRequest.feePayer);
+        Objects.equals(this.feePayer, fdUserAnchorTransactionRequest.feePayer) &&
+        Objects.equals(this.feeRatio, fdUserAnchorTransactionRequest.feeRatio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, input, gas, submit, feePayer);
+    return Objects.hash(from, input, nonce, gas, submit, feePayer, feeRatio);
   }
 
 
@@ -158,9 +202,11 @@ public class FDUserAnchorTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

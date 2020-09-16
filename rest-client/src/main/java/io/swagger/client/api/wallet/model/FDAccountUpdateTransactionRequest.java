@@ -21,7 +21,7 @@ import java.util.Objects;
  * 대납 계정 업데이트 트랜잭션 요청 스키마
  */
 @Schema(description = "대납 계정 업데이트 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class FDAccountUpdateTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -29,11 +29,17 @@ public class FDAccountUpdateTransactionRequest {
   @SerializedName("accountKey")
   private AccountUpdateKey accountKey = null;
 
+  @SerializedName("nonce")
+  private Long nonce = null;
+
   @SerializedName("gas")
   private Long gas = null;
 
   @SerializedName("submit")
   private Boolean submit = null;
+
+  @SerializedName("feeRatio")
+  private Long feeRatio = null;
 
   public FDAccountUpdateTransactionRequest from(String from) {
     this.from = from;
@@ -69,6 +75,24 @@ public class FDAccountUpdateTransactionRequest {
 
   public void setAccountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
+  }
+
+  public FDAccountUpdateTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
+  **/
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public FDAccountUpdateTransactionRequest gas(Long gas) {
@@ -107,6 +131,24 @@ public class FDAccountUpdateTransactionRequest {
     this.submit = submit;
   }
 
+  public FDAccountUpdateTransactionRequest feeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+    return this;
+  }
+
+   /**
+   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
+   * @return feeRatio
+  **/
+  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
+  public Long getFeeRatio() {
+    return feeRatio;
+  }
+
+  public void setFeeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -119,13 +161,15 @@ public class FDAccountUpdateTransactionRequest {
     FDAccountUpdateTransactionRequest fdAccountUpdateTransactionRequest = (FDAccountUpdateTransactionRequest) o;
     return Objects.equals(this.from, fdAccountUpdateTransactionRequest.from) &&
         Objects.equals(this.accountKey, fdAccountUpdateTransactionRequest.accountKey) &&
+        Objects.equals(this.nonce, fdAccountUpdateTransactionRequest.nonce) &&
         Objects.equals(this.gas, fdAccountUpdateTransactionRequest.gas) &&
-        Objects.equals(this.submit, fdAccountUpdateTransactionRequest.submit);
+        Objects.equals(this.submit, fdAccountUpdateTransactionRequest.submit) &&
+        Objects.equals(this.feeRatio, fdAccountUpdateTransactionRequest.feeRatio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, accountKey, gas, submit);
+    return Objects.hash(from, accountKey, nonce, gas, submit, feeRatio);
   }
 
 
@@ -136,8 +180,10 @@ public class FDAccountUpdateTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

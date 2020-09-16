@@ -14,7 +14,7 @@ package io.swagger.client.api.wallet.api;
 
 import com.google.gson.reflect.TypeToken;
 import io.swagger.client.*;
-import io.swagger.client.model.*;
+import io.swagger.client.api.wallet.model.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

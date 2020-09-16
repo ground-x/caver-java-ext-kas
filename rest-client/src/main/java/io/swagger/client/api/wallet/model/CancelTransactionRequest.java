@@ -21,25 +21,22 @@ import java.util.Objects;
  * 취소 트랜잭션 요청 스키마
  */
 @Schema(description = "취소 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class CancelTransactionRequest {
   @SerializedName("from")
   private String from = null;
 
-  @SerializedName("transaction_hash")
-  private String transactionHash = null;
-
-  @SerializedName("gas_limit")
-  private Long gasLimit = null;
-
-  @SerializedName("submit")
-  private Boolean submit = null;
-
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
+  @SerializedName("nonce")
+  private Long nonce = null;
+
   @SerializedName("gas")
   private Long gas = null;
+
+  @SerializedName("submit")
+  private Boolean submit = null;
 
   public CancelTransactionRequest from(String from) {
     this.from = from;
@@ -77,58 +74,22 @@ public class CancelTransactionRequest {
     this.transactionHash = transactionHash;
   }
 
-  public CancelTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public CancelTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Get gasLimit
-   * @return gasLimit
+   * 트랜잭션을 식별하는 유일한 값이며 이 값을 기준으로 트랜잭션을 취소
+   * @return nonce
   **/
-  @Schema(example = "1000000", description = "")
-  public Long getGasLimit() {
-    return gasLimit;
+  @Schema(example = "0", description = "트랜잭션을 식별하는 유일한 값이며 이 값을 기준으로 트랜잭션을 취소")
+  public Long getNonce() {
+    return nonce;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
-  }
-
-  public CancelTransactionRequest submit(Boolean submit) {
-    this.submit = submit;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 Klaytn에 전송할지 여부
-   * @return submit
-  **/
-  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
-  public Boolean isSubmit() {
-    return submit;
-  }
-
-  public void setSubmit(Boolean submit) {
-    this.submit = submit;
-  }
-
-  public CancelTransactionRequest transactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
-    return this;
-  }
-
-   /**
-   * Get transactionHash
-   * @return transactionHash
-  **/
-  @Schema(example = "0x02e13becf638cac359381fa5dfc3ef8f598a90cceb9842eb714019bcd883fd59", description = "")
-  public String getTransactionHash() {
-    return transactionHash;
-  }
-
-  public void setTransactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public CancelTransactionRequest gas(Long gas) {
@@ -149,6 +110,24 @@ public class CancelTransactionRequest {
     this.gas = gas;
   }
 
+  public CancelTransactionRequest submit(Boolean submit) {
+    this.submit = submit;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 Klaytn에 전송할지 여부
+   * @return submit
+  **/
+  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
+  public Boolean isSubmit() {
+    return submit;
+  }
+
+  public void setSubmit(Boolean submit) {
+    this.submit = submit;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -161,15 +140,14 @@ public class CancelTransactionRequest {
     CancelTransactionRequest cancelTransactionRequest = (CancelTransactionRequest) o;
     return Objects.equals(this.from, cancelTransactionRequest.from) &&
         Objects.equals(this.transactionHash, cancelTransactionRequest.transactionHash) &&
-        Objects.equals(this.gasLimit, cancelTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, cancelTransactionRequest.submit) &&
-        Objects.equals(this.transactionHash, cancelTransactionRequest.transactionHash) &&
-        Objects.equals(this.gas, cancelTransactionRequest.gas);
+        Objects.equals(this.nonce, cancelTransactionRequest.nonce) &&
+        Objects.equals(this.gas, cancelTransactionRequest.gas) &&
+        Objects.equals(this.submit, cancelTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, transactionHash, gasLimit, submit, transactionHash, gas);
+    return Objects.hash(from, transactionHash, nonce, gas, submit);
   }
 
 
@@ -180,10 +158,9 @@ public class CancelTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
-    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
-    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
+    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

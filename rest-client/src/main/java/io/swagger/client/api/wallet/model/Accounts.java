@@ -23,10 +23,31 @@ import java.util.Objects;
  * 계정 정보 목록
  */
 @Schema(description = "계정 정보 목록")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class Accounts {
+  @SerializedName("cursor")
+  private String cursor = null;
+
   @SerializedName("items")
   private List<Account> items = null;
+
+  public Accounts cursor(String cursor) {
+    this.cursor = cursor;
+    return this;
+  }
+
+   /**
+   * 마지막 검색 위치를 나타내는 커서 정보
+   * @return cursor
+  **/
+  @Schema(required = true, description = "마지막 검색 위치를 나타내는 커서 정보")
+  public String getCursor() {
+    return cursor;
+  }
+
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
+  }
 
   public Accounts items(List<Account> items) {
     this.items = items;
@@ -64,12 +85,13 @@ public class Accounts {
       return false;
     }
     Accounts accounts = (Accounts) o;
-    return Objects.equals(this.items, accounts.items);
+    return Objects.equals(this.cursor, accounts.cursor) &&
+        Objects.equals(this.items, accounts.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items);
+    return Objects.hash(cursor, items);
   }
 
 
@@ -78,6 +100,7 @@ public class Accounts {
     StringBuilder sb = new StringBuilder();
     sb.append("class Accounts {\n");
     
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();

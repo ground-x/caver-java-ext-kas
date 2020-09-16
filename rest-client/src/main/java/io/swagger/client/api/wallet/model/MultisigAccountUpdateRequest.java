@@ -23,7 +23,7 @@ import java.util.Objects;
  * Multisig 계정으로 업데이트 하기 위한 요청 스키마
  */
 @Schema(description = "Multisig 계정으로 업데이트 하기 위한 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class MultisigAccountUpdateRequest {
   @SerializedName("threshold")
   private Long threshold = null;

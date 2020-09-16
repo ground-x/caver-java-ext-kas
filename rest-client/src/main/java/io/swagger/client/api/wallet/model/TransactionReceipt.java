@@ -23,13 +23,25 @@ import java.util.Objects;
  * 트랜잭션 영수증
  */
 @Schema(description = "트랜잭션 영수증")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class TransactionReceipt {
   @SerializedName("blockHash")
   private String blockHash = null;
 
   @SerializedName("blockNumber")
   private String blockNumber = null;
+
+  @SerializedName("codeFormat")
+  private String codeFormat = null;
+
+  @SerializedName("contractAddress")
+  private String contractAddress = null;
+
+  @SerializedName("feePayer")
+  private String feePayer = null;
+
+  @SerializedName("feePayerSignatures")
+  private List<FeePayerSignaturesObj> feePayerSignatures = null;
 
   @SerializedName("from")
   private String from = null;
@@ -46,11 +58,14 @@ public class TransactionReceipt {
   @SerializedName("hash")
   private String hash = null;
 
+  @SerializedName("humanReadable")
+  private Boolean humanReadable = null;
+
   @SerializedName("input")
   private String input = null;
 
   @SerializedName("logs")
-  private List<EventLog> logs = null;
+  private List<Object> logs = null;
 
   @SerializedName("logsBloom")
   private String logsBloom = null;
@@ -67,9 +82,6 @@ public class TransactionReceipt {
   @SerializedName("status")
   private String status = null;
 
-  @SerializedName("to")
-  private String to = null;
-
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
@@ -85,17 +97,8 @@ public class TransactionReceipt {
   @SerializedName("value")
   private String value = null;
 
-  @SerializedName("codeFormat")
-  private String codeFormat = null;
-
-  @SerializedName("contractAddress")
-  private String contractAddress = null;
-
-  @SerializedName("feePayer")
-  private String feePayer = null;
-
-  @SerializedName("feePayerSignatures")
-  private List<FeePayerSignaturesObj> feePayerSignatures = null;
+  @SerializedName("to")
+  private String to = null;
 
   public TransactionReceipt blockHash(String blockHash) {
     this.blockHash = blockHash;
@@ -106,7 +109,7 @@ public class TransactionReceipt {
    * 해당 트랜잭션이 있는 블록의 해시값
    * @return blockHash
   **/
-  @Schema(example = "0x276e6efcc01b27c992b0663cc843baebc9dbb167cf0cd7e74808c21c97a74182", description = "해당 트랜잭션이 있는 블록의 해시값")
+  @Schema(example = "0x205c2537286c8ac7889961e39c438f868385238c202deaa4398f85a3c140810c", description = "해당 트랜잭션이 있는 블록의 해시값")
   public String getBlockHash() {
     return blockHash;
   }
@@ -124,353 +127,13 @@ public class TransactionReceipt {
    * 해당 트랜잭션이 있는 블록의 번호
    * @return blockNumber
   **/
-  @Schema(example = "0x24bb088", description = "해당 트랜잭션이 있는 블록의 번호")
+  @Schema(example = "0x2e5a", description = "해당 트랜잭션이 있는 블록의 번호")
   public String getBlockNumber() {
     return blockNumber;
   }
 
   public void setBlockNumber(String blockNumber) {
     this.blockNumber = blockNumber;
-  }
-
-  public TransactionReceipt from(String from) {
-    this.from = from;
-    return this;
-  }
-
-   /**
-   * 트랜잭션을 보낸 Klaytn 계정 주소
-   * @return from
-  **/
-  @Schema(example = "0x3e3733b256c93f9d759e33c9939258068bd5957d", description = "트랜잭션을 보낸 Klaytn 계정 주소")
-  public String getFrom() {
-    return from;
-  }
-
-  public void setFrom(String from) {
-    this.from = from;
-  }
-
-  public TransactionReceipt gas(String gas) {
-    this.gas = gas;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값
-   * @return gas
-  **/
-  @Schema(example = "0xf4240", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값")
-  public String getGas() {
-    return gas;
-  }
-
-  public void setGas(String gas) {
-    this.gas = gas;
-  }
-
-  public TransactionReceipt gasPrice(String gasPrice) {
-    this.gasPrice = gasPrice;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용
-   * @return gasPrice
-  **/
-  @Schema(example = "0x5d21dba00", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용")
-  public String getGasPrice() {
-    return gasPrice;
-  }
-
-  public void setGasPrice(String gasPrice) {
-    this.gasPrice = gasPrice;
-  }
-
-  public TransactionReceipt gasUsed(String gasUsed) {
-    this.gasUsed = gasUsed;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)
-   * @return gasUsed
-  **/
-  @Schema(example = "0x55478", description = "해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)")
-  public String getGasUsed() {
-    return gasUsed;
-  }
-
-  public void setGasUsed(String gasUsed) {
-    this.gasUsed = gasUsed;
-  }
-
-  public TransactionReceipt hash(String hash) {
-    this.hash = hash;
-    return this;
-  }
-
-   /**
-   * 트랜잭션 데이터 해시
-   * @return hash
-  **/
-  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "트랜잭션 데이터 해시")
-  public String getHash() {
-    return hash;
-  }
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-  public TransactionReceipt input(String input) {
-    this.input = input;
-    return this;
-  }
-
-   /**
-   * 보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터
-   * @return input
-  **/
-  @Schema(example = "0x4867ba1500000000000000000000000000000000000000000000000000000000000000c000000000000000000000000001021e96a79de1b663753935ac856c2cfc51ce8c000000000000000000000000270f21fbf544e5f87b4988c521315a87ce24acf200000000000000000000000000000000000000000000000000000000000000009dbb36061e9a8cb752a9e8abd17e459d7577eaf614f351dfac0b3b3a2d4fca7400000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000041efc087a54f954b416b6d051775770336f26d65442306145f8148ee2d2181012d5d49e2d3bd51b22456bb69f5adda7e21c93750aa0c4bfd8a99e6bd17584d10a41b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a401db711901000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c8c7395e3e64e69471ed11debbff2a0ffb89d5b00000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000020efefefefefefef0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", description = "보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터")
-  public String getInput() {
-    return input;
-  }
-
-  public void setInput(String input) {
-    this.input = input;
-  }
-
-  public TransactionReceipt logs(List<EventLog> logs) {
-    this.logs = logs;
-    return this;
-  }
-
-  public TransactionReceipt addLogsItem(EventLog logsItem) {
-    if (this.logs == null) {
-      this.logs = new ArrayList<EventLog>();
-    }
-    this.logs.add(logsItem);
-    return this;
-  }
-
-   /**
-   * Get logs
-   * @return logs
-  **/
-  @Schema(description = "")
-  public List<EventLog> getLogs() {
-    return logs;
-  }
-
-  public void setLogs(List<EventLog> logs) {
-    this.logs = logs;
-  }
-
-  public TransactionReceipt logsBloom(String logsBloom) {
-    this.logsBloom = logsBloom;
-    return this;
-  }
-
-   /**
-   * 관련 로그를 빨리 찾기 위해 사용된 Bloom 필터
-   * @return logsBloom
-  **/
-  @Schema(example = "0x00000000000000000000000000000000000000000040000000000000200000000000000000000000000001000000000000000000000200000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000800000000000000000000000000000000000080000000000000000000000000000000000000000000800000000000800000000", description = "관련 로그를 빨리 찾기 위해 사용된 Bloom 필터")
-  public String getLogsBloom() {
-    return logsBloom;
-  }
-
-  public void setLogsBloom(String logsBloom) {
-    this.logsBloom = logsBloom;
-  }
-
-  public TransactionReceipt nonce(String nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
-   * @return nonce
-  **/
-  @Schema(example = "0x26dc3", description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
-  public String getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(String nonce) {
-    this.nonce = nonce;
-  }
-
-  public TransactionReceipt senderTxHash(String senderTxHash) {
-    this.senderTxHash = senderTxHash;
-    return this;
-  }
-
-   /**
-   * 대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값
-   * @return senderTxHash
-  **/
-  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값")
-  public String getSenderTxHash() {
-    return senderTxHash;
-  }
-
-  public void setSenderTxHash(String senderTxHash) {
-    this.senderTxHash = senderTxHash;
-  }
-
-  public TransactionReceipt signatures(List<Signature> signatures) {
-    this.signatures = signatures;
-    return this;
-  }
-
-  public TransactionReceipt addSignaturesItem(Signature signaturesItem) {
-    if (this.signatures == null) {
-      this.signatures = new ArrayList<Signature>();
-    }
-    this.signatures.add(signaturesItem);
-    return this;
-  }
-
-   /**
-   * Get signatures
-   * @return signatures
-  **/
-  @Schema(description = "")
-  public List<Signature> getSignatures() {
-    return signatures;
-  }
-
-  public void setSignatures(List<Signature> signatures) {
-    this.signatures = signatures;
-  }
-
-  public TransactionReceipt status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션의 상태. 아직 txpool에 있을 경우 &#x60;Pending&#x60;, 성공한 트랜잭션의 경우 &#x60;Committed&#x60;, 실패한 트랜잭션의 경우 &#x60;CommitError&#x60;로 표시함.
-   * @return status
-  **/
-  @Schema(example = "Committed", description = "해당 트랜잭션의 상태. 아직 txpool에 있을 경우 `Pending`, 성공한 트랜잭션의 경우 `Committed`, 실패한 트랜잭션의 경우 `CommitError`로 표시함.")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public TransactionReceipt to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * KLAY를 받는 Klaytn 계정 주소
-   * @return to
-  **/
-  @Schema(example = "0x01021e96a79de1b663753935ac856c2cfc51ce8c", description = "KLAY를 받는 Klaytn 계정 주소")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransactionReceipt transactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션의 해시값
-   * @return transactionHash
-  **/
-  @Schema(example = "0x6a3bb7c14981f04e54261a542f0acaf27433befa9619443139f288b3b07c6b05", description = "해당 트랜잭션의 해시값")
-  public String getTransactionHash() {
-    return transactionHash;
-  }
-
-  public void setTransactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
-  }
-
-  public TransactionReceipt transactionIndex(String transactionIndex) {
-    this.transactionIndex = transactionIndex;
-    return this;
-  }
-
-   /**
-   * 트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서
-   * @return transactionIndex
-  **/
-  @Schema(example = "0x0", description = "트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서")
-  public String getTransactionIndex() {
-    return transactionIndex;
-  }
-
-  public void setTransactionIndex(String transactionIndex) {
-    this.transactionIndex = transactionIndex;
-  }
-
-  public TransactionReceipt type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션 타입를 나타내는 문자값
-   * @return type
-  **/
-  @Schema(example = "TxTypeSmartContractExecution", description = "해당 트랜잭션 타입를 나타내는 문자값")
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public TransactionReceipt typeInt(Long typeInt) {
-    this.typeInt = typeInt;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션 타입을 나타내는 숫자값
-   * @return typeInt
-  **/
-  @Schema(example = "48", description = "해당 트랜잭션 타입을 나타내는 숫자값")
-  public Long getTypeInt() {
-    return typeInt;
-  }
-
-  public void setTypeInt(Long typeInt) {
-    this.typeInt = typeInt;
-  }
-
-  public TransactionReceipt value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * peb 단위로 환산된 KLAY
-   * @return value
-  **/
-  @Schema(example = "0x0", description = "peb 단위로 환산된 KLAY")
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
   }
 
   public TransactionReceipt codeFormat(String codeFormat) {
@@ -500,7 +163,7 @@ public class TransactionReceipt {
    * 컨트랙트 주소. 만약 컨트랙트 배포가 아니면 &#x60;null&#x60; 값을 가짐.
    * @return contractAddress
   **/
-  @Schema(example = "0x0a868e321c0c689c2093001fdf7ecdb9d3ed79e1", required = true, description = "컨트랙트 주소. 만약 컨트랙트 배포가 아니면 `null` 값을 가짐.")
+  @Schema(example = "0x0a868e321c0c689c2093001fdf7ecdb9d3ed79e1", description = "컨트랙트 주소. 만약 컨트랙트 배포가 아니면 `null` 값을 가짐.")
   public String getContractAddress() {
     return contractAddress;
   }
@@ -553,6 +216,364 @@ public class TransactionReceipt {
     this.feePayerSignatures = feePayerSignatures;
   }
 
+  public TransactionReceipt from(String from) {
+    this.from = from;
+    return this;
+  }
+
+   /**
+   * 트랜잭션을 보낸 Klaytn 계정 주소
+   * @return from
+  **/
+  @Schema(example = "0x60b5c6b28a8a0339a43a0acd5f65eede5f68cf0e", description = "트랜잭션을 보낸 Klaytn 계정 주소")
+  public String getFrom() {
+    return from;
+  }
+
+  public void setFrom(String from) {
+    this.from = from;
+  }
+
+  public TransactionReceipt gas(String gas) {
+    this.gas = gas;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값
+   * @return gas
+  **/
+  @Schema(example = "0x895440", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas)의 최대값")
+  public String getGas() {
+    return gas;
+  }
+
+  public void setGas(String gas) {
+    this.gas = gas;
+  }
+
+  public TransactionReceipt gasPrice(String gasPrice) {
+    this.gasPrice = gasPrice;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용
+   * @return gasPrice
+  **/
+  @Schema(example = "0x5d21dba00", description = "해당 트랜잭션을 보낼 때 사용하도록 설정한 트랜잭션 수수료(gas) 비용")
+  public String getGasPrice() {
+    return gasPrice;
+  }
+
+  public void setGasPrice(String gasPrice) {
+    this.gasPrice = gasPrice;
+  }
+
+  public TransactionReceipt gasUsed(String gasUsed) {
+    this.gasUsed = gasUsed;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)
+   * @return gasUsed
+  **/
+  @Schema(example = "0x25de7", description = "해당 트랜잭션을 보낼 때 사용한 트랜잭션 수수료(gas)")
+  public String getGasUsed() {
+    return gasUsed;
+  }
+
+  public void setGasUsed(String gasUsed) {
+    this.gasUsed = gasUsed;
+  }
+
+  public TransactionReceipt hash(String hash) {
+    this.hash = hash;
+    return this;
+  }
+
+   /**
+   * 트랜잭션 데이터 해시
+   * @return hash
+  **/
+  @Schema(example = "0x3d13d31bd4b1e6ca37c4e73cfcb0ee4374a06290e84c6b01a41143c2cc2fa322", description = "트랜잭션 데이터 해시")
+  public String getHash() {
+    return hash;
+  }
+
+  public void setHash(String hash) {
+    this.hash = hash;
+  }
+
+  public TransactionReceipt humanReadable(Boolean humanReadable) {
+    this.humanReadable = humanReadable;
+    return this;
+  }
+
+   /**
+   * 해당 계정의 주소가 &#x60;humanReadable&#x60;인지 여부
+   * @return humanReadable
+  **/
+  @Schema(example = "false", description = "해당 계정의 주소가 `humanReadable`인지 여부")
+  public Boolean isHumanReadable() {
+    return humanReadable;
+  }
+
+  public void setHumanReadable(Boolean humanReadable) {
+    this.humanReadable = humanReadable;
+  }
+
+  public TransactionReceipt input(String input) {
+    this.input = input;
+    return this;
+  }
+
+   /**
+   * 보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터
+   * @return input
+  **/
+  @Schema(example = "0x60806040526000805534801561001457600080fd5b50610116806100246000396000f3006080604052600436106053576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306661abd14605857806342cbb15c146080578063d14e62b81460a8575b600080fd5b348015606357600080fd5b50606a60d2565b6040518082815260200191505060405180910390f35b348015608b57600080fd5b50609260d8565b6040518082815260200191505060405180910390f35b34801560b357600080fd5b5060d06004803603810190808035906020019092919050505060e0565b005b60005481565b600043905090565b80600081905550505600a165627a7a7230582064856de85a2706463526593b08dd790054536042ef66d3204018e6790a2208d10029", description = "보내는 트랜잭션에 첨부되며 트랜잭션 실행에 사용되는 데이터")
+  public String getInput() {
+    return input;
+  }
+
+  public void setInput(String input) {
+    this.input = input;
+  }
+
+  public TransactionReceipt logs(List<Object> logs) {
+    this.logs = logs;
+    return this;
+  }
+
+  public TransactionReceipt addLogsItem(Object logsItem) {
+    if (this.logs == null) {
+      this.logs = new ArrayList<Object>();
+    }
+    this.logs.add(logsItem);
+    return this;
+  }
+
+   /**
+   * Get logs
+   * @return logs
+  **/
+  @Schema(description = "")
+  public List<Object> getLogs() {
+    return logs;
+  }
+
+  public void setLogs(List<Object> logs) {
+    this.logs = logs;
+  }
+
+  public TransactionReceipt logsBloom(String logsBloom) {
+    this.logsBloom = logsBloom;
+    return this;
+  }
+
+   /**
+   * 관련 로그를 빨리 찾기 위해 사용된 Bloom 필터
+   * @return logsBloom
+  **/
+  @Schema(example = "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", description = "관련 로그를 빨리 찾기 위해 사용된 Bloom 필터")
+  public String getLogsBloom() {
+    return logsBloom;
+  }
+
+  public void setLogsBloom(String logsBloom) {
+    this.logsBloom = logsBloom;
+  }
+
+  public TransactionReceipt nonce(String nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
+   * @return nonce
+  **/
+  @Schema(example = "0x0", description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
+  public String getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(String nonce) {
+    this.nonce = nonce;
+  }
+
+  public TransactionReceipt senderTxHash(String senderTxHash) {
+    this.senderTxHash = senderTxHash;
+    return this;
+  }
+
+   /**
+   * 대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값
+   * @return senderTxHash
+  **/
+  @Schema(example = "0x01bd21f13617fc725b80975a68ff1bc2002aec66277e536e5643a8791518c3df", description = "대납 계정의 주소와 서명 값이 없는 트랜잭션의 해시값")
+  public String getSenderTxHash() {
+    return senderTxHash;
+  }
+
+  public void setSenderTxHash(String senderTxHash) {
+    this.senderTxHash = senderTxHash;
+  }
+
+  public TransactionReceipt signatures(List<Signature> signatures) {
+    this.signatures = signatures;
+    return this;
+  }
+
+  public TransactionReceipt addSignaturesItem(Signature signaturesItem) {
+    if (this.signatures == null) {
+      this.signatures = new ArrayList<Signature>();
+    }
+    this.signatures.add(signaturesItem);
+    return this;
+  }
+
+   /**
+   * Get signatures
+   * @return signatures
+  **/
+  @Schema(description = "")
+  public List<Signature> getSignatures() {
+    return signatures;
+  }
+
+  public void setSignatures(List<Signature> signatures) {
+    this.signatures = signatures;
+  }
+
+  public TransactionReceipt status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션의 상태. 아직 txpool에 있을 경우 &#x60;Pending&#x60;, 성공한 트랜잭션의 경우 &#x60;Committed&#x60;, 실패한 트랜잭션의 경우 &#x60;CommitError&#x60;로 표시함.
+   * @return status
+  **/
+  @Schema(example = "Committed", description = "해당 트랜잭션의 상태. 아직 txpool에 있을 경우 `Pending`, 성공한 트랜잭션의 경우 `Committed`, 실패한 트랜잭션의 경우 `CommitError`로 표시함.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public TransactionReceipt transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션의 해시값
+   * @return transactionHash
+  **/
+  @Schema(example = "0x3d13d31bd4b1e6ca37c4e73cfcb0ee4374a06290e84c6b01a41143c2cc2fa322", description = "해당 트랜잭션의 해시값")
+  public String getTransactionHash() {
+    return transactionHash;
+  }
+
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public TransactionReceipt transactionIndex(String transactionIndex) {
+    this.transactionIndex = transactionIndex;
+    return this;
+  }
+
+   /**
+   * 트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서
+   * @return transactionIndex
+  **/
+  @Schema(example = "0x0", description = "트랜잭션이 들어있는 블록 안에서 해당 트랜잭션의 순서")
+  public String getTransactionIndex() {
+    return transactionIndex;
+  }
+
+  public void setTransactionIndex(String transactionIndex) {
+    this.transactionIndex = transactionIndex;
+  }
+
+  public TransactionReceipt type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션 타입를 나타내는 문자값
+   * @return type
+  **/
+  @Schema(example = "TxTypeFeeDelegatedSmartContractDeploy", description = "해당 트랜잭션 타입를 나타내는 문자값")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public TransactionReceipt typeInt(Long typeInt) {
+    this.typeInt = typeInt;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션 타입을 나타내는 숫자값
+   * @return typeInt
+  **/
+  @Schema(example = "41", description = "해당 트랜잭션 타입을 나타내는 숫자값")
+  public Long getTypeInt() {
+    return typeInt;
+  }
+
+  public void setTypeInt(Long typeInt) {
+    this.typeInt = typeInt;
+  }
+
+  public TransactionReceipt value(String value) {
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * peb 단위로 환산된 KLAY
+   * @return value
+  **/
+  @Schema(example = "0x0", description = "peb 단위로 환산된 KLAY")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public TransactionReceipt to(String to) {
+    this.to = to;
+    return this;
+  }
+
+   /**
+   * KLAY를 받는 Klaytn 계정 주소
+   * @return to
+  **/
+  @Schema(example = "0x01021e96a79de1b663753935ac856c2cfc51ce8c", required = true, description = "KLAY를 받는 Klaytn 계정 주소")
+  public String getTo() {
+    return to;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -565,11 +586,16 @@ public class TransactionReceipt {
     TransactionReceipt transactionReceipt = (TransactionReceipt) o;
     return Objects.equals(this.blockHash, transactionReceipt.blockHash) &&
         Objects.equals(this.blockNumber, transactionReceipt.blockNumber) &&
+        Objects.equals(this.codeFormat, transactionReceipt.codeFormat) &&
+        Objects.equals(this.contractAddress, transactionReceipt.contractAddress) &&
+        Objects.equals(this.feePayer, transactionReceipt.feePayer) &&
+        Objects.equals(this.feePayerSignatures, transactionReceipt.feePayerSignatures) &&
         Objects.equals(this.from, transactionReceipt.from) &&
         Objects.equals(this.gas, transactionReceipt.gas) &&
         Objects.equals(this.gasPrice, transactionReceipt.gasPrice) &&
         Objects.equals(this.gasUsed, transactionReceipt.gasUsed) &&
         Objects.equals(this.hash, transactionReceipt.hash) &&
+        Objects.equals(this.humanReadable, transactionReceipt.humanReadable) &&
         Objects.equals(this.input, transactionReceipt.input) &&
         Objects.equals(this.logs, transactionReceipt.logs) &&
         Objects.equals(this.logsBloom, transactionReceipt.logsBloom) &&
@@ -577,21 +603,17 @@ public class TransactionReceipt {
         Objects.equals(this.senderTxHash, transactionReceipt.senderTxHash) &&
         Objects.equals(this.signatures, transactionReceipt.signatures) &&
         Objects.equals(this.status, transactionReceipt.status) &&
-        Objects.equals(this.to, transactionReceipt.to) &&
         Objects.equals(this.transactionHash, transactionReceipt.transactionHash) &&
         Objects.equals(this.transactionIndex, transactionReceipt.transactionIndex) &&
         Objects.equals(this.type, transactionReceipt.type) &&
         Objects.equals(this.typeInt, transactionReceipt.typeInt) &&
         Objects.equals(this.value, transactionReceipt.value) &&
-        Objects.equals(this.codeFormat, transactionReceipt.codeFormat) &&
-        Objects.equals(this.contractAddress, transactionReceipt.contractAddress) &&
-        Objects.equals(this.feePayer, transactionReceipt.feePayer) &&
-        Objects.equals(this.feePayerSignatures, transactionReceipt.feePayerSignatures);
+        Objects.equals(this.to, transactionReceipt.to);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(blockHash, blockNumber, from, gas, gasPrice, gasUsed, hash, input, logs, logsBloom, nonce, senderTxHash, signatures, status, to, transactionHash, transactionIndex, type, typeInt, value, codeFormat, contractAddress, feePayer, feePayerSignatures);
+    return Objects.hash(blockHash, blockNumber, codeFormat, contractAddress, feePayer, feePayerSignatures, from, gas, gasPrice, gasUsed, hash, humanReadable, input, logs, logsBloom, nonce, senderTxHash, signatures, status, transactionHash, transactionIndex, type, typeInt, value, to);
   }
 
 
@@ -602,11 +624,16 @@ public class TransactionReceipt {
     
     sb.append("    blockHash: ").append(toIndentedString(blockHash)).append("\n");
     sb.append("    blockNumber: ").append(toIndentedString(blockNumber)).append("\n");
+    sb.append("    codeFormat: ").append(toIndentedString(codeFormat)).append("\n");
+    sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
+    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feePayerSignatures: ").append(toIndentedString(feePayerSignatures)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
     sb.append("    gasUsed: ").append(toIndentedString(gasUsed)).append("\n");
     sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+    sb.append("    humanReadable: ").append(toIndentedString(humanReadable)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    logs: ").append(toIndentedString(logs)).append("\n");
     sb.append("    logsBloom: ").append(toIndentedString(logsBloom)).append("\n");
@@ -614,16 +641,12 @@ public class TransactionReceipt {
     sb.append("    senderTxHash: ").append(toIndentedString(senderTxHash)).append("\n");
     sb.append("    signatures: ").append(toIndentedString(signatures)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
     sb.append("    transactionIndex: ").append(toIndentedString(transactionIndex)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    codeFormat: ").append(toIndentedString(codeFormat)).append("\n");
-    sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
-    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
-    sb.append("    feePayerSignatures: ").append(toIndentedString(feePayerSignatures)).append("\n");
+    sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("}");
     return sb.toString();
   }

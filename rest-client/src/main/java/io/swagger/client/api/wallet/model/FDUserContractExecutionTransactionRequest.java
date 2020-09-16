@@ -21,7 +21,7 @@ import java.util.Objects;
  * 유저 대납 컨트랙트 실행 트랜잭션 요청 스키마
  */
 @Schema(description = "유저 대납 컨트랙트 실행 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class FDUserContractExecutionTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -35,6 +35,9 @@ public class FDUserContractExecutionTransactionRequest {
   @SerializedName("input")
   private String input = null;
 
+  @SerializedName("nonce")
+  private Long nonce = null;
+
   @SerializedName("gas")
   private Long gas = null;
 
@@ -43,6 +46,9 @@ public class FDUserContractExecutionTransactionRequest {
 
   @SerializedName("feePayer")
   private String feePayer = null;
+
+  @SerializedName("feeRatio")
+  private Long feeRatio = null;
 
   public FDUserContractExecutionTransactionRequest from(String from) {
     this.from = from;
@@ -116,6 +122,24 @@ public class FDUserContractExecutionTransactionRequest {
     this.input = input;
   }
 
+  public FDUserContractExecutionTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
+  **/
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
+  }
+
   public FDUserContractExecutionTransactionRequest gas(Long gas) {
     this.gas = gas;
     return this;
@@ -170,6 +194,24 @@ public class FDUserContractExecutionTransactionRequest {
     this.feePayer = feePayer;
   }
 
+  public FDUserContractExecutionTransactionRequest feeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+    return this;
+  }
+
+   /**
+   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
+   * @return feeRatio
+  **/
+  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
+  public Long getFeeRatio() {
+    return feeRatio;
+  }
+
+  public void setFeeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -184,14 +226,16 @@ public class FDUserContractExecutionTransactionRequest {
         Objects.equals(this.value, fdUserContractExecutionTransactionRequest.value) &&
         Objects.equals(this.to, fdUserContractExecutionTransactionRequest.to) &&
         Objects.equals(this.input, fdUserContractExecutionTransactionRequest.input) &&
+        Objects.equals(this.nonce, fdUserContractExecutionTransactionRequest.nonce) &&
         Objects.equals(this.gas, fdUserContractExecutionTransactionRequest.gas) &&
         Objects.equals(this.submit, fdUserContractExecutionTransactionRequest.submit) &&
-        Objects.equals(this.feePayer, fdUserContractExecutionTransactionRequest.feePayer);
+        Objects.equals(this.feePayer, fdUserContractExecutionTransactionRequest.feePayer) &&
+        Objects.equals(this.feeRatio, fdUserContractExecutionTransactionRequest.feeRatio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, to, input, gas, submit, feePayer);
+    return Objects.hash(from, value, to, input, nonce, gas, submit, feePayer, feeRatio);
   }
 
 
@@ -204,9 +248,11 @@ public class FDUserContractExecutionTransactionRequest {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

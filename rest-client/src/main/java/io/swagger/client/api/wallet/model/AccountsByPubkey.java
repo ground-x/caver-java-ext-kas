@@ -23,7 +23,7 @@ import java.util.Objects;
  * 해당 공개키를 가진 계정 목록입니다.
  */
 @Schema(description = "해당 공개키를 가진 계정 목록입니다.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class AccountsByPubkey {
   @SerializedName("items")
   private List<AccountByPubkey> items = null;

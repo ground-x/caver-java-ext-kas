@@ -21,7 +21,7 @@ import java.util.Objects;
  * 앵커 트랜잭션 요청 스키마
  */
 @Schema(description = "앵커 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class AnchorTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -29,14 +29,14 @@ public class AnchorTransactionRequest {
   @SerializedName("input")
   private String input = null;
 
-  @SerializedName("gas_limit")
-  private Long gasLimit = null;
-
-  @SerializedName("submit")
-  private Boolean submit = null;
+  @SerializedName("nonce")
+  private Long nonce = null;
 
   @SerializedName("gas")
   private Long gas = null;
+
+  @SerializedName("submit")
+  private Boolean submit = null;
 
   public AnchorTransactionRequest from(String from) {
     this.from = from;
@@ -74,40 +74,22 @@ public class AnchorTransactionRequest {
     this.input = input;
   }
 
-  public AnchorTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public AnchorTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Get gasLimit
-   * @return gasLimit
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
   **/
-  @Schema(example = "1000000", description = "")
-  public Long getGasLimit() {
-    return gasLimit;
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
-  }
-
-  public AnchorTransactionRequest submit(Boolean submit) {
-    this.submit = submit;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 Klaytn에 전송할지 여부
-   * @return submit
-  **/
-  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
-  public Boolean isSubmit() {
-    return submit;
-  }
-
-  public void setSubmit(Boolean submit) {
-    this.submit = submit;
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public AnchorTransactionRequest gas(Long gas) {
@@ -128,6 +110,24 @@ public class AnchorTransactionRequest {
     this.gas = gas;
   }
 
+  public AnchorTransactionRequest submit(Boolean submit) {
+    this.submit = submit;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 Klaytn에 전송할지 여부
+   * @return submit
+  **/
+  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
+  public Boolean isSubmit() {
+    return submit;
+  }
+
+  public void setSubmit(Boolean submit) {
+    this.submit = submit;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -140,14 +140,14 @@ public class AnchorTransactionRequest {
     AnchorTransactionRequest anchorTransactionRequest = (AnchorTransactionRequest) o;
     return Objects.equals(this.from, anchorTransactionRequest.from) &&
         Objects.equals(this.input, anchorTransactionRequest.input) &&
-        Objects.equals(this.gasLimit, anchorTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, anchorTransactionRequest.submit) &&
-        Objects.equals(this.gas, anchorTransactionRequest.gas);
+        Objects.equals(this.nonce, anchorTransactionRequest.nonce) &&
+        Objects.equals(this.gas, anchorTransactionRequest.gas) &&
+        Objects.equals(this.submit, anchorTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, input, gasLimit, submit, gas);
+    return Objects.hash(from, input, nonce, gas, submit);
   }
 
 
@@ -158,9 +158,9 @@ public class AnchorTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
-    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
+    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

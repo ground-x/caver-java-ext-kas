@@ -21,31 +21,28 @@ import java.util.Objects;
  * 유저 대납 계정 업데이트 트랜잭션 요청 스키마
  */
 @Schema(description = "유저 대납 계정 업데이트 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class FDUserAccountUpdateTransactionRequest {
   @SerializedName("from")
   private String from = null;
 
-  @SerializedName("account_key")
-  private AccountKey accountKey = null;
-
-  @SerializedName("gas_limit")
-  private Long gasLimit = null;
-
-  @SerializedName("submit")
-  private Boolean submit = null;
-
-  @SerializedName("fee_payer")
-  private String feePayer = null;
-
   @SerializedName("accountKey")
   private AccountUpdateKey accountKey = null;
+
+  @SerializedName("nonce")
+  private Long nonce = null;
 
   @SerializedName("gas")
   private Long gas = null;
 
+  @SerializedName("submit")
+  private Boolean submit = null;
+
   @SerializedName("feePayer")
   private String feePayer = null;
+
+  @SerializedName("feeRatio")
+  private Long feeRatio = null;
 
   public FDUserAccountUpdateTransactionRequest from(String from) {
     this.from = from;
@@ -56,7 +53,7 @@ public class FDUserAccountUpdateTransactionRequest {
    * 트랜잭션을 보내는 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", description = "트랜잭션을 보내는 Klaytn 계정 주소")
+  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -65,7 +62,7 @@ public class FDUserAccountUpdateTransactionRequest {
     this.from = from;
   }
 
-  public FDUserAccountUpdateTransactionRequest accountKey(AccountKey accountKey) {
+  public FDUserAccountUpdateTransactionRequest accountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
     return this;
   }
@@ -75,30 +72,48 @@ public class FDUserAccountUpdateTransactionRequest {
    * @return accountKey
   **/
   @Schema(description = "")
-  public AccountKey getAccountKey() {
+  public AccountUpdateKey getAccountKey() {
     return accountKey;
   }
 
-  public void setAccountKey(AccountKey accountKey) {
+  public void setAccountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
   }
 
-  public FDUserAccountUpdateTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public FDUserAccountUpdateTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Get gasLimit
-   * @return gasLimit
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
   **/
-  @Schema(example = "1000000", description = "")
-  public Long getGasLimit() {
-    return gasLimit;
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
+  }
+
+  public FDUserAccountUpdateTransactionRequest gas(Long gas) {
+    this.gas = gas;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
+   * @return gas
+  **/
+  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  public Long getGas() {
+    return gas;
+  }
+
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
   public FDUserAccountUpdateTransactionRequest submit(Boolean submit) {
@@ -125,60 +140,6 @@ public class FDUserAccountUpdateTransactionRequest {
   }
 
    /**
-   * Get feePayer
-   * @return feePayer
-  **/
-  @Schema(example = "0x85B98485444c89880cD9C48807CEF727C296F2da", description = "")
-  public String getFeePayer() {
-    return feePayer;
-  }
-
-  public void setFeePayer(String feePayer) {
-    this.feePayer = feePayer;
-  }
-
-  public FDUserAccountUpdateTransactionRequest accountKey(AccountUpdateKey accountKey) {
-    this.accountKey = accountKey;
-    return this;
-  }
-
-   /**
-   * Get accountKey
-   * @return accountKey
-  **/
-  @Schema(description = "")
-  public AccountUpdateKey getAccountKey() {
-    return accountKey;
-  }
-
-  public void setAccountKey(AccountUpdateKey accountKey) {
-    this.accountKey = accountKey;
-  }
-
-  public FDUserAccountUpdateTransactionRequest gas(Long gas) {
-    this.gas = gas;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
-   * @return gas
-  **/
-  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
-  public Long getGas() {
-    return gas;
-  }
-
-  public void setGas(Long gas) {
-    this.gas = gas;
-  }
-
-  public FDUserAccountUpdateTransactionRequest feePayer(String feePayer) {
-    this.feePayer = feePayer;
-    return this;
-  }
-
-   /**
    * 트랜잭션 수수료를 대납할 계정 주소
    * @return feePayer
   **/
@@ -189,6 +150,24 @@ public class FDUserAccountUpdateTransactionRequest {
 
   public void setFeePayer(String feePayer) {
     this.feePayer = feePayer;
+  }
+
+  public FDUserAccountUpdateTransactionRequest feeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+    return this;
+  }
+
+   /**
+   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)
+   * @return feeRatio
+  **/
+  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율(1~99)")
+  public Long getFeeRatio() {
+    return feeRatio;
+  }
+
+  public void setFeeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
   }
 
 
@@ -203,17 +182,16 @@ public class FDUserAccountUpdateTransactionRequest {
     FDUserAccountUpdateTransactionRequest fdUserAccountUpdateTransactionRequest = (FDUserAccountUpdateTransactionRequest) o;
     return Objects.equals(this.from, fdUserAccountUpdateTransactionRequest.from) &&
         Objects.equals(this.accountKey, fdUserAccountUpdateTransactionRequest.accountKey) &&
-        Objects.equals(this.gasLimit, fdUserAccountUpdateTransactionRequest.gasLimit) &&
+        Objects.equals(this.nonce, fdUserAccountUpdateTransactionRequest.nonce) &&
+        Objects.equals(this.gas, fdUserAccountUpdateTransactionRequest.gas) &&
         Objects.equals(this.submit, fdUserAccountUpdateTransactionRequest.submit) &&
         Objects.equals(this.feePayer, fdUserAccountUpdateTransactionRequest.feePayer) &&
-        Objects.equals(this.accountKey, fdUserAccountUpdateTransactionRequest.accountKey) &&
-        Objects.equals(this.gas, fdUserAccountUpdateTransactionRequest.gas) &&
-        Objects.equals(this.feePayer, fdUserAccountUpdateTransactionRequest.feePayer);
+        Objects.equals(this.feeRatio, fdUserAccountUpdateTransactionRequest.feeRatio);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, accountKey, gasLimit, submit, feePayer, accountKey, gas, feePayer);
+    return Objects.hash(from, accountKey, nonce, gas, submit, feePayer, feeRatio);
   }
 
 
@@ -224,12 +202,11 @@ public class FDUserAccountUpdateTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
-    sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
-    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
-    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("}");
     return sb.toString();
   }

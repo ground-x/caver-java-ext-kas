@@ -48,7 +48,7 @@ public class MultisigTransactionManagementApi {
      * Build call for retrieveMultisigTransactions
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 불러올 트랜잭션의 최대 개수 (optional)
+     * @param size 불러올 트랜잭션의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -134,7 +134,7 @@ public class MultisigTransactionManagementApi {
      * 해당 계정에서 보낸 트랜잭션 중 보류중인 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 불러올 트랜잭션의 최대 개수 (optional)
+     * @param size 불러올 트랜잭션의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -151,7 +151,7 @@ public class MultisigTransactionManagementApi {
      * 해당 계정에서 보낸 트랜잭션 중 보류중인 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 불러올 트랜잭션의 최대 개수 (optional)
+     * @param size 불러올 트랜잭션의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -169,7 +169,7 @@ public class MultisigTransactionManagementApi {
      * 해당 계정에서 보낸 트랜잭션 중 보류중인 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 불러올 트랜잭션의 최대 개수 (optional)
+     * @param size 불러올 트랜잭션의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)

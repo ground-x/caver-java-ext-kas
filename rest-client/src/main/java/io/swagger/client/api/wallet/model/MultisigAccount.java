@@ -23,7 +23,7 @@ import java.util.Objects;
  * 다중 서명 계정에 관한 정보
  */
 @Schema(description = "다중 서명 계정에 관한 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class MultisigAccount {
   @SerializedName("address")
   private String address = null;
@@ -129,10 +129,10 @@ public class MultisigAccount {
   }
 
    /**
-   * Get transactionHash
+   * 계정 정보를 업데이트하는 트랜잭션의 해시
    * @return transactionHash
   **/
-  @Schema(example = "0xcd6c6a785bccbbb821e7fb0b3e1c15c0d35d6017706f843dd9cf7f3f4d3a452a", description = "")
+  @Schema(example = "0xcd6c6a785bccbbb821e7fb0b3e1c15c0d35d6017706f843dd9cf7f3f4d3a452a", required = true, description = "계정 정보를 업데이트하는 트랜잭션의 해시")
   public String getTransactionHash() {
     return transactionHash;
   }

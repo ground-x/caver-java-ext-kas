@@ -21,7 +21,7 @@ import java.util.Objects;
  * 컨트랙트 배포 트랜잭션 요청 스키마
  */
 @Schema(description = "컨트랙트 배포 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class ContractDeployTransactionRequest {
   @SerializedName("from")
   private String from = null;
@@ -32,14 +32,14 @@ public class ContractDeployTransactionRequest {
   @SerializedName("input")
   private String input = null;
 
-  @SerializedName("gas_limit")
-  private Long gasLimit = null;
-
-  @SerializedName("submit")
-  private Boolean submit = null;
+  @SerializedName("nonce")
+  private Long nonce = null;
 
   @SerializedName("gas")
   private Long gas = null;
+
+  @SerializedName("submit")
+  private Boolean submit = null;
 
   public ContractDeployTransactionRequest from(String from) {
     this.from = from;
@@ -95,40 +95,22 @@ public class ContractDeployTransactionRequest {
     this.input = input;
   }
 
-  public ContractDeployTransactionRequest gasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
+  public ContractDeployTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Get gasLimit
-   * @return gasLimit
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
   **/
-  @Schema(example = "1000000", description = "")
-  public Long getGasLimit() {
-    return gasLimit;
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
   }
 
-  public void setGasLimit(Long gasLimit) {
-    this.gasLimit = gasLimit;
-  }
-
-  public ContractDeployTransactionRequest submit(Boolean submit) {
-    this.submit = submit;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 Klaytn에 전송할지 여부
-   * @return submit
-  **/
-  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
-  public Boolean isSubmit() {
-    return submit;
-  }
-
-  public void setSubmit(Boolean submit) {
-    this.submit = submit;
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public ContractDeployTransactionRequest gas(Long gas) {
@@ -149,6 +131,24 @@ public class ContractDeployTransactionRequest {
     this.gas = gas;
   }
 
+  public ContractDeployTransactionRequest submit(Boolean submit) {
+    this.submit = submit;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 Klaytn에 전송할지 여부
+   * @return submit
+  **/
+  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
+  public Boolean isSubmit() {
+    return submit;
+  }
+
+  public void setSubmit(Boolean submit) {
+    this.submit = submit;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -162,14 +162,14 @@ public class ContractDeployTransactionRequest {
     return Objects.equals(this.from, contractDeployTransactionRequest.from) &&
         Objects.equals(this.value, contractDeployTransactionRequest.value) &&
         Objects.equals(this.input, contractDeployTransactionRequest.input) &&
-        Objects.equals(this.gasLimit, contractDeployTransactionRequest.gasLimit) &&
-        Objects.equals(this.submit, contractDeployTransactionRequest.submit) &&
-        Objects.equals(this.gas, contractDeployTransactionRequest.gas);
+        Objects.equals(this.nonce, contractDeployTransactionRequest.nonce) &&
+        Objects.equals(this.gas, contractDeployTransactionRequest.gas) &&
+        Objects.equals(this.submit, contractDeployTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, value, input, gasLimit, submit, gas);
+    return Objects.hash(from, value, input, nonce, gas, submit);
   }
 
 
@@ -181,9 +181,9 @@ public class ContractDeployTransactionRequest {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
-    sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
-    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
+    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

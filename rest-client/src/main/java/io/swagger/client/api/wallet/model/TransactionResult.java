@@ -23,7 +23,7 @@ import java.util.Objects;
  * Klaytn에 전송된 트랜잭션 정보
  */
 @Schema(description = "Klaytn에 전송된 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class TransactionResult {
   @SerializedName("from")
   private String from = null;
@@ -37,6 +37,9 @@ public class TransactionResult {
   @SerializedName("input")
   private String input = null;
 
+  @SerializedName("nonce")
+  private Long nonce = null;
+
   @SerializedName("rlp")
   private String rlp = null;
 
@@ -46,23 +49,20 @@ public class TransactionResult {
   @SerializedName("status")
   private String status = null;
 
-  @SerializedName("to")
-  private String to = null;
-
   @SerializedName("transactionHash")
   private String transactionHash = null;
+
+  @SerializedName("typeInt")
+  private Long typeInt = null;
 
   @SerializedName("value")
   private String value = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
+  @SerializedName("to")
+  private String to = null;
 
   @SerializedName("transactionId")
   private String transactionId = null;
-
-  @SerializedName("typeInt")
-  private Long typeInt = null;
 
   @SerializedName("accountKey")
   private String accountKey = null;
@@ -76,7 +76,7 @@ public class TransactionResult {
    * 트랜잭션을 보낸 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", description = "트랜잭션을 보낸 Klaytn 계정 주소")
+  @Schema(example = "0xf7093ab1f23bc6d5cdf73b222692d0de2696bcab", required = true, description = "트랜잭션을 보낸 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -94,7 +94,7 @@ public class TransactionResult {
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
    * @return gas
   **/
-  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  @Schema(example = "1000000", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
   public Long getGas() {
     return gas;
   }
@@ -112,7 +112,7 @@ public class TransactionResult {
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용
    * @return gasPrice
   **/
-  @Schema(example = "0x5d21dba00", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용")
+  @Schema(example = "0x5d21dba00", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용")
   public String getGasPrice() {
     return gasPrice;
   }
@@ -130,13 +130,31 @@ public class TransactionResult {
    * 트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터
    * @return input
   **/
-  @Schema(example = "0x", description = "트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터")
+  @Schema(example = "0x60806040526000805534801561001457600080fd5b50610116806100246000396000f3006080604052600436106053576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306661abd14605857806342cbb15c146080578063d14e62b81460a8575b600080fd5b348015606357600080fd5b50606a60d2565b6040518082815260200191505060405180910390f35b348015608b57600080fd5b50609260d8565b6040518082815260200191505060405180910390f35b34801560b357600080fd5b5060d06004803603810190808035906020019092919050505060e0565b005b60005481565b600043905090565b80600081905550505600a165627a7a7230582064856de85a2706463526593b08dd790054536042ef66d3204018e6790a2208d10029", required = true, description = "트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터")
   public String getInput() {
     return input;
   }
 
   public void setInput(String input) {
     this.input = input;
+  }
+
+  public TransactionResult nonce(Long nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
+   * @return nonce
+  **/
+  @Schema(example = "1", required = true, description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
+  public Long getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public TransactionResult rlp(String rlp) {
@@ -148,7 +166,7 @@ public class TransactionResult {
    * 해당 트랜잭션의 RLP 직렬화(serialization) 값
    * @return rlp
   **/
-  @Schema(example = "0xf870808505d21dba00830f424094a311e7022a4db250689c89d99848f74ea5098f7d89121111111111111111808207f5a03e7173bf7a303b4e1bb6f8723b494bcaa196cf7b9d7af18a22ceda7f2e9c9226a057bf51a5f52d900d58470f5e28f25881eb6d3837502ba0bab13f022398ddbc26", description = "해당 트랜잭션의 RLP 직렬화(serialization) 값")
+  @Schema(example = "0xf9018f018505d21dba00830f42408012b9013a60806040526000805534801561001457600080fd5b50610116806100246000396000f3006080604052600436106053576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306661abd14605857806342cbb15c146080578063d14e62b81460a8575b600080fd5b348015606357600080fd5b50606a60d2565b6040518082815260200191505060405180910390f35b348015608b57600080fd5b50609260d8565b6040518082815260200191505060405180910390f35b34801560b357600080fd5b5060d06004803603810190808035906020019092919050505060e0565b005b60005481565b600043905090565b80600081905550505600a165627a7a7230582064856de85a2706463526593b08dd790054536042ef66d3204018e6790a2208d100298207f6a02930c607ddb95575ef88b63a45caa0231da1f88fe99a0cad411a5a99bd4b6d5ba042adbae28a65c32220505e1c7a1509635b59143ddc65e6b7e266d5b3797370d4", required = true, description = "해당 트랜잭션의 RLP 직렬화(serialization) 값")
   public String getRlp() {
     return rlp;
   }
@@ -201,6 +219,60 @@ public class TransactionResult {
     this.status = status;
   }
 
+  public TransactionResult transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션에 대한 해시값
+   * @return transactionHash
+  **/
+  @Schema(example = "0x49a92d67aafc1e503a345ee9c5b9a5c58df10706e054fdcc18447398d553cef7", description = "해당 트랜잭션에 대한 해시값")
+  public String getTransactionHash() {
+    return transactionHash;
+  }
+
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public TransactionResult typeInt(Long typeInt) {
+    this.typeInt = typeInt;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션 타입을 나타내는 숫자값
+   * @return typeInt
+  **/
+  @Schema(example = "0", required = true, description = "해당 트랜잭션 타입을 나타내는 숫자값")
+  public Long getTypeInt() {
+    return typeInt;
+  }
+
+  public void setTypeInt(Long typeInt) {
+    this.typeInt = typeInt;
+  }
+
+  public TransactionResult value(String value) {
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * peb 단위로 환산된 KLAY
+   * @return value
+  **/
+  @Schema(example = "0x12", required = true, description = "peb 단위로 환산된 KLAY")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
   public TransactionResult to(String to) {
     this.to = to;
     return this;
@@ -217,60 +289,6 @@ public class TransactionResult {
 
   public void setTo(String to) {
     this.to = to;
-  }
-
-  public TransactionResult transactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션에 대한 해시값
-   * @return transactionHash
-  **/
-  @Schema(example = "0x433d70e6bdbce725ac9472e9fe1242fa0e5bdcd1b60fa21b3dcadf858055b47b", description = "해당 트랜잭션에 대한 해시값")
-  public String getTransactionHash() {
-    return transactionHash;
-  }
-
-  public void setTransactionHash(String transactionHash) {
-    this.transactionHash = transactionHash;
-  }
-
-  public TransactionResult value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * peb 단위로 환산된 KLAY
-   * @return value
-  **/
-  @Schema(example = "0x121111111111111111", description = "peb 단위로 환산된 KLAY")
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  public TransactionResult nonce(Long nonce) {
-    this.nonce = nonce;
-    return this;
-  }
-
-   /**
-   * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
-   * @return nonce
-  **/
-  @Schema(example = "1", required = true, description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
-  public Long getNonce() {
-    return nonce;
-  }
-
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
   }
 
   public TransactionResult transactionId(String transactionId) {
@@ -291,24 +309,6 @@ public class TransactionResult {
     this.transactionId = transactionId;
   }
 
-  public TransactionResult typeInt(Long typeInt) {
-    this.typeInt = typeInt;
-    return this;
-  }
-
-   /**
-   * Get typeInt
-   * @return typeInt
-  **/
-  @Schema(example = "16", description = "")
-  public Long getTypeInt() {
-    return typeInt;
-  }
-
-  public void setTypeInt(Long typeInt) {
-    this.typeInt = typeInt;
-  }
-
   public TransactionResult accountKey(String accountKey) {
     this.accountKey = accountKey;
     return this;
@@ -318,7 +318,7 @@ public class TransactionResult {
    * 새롭게 업데이트된 계정 키
    * @return accountKey
   **/
-  @Schema(example = "0x03c0", description = "새롭게 업데이트된 계정 키")
+  @Schema(example = "0x02a102044074a7a008a5ee6e50ef87cd57b83ca24e1e7cfa12305e27d0f13bddfd146d", description = "새롭게 업데이트된 계정 키")
   public String getAccountKey() {
     return accountKey;
   }
@@ -341,21 +341,21 @@ public class TransactionResult {
         Objects.equals(this.gas, transactionResult.gas) &&
         Objects.equals(this.gasPrice, transactionResult.gasPrice) &&
         Objects.equals(this.input, transactionResult.input) &&
+        Objects.equals(this.nonce, transactionResult.nonce) &&
         Objects.equals(this.rlp, transactionResult.rlp) &&
         Objects.equals(this.signatures, transactionResult.signatures) &&
         Objects.equals(this.status, transactionResult.status) &&
-        Objects.equals(this.to, transactionResult.to) &&
         Objects.equals(this.transactionHash, transactionResult.transactionHash) &&
-        Objects.equals(this.value, transactionResult.value) &&
-        Objects.equals(this.nonce, transactionResult.nonce) &&
-        Objects.equals(this.transactionId, transactionResult.transactionId) &&
         Objects.equals(this.typeInt, transactionResult.typeInt) &&
+        Objects.equals(this.value, transactionResult.value) &&
+        Objects.equals(this.to, transactionResult.to) &&
+        Objects.equals(this.transactionId, transactionResult.transactionId) &&
         Objects.equals(this.accountKey, transactionResult.accountKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, gas, gasPrice, input, rlp, signatures, status, to, transactionHash, value, nonce, transactionId, typeInt, accountKey);
+    return Objects.hash(from, gas, gasPrice, input, nonce, rlp, signatures, status, transactionHash, typeInt, value, to, transactionId, accountKey);
   }
 
 
@@ -368,15 +368,15 @@ public class TransactionResult {
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("    signatures: ").append(toIndentedString(signatures)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
     sb.append("}");
     return sb.toString();

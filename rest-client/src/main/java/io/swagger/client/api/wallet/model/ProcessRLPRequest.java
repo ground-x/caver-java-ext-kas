@@ -21,31 +21,13 @@ import java.util.Objects;
  * rlp 이용 트랜잭션 요청 스키마
  */
 @Schema(description = "rlp 이용 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class ProcessRLPRequest {
-  @SerializedName("submit")
-  private Boolean submit = null;
-
   @SerializedName("rlp")
   private String rlp = null;
 
-  public ProcessRLPRequest submit(Boolean submit) {
-    this.submit = submit;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 Klaytn에 전송할지 여부
-   * @return submit
-  **/
-  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
-  public Boolean isSubmit() {
-    return submit;
-  }
-
-  public void setSubmit(Boolean submit) {
-    this.submit = submit;
-  }
+  @SerializedName("submit")
+  private Boolean submit = null;
 
   public ProcessRLPRequest rlp(String rlp) {
     this.rlp = rlp;
@@ -65,6 +47,24 @@ public class ProcessRLPRequest {
     this.rlp = rlp;
   }
 
+  public ProcessRLPRequest submit(Boolean submit) {
+    this.submit = submit;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션을 Klaytn에 전송할지 여부
+   * @return submit
+  **/
+  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
+  public Boolean isSubmit() {
+    return submit;
+  }
+
+  public void setSubmit(Boolean submit) {
+    this.submit = submit;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -75,13 +75,13 @@ public class ProcessRLPRequest {
       return false;
     }
     ProcessRLPRequest processRLPRequest = (ProcessRLPRequest) o;
-    return Objects.equals(this.submit, processRLPRequest.submit) &&
-        Objects.equals(this.rlp, processRLPRequest.rlp);
+    return Objects.equals(this.rlp, processRLPRequest.rlp) &&
+        Objects.equals(this.submit, processRLPRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(submit, rlp);
+    return Objects.hash(rlp, submit);
   }
 
 
@@ -90,8 +90,8 @@ public class ProcessRLPRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProcessRLPRequest {\n");
     
-    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
+    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");
     return sb.toString();
   }

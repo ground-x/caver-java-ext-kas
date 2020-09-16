@@ -21,13 +21,16 @@ import java.util.Objects;
  * 계정 업데이트 트랜잭션 요청 스키마
  */
 @Schema(description = "계정 업데이트 트랜잭션 요청 스키마")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class AccountUpdateTransactionRequest {
   @SerializedName("from")
   private String from = null;
 
   @SerializedName("accountKey")
   private AccountUpdateKey accountKey = null;
+
+  @SerializedName("nonce")
+  private Long nonce = null;
 
   @SerializedName("gas")
   private Long gas = null;
@@ -44,7 +47,7 @@ public class AccountUpdateTransactionRequest {
    * 트랜잭션을 보내는 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
+  @Schema(example = "0x21A597c43aBFf23A0db33AE4d60C2151160947e1", required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -69,6 +72,24 @@ public class AccountUpdateTransactionRequest {
 
   public void setAccountKey(AccountUpdateKey accountKey) {
     this.accountKey = accountKey;
+  }
+
+  public AccountUpdateTransactionRequest nonce(Long nonce) {
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * 보내는 트랜잭션을 식별하는 유일한 값
+   * @return nonce
+  **/
+  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값")
+  public Long getNonce() {
+    return nonce;
+  }
+
+  public void setNonce(Long nonce) {
+    this.nonce = nonce;
   }
 
   public AccountUpdateTransactionRequest gas(Long gas) {
@@ -119,13 +140,14 @@ public class AccountUpdateTransactionRequest {
     AccountUpdateTransactionRequest accountUpdateTransactionRequest = (AccountUpdateTransactionRequest) o;
     return Objects.equals(this.from, accountUpdateTransactionRequest.from) &&
         Objects.equals(this.accountKey, accountUpdateTransactionRequest.accountKey) &&
+        Objects.equals(this.nonce, accountUpdateTransactionRequest.nonce) &&
         Objects.equals(this.gas, accountUpdateTransactionRequest.gas) &&
         Objects.equals(this.submit, accountUpdateTransactionRequest.submit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, accountKey, gas, submit);
+    return Objects.hash(from, accountKey, nonce, gas, submit);
   }
 
 
@@ -136,6 +158,7 @@ public class AccountUpdateTransactionRequest {
     
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
     sb.append("}");

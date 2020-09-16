@@ -850,7 +850,7 @@ public class AccountApi {
     /**
      * Build call for retrieveAccounts
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 불러올 계정의 최대 개수 (optional)
+     * @param size 불러올 계정의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -930,7 +930,7 @@ public class AccountApi {
      * 계정 목록 조회
      * 이전에 생성한 클레이튼 계정 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 불러올 계정의 최대 개수 (optional)
+     * @param size 불러올 계정의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -946,7 +946,7 @@ public class AccountApi {
      * 계정 목록 조회
      * 이전에 생성한 클레이튼 계정 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 불러올 계정의 최대 개수 (optional)
+     * @param size 불러올 계정의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -963,7 +963,7 @@ public class AccountApi {
      * 계정 목록 조회 (asynchronously)
      * 이전에 생성한 클레이튼 계정 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 불러올 계정의 최대 개수 (optional)
+     * @param size 불러올 계정의 최대 개수 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막 검색 위치를 나타내는 커서 정보 (optional)
      * @param toTimestamp 검색 범위: 시작 시간의 타임스탬프 (초단위) (optional)
      * @param fromTimestamp 검색 범위: 마지막 시간의 타임스탬프 (초단위) (optional)

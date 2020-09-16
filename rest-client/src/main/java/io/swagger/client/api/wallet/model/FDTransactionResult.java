@@ -23,7 +23,7 @@ import java.util.Objects;
  * Klaytn에 전송한 수수료 대납 트랜잭션 정보
  */
 @Schema(description = "Klaytn에 전송한 수수료 대납 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-15T04:27:12.757Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:51:46.881Z[GMT]")
 public class FDTransactionResult {
   @SerializedName("feePayer")
   private String feePayer = null;
@@ -43,14 +43,20 @@ public class FDTransactionResult {
   @SerializedName("nonce")
   private Long nonce = null;
 
+  @SerializedName("rlp")
+  private String rlp = null;
+
+  @SerializedName("signatures")
+  private List<Signature> signatures = null;
+
   @SerializedName("status")
   private String status = null;
 
   @SerializedName("to")
   private String to = null;
 
-  @SerializedName("transactionId")
-  private String transactionId = null;
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
   @SerializedName("typeInt")
   private Long typeInt = null;
@@ -58,14 +64,8 @@ public class FDTransactionResult {
   @SerializedName("value")
   private String value = null;
 
-  @SerializedName("rlp")
-  private String rlp = null;
-
-  @SerializedName("signatures")
-  private List<Signature> signatures = null;
-
-  @SerializedName("transactionHash")
-  private String transactionHash = null;
+  @SerializedName("transactionId")
+  private String transactionId = null;
 
   @SerializedName("accountKey")
   private String accountKey = null;
@@ -79,7 +79,7 @@ public class FDTransactionResult {
    * 트랜잭션 수수료를 대납할 계정 주소
    * @return feePayer
   **/
-  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", description = "트랜잭션 수수료를 대납할 계정 주소")
+  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", required = true, description = "트랜잭션 수수료를 대납할 계정 주소")
   public String getFeePayer() {
     return feePayer;
   }
@@ -97,7 +97,7 @@ public class FDTransactionResult {
    * 트랜잭션을 보낸 Klaytn 계정 주소
    * @return from
   **/
-  @Schema(example = "0xa809284c83b901ed106aba4ccda14628af128e14", description = "트랜잭션을 보낸 Klaytn 계정 주소")
+  @Schema(example = "0x569a3da2e37b4c08e342820d580122e5283bafbc", required = true, description = "트랜잭션을 보낸 Klaytn 계정 주소")
   public String getFrom() {
     return from;
   }
@@ -115,7 +115,7 @@ public class FDTransactionResult {
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
    * @return gas
   **/
-  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  @Schema(example = "1000000", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
   public Long getGas() {
     return gas;
   }
@@ -133,7 +133,7 @@ public class FDTransactionResult {
    * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용
    * @return gasPrice
   **/
-  @Schema(example = "0x5d21dba00", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용")
+  @Schema(example = "0x5d21dba00", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용")
   public String getGasPrice() {
     return gasPrice;
   }
@@ -151,7 +151,7 @@ public class FDTransactionResult {
    * 트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터
    * @return input
   **/
-  @Schema(example = "0x6d656d6f", description = "트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터")
+  @Schema(example = "0x6d656d6f", required = true, description = "트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터")
   public String getInput() {
     return input;
   }
@@ -169,103 +169,13 @@ public class FDTransactionResult {
    * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
    * @return nonce
   **/
-  @Schema(example = "1", description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
+  @Schema(example = "0", required = true, description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
   public Long getNonce() {
     return nonce;
   }
 
   public void setNonce(Long nonce) {
     this.nonce = nonce;
-  }
-
-  public FDTransactionResult status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)
-   * @return status
-  **/
-  @Schema(example = "Pending", description = "해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public FDTransactionResult to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * KLAY를 받는 Klaytn 계정 주소
-   * @return to
-  **/
-  @Schema(example = "0x2f87ba64de5526f7880f21481effbf950f70005c", description = "KLAY를 받는 Klaytn 계정 주소")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public FDTransactionResult transactionId(String transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
-
-   /**
-   * Multisig 트랜잭션의 ID
-   * @return transactionId
-  **/
-  @Schema(example = "0x0416bf52b804211220aca957250d6bc2e2c6ab8688e68dc9096ae035d009c334", description = "Multisig 트랜잭션의 ID")
-  public String getTransactionId() {
-    return transactionId;
-  }
-
-  public void setTransactionId(String transactionId) {
-    this.transactionId = transactionId;
-  }
-
-  public FDTransactionResult typeInt(Long typeInt) {
-    this.typeInt = typeInt;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션 타입을 나타내는 숫자값
-   * @return typeInt
-  **/
-  @Schema(example = "17", description = "해당 트랜잭션 타입을 나타내는 숫자값")
-  public Long getTypeInt() {
-    return typeInt;
-  }
-
-  public void setTypeInt(Long typeInt) {
-    this.typeInt = typeInt;
-  }
-
-  public FDTransactionResult value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * peb 단위로 환산된 KLAY
-   * @return value
-  **/
-  @Schema(example = "0x12", description = "peb 단위로 환산된 KLAY")
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
   }
 
   public FDTransactionResult rlp(String rlp) {
@@ -312,6 +222,42 @@ public class FDTransactionResult {
     this.signatures = signatures;
   }
 
+  public FDTransactionResult status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)
+   * @return status
+  **/
+  @Schema(example = "Submitted", description = "해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public FDTransactionResult to(String to) {
+    this.to = to;
+    return this;
+  }
+
+   /**
+   * KLAY를 받는 Klaytn 계정 주소
+   * @return to
+  **/
+  @Schema(example = "0x2f87ba64de5526f7880f21481effbf950f70005c", description = "KLAY를 받는 Klaytn 계정 주소")
+  public String getTo() {
+    return to;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
   public FDTransactionResult transactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
     return this;
@@ -328,6 +274,60 @@ public class FDTransactionResult {
 
   public void setTransactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
+  }
+
+  public FDTransactionResult typeInt(Long typeInt) {
+    this.typeInt = typeInt;
+    return this;
+  }
+
+   /**
+   * 해당 트랜잭션 타입을 나타내는 숫자값
+   * @return typeInt
+  **/
+  @Schema(example = "17", required = true, description = "해당 트랜잭션 타입을 나타내는 숫자값")
+  public Long getTypeInt() {
+    return typeInt;
+  }
+
+  public void setTypeInt(Long typeInt) {
+    this.typeInt = typeInt;
+  }
+
+  public FDTransactionResult value(String value) {
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * peb 단위로 환산된 KLAY
+   * @return value
+  **/
+  @Schema(example = "0x12", required = true, description = "peb 단위로 환산된 KLAY")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public FDTransactionResult transactionId(String transactionId) {
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * Multisig 트랜잭션의 ID
+   * @return transactionId
+  **/
+  @Schema(example = "0x0416bf52b804211220aca957250d6bc2e2c6ab8688e68dc9096ae035d009c334", description = "Multisig 트랜잭션의 ID")
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
   }
 
   public FDTransactionResult accountKey(String accountKey) {
@@ -364,20 +364,20 @@ public class FDTransactionResult {
         Objects.equals(this.gasPrice, fdTransactionResult.gasPrice) &&
         Objects.equals(this.input, fdTransactionResult.input) &&
         Objects.equals(this.nonce, fdTransactionResult.nonce) &&
-        Objects.equals(this.status, fdTransactionResult.status) &&
-        Objects.equals(this.to, fdTransactionResult.to) &&
-        Objects.equals(this.transactionId, fdTransactionResult.transactionId) &&
-        Objects.equals(this.typeInt, fdTransactionResult.typeInt) &&
-        Objects.equals(this.value, fdTransactionResult.value) &&
         Objects.equals(this.rlp, fdTransactionResult.rlp) &&
         Objects.equals(this.signatures, fdTransactionResult.signatures) &&
+        Objects.equals(this.status, fdTransactionResult.status) &&
+        Objects.equals(this.to, fdTransactionResult.to) &&
         Objects.equals(this.transactionHash, fdTransactionResult.transactionHash) &&
+        Objects.equals(this.typeInt, fdTransactionResult.typeInt) &&
+        Objects.equals(this.value, fdTransactionResult.value) &&
+        Objects.equals(this.transactionId, fdTransactionResult.transactionId) &&
         Objects.equals(this.accountKey, fdTransactionResult.accountKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, from, gas, gasPrice, input, nonce, status, to, transactionId, typeInt, value, rlp, signatures, transactionHash, accountKey);
+    return Objects.hash(feePayer, from, gas, gasPrice, input, nonce, rlp, signatures, status, to, transactionHash, typeInt, value, transactionId, accountKey);
   }
 
 
@@ -392,14 +392,14 @@ public class FDTransactionResult {
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
-    sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("    signatures: ").append(toIndentedString(signatures)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
     sb.append("}");
     return sb.toString();
