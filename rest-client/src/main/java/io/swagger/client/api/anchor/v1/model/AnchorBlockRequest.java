@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * anchor block request schema
  */
 @Schema(description = "anchor block request schema")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:35:49.009Z[GMT]")
 public class AnchorBlockRequest {
   @SerializedName("operator")
   private String operator = null;
@@ -37,7 +38,7 @@ public class AnchorBlockRequest {
    * operator 계정 주소
    * @return operator
   **/
-  @Schema(required = true, description = "operator 계정 주소")
+  @Schema(example = "0x84ddfb88a28de014d5fea114dc1efb06ce99cc42", required = true, description = "operator 계정 주소")
   public String getOperator() {
     return operator;
   }

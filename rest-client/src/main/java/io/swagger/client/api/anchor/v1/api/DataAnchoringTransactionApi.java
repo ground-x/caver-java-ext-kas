@@ -115,7 +115,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 앵커링 트랜잭션 생성
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return AnchorBlockStatus
@@ -128,7 +128,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 앵커링 트랜잭션 생성
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;AnchorBlockStatus&gt;
@@ -142,7 +142,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 앵커링 트랜잭션 생성 (asynchronously)
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다.
+     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -467,7 +467,7 @@ public class DataAnchoringTransactionApi {
      * Build call for retrieveAnchorBlock
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -553,7 +553,7 @@ public class DataAnchoringTransactionApi {
      * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -570,7 +570,7 @@ public class DataAnchoringTransactionApi {
      * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -588,7 +588,7 @@ public class DataAnchoringTransactionApi {
      * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)

@@ -16,11 +16,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.HashMap;
 import java.util.Objects;
+
 /**
  * anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
  */
 @Schema(description = "anchor 데이터. id를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:35:49.009Z[GMT]")
 public class AnchorBlockPayload extends HashMap<String, Object> {
 
   @Override

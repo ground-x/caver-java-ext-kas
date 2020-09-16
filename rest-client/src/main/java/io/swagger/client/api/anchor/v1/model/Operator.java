@@ -16,17 +16,39 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * 오퍼레이터 정보
  */
 @Schema(description = "오퍼레이터 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:35:49.009Z[GMT]")
 public class Operator {
+  @SerializedName("createdAt")
+  private Long createdAt = null;
+
   @SerializedName("operator")
   private String operator = null;
 
   @SerializedName("setting")
   private OperatorSetting setting = null;
+
+  public Operator createdAt(Long createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * 오퍼레이터 생성 시간
+   * @return createdAt
+  **/
+  @Schema(example = "1600156363", required = true, description = "오퍼레이터 생성 시간")
+  public Long getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Long createdAt) {
+    this.createdAt = createdAt;
+  }
 
   public Operator operator(String operator) {
     this.operator = operator;
@@ -37,7 +59,7 @@ public class Operator {
    * 오퍼레이터 클레이튼 계정 주소
    * @return operator
   **/
-  @Schema(example = "0x6945B46Add33ABD0576b4D99B4c86Fe28c0Ad026", required = true, description = "오퍼레이터 클레이튼 계정 주소")
+  @Schema(example = "0x36C144b998FbEF7faf092b01815194a18e1a1163", required = true, description = "오퍼레이터 클레이튼 계정 주소")
   public String getOperator() {
     return operator;
   }
@@ -74,13 +96,14 @@ public class Operator {
       return false;
     }
     Operator operator = (Operator) o;
-    return Objects.equals(this.operator, operator.operator) &&
+    return Objects.equals(this.createdAt, operator.createdAt) &&
+        Objects.equals(this.operator, operator.operator) &&
         Objects.equals(this.setting, operator.setting);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(operator, setting);
+    return Objects.hash(createdAt, operator, setting);
   }
 
 
@@ -89,6 +112,7 @@ public class Operator {
     StringBuilder sb = new StringBuilder();
     sb.append("class Operator {\n");
     
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
     sb.append("    setting: ").append(toIndentedString(setting)).append("\n");
     sb.append("}");

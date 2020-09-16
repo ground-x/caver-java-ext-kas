@@ -181,7 +181,7 @@ public class OperatorApi {
     /**
      * Build call for retrieveOperators
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -261,7 +261,7 @@ public class OperatorApi {
      * 모든 오퍼레이터 목록 조회
      * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -277,7 +277,7 @@ public class OperatorApi {
      * 모든 오퍼레이터 목록 조회
      * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
@@ -294,7 +294,7 @@ public class OperatorApi {
      * 모든 오퍼레이터 목록 조회 (asynchronously)
      * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional)
+     * @param size 검색할 계정의 최대 사이즈 (default: 100, min:1, max:-) (optional)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
      * @param fromTimestamp 검색하고자 하는 마지 시간의 타임스탬프 (초단위) (optional)
      * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)

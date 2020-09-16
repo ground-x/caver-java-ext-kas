@@ -12,20 +12,16 @@
 
 package io.swagger.client.api.anchor.v1.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+
+import java.util.Objects;
+
 /**
  * 앵커링 상태 응답
  */
 @Schema(description = "앵커링 상태 응답")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:35:49.009Z[GMT]")
 public class AnchorBlockStatus {
   @SerializedName("status")
   private String status = null;

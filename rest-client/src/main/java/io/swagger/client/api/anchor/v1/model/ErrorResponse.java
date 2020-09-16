@@ -16,11 +16,12 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
+
 /**
  * this response contains error description.
  */
 @Schema(description = "this response contains error description.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-09T04:17:34.087Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-16T01:35:49.009Z[GMT]")
 public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;
