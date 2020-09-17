@@ -60,15 +60,15 @@ public class WalletAPI {
         return getAccountApi().signTransactionIDResponse(chainId, address, transactionId);
     }
 
-    public MultisigAccount updateAccountToMultiSig(String address, AccountKeyWeightedMultiSig weightedMultiSig) throws ApiException {
+    public MultisigAccount updateToMultiSigAccount(String address, AccountKeyWeightedMultiSig weightedMultiSig) throws ApiException {
         MultisigAccountUpdateRequest body = new MultisigAccountUpdateRequest();
         body.setThreshold(weightedMultiSig.getThreshold().longValue());
         body.setWeightedKeys(convertMultiSigKey(weightedMultiSig));
 
-        return updateAccountToMultiSig(address, body);
+        return updateToMultiSigAccount(address, body);
     }
 
-    public MultisigAccount updateAccountToMultiSig(String address, MultisigAccountUpdateRequest request) throws ApiException {
+    public MultisigAccount updateToMultiSigAccount(String address, MultisigAccountUpdateRequest request) throws ApiException {
         return getAccountApi().multisigAccountUpdate(chainId, address, request);
     }
 
@@ -106,6 +106,14 @@ public class WalletAPI {
 
     //TODO: It need to check that account update format.
     public TransactionResult requestAccountUpdate(AccountUpdateTransactionRequest request) throws ApiException {
+        AccountUpdateKey accountUpdateKey = request.getAccountKey();
+
+        if(accountUpdateKey instanceof EmptyUpdateKeyType) {
+            ((EmptyUpdateKeyType)accountUpdateKey).setKeyType((long)1);
+        } else if(accountUpdateKey instanceof PubkeyUpdateKeyType) {
+            ((PubkeyUpdateKeyType) accountUpdateKey).setKeyType((long)2);
+        }
+
         return getBasicTransactionApi().accountUpdateTransaction(chainId, request);
     }
 
@@ -144,10 +152,6 @@ public class WalletAPI {
 
     public FDTransactionResult requestFDValueTransferPaidByUser(FDUserValueTransferTransactionRequest request) throws ApiException {
         return getFeeDelegatedTransactionPaidByUserApi().uFDValueTransferTransaction(chainId, request);
-    }
-
-    public FDTransactionResult requestFDSmartContractDeployPaidByUser(FDUserContractDeployTransactionRequest request, boolean submit) throws ApiException {
-        return getFeeDelegatedTransactionPaidByUserApi().uFDContractDeployTransaction(chainId, request);
     }
 
     public FDTransactionResult requestFDSmartContractDeployPaidByUser(FDUserContractDeployTransactionRequest request) throws ApiException {
