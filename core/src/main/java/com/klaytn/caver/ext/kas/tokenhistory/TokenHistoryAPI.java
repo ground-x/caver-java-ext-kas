@@ -1,5 +1,6 @@
 package com.klaytn.caver.ext.kas.tokenhistory;
 
+import com.google.gson.*;
 import com.klaytn.caver.ext.kas.utils.KASUtils;
 import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
@@ -11,6 +12,7 @@ import io.swagger.client.api.tokenhistory.v2.api.TokenHistoryApi;
 import io.swagger.client.api.tokenhistory.v2.api.TokenOwnershipApi;
 import io.swagger.client.api.tokenhistory.v2.model.*;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
@@ -565,5 +567,24 @@ public class TokenHistoryAPI {
      */
     public Call getNFTOwnershipHistoryAsync(String nftAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableNftOwnershipChanges> callback) throws ApiException {
         return tokenOwnershipApi.getListOfNftOwnershipChangesAsync(chainId, nftAddress, tokenId, options.getSize(), options.getCursor(), callback);
+    }
+
+    public static class TransferItemAdapter implements JsonDeserializer {
+        @Override
+        public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+
+            String type = jsonObject.getAsJsonPrimitive("transferType").getAsString();
+
+            if(type.equals("ft")) {
+                return context.deserialize(json, FtTransfer.class);
+            } else if(type.equals("nft")) {
+                return context.deserialize(json, NftTransfer.class);
+            } else if (type.equals("klay")) {
+                return context.deserialize(json, KlayTransfer.class);
+            }
+
+            return null;
+        }
     }
 }
