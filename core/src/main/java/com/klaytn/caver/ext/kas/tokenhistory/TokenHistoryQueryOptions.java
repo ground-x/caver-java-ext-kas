@@ -145,7 +145,7 @@ public class TokenHistoryQueryOptions {
 
     /**
      * Setter function for kind.
-     * @param kind The kind of token history to query.
+     * @param kinds The kind of token history to query.
      */
     public void setKind(List<String> kinds) {
         if(kinds.size() > 3) {
@@ -212,13 +212,13 @@ public class TokenHistoryQueryOptions {
 
     /**
      * Setter function for type.
-     * @param type The type indicated either "erc" or "kip"
+     * @param type The type indicated either "KIP-7", "KIP-17", "ERC-20", "ERC-721"
      */
     public void setType(String type) {
         if(type == null || type.isEmpty()) {
             type = null;
-        } else if(!type.equals("kip") && !type.equals("erc")) {
-            throw new InvalidParameterException("The type parameter have one of the following: ['kip', 'erc', empty string(or null)]");
+        } else if(!type.equals("KIP-7") && !type.equals("ERC-20") && !type.equals("KIP-17") && !type.equals("ERC-721")) {
+            throw new InvalidParameterException("The type parameter have one of the following: ['KIP-7', 'ERC-20', empty string(or null)]");
         }
         this.type = type;
     }

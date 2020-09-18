@@ -8,7 +8,6 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class TokenHistoryQueryOptionsTest {
     @Rule
@@ -145,23 +144,19 @@ public class TokenHistoryQueryOptionsTest {
 
     @Test
     public void setTypeTest() {
-        String type = "kip";
+        String[] types = new String[] {"KIP-7", "KIP-17", "ERC-20", "ERC-721"};
 
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setType(type);
-        assertEquals(type, options.getType());
-
-        options.setType("erc");
-        assertEquals("erc", options.getType());
-
-        options.setType(null);
-        assertNull(options.getType());
+        for(int i=0; i<types.length; i++) {
+            options.setType(types[i]);
+            assertEquals(types[i], options.getType());
+        }
     }
 
     @Test
     public void invalidTypeTest() {
         expectedException.expect(InvalidParameterException.class);
-        expectedException.expectMessage("The type parameter have one of the following: ['kip', 'erc', empty string(or null)]");
+        expectedException.expectMessage("The type parameter have one of the following: ['KIP-7', 'ERC-20', empty string(or null)]");
 
         String type = "invalid";
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
