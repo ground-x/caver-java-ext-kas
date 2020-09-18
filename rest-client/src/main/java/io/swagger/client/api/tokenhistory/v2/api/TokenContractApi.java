@@ -1,5 +1,5 @@
 /*
- * th-0.7.0-v2-public
+ * Token History API
  * # Introduction  Token History API는 KLAY, FT (KIP-7, Labeled ERC-20), NFT (KIP-17, Labeled ERC-721) 토큰 정보, 이들 토큰을 주고받은 기록을 조회하는 기능을 제공합니다. 여러분은 특정 EOA가 KLAY를 주고받은 기록을 확인하거나 EOA가 가지고 있는 NFT 정보를 불러오는 등 Token History API를 다양하게 활용할 수 있습니다.   Token History API 사용에 관한 자세한 내용은 [튜토리얼](https://klaytn.com)을 확인하십시오.   이 문서 혹은 KAS에 관한 문의는 [개발자 포럼](https://forum.klaytn.com/)을 방문해 도움을 받으십시오  
  *
  * OpenAPI spec version: 0.7.0
@@ -184,7 +184,7 @@ public class TokenContractApi {
      * Build call for getListOfNftContracts
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 [kip, erc] (optional)
+     * @param type 컨트랙트 타입 [KIP-17, ERC-721], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (pagination)  (optional)
      * @param progressListener Progress listener
@@ -264,7 +264,7 @@ public class TokenContractApi {
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 [kip, erc] (optional)
+     * @param type 컨트랙트 타입 [KIP-17, ERC-721], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (pagination)  (optional)
      * @return PageableNftContractDetails
@@ -280,7 +280,7 @@ public class TokenContractApi {
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 [kip, erc] (optional)
+     * @param type 컨트랙트 타입 [KIP-17, ERC-721], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (pagination)  (optional)
      * @return ApiResponse&lt;PageableNftContractDetails&gt;
@@ -297,7 +297,7 @@ public class TokenContractApi {
      * 라벨링된 모든 NFT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 [kip, erc] (optional)
+     * @param type 컨트랙트 타입 [KIP-17, ERC-721], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (pagination)  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -334,7 +334,7 @@ public class TokenContractApi {
      * Build call for getListofFtContracts
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 (&#x27;kip&#x27; for KIPs, &#x27;erc&#x27; for ERCs, none for both) (optional)
+     * @param type 컨트랙트 타입 [KIP-7, ERC-20], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param progressListener Progress listener
@@ -414,7 +414,7 @@ public class TokenContractApi {
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 (&#x27;kip&#x27; for KIPs, &#x27;erc&#x27; for ERCs, none for both) (optional)
+     * @param type 컨트랙트 타입 [KIP-7, ERC-20], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return PageableFtContractDetails
@@ -430,7 +430,7 @@ public class TokenContractApi {
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 (&#x27;kip&#x27; for KIPs, &#x27;erc&#x27; for ERCs, none for both) (optional)
+     * @param type 컨트랙트 타입 [KIP-7, ERC-20], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @return ApiResponse&lt;PageableFtContractDetails&gt;
@@ -447,7 +447,7 @@ public class TokenContractApi {
      * 라벨링된 모든 FT 컨트랙트들의 정보를 불러옵니다. 
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param status 라벨링 상태 [completed, processing, failed, cancelled] (optional)
-     * @param type 컨트랙트 타입 (&#x27;kip&#x27; for KIPs, &#x27;erc&#x27; for ERCs, none for both) (optional)
+     * @param type 컨트랙트 타입 [KIP-7, ERC-20], 지정하지 않을 경우 모든 타입 반환 (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
      * @param callback The callback to be executed when the API call finishes

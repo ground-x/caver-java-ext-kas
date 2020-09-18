@@ -1,5 +1,5 @@
 /*
- * th-0.7.0-v2-public
+ * Token History API
  * # Introduction  Token History API는 KLAY, FT (KIP-7, Labeled ERC-20), NFT (KIP-17, Labeled ERC-721) 토큰 정보, 이들 토큰을 주고받은 기록을 조회하는 기능을 제공합니다. 여러분은 특정 EOA가 KLAY를 주고받은 기록을 확인하거나 EOA가 가지고 있는 NFT 정보를 불러오는 등 Token History API를 다양하게 활용할 수 있습니다.   Token History API 사용에 관한 자세한 내용은 [튜토리얼](https://klaytn.com)을 확인하십시오.   이 문서 혹은 KAS에 관한 문의는 [개발자 포럼](https://forum.klaytn.com/)을 방문해 도움을 받으십시오  
  *
  * OpenAPI spec version: 0.7.0
@@ -49,7 +49,7 @@ public class TokenHistoryApi {
      * @param presets  (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
-     * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param size 응답 아이템 개수 (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -136,7 +136,7 @@ public class TokenHistoryApi {
      * @param presets  (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
-     * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param size 응답 아이템 개수 (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (optional)
      * @return PageableTransfers
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -153,7 +153,7 @@ public class TokenHistoryApi {
      * @param presets  (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
-     * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param size 응답 아이템 개수 (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (optional)
      * @return ApiResponse&lt;PageableTransfers&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -171,7 +171,7 @@ public class TokenHistoryApi {
      * @param presets  (csv) 검색에 사용할 Preset ID들, Preset ID는 KAS Console에서 확인 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
      * @param range 조회 범위 지정 (블록번호 또는 Unix time) (optional)
-     * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param size 응답 아이템 개수 (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 응답 오프셋 (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -208,7 +208,7 @@ public class TokenHistoryApi {
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
-     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
+     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소, 설정될 경우 &#x60;transferType&#x60;이 \&quot;ft\&quot; 또는 \&quot;nft\&quot;인 것들 중 ca-filter 값과 같은 것들만 결과물로 반환.  (optional)
      * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -297,7 +297,7 @@ public class TokenHistoryApi {
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
-     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
+     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소, 설정될 경우 &#x60;transferType&#x60;이 \&quot;ft\&quot; 또는 \&quot;nft\&quot;인 것들 중 ca-filter 값과 같은 것들만 결과물로 반환.  (optional)
      * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -315,7 +315,7 @@ public class TokenHistoryApi {
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
-     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
+     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소, 설정될 경우 &#x60;transferType&#x60;이 \&quot;ft\&quot; 또는 \&quot;nft\&quot;인 것들 중 ca-filter 값과 같은 것들만 결과물로 반환.  (optional)
      * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)
@@ -334,7 +334,7 @@ public class TokenHistoryApi {
      * @param xChainId  Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param address 검색기준이 되는 EOA, 검색결과의 from 또는 to가 제시된 address값과 일치 (required)
      * @param kind (csv) [“klay”, “ft”, “nft”] 중 포함 할 유형, 지정안될 경우 모든 유형을 조회  (optional)
-     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소 (optional)
+     * @param caFilter 조회할 FT 또는 NFT 컨트랙트의 주소, 설정될 경우 &#x60;transferType&#x60;이 \&quot;ft\&quot; 또는 \&quot;nft\&quot;인 것들 중 ca-filter 값과 같은 것들만 결과물로 반환.  (optional)
      * @param range (csv) 조회 범위 지정 (블록번호 또는 Unix time) (optional)
      * @param size 응답 아이템 개수(min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor 특정 위치를 지정하기 위한 오프셋 (optional)

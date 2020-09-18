@@ -1,5 +1,5 @@
 /*
- * th-0.7.0-v2-public
+ * Token History API
  * # Introduction  Token History API는 KLAY, FT (KIP-7, Labeled ERC-20), NFT (KIP-17, Labeled ERC-721) 토큰 정보, 이들 토큰을 주고받은 기록을 조회하는 기능을 제공합니다. 여러분은 특정 EOA가 KLAY를 주고받은 기록을 확인하거나 EOA가 가지고 있는 NFT 정보를 불러오는 등 Token History API를 다양하게 활용할 수 있습니다.   Token History API 사용에 관한 자세한 내용은 [튜토리얼](https://klaytn.com)을 확인하십시오.   이 문서 혹은 KAS에 관한 문의는 [개발자 포럼](https://forum.klaytn.com/)을 방문해 도움을 받으십시오  
  *
  * OpenAPI spec version: 0.7.0
@@ -12,16 +12,15 @@
 
 package io.swagger.client.api.tokenhistory.v2.model;
 
-import java.util.Objects;
-
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.Objects;
 /**
  * NftOwnershipChange
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-08T07:19:14.409Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-18T08:08:47.543Z[GMT]")
 public class NftOwnershipChange {
   @SerializedName("from")
   private String from = null;
@@ -38,10 +37,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * 보낸 사람 (직전 소유자) EOA 주소 (20-byte)
+   * 보낸 사람 (직전 소유자) EOA (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "보낸 사람 (직전 소유자) EOA 주소 (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "보낸 사람 (직전 소유자) EOA (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -56,10 +55,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * 받은 사람 (이 시점의 소유자) EOA 주소 (20-byte)
+   * 받은 사람 (이 시점의 소유자) EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "받은 사람 (이 시점의 소유자) EOA 주소 (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "받은 사람 (이 시점의 소유자) EOA (20-byte)")
   public String getTo() {
     return to;
   }
