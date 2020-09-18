@@ -1,7 +1,6 @@
 package com.klaytn.caver.ext.kas.wallet;
 
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
-import com.klaytn.caver.wallet.keyring.SignatureData;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.wallet.api.*;
@@ -191,17 +190,7 @@ public class WalletAPI {
         return getMultisigTransactionManagementApi().signPendingTransaction(chainId, address, transactionId);
     }
 
-    public MultisigTransactionStatus appendSignatures(String transactionId, List<SignatureData> sigs) throws ApiException {
-        SignPendingTransactionBySigRequest request = new SignPendingTransactionBySigRequest();
-        List<Signature> data = sigs.stream().map(signatureData -> {
-            Signature signature = new Signature();
-            signature.setR(signatureData.getR());
-            signature.setV(signatureData.getV());
-            signature.setS(signatureData.getS());
-
-            return signature;
-        }).collect(Collectors.toList());
-        request.setSignatures(data);
+    public MultisigTransactionStatus appendSignatures(String transactionId, SignPendingTransactionBySigRequest request) throws ApiException {
         return getMultisigTransactionManagementApi().signPendingTransactionBySig(chainId, transactionId, request);
     }
 
