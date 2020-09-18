@@ -34,7 +34,7 @@ public class Config {
     public static void sendValue(String toAddress) throws IOException, TransactionException {
         init();
 
-        BigInteger value = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
+        BigInteger value = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.KLAY));
 
         ValueTransfer valueTransfer = new ValueTransfer.Builder()
                 .setKlaytnCall(kas.rpc.getKlay())

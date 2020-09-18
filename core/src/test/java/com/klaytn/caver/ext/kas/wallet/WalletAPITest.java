@@ -30,10 +30,10 @@ public class WalletAPITest {
     static String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
     static String chainId = "1001";
 
-    static String baseAccount = "0xE59a2F4E85507EC515C6d71Fa1C0e270979C8886";
-    static String toAccount = "0xE997783E1112A0eAc0b964d28d456fbe00397C90";
+    static String baseAccount = "0x81bA6c299350719B18dFAEC38ba566fBd5Cd7202";
+    static String toAccount = "0x95E3Fd82eCd2b32Cae8618599971F5F47F4bC110";
 
-    static String userFeePayer = "0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889";
+    static String userFeePayer = "0x31d845Ac80A0B2a38f6267CabcF34F8fA9DcD2B7";
     static String contractAddress = "0x978e8f0a0d52b1bf498a193f4fa11f5a83c7f2f3";
 
     static Account multiSigAccount;
@@ -48,13 +48,13 @@ public class WalletAPITest {
         kas.getWalletAPI().getBasicTransactionApi().getApiClient().setDebugging(true);
 
         BigInteger balance = Config.getBalance(baseAccount);
-        BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.mKLAY));
+        BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(baseAccount);
         }
 
         balance = Config.getBalance(userFeePayer);
-        milliKLAY = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.mKLAY));
+        milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(userFeePayer);
         }
@@ -62,7 +62,7 @@ public class WalletAPITest {
         multiSigAccount = kas.getWalletAPI().getAccount(multiSigAddress);
 
         balance = Config.getBalance(multiSigAddress);
-        milliKLAY = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.mKLAY));
+        milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(multiSigAddress);
         }
@@ -571,6 +571,7 @@ public class WalletAPITest {
         try {
             FDContractExecutionTransactionRequest request = new FDContractExecutionTransactionRequest();
             request.setFrom(baseAccount);
+            request.setTo(contractAddress);
             request.setInput(Utils.addHexPrefix(encodeKIP7Transfer(contractAddress)));
             request.setSubmit(true);
 
@@ -671,12 +672,12 @@ public class WalletAPITest {
 
             KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+            FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -748,7 +749,6 @@ public class WalletAPITest {
     @Test
     public void requestFDValueTransferPaidByUser() {
         FDUserValueTransferTransactionRequest request = new FDUserValueTransferTransactionRequest();
-        request.setFeePayer("0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889");
         request.setFrom(baseAccount);
         request.setTo(toAccount);
         request.setFeePayer(userFeePayer);
@@ -767,10 +767,9 @@ public class WalletAPITest {
     public void requestFDSmartContractDeployPaidByUser() {
         try {
             FDUserContractDeployTransactionRequest request = new FDUserContractDeployTransactionRequest();
-            request.setFeePayer("0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889");
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
-            request.setInput(encodeContractDeploy());
+            request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
             request.setSubmit(true);
 
             FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractDeployPaidByUser(request);
@@ -784,7 +783,6 @@ public class WalletAPITest {
     public void requestFDSmartContractExecutionPaidByUser() {
         try {
             FDUserContractExecutionTransactionRequest request = new FDUserContractExecutionTransactionRequest();
-            request.setFeePayer("0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889");
             request.setFrom(baseAccount);
             request.setTo(contractAddress);
             request.setFeePayer(userFeePayer);
@@ -802,7 +800,6 @@ public class WalletAPITest {
     public void requestFDCancelPaidByUser() {
         try {
             FDUserCancelTransactionRequest request = new FDUserCancelTransactionRequest();
-            request.setFeePayer("0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889");
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
             request.setNonce((long)1);
@@ -818,10 +815,9 @@ public class WalletAPITest {
     @Test
     public void requestFDChainDataAnchoringPaidByUser() {
         FDUserAnchorTransactionRequest request = new FDUserAnchorTransactionRequest();
-        request.setFeePayer("0xD888d7AfBC3Ce2512bB5A9012E4e08336eF7c889");
         request.setFrom(baseAccount);
         request.setFeePayer(userFeePayer);
-        request.setInput("123456");
+        request.setInput("0x123456");
         request.setSubmit(true);
 
         try {
