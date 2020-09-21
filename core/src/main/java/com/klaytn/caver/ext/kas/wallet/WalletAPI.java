@@ -1,6 +1,8 @@
 package com.klaytn.caver.ext.kas.wallet;
 
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
+import com.klaytn.caver.ext.kas.utils.KASUtils;
+import com.klaytn.caver.ext.kas.wallet.accountkey.*;
 import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiClient;
@@ -465,6 +467,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public TransactionResult requestAccountUpdate(AccountUpdateTransactionRequest request) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getBasicTransactionApi().accountUpdateTransaction(chainId, request);
     }
 
@@ -477,6 +480,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public Call requestAccountUpdateAsync(AccountUpdateTransactionRequest request, ApiCallback<TransactionResult> callback) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getBasicTransactionApi().accountUpdateTransactionAsync(chainId, request, callback);
     }
 
@@ -658,6 +662,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public FDTransactionResult requestFDAccountUpdatePaidByGlobalFeePayer(FDAccountUpdateTransactionRequest request) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getFeeDelegatedTransactionPaidByKasApi().fDAccountUpdateTransactionResponse(chainId, request);
     }
 
@@ -671,6 +676,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public Call requestFDAccountUpdatePaidByGlobalFeePayerAsync(FDAccountUpdateTransactionRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getFeeDelegatedTransactionPaidByKasApi().fDAccountUpdateTransactionResponseAsync(chainId, request, callback);
     }
 
@@ -833,6 +839,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public FDTransactionResult requestFDAccountUpdatePaidByUser(FDUserAccountUpdateTransactionRequest request) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getFeeDelegatedTransactionPaidByUserApi().uFDAccountUpdateTransaction(chainId, request);
     }
 
@@ -846,6 +853,7 @@ public class WalletAPI {
      * @throws ApiException
      */
     public Call requestFDAccountUpdatePaidByUserAsync(FDUserAccountUpdateTransactionRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
+        request.setAccountKey(makeUncompressedKeyFormat(request.getAccountKey()));
         return getFeeDelegatedTransactionPaidByUserApi().uFDAccountUpdateTransactionAsync(chainId, request, callback);
     }
 
@@ -1046,5 +1054,27 @@ public class WalletAPI {
 
                     return multisigKey;
                 }).collect(Collectors.toList());
+    }
+
+    AccountUpdateKey makeUncompressedKeyFormat(AccountUpdateKey updateKey) {
+        if(updateKey instanceof EmptyUpdateKeyType) {
+            return updateKey;
+        }
+
+        if(updateKey instanceof PubkeyUpdateKeyType) {
+            ((KeyTypePublic)updateKey).setKey(KASUtils.addUncompressedKeyPrefix(((KeyTypePublic) updateKey).getKey()));
+        } else if(updateKey instanceof MultisigUpdateKeyType) {
+            MultisigUpdateKey keys = ((KeyTypeMultiSig) updateKey).getKey();
+            keys.getWeightedKeys().stream().forEach(weightKey -> {
+                weightKey.setPublicKey(KASUtils.addUncompressedKeyPrefix(weightKey.getPublicKey()));
+            });
+        } else if(updateKey instanceof RoleBasedUpdateKeyType) {
+            List<AccountUpdateKey> roleKeyList = ((KeyTypeRoleBased) updateKey).getKey();
+            roleKeyList.stream().forEach(roleKey -> makeUncompressedKeyFormat(roleKey));
+        } else {
+            throw new IllegalArgumentException("Not supported update Key type.");
+        }
+
+        return updateKey;
     }
 }

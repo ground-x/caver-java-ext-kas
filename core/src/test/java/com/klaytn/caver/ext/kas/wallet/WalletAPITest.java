@@ -237,6 +237,95 @@ public class WalletAPITest {
     }
 
     @Test
+    public void makeUncompressedFormat_LegacyKeyType() {
+        KeyTypeLegacy type = new KeyTypeLegacy();
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        assertEquals(KeyTypeLegacy.KEY_TYPE, type.getKeyType().longValue());
+    }
+
+    @Test
+    public void makeUncompressedFormat_FailKeyType() {
+        KeyTypeFail type = new KeyTypeFail();
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        assertEquals(KeyTypeFail.KEY_TYPE, type.getKeyType().longValue());
+    }
+
+    @Test
+    public void makeUncompressedFormat_PublicKeyType() {
+        String expected = "0x0424002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+        String actual = "0x24002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+        KeyTypePublic type = new KeyTypePublic();
+        type.setKey(actual);
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        assertEquals(expected, type.getKey());
+    }
+
+    @Test
+    public void makeUncompressedFormat_alreadyPubKeyTag() {
+        String expected = "0x0424002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+        KeyTypePublic type = new KeyTypePublic();
+        type.setKey(expected);
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        assertEquals(expected, type.getKey());
+    }
+
+    @Test
+    public void makeUncompressedFormat_WeightedSigKey() {
+        String expected = "0x0424002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+        String actual = "0x24002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+
+        MultisigKey key1 = new MultisigKey();
+        key1.setPublicKey(expected);
+
+        MultisigKey key2 = new MultisigKey();
+        key2.setPublicKey(actual);
+
+        MultisigUpdateKey multisigUpdateKey = new MultisigUpdateKey();
+        multisigUpdateKey.setWeightedKeys(Arrays.asList(key1, key2));
+
+        KeyTypeMultiSig multiSig = new KeyTypeMultiSig();
+        multiSig.setKey(multisigUpdateKey);
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(multiSig);
+        assertEquals(expected, multiSig.getKey().getWeightedKeys().get(0).getPublicKey());
+        assertEquals(expected, multiSig.getKey().getWeightedKeys().get(1).getPublicKey());
+    }
+
+    @Test
+    public void makeUncompressedFormat_roleBasedKey() throws ApiException {
+        String expected = "0x0424002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+        String actual = "0x24002a25c6404e5087c77c7860bbc6ce661a83890bef401d59eb4062510155f6b936d2efee0889bdc35efdf9d5948acae155a530ae0d12ab6b8db0550d749366";
+
+        Account account = makeAccount();
+        KeyTypeRoleBased roleBased = createRoleBasedKeyType(account);
+
+        List<AccountUpdateKey> keyList = roleBased.getKey();
+
+        ((KeyTypePublic)keyList.get(0)).setKey(actual);
+        ((KeyTypePublic)keyList.get(1)).setKey(expected);
+        MultisigUpdateKey multiSig = ((KeyTypeMultiSig)keyList.get(2)).getKey();
+        List<MultisigKey> multisigKeyList = multiSig.getWeightedKeys();
+
+        for(int i=0; i<multisigKeyList.size(); i++) {
+            multisigKeyList.get(i).setPublicKey(actual);
+        }
+
+        kas.getWalletAPI().makeUncompressedKeyFormat(roleBased);
+
+        assertEquals(expected,((KeyTypePublic)keyList.get(0)).getKey());
+        assertEquals(expected,((KeyTypePublic)keyList.get(1)).getKey());
+
+        for(int i=0; i<multisigKeyList.size(); i++) {
+            assertEquals(expected, multisigKeyList.get(i).getPublicKey());
+        }
+    }
+
+
+    @Test
     public void createAccount() {
         try {
             Account account = kas.getWalletAPI().createAccount();

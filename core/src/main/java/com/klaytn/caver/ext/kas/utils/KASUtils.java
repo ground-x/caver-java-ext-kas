@@ -1,5 +1,6 @@
 package com.klaytn.caver.ext.kas.utils;
 
+import com.klaytn.caver.utils.AccountKeyPublicUtils;
 import com.klaytn.caver.utils.Utils;
 
 import java.security.InvalidParameterException;
@@ -68,6 +69,19 @@ public class KASUtils {
 
     public static boolean isBlockNumber(String data) {
         return Utils.isHexStrict(data);
+    }
+
+    public static String addUncompressedKeyPrefix(String publicKey) {
+        if(!AccountKeyPublicUtils.isUncompressedPublicKey(publicKey)) {
+            throw new IllegalArgumentException("publicKey must have uncompressed format.");
+        }
+
+        String noPrefixStr = Utils.stripHexPrefix(publicKey);
+        if(noPrefixStr.length() == 128) {
+            noPrefixStr = "04" + noPrefixStr;
+        }
+
+        return Utils.addHexPrefix(noPrefixStr);
     }
 
     static boolean checkDateFormat(String date) {
