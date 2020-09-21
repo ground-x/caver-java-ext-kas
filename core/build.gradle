@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.klaytn.caver:core:1.5.3-rc.1'
+    compile 'com.klaytn.caver:core:1.5.3-rc.2'
     compile project(':rest-client')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
