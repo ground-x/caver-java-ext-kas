@@ -384,7 +384,7 @@ public class WalletAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call requestSmartContractExecution(ContractExecutionTransactionRequest request, ApiCallback<TransactionResult> callback) throws ApiException {
+    public Call requestSmartContractExecutionAsync(ContractExecutionTransactionRequest request, ApiCallback<TransactionResult> callback) throws ApiException {
         return getBasicTransactionApi().contractExecutionTransactionAsync(chainId, request, callback);
     }
 
