@@ -72,6 +72,11 @@ public class KASUtils {
     }
 
     public static String addUncompressedKeyPrefix(String publicKey) {
+        if(AccountKeyPublicUtils.isCompressedPublicKey(publicKey)){
+            return publicKey;
+        }
+
+
         if(!AccountKeyPublicUtils.isUncompressedPublicKey(publicKey)) {
             throw new IllegalArgumentException("publicKey must have uncompressed format.");
         }
