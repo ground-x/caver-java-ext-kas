@@ -136,6 +136,7 @@ public void getOperators() {
         //handle error
     }
 }
+```
 
 You can find query options required each Anchor API in KAS Docs. 
 For defining query options, you can use `AnchorQueryOptions` class.
