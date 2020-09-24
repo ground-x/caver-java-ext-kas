@@ -3,13 +3,13 @@
 caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s extension library for using KAS(Klaytn API service).
 
 ## Table of contents
-    * [Installation](#installation)
-    * [Getting Started](#getting-started)
-        * [Activate API](#activate-api)
-        * [Use Node API](#use-node-api)
-        * [Use Token History API](#use-token-history-api)
-	    * [Use Wallet API](#use-wallet-api)
-        * [Use Anchor API](#use-anchor-api)
+  * [Installation](#installation)
+  * [Getting Started](#getting-started)
+    * [Activate API](#activate-api)
+    * [Use Node API](#use-node-api)
+    * [Use Token History API](#use-token-history-api)
+    * [Use Wallet API](#use-wallet-api)
+    * [Use Anchor API](#use-anchor-api)
 
 ## Installation
 
