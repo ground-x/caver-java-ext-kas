@@ -927,6 +927,7 @@ public class WalletAPITest {
 
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(input));
+            request.setGas(1500000L);
             request.submit(true);
 
             TransactionResult transactionResult = kas.getWalletAPI().requestSmartContractDeploy(request);
@@ -947,6 +948,7 @@ public class WalletAPITest {
 
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(input));
+            request.setGas(1500000L);
             request.submit(true);
 
             kas.getWalletAPI().requestSmartContractDeployAsync(request, callBack);
@@ -1287,6 +1289,7 @@ public class WalletAPITest {
             AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
+            request.setGas(250000l);
             request.setSubmit(true);
 
             kas.getWalletAPI().requestAccountUpdateAsync(request, callBack);
@@ -1391,6 +1394,7 @@ public class WalletAPITest {
             FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
+            request.setGas(1500000L);
             request.setSubmit(true);
 
             FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractDeployPaidByGlobalFeePayer(request);
@@ -1409,6 +1413,7 @@ public class WalletAPITest {
             FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
+            request.setGas(1500000L);
             request.setSubmit(true);
 
             kas.getWalletAPI().requestFDSmartContractDeployPaidByGlobalFeePayerAsync(request, callBack);
@@ -1745,6 +1750,7 @@ public class WalletAPITest {
             FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
+            request.setGas(500000l);
             request.setSubmit(true);
 
             FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
@@ -1767,6 +1773,7 @@ public class WalletAPITest {
             FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
+            request.setGas(500000l);
             request.setSubmit(true);
 
             kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
@@ -1821,6 +1828,7 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
+            request.setGas(1500000L);
             request.setSubmit(true);
 
             FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractDeployPaidByUser(request);
@@ -1839,6 +1847,7 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
+            request.setGas(1500000L);
             request.setSubmit(true);
 
             kas.getWalletAPI().requestFDSmartContractDeployPaidByUserAsync(request, callBack);
@@ -2212,6 +2221,7 @@ public class WalletAPITest {
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
             request.setFeePayer(userFeePayer);
+            request.setGas(500000l);
             request.setSubmit(true);
 
             FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
@@ -2235,6 +2245,7 @@ public class WalletAPITest {
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
             request.setFeePayer(userFeePayer);
+            request.setGas(500000l);
             request.setSubmit(true);
 
             kas.getWalletAPI().requestFDAccountUpdatePaidByUserAsync(request, callBack);
