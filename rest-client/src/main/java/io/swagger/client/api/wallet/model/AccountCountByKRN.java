@@ -17,157 +17,72 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
 /**
- * 유저 대납 계정 업데이트 트랜잭션 요청 스키마
+ * KAS 계정의 클레이튼 계정 보유 갯수
  */
-@Schema(description = "유저 대납 계정 업데이트 트랜잭션 요청 스키마")
+@Schema(description = "KAS 계정의 클레이튼 계정 보유 갯수")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T06:43:29.805Z[GMT]")
-public class FDUserAccountUpdateTransactionRequest {
-  @SerializedName("from")
-  private String from = null;
+public class AccountCountByKRN {
+  @SerializedName("accountId")
+  private String accountId = null;
 
-  @SerializedName("accountKey")
-  private AccountUpdateKey accountKey = null;
+  @SerializedName("count")
+  private Long count = null;
 
-  @SerializedName("nonce")
-  private Long nonce = null;
+  @SerializedName("krn")
+  private String krn = null;
 
-  @SerializedName("gas")
-  private Long gas = 100000l;
-
-  @SerializedName("submit")
-  private Boolean submit = null;
-
-  @SerializedName("feePayer")
-  private String feePayer = null;
-
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
-
-  public FDUserAccountUpdateTransactionRequest from(String from) {
-    this.from = from;
+  public AccountCountByKRN accountId(String accountId) {
+    this.accountId = accountId;
     return this;
   }
 
    /**
-   * 트랜잭션을 보내는 Klaytn 계정 주소
-   * @return from
+   * KAS 계정 ID
+   * @return accountId
   **/
-  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", required = true, description = "트랜잭션을 보내는 Klaytn 계정 주소")
-  public String getFrom() {
-    return from;
+  @Schema(example = "5adddb69-20b5-4444-a205-8bd681c815cc", required = true, description = "KAS 계정 ID")
+  public String getAccountId() {
+    return accountId;
   }
 
-  public void setFrom(String from) {
-    this.from = from;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
-  public FDUserAccountUpdateTransactionRequest accountKey(AccountUpdateKey accountKey) {
-    this.accountKey = accountKey;
+  public AccountCountByKRN count(Long count) {
+    this.count = count;
     return this;
   }
 
    /**
-   * Get accountKey
-   * @return accountKey
+   * 특정 계정 저장소 내에 클레이튼 계정 보유 갯수
+   * @return count
   **/
-  @Schema(description = "")
-  public AccountUpdateKey getAccountKey() {
-    return accountKey;
+  @Schema(example = "8", required = true, description = "특정 계정 저장소 내에 클레이튼 계정 보유 갯수")
+  public Long getCount() {
+    return count;
   }
 
-  public void setAccountKey(AccountUpdateKey accountKey) {
-    this.accountKey = accountKey;
+  public void setCount(Long count) {
+    this.count = count;
   }
 
-  public FDUserAccountUpdateTransactionRequest nonce(Long nonce) {
-    this.nonce = nonce;
+  public AccountCountByKRN krn(String krn) {
+    this.krn = krn;
     return this;
   }
 
    /**
-   * 보내는 트랜잭션을 식별하는 유일한 값 (0을 넣으면 nonce 를 자동으로 선택)
-   * @return nonce
+   * KAS KRN(계정 저장소 이름)
+   * @return krn
   **/
-  @Schema(example = "0", description = "보내는 트랜잭션을 식별하는 유일한 값 (0을 넣으면 nonce 를 자동으로 선택)")
-  public Long getNonce() {
-    return nonce;
+  @Schema(example = "krn:1001:wallet:5adddb69-20b5-4444-a205-8bd681c815cc:account-pool:default", required = true, description = "KAS KRN(계정 저장소 이름)")
+  public String getKrn() {
+    return krn;
   }
 
-  public void setNonce(Long nonce) {
-    this.nonce = nonce;
-  }
-
-  public FDUserAccountUpdateTransactionRequest gas(Long gas) {
-    this.gas = gas;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값 (0일때는 기본값 사용) 
-   * @return gas
-  **/
-  @Schema(example = "1000000", description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값 (0일때는 기본값 사용) ")
-  public Long getGas() {
-    return gas;
-  }
-
-  public void setGas(Long gas) {
-    this.gas = gas;
-  }
-
-  public FDUserAccountUpdateTransactionRequest submit(Boolean submit) {
-    this.submit = submit;
-    return this;
-  }
-
-   /**
-   * 해당 트랜잭션을 Klaytn에 전송할지 여부
-   * @return submit
-  **/
-  @Schema(example = "true", description = "해당 트랜잭션을 Klaytn에 전송할지 여부")
-  public Boolean isSubmit() {
-    return submit;
-  }
-
-  public void setSubmit(Boolean submit) {
-    this.submit = submit;
-  }
-
-  public FDUserAccountUpdateTransactionRequest feePayer(String feePayer) {
-    this.feePayer = feePayer;
-    return this;
-  }
-
-   /**
-   * 유저 트랜잭션 수수료를 대납할 계정 주소
-   * @return feePayer
-  **/
-  @Schema(example = "0x85B98485444c89880cD9C48807CEF727C296F2da", required = true, description = "유저 트랜잭션 수수료를 대납할 계정 주소")
-  public String getFeePayer() {
-    return feePayer;
-  }
-
-  public void setFeePayer(String feePayer) {
-    this.feePayer = feePayer;
-  }
-
-  public FDUserAccountUpdateTransactionRequest feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-    return this;
-  }
-
-   /**
-   * 전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율
-   * maximum: 99
-   * @return feeRatio
-  **/
-  @Schema(example = "0", description = "전체 트랜잭션 수수료에서 수수료 대납자가 대납할 수수료의 비율")
-  public Long getFeeRatio() {
-    return feeRatio;
-  }
-
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
+  public void setKrn(String krn) {
+    this.krn = krn;
   }
 
 
@@ -179,34 +94,26 @@ public class FDUserAccountUpdateTransactionRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FDUserAccountUpdateTransactionRequest fdUserAccountUpdateTransactionRequest = (FDUserAccountUpdateTransactionRequest) o;
-    return Objects.equals(this.from, fdUserAccountUpdateTransactionRequest.from) &&
-        Objects.equals(this.accountKey, fdUserAccountUpdateTransactionRequest.accountKey) &&
-        Objects.equals(this.nonce, fdUserAccountUpdateTransactionRequest.nonce) &&
-        Objects.equals(this.gas, fdUserAccountUpdateTransactionRequest.gas) &&
-        Objects.equals(this.submit, fdUserAccountUpdateTransactionRequest.submit) &&
-        Objects.equals(this.feePayer, fdUserAccountUpdateTransactionRequest.feePayer) &&
-        Objects.equals(this.feeRatio, fdUserAccountUpdateTransactionRequest.feeRatio);
+    AccountCountByKRN accountCountByKRN = (AccountCountByKRN) o;
+    return Objects.equals(this.accountId, accountCountByKRN.accountId) &&
+        Objects.equals(this.count, accountCountByKRN.count) &&
+        Objects.equals(this.krn, accountCountByKRN.krn);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(from, accountKey, nonce, gas, submit, feePayer, feeRatio);
+    return Objects.hash(accountId, count, krn);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FDUserAccountUpdateTransactionRequest {\n");
+    sb.append("class AccountCountByKRN {\n");
     
-    sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
-    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
-    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
     sb.append("}");
     return sb.toString();
   }
