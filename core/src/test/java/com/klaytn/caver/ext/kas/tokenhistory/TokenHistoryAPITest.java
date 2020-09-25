@@ -357,7 +357,7 @@ public class TokenHistoryAPITest {
     public void getNFTContractListWithType() {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-            options.setType("kip");
+            options.setType("KIP-17");
             PageableNftContractDetails details = kas.getTokenHistoryAPI().getNFTContractList(options);
             assertNotNull(details);
         } catch (ApiException e) {

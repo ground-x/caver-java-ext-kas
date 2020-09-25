@@ -149,13 +149,13 @@ public class WalletAPITest {
         kas.getWalletAPI().getBasicTransactionApi().getApiClient().setDebugging(true);
 
         BigInteger balance = Config.getBalance(baseAccount);
-        BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
+        BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(baseAccount);
         }
 
         balance = Config.getBalance(userFeePayer);
-        milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
+        milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(userFeePayer);
         }
@@ -163,7 +163,7 @@ public class WalletAPITest {
         multiSigAccount = kas.getWalletAPI().getAccount(multiSigAddress);
 
         balance = Config.getBalance(multiSigAddress);
-        milliKLAY = new BigInteger(Utils.convertToPeb("100", Utils.KlayUnit.mKLAY));
+        milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(multiSigAddress);
         }
