@@ -138,7 +138,7 @@ public class WalletQueryOptions {
 
     /**
      * Setter function for toTimeStamp
-     * @param toDate The end timestamp in seconds to be queried.
+     * @param toTimestamp The end timestamp in seconds to be queried.
      */
     public void setToTimestamp(Long toTimestamp) {
         this.toTimestamp = toTimestamp;
