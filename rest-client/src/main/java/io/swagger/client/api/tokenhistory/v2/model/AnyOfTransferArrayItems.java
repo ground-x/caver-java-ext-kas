@@ -12,9 +12,12 @@
 
 package io.swagger.client.api.tokenhistory.v2.model;
 
+import com.google.gson.annotations.JsonAdapter;
+
 /**
 * AnyOfTransferArrayItems
 */
+@JsonAdapter(TransferItemAdapter.class)
 public interface AnyOfTransferArrayItems {
 
 }
