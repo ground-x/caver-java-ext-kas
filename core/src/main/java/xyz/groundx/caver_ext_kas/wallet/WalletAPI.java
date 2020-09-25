@@ -62,6 +62,11 @@ public class WalletAPI {
     MultisigTransactionManagementApi multisigTransactionManagementApi;
 
     /**
+     * Statistics API rest client object.
+     */
+    StatisticsApi statisticsApi;
+
+    /**
      * Klaytn network id.
      */
     String chainId;
@@ -78,6 +83,7 @@ public class WalletAPI {
         setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(walletApiClient));
         setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(walletApiClient));
         setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(walletApiClient));
+        setStatisticsApi(new StatisticsApi(walletApiClient));
     }
 
     /**
@@ -968,6 +974,74 @@ public class WalletAPI {
     }
 
     /**
+     * Return the number of accounts in KAS.
+     * GET /v2/stat/count
+     * @return AccountCountByAccountID
+     * @throws ApiException
+     */
+    public AccountCountByAccountID countAccounts() throws ApiException {
+        return getStatisticsApi().getAccountCountByAccountID(getChainId());
+    }
+
+    /**
+     * Return the number of accounts in KAS asynchronously.
+     * GET /v2/stat/count
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call countAccountsAsync(ApiCallback<AccountCountByAccountID> callback) throws ApiException {
+        return getStatisticsApi().getAccountCountByAccountIDAsync(getChainId(), callback);
+    }
+
+    /**
+     * Return the number of accounts by passed as KRN in KAS.
+     * It use default krn.
+     * GET /v2/stat/count/krn
+     * @return AccountCountByKRN
+     * @throws ApiException
+     */
+    public AccountCountByKRN countAccountsByKRN() throws ApiException {
+        return countAccountsByKRN(null);
+    }
+
+    /**
+     * Return the number of accounts by passed as KRN in KAS asynchronously.
+     * It use default krn.
+     * GET /v2/stat/count/krn
+     * @param callback The callback function to handle response.
+     * @return AccountCountByKRN
+     * @throws ApiException
+     */
+    public Call countAccountsByKRNAsync(ApiCallback<AccountCountByKRN> callback) throws ApiException {
+        return countAccountsByKRNAsync(null, callback);
+    }
+
+    /**
+     * Return the number of accounts by passed as KRN in KAS.
+     * GET /v2/stat/count/krn
+     * @param krn The krn string to search
+     * @return AccountCountByKRN
+     * @throws ApiException
+     */
+    public AccountCountByKRN countAccountsByKRN(String krn) throws ApiException {
+        return getStatisticsApi().getAccountCountByKRN(getChainId(), krn);
+    }
+
+    /**
+     * Return the number of accounts by passed as KRN in KAS asynchronously.
+     * GET /v2/stat/count/krn
+     * @param krn The krn string to search
+     * @param callback The callback function to handle response.
+     * @return AccountCountByKRN
+     * @throws ApiException
+     */
+    public Call countAccountsByKRNAsync(String krn, ApiCallback<AccountCountByKRN> callback) throws ApiException {
+        return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), krn, callback);
+    }
+
+
+    /**
      * Getter function for accountApi.
       * @return AccountApi
      */
@@ -1005,6 +1079,14 @@ public class WalletAPI {
      */
     public MultisigTransactionManagementApi getMultisigTransactionManagementApi() {
         return multisigTransactionManagementApi;
+    }
+
+    /**
+     * Getter function for statisticsApi
+     * @return StatisticsApi
+     */
+    public StatisticsApi getStatisticsApi() {
+        return statisticsApi;
     }
 
     /**
@@ -1053,6 +1135,14 @@ public class WalletAPI {
      */
     public void setMultisigTransactionManagementApi(MultisigTransactionManagementApi multisigTransactionManagementApi) {
         this.multisigTransactionManagementApi = multisigTransactionManagementApi;
+    }
+
+    /**
+     * Setter function for statisticsApi
+     * @param statisticsApi statistics API rest client object.
+     */
+    public void setStatisticsApi(StatisticsApi statisticsApi) {
+        this.statisticsApi = statisticsApi;
     }
 
     /**
