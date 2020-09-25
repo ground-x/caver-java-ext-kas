@@ -19,7 +19,6 @@ package xyz.groundx.caver_ext_kas.wallet;
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
 import xyz.groundx.caver_ext_kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.wallet.accountkey.KeyTypeRoleBased;
-import com.klaytn.caver.ext.kas.wallet.accountkey.*;
 import com.squareup.okhttp.Call;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiClient;

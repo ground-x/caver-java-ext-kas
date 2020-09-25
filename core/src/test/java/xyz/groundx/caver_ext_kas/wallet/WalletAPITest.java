@@ -20,7 +20,6 @@ import com.klaytn.caver.abi.ABI;
 import xyz.groundx.caver_ext_kas.wallet.accountkey.*;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.KAS;
-import com.klaytn.caver.ext.kas.wallet.accountkey.*;
 import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.utils.Utils;
