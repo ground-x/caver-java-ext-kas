@@ -25,10 +25,10 @@ caver-java-ext-kas requires at minimum Java 8+.
 
 ## Getting Started
 
-### Activate API
+### Initialize API
 
 For now, you can use Node API, Token History API, Wallet API and Anchor API provided by KAS through this library. 
-To use KAS API through the caver-java-ext-kas, the following items are required.
+To use KAS API, the following items are required.
   - Access key, secret access key issued by KAS console.
   - Base URL to use the API provided by KAS.
   - The Klaytn network chain id to be used.
@@ -37,10 +37,10 @@ You can activate KAS API by writing code as below.
 
 ```java
 KAS kas = new KAS();
-kas.enableNodeAPI("base Node API url", chain ID, accessKey, secretAccessKey);
-kas.enableWalletAPI("base Wallet API url", chain ID, accessKey, secretAccessKey);
-kas.enableTokenHistoryAPI("base Token History API url", chain ID, accessKey, secretAccessKey);
-kas.enableAnchorAPI("base Anchor API url", chain ID, accessKey, secretAccessKey);
+kas.initNodeAPI("base Node API url", chain ID, accessKey, secretAccessKey);
+kas.initWalletAPI("base Wallet API url", chain ID, accessKey, secretAccessKey);
+kas.initTokenHistoryAPI("base Token History API url", chain ID, accessKey, secretAccessKey);
+kas.initAnchorAPI("base Anchor API url", chain ID, accessKey, secretAccessKey);
 ```
 
 ### Use Node API
