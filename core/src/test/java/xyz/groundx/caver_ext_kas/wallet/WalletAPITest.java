@@ -146,7 +146,7 @@ public class WalletAPITest {
     @BeforeClass
     public static void init() throws IOException, TransactionException, ApiException {
         kas = new KAS();
-        kas.enableWalletAPI(baseUrl, chainId, accessKey, secretAccessKey);
+        kas.initWalletAPI(baseUrl, chainId, accessKey, secretAccessKey);
         kas.getWalletAPI().getBasicTransactionApi().getApiClient().setDebugging(true);
 
         BigInteger balance = Config.getBalance(baseAccount);

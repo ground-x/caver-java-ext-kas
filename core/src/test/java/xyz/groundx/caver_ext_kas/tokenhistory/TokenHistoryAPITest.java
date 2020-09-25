@@ -43,7 +43,7 @@ public class TokenHistoryAPITest {
     @BeforeClass
     public static void init() {
         kas = new KAS();
-        kas.enableTokenHistoryAPI(baseUrl, chainId, accessKey, secretAccessKey);
+        kas.initTokenHistoryAPI(baseUrl, chainId, accessKey, secretAccessKey);
         kas.getTokenHistoryAPI().tokenHistoryApi.getApiClient().setDebugging(true);
     }
 

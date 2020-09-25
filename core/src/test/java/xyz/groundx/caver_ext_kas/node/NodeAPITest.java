@@ -64,7 +64,7 @@ public class NodeAPITest {
         testKeyring = (SingleKeyring)kas.wallet.add(KeyringFactory.createFromPrivateKey(privateKey));
         account = testKeyring.getAddress();
 
-        kas.enableNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
+        kas.initNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
 
         deployContract(kas);
     }

@@ -33,7 +33,7 @@ public class KAS extends Caver {
     public KAS() {
     }
 
-    public KAS enableAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
@@ -43,7 +43,7 @@ public class KAS extends Caver {
         return this;
     }
 
-    public KAS enableWalletAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initWalletAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
@@ -53,7 +53,7 @@ public class KAS extends Caver {
         return this;
     }
 
-    public KAS enableNodeAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initNodeAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
         HttpService httpService = new HttpService(url);
 
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
@@ -63,7 +63,7 @@ public class KAS extends Caver {
         return this;
     }
 
-    public KAS enableTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);

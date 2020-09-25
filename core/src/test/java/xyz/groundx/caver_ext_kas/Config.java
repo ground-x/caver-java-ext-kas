@@ -42,7 +42,7 @@ public class Config {
 
     static void init() {
         kas = new KAS();
-        kas.enableNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
+        kas.initNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
 
         richAccount = (SingleKeyring)kas.wallet.add(KeyringFactory.createFromPrivateKey(richAccountPrivateKey));
     }

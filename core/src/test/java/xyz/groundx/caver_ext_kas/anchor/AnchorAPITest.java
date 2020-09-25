@@ -48,14 +48,14 @@ public class AnchorAPITest {
     @BeforeClass
     public static void init() {
         kas = new KAS();
-        kas.enableAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
+        kas.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
         kas.getAnchorAPI().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
     }
 
     @Test
     public void enableAPITest() {
         KAS kas = new KAS();
-        kas.enableAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
+        kas.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
 
         assertNotNull(kas.getAnchorAPI());
     }
