@@ -1292,6 +1292,30 @@ public class WalletAPITest {
             request.setGas(250000l);
             request.setSubmit(true);
 
+            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            assertNotNull(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void requestAccountUpdateToAccountKeyRoleBasedAsync() {
+        BasicTxCallBack callBack = new BasicTxCallBack();
+
+        try {
+            Account account = makeAccount();
+            Config.sendValue(account.getAddress());
+
+            KeyTypeRoleBased updateKeyType = createRoleBasedKeyType(account);
+
+            AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+            request.setFrom(account.getAddress());
+            request.setAccountKey(updateKeyType);
+            request.setGas(250000l);
+            request.setSubmit(true);
+
             kas.getWalletAPI().requestAccountUpdateAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
