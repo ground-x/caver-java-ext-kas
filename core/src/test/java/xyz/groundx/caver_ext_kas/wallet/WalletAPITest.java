@@ -2538,4 +2538,152 @@ public class WalletAPITest {
             fail();
         }
     }
+
+    @Test
+    public void getAccountCount() {
+        try {
+            AccountCountByAccountID countByAccountID = kas.getWalletAPI().getAccountCount();
+            assertNotNull(countByAccountID);
+        } catch (ApiException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getAccountCountAsync() {
+        CompletableFuture<AccountCountByAccountID> future = new CompletableFuture<>();
+
+        try {
+            Call res = kas.getWalletAPI().getAccountCountAsync(new ApiCallback<AccountCountByAccountID>() {
+                @Override
+                public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.completeExceptionally(e);
+                }
+
+                @Override
+                public void onSuccess(AccountCountByAccountID result, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.complete(result);
+                }
+
+                @Override
+                public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+                }
+
+                @Override
+                public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+                }
+            });
+
+            if(future.isCompletedExceptionally()) {
+                fail();
+            } else {
+                assertNotNull(future.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getAccountCountByKRN() {
+        try {
+            AccountCountByKRN accountCountByKRN = kas.getWalletAPI().getAccountCountByKRN();
+            assertNotNull(accountCountByKRN);
+        } catch (ApiException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getAccountCountByKRN_WithKRN() {
+        try {
+            String krn = "krn:1001:wallet:d5c346f5-bb80-4f45-9093-57e25205cdc8:account-pool:pool";
+            AccountCountByKRN accountCountByKRN = kas.getWalletAPI().getAccountCountByKRN(krn);
+            assertNotNull(accountCountByKRN);
+        } catch (ApiException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getAccountCountByKRNAsync() {
+        CompletableFuture<AccountCountByKRN> future = new CompletableFuture<>();
+        try {
+            Call res = kas.getWalletAPI().getAccountCountByKRNAsync(new ApiCallback<AccountCountByKRN>() {
+                @Override
+                public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.completeExceptionally(e);
+                }
+
+                @Override
+                public void onSuccess(AccountCountByKRN result, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.complete(result);
+                }
+
+                @Override
+                public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+                }
+
+                @Override
+                public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+                }
+            });
+
+            if(future.isCompletedExceptionally()) {
+                fail();
+            } else {
+                assertNotNull(future.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void getAccountCountByKRNAsync_WithKRN() {
+        CompletableFuture<AccountCountByKRN> future = new CompletableFuture<>();
+
+        try {
+            String krn = "krn:1001:wallet:d5c346f5-bb80-4f45-9093-57e25205cdc8:account-pool:pool";
+            Call res = kas.getWalletAPI().getAccountCountByKRNAsync(krn, new ApiCallback<AccountCountByKRN>() {
+                @Override
+                public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.completeExceptionally(e);
+                }
+
+                @Override
+                public void onSuccess(AccountCountByKRN result, int statusCode, Map<String, List<String>> responseHeaders) {
+                    future.complete(result);
+                }
+
+                @Override
+                public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+                }
+
+                @Override
+                public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+                }
+            });
+
+            if(future.isCompletedExceptionally()) {
+                fail();
+            } else {
+                assertNotNull(future.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }

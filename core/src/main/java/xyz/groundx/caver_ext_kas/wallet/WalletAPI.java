@@ -979,7 +979,7 @@ public class WalletAPI {
      * @return AccountCountByAccountID
      * @throws ApiException
      */
-    public AccountCountByAccountID countAccounts() throws ApiException {
+    public AccountCountByAccountID getAccountCount() throws ApiException {
         return getStatisticsApi().getAccountCountByAccountID(getChainId());
     }
 
@@ -990,7 +990,7 @@ public class WalletAPI {
      * @return Call
      * @throws ApiException
      */
-    public Call countAccountsAsync(ApiCallback<AccountCountByAccountID> callback) throws ApiException {
+    public Call getAccountCountAsync(ApiCallback<AccountCountByAccountID> callback) throws ApiException {
         return getStatisticsApi().getAccountCountByAccountIDAsync(getChainId(), callback);
     }
 
@@ -1001,8 +1001,8 @@ public class WalletAPI {
      * @return AccountCountByKRN
      * @throws ApiException
      */
-    public AccountCountByKRN countAccountsByKRN() throws ApiException {
-        return countAccountsByKRN(null);
+    public AccountCountByKRN getAccountCountByKRN() throws ApiException {
+        return getAccountCountByKRN(null);
     }
 
     /**
@@ -1013,8 +1013,8 @@ public class WalletAPI {
      * @return AccountCountByKRN
      * @throws ApiException
      */
-    public Call countAccountsByKRNAsync(ApiCallback<AccountCountByKRN> callback) throws ApiException {
-        return countAccountsByKRNAsync(null, callback);
+    public Call getAccountCountByKRNAsync(ApiCallback<AccountCountByKRN> callback) throws ApiException {
+        return getAccountCountByKRNAsync(null, callback);
     }
 
     /**
@@ -1024,7 +1024,7 @@ public class WalletAPI {
      * @return AccountCountByKRN
      * @throws ApiException
      */
-    public AccountCountByKRN countAccountsByKRN(String krn) throws ApiException {
+    public AccountCountByKRN getAccountCountByKRN(String krn) throws ApiException {
         return getStatisticsApi().getAccountCountByKRN(getChainId(), krn);
     }
 
@@ -1036,7 +1036,7 @@ public class WalletAPI {
      * @return AccountCountByKRN
      * @throws ApiException
      */
-    public Call countAccountsByKRNAsync(String krn, ApiCallback<AccountCountByKRN> callback) throws ApiException {
+    public Call getAccountCountByKRNAsync(String krn, ApiCallback<AccountCountByKRN> callback) throws ApiException {
         return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), krn, callback);
     }
 
