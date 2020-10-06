@@ -26,7 +26,6 @@ import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.*;
 
 import java.security.InvalidParameterException;
 import java.util.List;

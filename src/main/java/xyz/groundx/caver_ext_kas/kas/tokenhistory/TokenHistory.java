@@ -26,7 +26,6 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenHistoryApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenOwnershipApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.*;
 
 import java.util.Arrays;
 import java.util.List;
