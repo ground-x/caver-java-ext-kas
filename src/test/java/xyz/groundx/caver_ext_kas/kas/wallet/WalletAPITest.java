@@ -757,7 +757,7 @@ public class WalletAPITest {
     public void getAccountByPublicKey() {
         String publicKey = "0x04f715a9d9e0f7a4b152d4ef8a67f4708fc1f83fe2e1984cf0f72987dbacbad324fb619fbdf30497441eddf80676403f0009f07b4195915df7220c79183e9d1f27";
         try {
-            AccountsByPubkey accounts = kas.getWallet().getAccountByPublicKey(publicKey);
+            AccountsByPubkey accounts = kas.getWallet().getAccountListByPublicKey(publicKey);
             assertNotNull(accounts);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -770,7 +770,7 @@ public class WalletAPITest {
         CompletableFuture<AccountsByPubkey> future = new CompletableFuture<>();
         String publicKey = "0x04f715a9d9e0f7a4b152d4ef8a67f4708fc1f83fe2e1984cf0f72987dbacbad324fb619fbdf30497441eddf80676403f0009f07b4195915df7220c79183e9d1f27";
         try {
-            kas.getWallet().getAccountByPublicKeyAsync(publicKey, new ApiCallback<AccountsByPubkey>() {
+            kas.getWallet().getAccountListByPublicKeyAsync(publicKey, new ApiCallback<AccountsByPubkey>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2286,7 +2286,7 @@ public class WalletAPITest {
 
     private boolean hasMultiSigTx(String address) {
         try {
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(address);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(address);
             return true;
         } catch (ApiException e) {
             return false;
@@ -2300,7 +2300,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAccount.getAddress());
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAccount.getAddress());
             assertNotNull(transactions);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2318,7 +2318,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            kas.getWallet().getMultiSigTransactionsAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
+            kas.getWallet().getMultiSigTransactionListAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2359,7 +2359,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             MultisigTransactionStatus status = kas.getWallet().signMultiSigTransaction(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(status);
         } catch (ApiException e) {
@@ -2377,7 +2377,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             kas.getWallet().signMultiSigTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<MultisigTransactionStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
@@ -2417,7 +2417,7 @@ public class WalletAPITest {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             Signature signature = kas.getWallet().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(signature);
         } catch (Exception e) {
@@ -2434,7 +2434,7 @@ public class WalletAPITest {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             kas.getWallet().signTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<Signature>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
@@ -2476,7 +2476,7 @@ public class WalletAPITest {
             }
 
 
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             String transactionID = transactions.getItems().get(0).getTransactionId();
 
 
@@ -2502,7 +2502,7 @@ public class WalletAPITest {
             }
 
 
-            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactionList(multiSigAddress);
             String transactionID = transactions.getItems().get(0).getTransactionId();
 
 
