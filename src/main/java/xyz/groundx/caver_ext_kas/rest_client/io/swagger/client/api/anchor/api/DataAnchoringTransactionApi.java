@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,12 +12,13 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api;
 
+
 import com.google.gson.reflect.TypeToken;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorBlockTransactions;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorBlockRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorBlockStatus;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransactionDetail;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransactions;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -106,11 +107,6 @@ public class DataAnchoringTransactionApi {
         
         com.squareup.okhttp.Call call = anchorBlockCall(xChainId, body, progressListener, progressRequestListener);
         return call;
-
-        
-        
-        
-        
     }
 
     /**
@@ -260,11 +256,11 @@ public class DataAnchoringTransactionApi {
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param payloadId 페이로드 ID (required)
-     * @return AnchorBlockTransactions
+     * @return AnchorTransactionDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AnchorBlockTransactions getAnchorBlockByPayloadID(String xChainId, String operatorId, String payloadId) throws ApiException {
-        ApiResponse<AnchorBlockTransactions> resp = getAnchorBlockByPayloadIDWithHttpInfo(xChainId, operatorId, payloadId);
+    public AnchorTransactionDetail getAnchorBlockByPayloadID(String xChainId, String operatorId, String payloadId) throws ApiException {
+        ApiResponse<AnchorTransactionDetail> resp = getAnchorBlockByPayloadIDWithHttpInfo(xChainId, operatorId, payloadId);
         return resp.getData();
     }
 
@@ -274,12 +270,12 @@ public class DataAnchoringTransactionApi {
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param payloadId 페이로드 ID (required)
-     * @return ApiResponse&lt;AnchorBlockTransactions&gt;
+     * @return ApiResponse&lt;AnchorTransactionDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AnchorBlockTransactions> getAnchorBlockByPayloadIDWithHttpInfo(String xChainId, String operatorId, String payloadId) throws ApiException {
+    public ApiResponse<AnchorTransactionDetail> getAnchorBlockByPayloadIDWithHttpInfo(String xChainId, String operatorId, String payloadId) throws ApiException {
         com.squareup.okhttp.Call call = getAnchorBlockByPayloadIDValidateBeforeCall(xChainId, operatorId, payloadId, null, null);
-        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorTransactionDetail>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -293,7 +289,7 @@ public class DataAnchoringTransactionApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAnchorBlockByPayloadIDAsync(String xChainId, String operatorId, String payloadId, final ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
+    public com.squareup.okhttp.Call getAnchorBlockByPayloadIDAsync(String xChainId, String operatorId, String payloadId, final ApiCallback<AnchorTransactionDetail> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -315,7 +311,7 @@ public class DataAnchoringTransactionApi {
         }
 
         com.squareup.okhttp.Call call = getAnchorBlockByPayloadIDValidateBeforeCall(xChainId, operatorId, payloadId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorTransactionDetail>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -404,11 +400,11 @@ public class DataAnchoringTransactionApi {
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param transactionHash 트랜잭션 해시 (required)
-     * @return AnchorBlockTransactions
+     * @return AnchorTransactionDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AnchorBlockTransactions getAnchorBlockByTx(String xChainId, String operatorId, String transactionHash) throws ApiException {
-        ApiResponse<AnchorBlockTransactions> resp = getAnchorBlockByTxWithHttpInfo(xChainId, operatorId, transactionHash);
+    public AnchorTransactionDetail getAnchorBlockByTx(String xChainId, String operatorId, String transactionHash) throws ApiException {
+        ApiResponse<AnchorTransactionDetail> resp = getAnchorBlockByTxWithHttpInfo(xChainId, operatorId, transactionHash);
         return resp.getData();
     }
 
@@ -418,12 +414,12 @@ public class DataAnchoringTransactionApi {
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param transactionHash 트랜잭션 해시 (required)
-     * @return ApiResponse&lt;AnchorBlockTransactions&gt;
+     * @return ApiResponse&lt;AnchorTransactionDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AnchorBlockTransactions> getAnchorBlockByTxWithHttpInfo(String xChainId, String operatorId, String transactionHash) throws ApiException {
+    public ApiResponse<AnchorTransactionDetail> getAnchorBlockByTxWithHttpInfo(String xChainId, String operatorId, String transactionHash) throws ApiException {
         com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, transactionHash, null, null);
-        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorTransactionDetail>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -437,7 +433,7 @@ public class DataAnchoringTransactionApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAnchorBlockByTxAsync(String xChainId, String operatorId, String transactionHash, final ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
+    public com.squareup.okhttp.Call getAnchorBlockByTxAsync(String xChainId, String operatorId, String transactionHash, final ApiCallback<AnchorTransactionDetail> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -459,7 +455,7 @@ public class DataAnchoringTransactionApi {
         }
 
         com.squareup.okhttp.Call call = getAnchorBlockByTxValidateBeforeCall(xChainId, operatorId, transactionHash, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AnchorBlockTransactions>(){}.getType();
+        Type localVarReturnType = new TypeToken<AnchorTransactionDetail>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -550,7 +546,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 오퍼레이터로 앵커링 트랜잭션 목록 조회
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
@@ -567,7 +563,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 오퍼레이터로 앵커링 트랜잭션 목록 조회
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
@@ -585,7 +581,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * 오퍼레이터로 앵커링 트랜잭션 목록 조회 (asynchronously)
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.
+     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param operatorId 오퍼레이터 계정 주소 (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)

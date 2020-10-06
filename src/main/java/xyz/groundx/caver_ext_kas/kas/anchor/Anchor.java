@@ -155,7 +155,7 @@ public class Anchor {
      * @return GetAnchorBlockByTxResponse
      * @throws ApiException
      */
-    public AnchorBlockTransactions getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
+    public AnchorTransactionDetail getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByTx(getChainId(), operatorId, txHash);
     }
 
@@ -168,7 +168,7 @@ public class Anchor {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionByTxHashAsync(String operatorId, String txHash, ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
+    public Call getAnchoringTransactionByTxHashAsync(String operatorId, String txHash, ApiCallback<AnchorTransactionDetail> callback) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByTxAsync(getChainId(), operatorId, txHash, callback);
     }
 
@@ -180,7 +180,7 @@ public class Anchor {
      * @return GetAnchorBlockByPayloadIDResponse
      * @throws ApiException
      */
-    public AnchorBlockTransactions getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
+    public AnchorTransactionDetail getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByPayloadID(getChainId(), operatorId, payloadId);
     }
 
@@ -193,7 +193,7 @@ public class Anchor {
      * @return Call
      * @throws ApiException
      */
-    public Call getAnchoringTransactionByPayloadIdAsync(String operatorId, String payloadId, ApiCallback<AnchorBlockTransactions> callback) throws ApiException {
+    public Call getAnchoringTransactionByPayloadIdAsync(String operatorId, String payloadId, ApiCallback<AnchorTransactionDetail> callback) throws ApiException {
         return dataAnchoringTransactionApi.getAnchorBlockByPayloadIDAsync(getChainId(), operatorId, payloadId, callback);
     }
 

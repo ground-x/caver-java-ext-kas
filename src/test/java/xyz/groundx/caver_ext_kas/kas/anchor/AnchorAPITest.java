@@ -222,7 +222,7 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByTxHash() throws ApiException {
         String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
-        AnchorBlockTransactions res = kas.getAnchor().getAnchoringTransactionByTxHash(operatorID, txHash);
+        AnchorTransactionDetail res = kas.getAnchor().getAnchoringTransactionByTxHash(operatorID, txHash);
 
         assertNotNull(res);
     }
@@ -230,7 +230,7 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByPayloadId() throws ApiException {
         String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
-        AnchorBlockTransactions res = kas.getAnchor().getAnchoringTransactionByPayloadId(operatorID, payloadId);
+        AnchorTransactionDetail res = kas.getAnchor().getAnchoringTransactionByPayloadId(operatorID, payloadId);
 
         assertNotNull(res);
     }
@@ -397,16 +397,16 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByTxHashAsyncTest() {
         String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
-        CompletableFuture<AnchorBlockTransactions> completableFuture = new CompletableFuture();
+        CompletableFuture<AnchorTransactionDetail> completableFuture = new CompletableFuture();
         try {
-            kas.getAnchor().getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<AnchorBlockTransactions>() {
+            kas.getAnchor().getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<AnchorTransactionDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(AnchorBlockTransactions result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorTransactionDetail result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 
@@ -435,18 +435,17 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionByPayloadIdAsyncTest() {
         String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
-        CompletableFuture<AnchorBlockTransactions> completableFuture = new CompletableFuture<>();
+        CompletableFuture<AnchorTransactionDetail> completableFuture = new CompletableFuture<>();
 
         try {
-
-            kas.getAnchor().getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<AnchorBlockTransactions>() {
+            kas.getAnchor().getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<AnchorTransactionDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
                 }
 
                 @Override
-                public void onSuccess(AnchorBlockTransactions result, int statusCode, Map<String, List<String>> responseHeaders) {
+                public void onSuccess(AnchorTransactionDetail result, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.complete(result);
                 }
 
