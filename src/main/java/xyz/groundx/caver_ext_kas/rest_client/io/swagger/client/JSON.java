@@ -163,7 +163,7 @@ public class JSON {
         @Override
         public OffsetDateTime read(JsonReader in) throws IOException {
             switch (in.peek()) {
-                case JsonToken.NULL:
+                case NULL:
                     in.nextNull();
                     return null;
                 default:
@@ -207,7 +207,7 @@ public class JSON {
         @Override
         public LocalDate read(JsonReader in) throws IOException {
             switch (in.peek()) {
-                case JsonToken.NULL:
+                case NULL:
                     in.nextNull();
                     return null;
                 default:
@@ -265,7 +265,7 @@ public class JSON {
         @Override
         public java.sql.Date read(JsonReader in) throws IOException {
             switch (in.peek()) {
-                case JsonToken.NULL:
+                case NULL:
                     in.nextNull();
                     return null;
                 default:
@@ -320,7 +320,7 @@ public class JSON {
         public Date read(JsonReader in) throws IOException {
             try {
                 switch (in.peek()) {
-                    case JsonToken.NULL:
+                    case NULL:
                         in.nextNull();
                         return null;
                     default:

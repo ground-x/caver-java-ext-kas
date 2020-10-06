@@ -16,7 +16,8 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.accountkey;
 
-import io.swagger.client.api.wallet.model.PubkeyUpdateKeyType;
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.PubkeyUpdateKeyType;
 
 public class KeyTypePublic extends PubkeyUpdateKeyType {
     public static final long KEY_TYPE = 2;
