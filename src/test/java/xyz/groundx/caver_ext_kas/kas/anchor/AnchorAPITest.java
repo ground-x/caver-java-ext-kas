@@ -51,8 +51,9 @@ public class AnchorAPITest {
     public static void init() {
         caver = new CaverExtKAS();
         caver.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
-        kas.getAnchor().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
         kas = caver.getKas();
+
+        kas.getAnchor().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
     }
 
     @Test
