@@ -28,17 +28,17 @@ public class KAS {
     /**
      * The Anchor API instance.
      */
-    private AnchorAPI anchor;
+    public AnchorAPI anchor;
 
     /**
      * The Token history API instance.
      */
-    private TokenHistoryAPI tokenHistory;
+    public TokenHistoryAPI tokenHistory;
 
     /**
      * The Wallet API instance.
      */
-    private WalletAPI wallet;
+    public WalletAPI wallet;
 
     /**
      * Creates a KAS instance.
