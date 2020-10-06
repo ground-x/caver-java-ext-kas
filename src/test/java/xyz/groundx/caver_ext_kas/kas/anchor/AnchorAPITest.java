@@ -21,8 +21,8 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.kas.KAS;
-import xyz.groundx.caver_ext_kas.kas.anchor.AnchorQueryOptions;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.*;
@@ -44,13 +44,15 @@ public class AnchorAPITest {
     static String basPath = "https://anchor-api.dev.klaytn.com";
     static String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
     static String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
+    static CaverExtKAS caver;
     static KAS kas;
 
     @BeforeClass
     public static void init() {
-        kas = new KAS();
-        kas.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
+        caver = new CaverExtKAS();
+        caver.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
         kas.getAnchor().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
+        kas = caver.getKas();
     }
 
     @Test

@@ -20,6 +20,7 @@ import com.squareup.okhttp.Call;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
@@ -35,6 +36,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class TokenHistoryAPITest {
+    public static CaverExtKAS caver;
     public static KAS kas;
     public static String baseUrl = "https://th-api.dev.klaytn.com";
 
@@ -44,9 +46,9 @@ public class TokenHistoryAPITest {
 
     @BeforeClass
     public static void init() {
-        kas = new KAS();
-        kas.initTokenHistoryAPI(baseUrl, chainId, accessKey, secretAccessKey);
-//        kas.getTokenHistory().getApiClient().setDebugging(true);
+        caver = new CaverExtKAS();
+        caver.initTokenHistoryAPI(baseUrl, chainId, accessKey, secretAccessKey);
+        kas = caver.getKas();
     }
 
     @Test
