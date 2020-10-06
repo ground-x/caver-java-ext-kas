@@ -16,9 +16,9 @@
 
 package xyz.groundx.caver_ext_kas.kas;
 
-import xyz.groundx.caver_ext_kas.kas.anchor.AnchorAPI;
-import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryAPI;
-import xyz.groundx.caver_ext_kas.kas.wallet.WalletAPI;
+import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
+import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 
 /**
@@ -28,17 +28,17 @@ public class KAS {
     /**
      * The Anchor API instance.
      */
-    public AnchorAPI anchor;
+    public Anchor anchor;
 
     /**
      * The Token history API instance.
      */
-    public TokenHistoryAPI tokenHistory;
+    public TokenHistory tokenHistory;
 
     /**
      * The Wallet API instance.
      */
-    public WalletAPI wallet;
+    public Wallet wallet;
 
     /**
      * Creates a KAS instance.
@@ -59,7 +59,7 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setAnchor(new AnchorAPI(chainId, apiClient));
+        setAnchor(new Anchor(chainId, apiClient));
         return this;
     }
 
@@ -76,7 +76,7 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setWallet(new WalletAPI(chainId, apiClient));
+        setWallet(new Wallet(chainId, apiClient));
         return this;
     }
 
@@ -93,7 +93,7 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setTokenHistory(new TokenHistoryAPI(chainId, apiClient));
+        setTokenHistory(new TokenHistory(chainId, apiClient));
 
         return this;
     }
@@ -102,7 +102,7 @@ public class KAS {
      * Getter function for anchor.
      * @return Anchor API
      */
-    public AnchorAPI getAnchor() {
+    public Anchor getAnchor() {
         return anchor;
     }
 
@@ -110,7 +110,7 @@ public class KAS {
      * Setter function for anchor.
      * @param anchor The Anchor API instance.
      */
-    public void setAnchor(AnchorAPI anchor) {
+    public void setAnchor(Anchor anchor) {
         this.anchor = anchor;
     }
 
@@ -118,7 +118,7 @@ public class KAS {
      * Getter function for Token History
      * @return TokenHistoryAPI.
      */
-    public TokenHistoryAPI getTokenHistory() {
+    public TokenHistory getTokenHistory() {
         return tokenHistory;
     }
 
@@ -126,7 +126,7 @@ public class KAS {
      * Setter function for Token History.
      * @param tokenHistory The Token History API Instance
      */
-    public void setTokenHistory(TokenHistoryAPI tokenHistory) {
+    public void setTokenHistory(TokenHistory tokenHistory) {
         this.tokenHistory = tokenHistory;
     }
 
@@ -134,7 +134,7 @@ public class KAS {
      * Getter function for wallet
      * @return WalletAPI
      */
-    public WalletAPI getWallet() {
+    public Wallet getWallet() {
         return wallet;
     }
 
@@ -142,7 +142,7 @@ public class KAS {
      * Setter function for Wallet
      * @param wallet The WalletAPI instance.
      */
-    public void setWallet(WalletAPI wallet) {
+    public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
 }

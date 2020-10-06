@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Representing an wrapping class tha connects Token history APi.
  */
-public class TokenHistoryAPI {
+public class TokenHistory {
     /**
      * Token API rest-client object.
      */
@@ -64,7 +64,7 @@ public class TokenHistoryAPI {
      * @param chainId A Klaytn network chain id.
      * @param client The Api client for connection with KAS.
      */
-    public TokenHistoryAPI(String chainId, ApiClient client) {
+    public TokenHistory(String chainId, ApiClient client) {
         this.chainId = chainId;
         tokenApi = new TokenApi(client);
         tokenContractApi = new TokenContractApi(client);

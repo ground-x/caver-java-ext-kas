@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Representing an wrapping class tha connects Anchor APi.
  */
-public class AnchorAPI {
+public class Anchor {
 
     /**
      * Anchor API rest-client object.
@@ -52,7 +52,7 @@ public class AnchorAPI {
      * @param chainId A Klaytn network chain id.
      * @param anchorApiClient The Api client for connecting with KAS.
      */
-    public AnchorAPI(String chainId, ApiClient anchorApiClient) {
+    public Anchor(String chainId, ApiClient anchorApiClient) {
         setChainId(chainId);
         setDataAnchoringTransactionApi(new DataAnchoringTransactionApi(anchorApiClient));
         setOperatorApi(new OperatorApi(anchorApiClient));

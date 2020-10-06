@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Representing an wrapping class tha connects Wallet API.
  */
-public class WalletAPI {
+public class Wallet {
 
     /**
      * Account API rest client object.
@@ -76,7 +76,7 @@ public class WalletAPI {
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
      */
-    public WalletAPI(String chainId, ApiClient walletApiClient) {
+    public Wallet(String chainId, ApiClient walletApiClient) {
         setChainId(chainId);
         setAccountApi(new AccountApi(walletApiClient));
         setBasicTransactionApi(new BasicTransactionApi(walletApiClient));
