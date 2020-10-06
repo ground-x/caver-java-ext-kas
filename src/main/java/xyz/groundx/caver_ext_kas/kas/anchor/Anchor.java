@@ -152,7 +152,7 @@ public class Anchor {
      * GET /v1/operator/{operator_id}/tx/{tx_hash}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param txHash A transaction hash used for getting anchoring transaction.
-     * @return GetAnchorBlockByTxResponse
+     * @return AnchorTransactionDetail
      * @throws ApiException
      */
     public AnchorTransactionDetail getAnchoringTransactionByTxHash(String operatorId, String txHash) throws ApiException {
@@ -177,7 +177,7 @@ public class Anchor {
      * GET /v1/operator/{operator_id}/payload/{payload_id}
      * @param operatorId An operator address to query the anchoring transaction.
      * @param payloadId A payload id used for getting anchoring transaction.
-     * @return GetAnchorBlockByPayloadIDResponse
+     * @return AnchorTransactionDetail
      * @throws ApiException
      */
     public AnchorTransactionDetail getAnchoringTransactionByPayloadId(String operatorId, String payloadId) throws ApiException {
