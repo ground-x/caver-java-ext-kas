@@ -56,6 +56,11 @@ public class KASUtils {
         return Long.toString(Timestamp.valueOf(localDateTime).getTime() / 1000);
     }
 
+    /**
+     * make query string using passed as a param.
+     * @param param a query parameter data.
+     * @return String
+     */
     public static String parameterToString(Object param) {
         if (param == null) {
             return "";
@@ -73,6 +78,11 @@ public class KASUtils {
         }
     }
 
+    /**
+     * Check whether passed string data is unix time stamp format.
+     * @param data The string data to check.
+     * @return boolean
+     */
     public static boolean isTimeStamp(String data) {
         try {
             Long.parseLong(data, 10);
@@ -83,6 +93,11 @@ public class KASUtils {
         return true;
     }
 
+    /**
+     * Check whether passed string data is block number format.
+     * @param data The string data to check
+     * @return boolean
+     */
     public static boolean isBlockNumber(String data) {
         return Utils.isHexStrict(data);
     }
@@ -91,8 +106,7 @@ public class KASUtils {
         if(AccountKeyPublicUtils.isCompressedPublicKey(publicKey)){
             return publicKey;
         }
-
-
+        
         if(!AccountKeyPublicUtils.isUncompressedPublicKey(publicKey)) {
             throw new IllegalArgumentException("publicKey must have uncompressed format.");
         }
