@@ -306,7 +306,7 @@ public class Wallet {
      * @return AccountsByPubkey
      * @throws ApiException
      */
-    public AccountsByPubkey getAccountByPublicKey(String publicKey) throws ApiException {
+    public AccountsByPubkey getAccountListByPublicKey(String publicKey) throws ApiException {
         return getAccountApi().retrieveAccountsByPubkey(chainId ,publicKey);
     }
 
@@ -318,7 +318,7 @@ public class Wallet {
      * @return Call
      * @throws ApiException
      */
-    public Call getAccountByPublicKeyAsync(String publicKey, ApiCallback<AccountsByPubkey> callback) throws ApiException {
+    public Call getAccountListByPublicKeyAsync(String publicKey, ApiCallback<AccountsByPubkey> callback) throws ApiException {
         return getAccountApi().retrieveAccountsByPubkeyAsync(chainId ,publicKey, callback);
     }
 
@@ -888,8 +888,8 @@ public class Wallet {
      * @return MultisigTransactions
      * @throws ApiException
      */
-    public MultisigTransactions getMultiSigTransactions(String address) throws ApiException {
-        return getMultiSigTransactions(address, new WalletQueryOptions());
+    public MultisigTransactions getMultiSigTransactionList(String address) throws ApiException {
+        return getMultiSigTransactionList(address, new WalletQueryOptions());
     }
 
     /**
@@ -900,8 +900,8 @@ public class Wallet {
      * @return Call
      * @throws ApiException
      */
-    public Call getMultiSigTransactionsAsync(String address, ApiCallback<MultisigTransactions> callback) throws ApiException {
-        return getMultiSigTransactionsAsync(address, new WalletQueryOptions(), callback);
+    public Call getMultiSigTransactionListAsync(String address, ApiCallback<MultisigTransactions> callback) throws ApiException {
+        return getMultiSigTransactionListAsync(address, new WalletQueryOptions(), callback);
     }
 
     /**
@@ -911,7 +911,7 @@ public class Wallet {
      * @return MultisigTransactions
      * @throws ApiException
      */
-    public MultisigTransactions getMultiSigTransactions(String address, WalletQueryOptions options) throws ApiException {
+    public MultisigTransactions getMultiSigTransactionList(String address, WalletQueryOptions options) throws ApiException {
         return getMultisigTransactionManagementApi().retrieveMultisigTransactions(chainId, address, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp());
     }
 
@@ -923,7 +923,7 @@ public class Wallet {
      * @return Call
      * @throws ApiException
      */
-    public Call getMultiSigTransactionsAsync(String address, WalletQueryOptions options, ApiCallback<MultisigTransactions> callback) throws ApiException {
+    public Call getMultiSigTransactionListAsync(String address, WalletQueryOptions options, ApiCallback<MultisigTransactions> callback) throws ApiException {
         return getMultisigTransactionManagementApi().retrieveMultisigTransactionsAsync(chainId, address, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), callback);
     }
 
