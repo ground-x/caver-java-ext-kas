@@ -25,6 +25,7 @@ import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.JSON;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.*;
 
 import java.util.Arrays;

@@ -20,8 +20,9 @@ import com.squareup.okhttp.Call;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.api.DataAnchoringTransactionApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.api.OperatorApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api.DataAnchoringTransactionApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api.OperatorApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.*;
 
 import java.security.InvalidParameterException;
