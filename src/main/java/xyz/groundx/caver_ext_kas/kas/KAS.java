@@ -16,19 +16,15 @@
 
 package xyz.groundx.caver_ext_kas.kas;
 
-import com.klaytn.caver.Caver;
-import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryAPI;
 import xyz.groundx.caver_ext_kas.kas.anchor.AnchorAPI;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryAPI;
 import xyz.groundx.caver_ext_kas.kas.wallet.WalletAPI;
-import com.klaytn.caver.rpc.RPC;
-import com.squareup.okhttp.Credentials;
-import io.swagger.client.ApiClient;
-import org.web3j.protocol.http.HttpService;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 
 public class KAS {
-    private AnchorAPI anchorAPI;
-    private TokenHistoryAPI tokenHistoryAPI;
-    private WalletAPI walletAPI;
+    private AnchorAPI anchor;
+    private TokenHistoryAPI tokenHistory;
+    private WalletAPI wallet;
 
     public KAS() {
     }
@@ -39,7 +35,7 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setAnchorAPI(new AnchorAPI(chainId, apiClient));
+        setAnchor(new AnchorAPI(chainId, apiClient));
         return this;
     }
 
@@ -49,17 +45,7 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setWalletAPI(new WalletAPI(chainId, apiClient));
-        return this;
-    }
-
-    public KAS initNodeAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        HttpService httpService = new HttpService(url);
-
-        httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
-        httpService.addHeader("x-chain-id", chainId);
-        this.rpc = new RPC(httpService);
-
+        setWallet(new WalletAPI(chainId, apiClient));
         return this;
     }
 
@@ -69,32 +55,32 @@ public class KAS {
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setTokenHistoryAPI(new TokenHistoryAPI(chainId, apiClient));
+        setTokenHistory(new TokenHistoryAPI(chainId, apiClient));
 
         return this;
     }
 
-    public AnchorAPI getAnchorAPI() {
-        return anchorAPI;
+    public AnchorAPI getAnchor() {
+        return anchor;
     }
 
-    public void setAnchorAPI(AnchorAPI anchorAPI) {
-        this.anchorAPI = anchorAPI;
+    public void setAnchor(AnchorAPI anchor) {
+        this.anchor = anchor;
     }
 
-    public TokenHistoryAPI getTokenHistoryAPI() {
-        return tokenHistoryAPI;
+    public TokenHistoryAPI getTokenHistory() {
+        return tokenHistory;
     }
 
-    public void setTokenHistoryAPI(TokenHistoryAPI tokenHistoryAPI) {
-        this.tokenHistoryAPI = tokenHistoryAPI;
+    public void setTokenHistory(TokenHistoryAPI tokenHistory) {
+        this.tokenHistory = tokenHistory;
     }
 
-    public WalletAPI getWalletAPI() {
-        return walletAPI;
+    public WalletAPI getWallet() {
+        return wallet;
     }
 
-    public void setWalletAPI(WalletAPI walletAPI) {
-        this.walletAPI = walletAPI;
+    public void setWallet(WalletAPI wallet) {
+        this.wallet = wallet;
     }
 }

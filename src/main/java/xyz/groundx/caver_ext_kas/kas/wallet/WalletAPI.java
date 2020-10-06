@@ -17,14 +17,16 @@
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
-import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
-import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeRoleBased;
 import com.squareup.okhttp.Call;
-import io.swagger.client.ApiCallback;
-import io.swagger.client.ApiClient;
-import io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypePublic;
+import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeRoleBased;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.api.*;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

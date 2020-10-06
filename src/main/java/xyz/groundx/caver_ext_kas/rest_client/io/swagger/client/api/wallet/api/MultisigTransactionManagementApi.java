@@ -13,7 +13,7 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.api;
 
 import com.google.gson.reflect.TypeToken;
-import io.swagger.client.*;
+
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactionStatus;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactions;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.SignPendingTransactionBySigRequest;

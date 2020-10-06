@@ -16,8 +16,9 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.accountkey;
 
-import io.swagger.client.api.wallet.model.MultisigUpdateKey;
-import io.swagger.client.api.wallet.model.MultisigUpdateKeyType;
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKeyType;
 
 public class KeyTypeMultiSig extends MultisigUpdateKeyType {
     public static final long KEY_TYPE = 4;

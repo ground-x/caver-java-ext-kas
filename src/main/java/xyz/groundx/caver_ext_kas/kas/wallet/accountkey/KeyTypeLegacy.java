@@ -16,7 +16,8 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.accountkey;
 
-import io.swagger.client.api.wallet.model.EmptyUpdateKeyType;
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.EmptyUpdateKeyType;
 
 public class KeyTypeLegacy extends EmptyUpdateKeyType {
     public static final long KEY_TYPE = 1;

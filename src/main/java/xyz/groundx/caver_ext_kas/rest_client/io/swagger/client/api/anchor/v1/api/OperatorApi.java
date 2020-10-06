@@ -13,7 +13,6 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.api;
 
 import com.google.gson.reflect.TypeToken;
-import io.swagger.client.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.Operator;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.Operators;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;

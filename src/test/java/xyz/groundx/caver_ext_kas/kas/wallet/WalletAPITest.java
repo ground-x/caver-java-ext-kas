@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package caver_ext_kas.wallet;
+package xyz.groundx.caver_ext_kas.kas.wallet;
 
+import xyz.groundx.caver_ext_kas.Config;
 import com.klaytn.caver.abi.ABI;
-import org.junit.Assert;
-import caver_ext_kas.Config;
-import xyz.groundx.caver_ext_kas.kas.KAS;
 import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.utils.Utils;
 import com.squareup.okhttp.Call;
-import io.swagger.client.ApiCallback;
-import io.swagger.client.ApiException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.web3j.protocol.exceptions.TransactionException;
+import xyz.groundx.caver_ext_kas.CaverExtKAS;
+import xyz.groundx.caver_ext_kas.kas.KAS;
+import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.*;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -43,6 +45,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class WalletAPITest {
+    public static CaverExtKAS caver;
     public static KAS kas;
     public static String baseUrl = "https://wallet-api.dev.klaytn.com";
 
@@ -143,9 +146,11 @@ public class WalletAPITest {
 
     @BeforeClass
     public static void init() throws IOException, TransactionException, ApiException {
-        kas = new KAS();
-        kas.initWalletAPI(baseUrl, chainId, accessKey, secretAccessKey);
-        kas.getWalletAPI().getBasicTransactionApi().getApiClient().setDebugging(true);
+        caver = new CaverExtKAS();
+        caver.initWalletAPI(baseUrl, chainId, accessKey, secretAccessKey);
+
+        kas = caver.getKas();
+        kas.getWallet().getBasicTransactionApi().getApiClient().setDebugging(true);
 
         BigInteger balance = Config.getBalance(baseAccount);
         BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
@@ -159,7 +164,7 @@ public class WalletAPITest {
             Config.sendValue(userFeePayer);
         }
 
-        multiSigAccount = kas.getWalletAPI().getAccount(multiSigAddress);
+        multiSigAccount = kas.getWallet().getAccount(multiSigAddress);
 
         balance = Config.getBalance(multiSigAddress);
         milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
@@ -169,11 +174,11 @@ public class WalletAPITest {
     }
 
     public Account makeAccount() throws ApiException{
-        return kas.getWalletAPI().createAccount();
+        return kas.getWallet().createAccount();
     }
 
     private String encodeContractDeploy() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException {
-        KIP7 kip7 = new KIP7(kas);
+        KIP7 kip7 = new KIP7(caver);
         BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
         String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("KALE", "KAL", 18, initialSupply));
 
@@ -181,21 +186,21 @@ public class WalletAPITest {
     }
 
     private String encodeKIP7Transfer(String address) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        KIP7 kip7 = new KIP7(kas, address);
+        KIP7 kip7 = new KIP7(caver, address);
         BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
         String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAccount, transferAmount));
 
         return input;
     }
 
-    private TransactionResult sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException {
+    private void sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException {
         ValueTransferTransactionRequest request = new ValueTransferTransactionRequest();
         request.setFrom(fromAddress);
         request.setTo(toAddress);
         request.setValue("0x1");
         request.setSubmit(true);
 
-        return kas.getWalletAPI().requestValueTransfer(request);
+        kas.getWallet().requestValueTransfer(request);
     }
 
     private KeyTypeLegacy createLegacyKeyType() {
@@ -255,7 +260,7 @@ public class WalletAPITest {
     public void makeUncompressedFormat_LegacyKeyType() {
         KeyTypeLegacy type = new KeyTypeLegacy();
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        kas.getWallet().makeUncompressedKeyFormat(type);
         assertEquals(KeyTypeLegacy.KEY_TYPE, type.getKeyType().longValue());
     }
 
@@ -263,7 +268,7 @@ public class WalletAPITest {
     public void makeUncompressedFormat_FailKeyType() {
         KeyTypeFail type = new KeyTypeFail();
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        kas.getWallet().makeUncompressedKeyFormat(type);
         assertEquals(KeyTypeFail.KEY_TYPE, type.getKeyType().longValue());
     }
 
@@ -274,7 +279,7 @@ public class WalletAPITest {
         KeyTypePublic type = new KeyTypePublic();
         type.setKey(actual);
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        kas.getWallet().makeUncompressedKeyFormat(type);
         assertEquals(expected, type.getKey());
     }
 
@@ -284,7 +289,7 @@ public class WalletAPITest {
         KeyTypePublic type = new KeyTypePublic();
         type.setKey(expected);
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(type);
+        kas.getWallet().makeUncompressedKeyFormat(type);
         assertEquals(expected, type.getKey());
     }
 
@@ -305,7 +310,7 @@ public class WalletAPITest {
         KeyTypeMultiSig multiSig = new KeyTypeMultiSig();
         multiSig.setKey(multisigUpdateKey);
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(multiSig);
+        kas.getWallet().makeUncompressedKeyFormat(multiSig);
         assertEquals(expected, multiSig.getKey().getWeightedKeys().get(0).getPublicKey());
         assertEquals(expected, multiSig.getKey().getWeightedKeys().get(1).getPublicKey());
     }
@@ -329,13 +334,13 @@ public class WalletAPITest {
             multisigKeyList.get(i).setPublicKey(actual);
         }
 
-        kas.getWalletAPI().makeUncompressedKeyFormat(roleBased);
+        kas.getWallet().makeUncompressedKeyFormat(roleBased);
 
         assertEquals(expected,((KeyTypePublic)keyList.get(0)).getKey());
         assertEquals(expected,((KeyTypePublic)keyList.get(1)).getKey());
 
         for(int i=0; i<multisigKeyList.size(); i++) {
-            Assert.assertEquals(expected, multisigKeyList.get(i).getPublicKey());
+            assertEquals(expected, multisigKeyList.get(i).getPublicKey());
         }
     }
 
@@ -343,7 +348,7 @@ public class WalletAPITest {
     @Test
     public void createAccount() {
         try {
-            Account account = kas.getWalletAPI().createAccount();
+            Account account = kas.getWallet().createAccount();
             assertNotNull(account);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -355,7 +360,7 @@ public class WalletAPITest {
     public void createAccountAsync() {
         try {
             CompletableFuture<Account> future = new CompletableFuture<>();
-            Call call = kas.getWalletAPI().createAccountAsync(new ApiCallback<Account>() {
+            Call call = kas.getWallet().createAccountAsync(new ApiCallback<Account>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -391,7 +396,7 @@ public class WalletAPITest {
     @Test
     public void getAccountList() {
         try {
-            Accounts accounts = kas.getWalletAPI().getAccountList();
+            Accounts accounts = kas.getWallet().getAccountList();
             assertNotNull(accounts);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -404,10 +409,10 @@ public class WalletAPITest {
         try {
             WalletQueryOptions options = new WalletQueryOptions();
             options.setSize(3l);
-            Accounts accounts = kas.getWalletAPI().getAccountList(options);
+            Accounts accounts = kas.getWallet().getAccountList(options);
             assertNotNull(accounts);
             assertNotNull(accounts.getCursor());
-            Assert.assertEquals(3, accounts.getItems().size());
+            assertEquals(3, accounts.getItems().size());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -418,7 +423,7 @@ public class WalletAPITest {
     public void getAccountListAsync() {
         try {
             CompletableFuture<Accounts> future = new CompletableFuture<>();
-            Call call = kas.getWalletAPI().getAccountListAsync(new ApiCallback<Accounts>() {
+            Call call = kas.getWallet().getAccountListAsync(new ApiCallback<Accounts>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -455,9 +460,9 @@ public class WalletAPITest {
     public void getAccount() {
         try {
             Account expected = makeAccount();
-            Account actual = kas.getWalletAPI().getAccount(expected.getAddress());
+            Account actual = kas.getWallet().getAccount(expected.getAddress());
 
-            Assert.assertEquals(expected.getAddress(), actual.getAddress());
+            assertEquals(expected.getAddress(), actual.getAddress());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -469,7 +474,7 @@ public class WalletAPITest {
         CompletableFuture<Account> future = new CompletableFuture<Account>();
         try {
             Account expected = makeAccount();
-            Call call = kas.getWalletAPI().getAccountAsync(expected.getAddress(), new ApiCallback<Account>() {
+            Call call = kas.getWallet().getAccountAsync(expected.getAddress(), new ApiCallback<Account>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -506,9 +511,9 @@ public class WalletAPITest {
     public void deleteAccount() {
         try {
             Account expected = makeAccount();
-            AccountStatus accountStatus = kas.getWalletAPI().deleteAccount(expected.getAddress());
+            AccountStatus accountStatus = kas.getWallet().deleteAccount(expected.getAddress());
 
-            Assert.assertEquals("deleted", accountStatus.getStatus());
+            assertEquals("deleted", accountStatus.getStatus());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -521,7 +526,7 @@ public class WalletAPITest {
 
         try {
             Account expected = makeAccount();
-            kas.getWalletAPI().deleteAccountAsync(expected.getAddress(), new ApiCallback<AccountStatus>() {
+            kas.getWallet().deleteAccountAsync(expected.getAddress(), new ApiCallback<AccountStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -558,8 +563,8 @@ public class WalletAPITest {
     public void disableAccount() {
         try {
             Account expected = makeAccount();
-            AccountSummary status = kas.getWalletAPI().disableAccount(expected.getAddress());
-            Assert.assertEquals(expected.getAddress(), status.getAddress());
+            AccountSummary status = kas.getWallet().disableAccount(expected.getAddress());
+            assertEquals(expected.getAddress(), status.getAddress());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -572,7 +577,7 @@ public class WalletAPITest {
 
         try {
             Account expected = makeAccount();
-            kas.getWalletAPI().disableAccountAsync(expected.getAddress(), new ApiCallback<AccountSummary>() {
+            kas.getWallet().disableAccountAsync(expected.getAddress(), new ApiCallback<AccountSummary>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -609,10 +614,10 @@ public class WalletAPITest {
     public void enableAccount() {
         try {
             Account expected = makeAccount();
-            kas.getWalletAPI().disableAccount(expected.getAddress());
-            AccountSummary enableSummary = kas.getWalletAPI().enableAccount(expected.getAddress());
+            kas.getWallet().disableAccount(expected.getAddress());
+            AccountSummary enableSummary = kas.getWallet().enableAccount(expected.getAddress());
 
-            Assert.assertEquals(expected.getAddress(), enableSummary.getAddress());
+            assertEquals(expected.getAddress(), enableSummary.getAddress());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -625,9 +630,9 @@ public class WalletAPITest {
 
         try {
             Account expected = makeAccount();
-            kas.getWalletAPI().disableAccount(expected.getAddress());
+            kas.getWallet().disableAccount(expected.getAddress());
 
-            kas.getWalletAPI().enableAccountAsync(expected.getAddress(), new ApiCallback<AccountSummary>() {
+            kas.getWallet().enableAccountAsync(expected.getAddress(), new ApiCallback<AccountSummary>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -682,8 +687,8 @@ public class WalletAPITest {
             request.setThreshold((long)3);
             request.setWeightedKeys(multiSigKeys);
 
-            MultisigAccount account = kas.getWalletAPI().updateToMultiSigAccount(baseAccount.getAddress(), request);
-            Assert.assertEquals((long)3, account.getThreshold().longValue());
+            MultisigAccount account = kas.getWallet().updateToMultiSigAccount(baseAccount.getAddress(), request);
+            assertEquals((long)3, account.getThreshold().longValue());
         } catch (ApiException | TransactionException | IOException e) {
             e.printStackTrace();
             fail();
@@ -714,7 +719,7 @@ public class WalletAPITest {
             request.setThreshold((long)3);
             request.setWeightedKeys(multiSigKeys);
 
-            kas.getWalletAPI().updateToMultiSigAccountAsync(baseAccount.getAddress(), request, new ApiCallback<MultisigAccount>() {
+            kas.getWallet().updateToMultiSigAccountAsync(baseAccount.getAddress(), request, new ApiCallback<MultisigAccount>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -752,7 +757,7 @@ public class WalletAPITest {
     public void getAccountByPublicKey() {
         String publicKey = "0x04f715a9d9e0f7a4b152d4ef8a67f4708fc1f83fe2e1984cf0f72987dbacbad324fb619fbdf30497441eddf80676403f0009f07b4195915df7220c79183e9d1f27";
         try {
-            AccountsByPubkey accounts = kas.getWalletAPI().getAccountByPublicKey(publicKey);
+            AccountsByPubkey accounts = kas.getWallet().getAccountByPublicKey(publicKey);
             assertNotNull(accounts);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -765,7 +770,7 @@ public class WalletAPITest {
         CompletableFuture<AccountsByPubkey> future = new CompletableFuture<>();
         String publicKey = "0x04f715a9d9e0f7a4b152d4ef8a67f4708fc1f83fe2e1984cf0f72987dbacbad324fb619fbdf30497441eddf80676403f0009f07b4195915df7220c79183e9d1f27";
         try {
-            kas.getWalletAPI().getAccountByPublicKeyAsync(publicKey, new ApiCallback<AccountsByPubkey>() {
+            kas.getWallet().getAccountByPublicKeyAsync(publicKey, new ApiCallback<AccountsByPubkey>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -809,7 +814,7 @@ public class WalletAPITest {
             request.setValue("0x1");
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestLegacyTransactionAsync(request, new ApiCallback<TransactionResult>() {
+            kas.getWallet().requestLegacyTransactionAsync(request, new ApiCallback<TransactionResult>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -851,7 +856,7 @@ public class WalletAPITest {
             request.setValue("0x1");
             request.setSubmit(true);
 
-            TransactionResult transactionResult = kas.getWalletAPI().requestValueTransfer(request);
+            TransactionResult transactionResult = kas.getWallet().requestValueTransfer(request);
             assertNotNull(transactionResult);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -870,7 +875,7 @@ public class WalletAPITest {
             request.setValue("0x1");
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestValueTransferAsync(request, callBack);
+            kas.getWallet().requestValueTransferAsync(request, callBack);
 
             callBack.checkResponse();
         } catch (Exception e) {
@@ -889,7 +894,7 @@ public class WalletAPITest {
             request.setMemo("aaaaaa");
             request.setSubmit(true);
 
-            TransactionResult transactionResult = kas.getWalletAPI().requestValueTransfer(request);
+            TransactionResult transactionResult = kas.getWallet().requestValueTransfer(request);
             assertNotNull(transactionResult);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -909,7 +914,7 @@ public class WalletAPITest {
             request.setMemo("aaaaaa");
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestValueTransferAsync(request, callBack);
+            kas.getWallet().requestValueTransferAsync(request, callBack);
 
             callBack.checkResponse();
         } catch (Exception e) {
@@ -929,7 +934,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.submit(true);
 
-            TransactionResult transactionResult = kas.getWalletAPI().requestSmartContractDeploy(request);
+            TransactionResult transactionResult = kas.getWallet().requestSmartContractDeploy(request);
             assertNotNull(transactionResult);
         } catch (Exception e) {
             e.printStackTrace();
@@ -950,7 +955,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.submit(true);
 
-            kas.getWalletAPI().requestSmartContractDeployAsync(request, callBack);
+            kas.getWallet().requestSmartContractDeployAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -969,7 +974,7 @@ public class WalletAPITest {
             request.setInput(input);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestSmartContractExecution(request);
+            TransactionResult result = kas.getWallet().requestSmartContractExecution(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -990,7 +995,7 @@ public class WalletAPITest {
             request.setInput(input);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestSmartContractExecutionAsync(request, callBack);
+            kas.getWallet().requestSmartContractExecutionAsync(request, callBack);
 
             callBack.checkResponse();
         } catch (Exception e) {
@@ -1006,7 +1011,7 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setNonce(1l);
 
-            TransactionResult result = kas.getWalletAPI().requestCancel(request);
+            TransactionResult result = kas.getWallet().requestCancel(request);
             assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1023,7 +1028,7 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setNonce(1l);
 
-            kas.getWalletAPI().requestCancelAsync(request, callBack);
+            kas.getWallet().requestCancelAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1040,7 +1045,7 @@ public class WalletAPITest {
             request.setInput("0x0111");
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestChainDataAnchoring(request);
+            TransactionResult result = kas.getWallet().requestChainDataAnchoring(request);
             assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1057,7 +1062,7 @@ public class WalletAPITest {
             request.setInput("0x0111");
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestChainDataAnchoringAsync(request, callBack);
+            kas.getWallet().requestChainDataAnchoringAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1073,13 +1078,13 @@ public class WalletAPITest {
             request.setTo(toAccount);
             request.setValue("0x1");
 
-            TransactionResult transactionResult = kas.getWalletAPI().requestValueTransfer(request);
+            TransactionResult transactionResult = kas.getWallet().requestValueTransfer(request);
 
             ProcessRLPRequest requestRLP = new ProcessRLPRequest();
             requestRLP.setRlp(transactionResult.getRlp());
             requestRLP.setSubmit(true);
 
-            kas.getWalletAPI().requestRawTransaction(requestRLP);
+            kas.getWallet().requestRawTransaction(requestRLP);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1095,13 +1100,13 @@ public class WalletAPITest {
             request.setTo(toAccount);
             request.setValue("0x1");
 
-            TransactionResult transactionResult = kas.getWalletAPI().requestValueTransfer(request);
+            TransactionResult transactionResult = kas.getWallet().requestValueTransfer(request);
 
             ProcessRLPRequest requestRLP = new ProcessRLPRequest();
             requestRLP.setRlp(transactionResult.getRlp());
             requestRLP.setSubmit(true);
 
-            kas.getWalletAPI().requestRawTransactionAsync(requestRLP, callBack);
+            kas.getWallet().requestRawTransactionAsync(requestRLP, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1122,7 +1127,7 @@ public class WalletAPITest {
             request.setAccountKey(keyTypeFail);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            TransactionResult result = kas.getWallet().requestAccountUpdate(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1145,7 +1150,7 @@ public class WalletAPITest {
             request.setAccountKey(keyTypeFail);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestAccountUpdateAsync(request, callBack);
+            kas.getWallet().requestAccountUpdateAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1165,7 +1170,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            TransactionResult result = kas.getWallet().requestAccountUpdate(request);
             assertNotNull(result);
 
             AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
@@ -1173,7 +1178,7 @@ public class WalletAPITest {
             requestLegacy.setAccountKey(new KeyTypeLegacy());
             requestLegacy.setSubmit(true);
 
-            TransactionResult result1 = kas.getWalletAPI().requestAccountUpdate(requestLegacy);
+            TransactionResult result1 = kas.getWallet().requestAccountUpdate(requestLegacy);
             assertNotNull(result1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1195,7 +1200,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            TransactionResult result = kas.getWallet().requestAccountUpdate(request);
             assertNotNull(result);
 
             AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
@@ -1203,7 +1208,7 @@ public class WalletAPITest {
             requestLegacy.setAccountKey(new KeyTypeLegacy());
             requestLegacy.setSubmit(true);
 
-            kas.getWalletAPI().requestAccountUpdateAsync(requestLegacy, callBack);
+            kas.getWallet().requestAccountUpdateAsync(requestLegacy, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1224,7 +1229,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestAccountUpdateAsync(request, callBack);
+            kas.getWallet().requestAccountUpdateAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1245,7 +1250,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            TransactionResult result = kas.getWallet().requestAccountUpdate(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1267,7 +1272,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestAccountUpdateAsync(request, callback);
+            kas.getWallet().requestAccountUpdateAsync(request, callback);
             callback.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1291,7 +1296,7 @@ public class WalletAPITest {
             request.setGas(250000l);
             request.setSubmit(true);
 
-            TransactionResult result = kas.getWalletAPI().requestAccountUpdate(request);
+            TransactionResult result = kas.getWallet().requestAccountUpdate(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1315,7 +1320,7 @@ public class WalletAPITest {
             request.setGas(250000l);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestAccountUpdateAsync(request, callBack);
+            kas.getWallet().requestAccountUpdateAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1328,7 +1333,7 @@ public class WalletAPITest {
         String txHash = "0xc3041c76f3ad881db9ad73111927d210edca9a531d33a5180fbe50b7bcf33951";
 
         try {
-            TransactionReceipt receipt = kas.getWalletAPI().getTransaction(txHash);
+            TransactionReceipt receipt = kas.getWallet().getTransaction(txHash);
             assertNotNull(receipt);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1342,7 +1347,7 @@ public class WalletAPITest {
         String txHash = "0xc3041c76f3ad881db9ad73111927d210edca9a531d33a5180fbe50b7bcf33951";
 
         try {
-            kas.getWalletAPI().getTransactionAsync(txHash, new ApiCallback<TransactionReceipt>() {
+            kas.getWallet().getTransactionAsync(txHash, new ApiCallback<TransactionReceipt>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -1384,7 +1389,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1403,7 +1408,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            kas.getWalletAPI().requestFDValueTransferPaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDValueTransferPaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1420,7 +1425,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractDeployPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDSmartContractDeployPaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1439,7 +1444,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDSmartContractDeployPaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDSmartContractDeployPaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1456,7 +1461,7 @@ public class WalletAPITest {
             request.setInput(Utils.addHexPrefix(encodeKIP7Transfer(contractAddress)));
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractExecutionPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDSmartContractExecutionPaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1475,7 +1480,7 @@ public class WalletAPITest {
             request.setInput(Utils.addHexPrefix(encodeKIP7Transfer(contractAddress)));
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDSmartContractExecutionPaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDSmartContractExecutionPaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1491,7 +1496,7 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setNonce(1l);
 
-            kas.getWalletAPI().requestFDCancelPaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDCancelPaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1507,7 +1512,7 @@ public class WalletAPITest {
             request.setInput("0x1111");
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDChainDataAnchoringPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDChainDataAnchoringPaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1525,7 +1530,7 @@ public class WalletAPITest {
             request.setInput("0x1111");
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDChainDataAnchoringPaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDChainDataAnchoringPaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1541,13 +1546,13 @@ public class WalletAPITest {
             request.setTo(toAccount);
             request.setValue("0x1");
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByGlobalFeePayer(request);
 
             FDProcessRLPRequest requestRLP = new FDProcessRLPRequest();
             requestRLP.setRlp(result.getRlp());
             requestRLP.setSubmit(true);
 
-            FDTransactionResult result1 = kas.getWalletAPI().requestRawTransactionPaidByGlobalFeePayer(requestRLP);
+            FDTransactionResult result1 = kas.getWallet().requestRawTransactionPaidByGlobalFeePayer(requestRLP);
             assertNotNull(result1);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1565,13 +1570,13 @@ public class WalletAPITest {
             request.setTo(toAccount);
             request.setValue("0x1");
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByGlobalFeePayer(request);
 
             FDProcessRLPRequest requestRLP = new FDProcessRLPRequest();
             requestRLP.setRlp(result.getRlp());
             requestRLP.setSubmit(true);
 
-            kas.getWalletAPI().requestRawTransactionPaidByGlobalFeePayerAsync(requestRLP, callBack);
+            kas.getWallet().requestRawTransactionPaidByGlobalFeePayerAsync(requestRLP, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1591,7 +1596,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
@@ -1599,7 +1604,7 @@ public class WalletAPITest {
             requestLegacy.setAccountKey(new KeyTypeLegacy());
             requestLegacy.setSubmit(true);
 
-            FDTransactionResult result1 = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
+            FDTransactionResult result1 = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
             assertNotNull(result1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1621,7 +1626,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
@@ -1629,7 +1634,7 @@ public class WalletAPITest {
             requestLegacy.setAccountKey(new KeyTypeLegacy());
             requestLegacy.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1649,7 +1654,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1670,7 +1675,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1691,7 +1696,7 @@ public class WalletAPITest {
             request.setAccountKey(keyTypeFail);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1713,7 +1718,7 @@ public class WalletAPITest {
             request.setAccountKey(keyTypeFail);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1733,7 +1738,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1755,7 +1760,7 @@ public class WalletAPITest {
             request.setAccountKey(updateKeyType);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1776,7 +1781,7 @@ public class WalletAPITest {
             request.setGas(500000l);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1799,7 +1804,7 @@ public class WalletAPITest {
             request.setGas(500000l);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1817,7 +1822,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByUser(request);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1836,7 +1841,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            kas.getWalletAPI().requestFDValueTransferPaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDValueTransferPaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1854,7 +1859,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractDeployPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDSmartContractDeployPaidByUser(request);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1873,7 +1878,7 @@ public class WalletAPITest {
             request.setGas(1500000L);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDSmartContractDeployPaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDSmartContractDeployPaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1891,7 +1896,7 @@ public class WalletAPITest {
             request.setInput(encodeKIP7Transfer(contractAddress));
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDSmartContractExecutionPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDSmartContractExecutionPaidByUser(request);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1910,7 +1915,7 @@ public class WalletAPITest {
             request.setInput(encodeKIP7Transfer(contractAddress));
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDSmartContractExecutionPaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDSmartContractExecutionPaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1927,7 +1932,7 @@ public class WalletAPITest {
             request.setNonce((long)1);
 
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDCancelPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDCancelPaidByUser(request);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1945,7 +1950,7 @@ public class WalletAPITest {
             request.setNonce((long)1);
 
 
-            kas.getWalletAPI().requestFDCancelPaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDCancelPaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1962,7 +1967,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            FDTransactionResult result = kas.getWalletAPI().requestFDChainDataAnchoringPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDChainDataAnchoringPaidByUser(request);
             assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1981,7 +1986,7 @@ public class WalletAPITest {
         request.setSubmit(true);
 
         try {
-            kas.getWalletAPI().requestFDChainDataAnchoringPaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDChainDataAnchoringPaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1998,13 +2003,13 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setValue("0x1");
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByUser(request);
 
             FDUserProcessRLPRequest processRLPRequest = new FDUserProcessRLPRequest();
             processRLPRequest.setRlp(result.getRlp());
             processRLPRequest.setFeePayer(userFeePayer);
             processRLPRequest.setSubmit(true);
-            FDTransactionResult resultRLP = kas.getWalletAPI().requestRawTransactionPaidByUser(processRLPRequest);
+            FDTransactionResult resultRLP = kas.getWallet().requestRawTransactionPaidByUser(processRLPRequest);
             assertNotNull(resultRLP);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2024,14 +2029,14 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setValue("0x1");
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDValueTransferPaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDValueTransferPaidByUser(request);
 
             FDUserProcessRLPRequest processRLPRequest = new FDUserProcessRLPRequest();
             processRLPRequest.setRlp(result.getRlp());
             processRLPRequest.setFeePayer(userFeePayer);
             processRLPRequest.setSubmit(true);
 
-            kas.getWalletAPI().requestRawTransactionPaidByUserAsync(processRLPRequest, callBack);
+            kas.getWallet().requestRawTransactionPaidByUserAsync(processRLPRequest, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2053,7 +2058,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
@@ -2062,7 +2067,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             requestLegacy.setSubmit(true);
 
-            FDTransactionResult result1 = kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
+            FDTransactionResult result1 = kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
             assertNotNull(result1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2085,7 +2090,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
@@ -2094,7 +2099,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             requestLegacy.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2115,7 +2120,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2137,7 +2142,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2158,7 +2163,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2181,7 +2186,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2202,7 +2207,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2225,7 +2230,7 @@ public class WalletAPITest {
             request.setFeePayer(userFeePayer);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2247,7 +2252,7 @@ public class WalletAPITest {
             request.setGas(500000l);
             request.setSubmit(true);
 
-            FDTransactionResult result = kas.getWalletAPI().requestFDAccountUpdatePaidByUser(request);
+            FDTransactionResult result = kas.getWallet().requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2271,7 +2276,7 @@ public class WalletAPITest {
             request.setGas(500000l);
             request.setSubmit(true);
 
-            kas.getWalletAPI().requestFDAccountUpdatePaidByUserAsync(request, callBack);
+            kas.getWallet().requestFDAccountUpdatePaidByUserAsync(request, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2281,7 +2286,7 @@ public class WalletAPITest {
 
     private boolean hasMultiSigTx(String address) {
         try {
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(address);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(address);
             return true;
         } catch (ApiException e) {
             return false;
@@ -2295,7 +2300,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAccount.getAddress());
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAccount.getAddress());
             assertNotNull(transactions);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2313,7 +2318,7 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            kas.getWalletAPI().getMultiSigTransactionsAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
+            kas.getWallet().getMultiSigTransactionsAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2354,8 +2359,8 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
-            MultisigTransactionStatus status = kas.getWalletAPI().signMultiSigTransaction(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId());
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactionStatus status = kas.getWallet().signMultiSigTransaction(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(status);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -2372,8 +2377,8 @@ public class WalletAPITest {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
 
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
-            kas.getWalletAPI().signMultiSigTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<MultisigTransactionStatus>() {
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            kas.getWallet().signMultiSigTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<MultisigTransactionStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2412,8 +2417,8 @@ public class WalletAPITest {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
-            Signature signature = kas.getWalletAPI().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId());
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            Signature signature = kas.getWallet().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(signature);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2429,8 +2434,8 @@ public class WalletAPITest {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
             }
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
-            kas.getWalletAPI().signTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<Signature>() {
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
+            kas.getWallet().signTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<Signature>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2471,15 +2476,15 @@ public class WalletAPITest {
             }
 
 
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
             String transactionID = transactions.getItems().get(0).getTransactionId();
 
 
-            Signature signature = kas.getWalletAPI().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactionID);
+            Signature signature = kas.getWallet().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactionID);
             SignPendingTransactionBySigRequest request = new SignPendingTransactionBySigRequest();
             request.setSignatures(Arrays.asList(signature));
 
-            MultisigTransactionStatus transactionStatus = kas.getWalletAPI().appendSignatures(transactionID, request);
+            MultisigTransactionStatus transactionStatus = kas.getWallet().appendSignatures(transactionID, request);
             assertNotNull(transactionStatus);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2497,15 +2502,15 @@ public class WalletAPITest {
             }
 
 
-            MultisigTransactions transactions = kas.getWalletAPI().getMultiSigTransactions(multiSigAddress);
+            MultisigTransactions transactions = kas.getWallet().getMultiSigTransactions(multiSigAddress);
             String transactionID = transactions.getItems().get(0).getTransactionId();
 
 
-            Signature signature = kas.getWalletAPI().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactionID);
+            Signature signature = kas.getWallet().signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactionID);
             SignPendingTransactionBySigRequest request = new SignPendingTransactionBySigRequest();
             request.setSignatures(Arrays.asList(signature));
 
-            kas.getWalletAPI().appendSignaturesAsync(transactionID, request, new ApiCallback<MultisigTransactionStatus>() {
+            kas.getWallet().appendSignaturesAsync(transactionID, request, new ApiCallback<MultisigTransactionStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2541,7 +2546,7 @@ public class WalletAPITest {
     @Test
     public void getAccountCount() {
         try {
-            AccountCountByAccountID countByAccountID = kas.getWalletAPI().getAccountCount();
+            AccountCountByAccountID countByAccountID = kas.getWallet().getAccountCount();
             assertNotNull(countByAccountID);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -2554,7 +2559,7 @@ public class WalletAPITest {
         CompletableFuture<AccountCountByAccountID> future = new CompletableFuture<>();
 
         try {
-            Call res = kas.getWalletAPI().getAccountCountAsync(new ApiCallback<AccountCountByAccountID>() {
+            Call res = kas.getWallet().getAccountCountAsync(new ApiCallback<AccountCountByAccountID>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2590,7 +2595,7 @@ public class WalletAPITest {
     @Test
     public void getAccountCountByKRN() {
         try {
-            AccountCountByKRN accountCountByKRN = kas.getWalletAPI().getAccountCountByKRN();
+            AccountCountByKRN accountCountByKRN = kas.getWallet().getAccountCountByKRN();
             assertNotNull(accountCountByKRN);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -2602,7 +2607,7 @@ public class WalletAPITest {
     public void getAccountCountByKRN_WithKRN() {
         try {
             String krn = "krn:1001:wallet:d5c346f5-bb80-4f45-9093-57e25205cdc8:account-pool:pool";
-            AccountCountByKRN accountCountByKRN = kas.getWalletAPI().getAccountCountByKRN(krn);
+            AccountCountByKRN accountCountByKRN = kas.getWallet().getAccountCountByKRN(krn);
             assertNotNull(accountCountByKRN);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -2614,7 +2619,7 @@ public class WalletAPITest {
     public void getAccountCountByKRNAsync() {
         CompletableFuture<AccountCountByKRN> future = new CompletableFuture<>();
         try {
-            Call res = kas.getWalletAPI().getAccountCountByKRNAsync(new ApiCallback<AccountCountByKRN>() {
+            Call res = kas.getWallet().getAccountCountByKRNAsync(new ApiCallback<AccountCountByKRN>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -2653,7 +2658,7 @@ public class WalletAPITest {
 
         try {
             String krn = "krn:1001:wallet:d5c346f5-bb80-4f45-9093-57e25205cdc8:account-pool:pool";
-            Call res = kas.getWalletAPI().getAccountCountByKRNAsync(krn, new ApiCallback<AccountCountByKRN>() {
+            Call res = kas.getWallet().getAccountCountByKRNAsync(krn, new ApiCallback<AccountCountByKRN>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);

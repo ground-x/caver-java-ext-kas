@@ -13,7 +13,6 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.api;
 
 import com.google.gson.reflect.TypeToken;
-import io.swagger.client.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.FtContractDetail;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.NftContractDetail;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.PageableFtContractDetails;

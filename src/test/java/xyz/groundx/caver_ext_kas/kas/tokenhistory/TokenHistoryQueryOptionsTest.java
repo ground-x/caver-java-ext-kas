@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package caver_ext_kas.tokenhistory;
+package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
 import org.junit.Rule;
 import org.junit.Test;

@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package caver_ext_kas.utils;
+package xyz.groundx.caver_ext_kas.kas.utils;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
+
+import static org.junit.Assert.assertEquals;
 
 public class KASUtilsTest {
     @Rule

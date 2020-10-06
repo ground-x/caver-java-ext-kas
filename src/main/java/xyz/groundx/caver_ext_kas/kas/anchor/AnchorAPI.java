@@ -17,12 +17,12 @@
 package xyz.groundx.caver_ext_kas.kas.anchor;
 
 import com.squareup.okhttp.Call;
-import io.swagger.client.ApiCallback;
-import io.swagger.client.ApiClient;
-import io.swagger.client.ApiException;
-import io.swagger.client.api.anchor.v1.api.DataAnchoringTransactionApi;
-import io.swagger.client.api.anchor.v1.api.OperatorApi;
-
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.api.DataAnchoringTransactionApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.api.OperatorApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.v1.model.*;
 
 import java.security.InvalidParameterException;
 import java.util.Map;

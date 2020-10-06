@@ -16,15 +16,16 @@
 
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
-import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import com.squareup.okhttp.Call;
-import io.swagger.client.ApiCallback;
-import io.swagger.client.ApiClient;
-import io.swagger.client.ApiException;
-import io.swagger.client.api.tokenhistory.v2.api.TokenApi;
-import io.swagger.client.api.tokenhistory.v2.api.TokenContractApi;
-import io.swagger.client.api.tokenhistory.v2.api.TokenHistoryApi;
-import io.swagger.client.api.tokenhistory.v2.api.TokenOwnershipApi;
+import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.api.TokenApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.api.TokenContractApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.api.TokenHistoryApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.api.TokenOwnershipApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.v2.model.*;
 
 import java.util.Arrays;
 import java.util.List;
