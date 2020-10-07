@@ -3,7 +3,7 @@ version: 2.1
 executors:
   default:
     docker:
-    - image: {{ project_image }}  ## example: circleci/node:14.8
+    - image: circleci/openjdk:8-jdk
     working_directory: ~/{{ project_name }}
 
 commands:
