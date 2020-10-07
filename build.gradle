@@ -16,7 +16,7 @@ plugins {
 allprojects {
     group 'xyz.groundx.caver-java-ext-kas'
     version '1.0.0'
-    description 'caver-java-ext-kas project'
+    description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -152,5 +152,4 @@ allprojects {
                 "ch.qos.logback:logback-classic:1.2.3"
     }
 }
-
 
