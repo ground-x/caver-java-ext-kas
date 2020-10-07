@@ -57,7 +57,7 @@ jobs:
     steps:
       - checkout
       - check_rc
-      - run: {{ build command }}
+      - run: ./gradlew build -x test --debug
       - store_artifacts: ## If you want to store build_file
           path: /tmp/artifacts ## Change path to build_file
 
