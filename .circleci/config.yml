@@ -4,7 +4,7 @@ executors:
   default:
     docker:
     - image: circleci/openjdk:8-jdk
-    working_directory: ~/{{ project_name }}
+    working_directory: ~/circleci-caver-java-ext-kas-major
 
 commands:
   notify-success:
