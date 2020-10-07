@@ -38,7 +38,9 @@ jobs:
     executor: default
     steps:
       - checkout
-      - run: {{ test command }}
+      - run: |
+          ./gradlew clean
+          ./gradlew test --debug
 
   lint_test:
     executor: default
