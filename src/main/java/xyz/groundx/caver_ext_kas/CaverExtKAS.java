@@ -29,7 +29,7 @@ public class CaverExtKAS extends Caver {
     /**
      * The KAS instance.
      */
-    KAS kas;
+    public KAS kas;
 
     /**
      * Creates a CaverExtKAS instance.

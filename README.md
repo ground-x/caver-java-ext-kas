@@ -36,11 +36,11 @@ To use KAS API, the following items are required.
 You can activate KAS API by writing code as below.
 
 ```java
-KAS kas = new KAS();
-kas.initNodeAPI("base Node API url", chain ID, accessKey, secretAccessKey);
-kas.initWalletAPI("base Wallet API url", chain ID, accessKey, secretAccessKey);
-kas.initTokenHistoryAPI("base Token History API url", chain ID, accessKey, secretAccessKey);
-kas.initAnchorAPI("base Anchor API url", chain ID, accessKey, secretAccessKey);
+CaverExtKAS caver = new CaverExtKAS();
+caver.initNodeAPI("base Node API url", chain ID, accessKey, secretAccessKey);
+caver.initWalletAPI("base Wallet API url", chain ID, accessKey, secretAccessKey);
+caver.initTokenHistoryAPI("base Token History API url", chain ID, accessKey, secretAccessKey);
+caver.initAnchorAPI("base Anchor API url", chain ID, accessKey, secretAccessKey);
 ```
 
 ### Use Node API
@@ -49,7 +49,7 @@ You can now use Node API through `com.klaytn.caver.rpc.Klay` class in caver-java
 ```java
 public void getBlockNumber() {
     try {
-        Quantity response = kas.rpc.klay.getBlockNumber().send();
+        Quantity response = caver.rpc.klay.getBlockNumber().send();
     } catch(Exception e) {
         // Handle error.
     }
@@ -61,7 +61,7 @@ You can use Token History API through caver-java-ext-kas. You can send a Token H
 ```java 
 public void getFTContractList() {
     try {
-        PageableFtContractDetails details = kas.getTokenHistoryAPI().getFTContractList();
+        PageableFtContractDetails details = caver.kas.getTokenHistoryAPI().getFTContractList();
         assertNotNull(details);
     } catch (ApiException e) {
         //Handle error
@@ -88,7 +88,7 @@ public void getNFTContractList() {
     try {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setStatus("processing");
-        PageableNftContractDetails details = kas.getTokenHistoryAPI().getNFTContractList(options);
+        PageableNftContractDetails details = caver.kas.getTokenHistoryAPI().getNFTContractList(options);
         assertNotNull(details);
     } catch (ApiException e) {
         //handle error
@@ -130,7 +130,7 @@ You can use Anchor API through caver-java-ext-kas. You can send a Anchor API req
 ```java
 public void getOperators() {
     try {
-        Operators res = kas.getAnchorAPI().getOperators();
+        Operators res = caver.kas.getAnchorAPI().getOperators();
         assertNotNull(res);
     } catch(ApiException e) {
         //handle error
