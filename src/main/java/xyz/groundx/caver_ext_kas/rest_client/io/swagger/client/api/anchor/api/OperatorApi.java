@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,10 +12,11 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api;
 
+
 import com.google.gson.reflect.TypeToken;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.Operator;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.Operators;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -259,7 +260,7 @@ public class OperatorApi {
 
     /**
      * 모든 오퍼레이터 목록 조회
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
+     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
@@ -275,7 +276,7 @@ public class OperatorApi {
 
     /**
      * 모든 오퍼레이터 목록 조회
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
+     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)
@@ -292,7 +293,7 @@ public class OperatorApi {
 
     /**
      * 모든 오퍼레이터 목록 조회 (asynchronously)
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.
+     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
      * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
      * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
      * @param cursor 마지막으로 검색된 커서의 정보 (optional)

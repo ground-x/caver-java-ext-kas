@@ -15,63 +15,53 @@ package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 /**
- * 오퍼레이터 목록
+ * 앵커링 트랜잭션 정보
  */
-@Schema(description = "오퍼레이터 목록")
+@Schema(description = "앵커링 트랜잭션 정보")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-10-06T07:59:17.215Z[GMT]")
-public class Operators {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class AnchorTransactionDetail {
+  @SerializedName("payload")
+  private AnchorBlockPayload payload = null;
 
-  @SerializedName("items")
-  private List<Operator> items = null;
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
-  public Operators cursor(String cursor) {
-    this.cursor = cursor;
+  public AnchorTransactionDetail payload(AnchorBlockPayload payload) {
+    this.payload = payload;
     return this;
   }
 
    /**
-   * 마지막 검색 위치를 나타내는 커서 정보
-   * @return cursor
+   * Get payload
+   * @return payload
   **/
-  @Schema(required = true, description = "마지막 검색 위치를 나타내는 커서 정보")
-  public String getCursor() {
-    return cursor;
+  @Schema(required = true, description = "")
+  public AnchorBlockPayload getPayload() {
+    return payload;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setPayload(AnchorBlockPayload payload) {
+    this.payload = payload;
   }
 
-  public Operators items(List<Operator> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Operators addItemsItem(Operator itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<Operator>();
-    }
-    this.items.add(itemsItem);
+  public AnchorTransactionDetail transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * 앵커링 트랜잭션의 트랜잭션 해시
+   * @return transactionHash
   **/
-  @Schema(description = "")
-  public List<Operator> getItems() {
-    return items;
+  @Schema(example = "0x5aeb4ddc5d77b9ce977a87461573da00c0aed0ac59962892ecf58ec09296e79d", required = true, description = "앵커링 트랜잭션의 트랜잭션 해시")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setItems(List<Operator> items) {
-    this.items = items;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
   }
 
 
@@ -83,24 +73,24 @@ public class Operators {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Operators operators = (Operators) o;
-    return Objects.equals(this.cursor, operators.cursor) &&
-        Objects.equals(this.items, operators.items);
+    AnchorTransactionDetail anchorTransactionDetail = (AnchorTransactionDetail) o;
+    return Objects.equals(this.payload, anchorTransactionDetail.payload) &&
+        Objects.equals(this.transactionHash, anchorTransactionDetail.transactionHash);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(payload, transactionHash);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Operators {\n");
+    sb.append("class AnchorTransactionDetail {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
     sb.append("}");
     return sb.toString();
   }

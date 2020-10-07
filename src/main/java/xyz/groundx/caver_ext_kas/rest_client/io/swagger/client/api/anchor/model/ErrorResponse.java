@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -20,7 +20,7 @@ import java.util.Objects;
  * 에러에 대한 설명을 포함한 응답
  */
 @Schema(description = "에러에 대한 설명을 포함한 응답")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T06:25:39.655Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-10-06T07:59:17.215Z[GMT]")
 public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;
@@ -37,7 +37,7 @@ public class ErrorResponse {
    * 서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)
    * @return code
   **/
-  @Schema(example = "1072100", required = true, description = "서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)")
+  @Schema(example = "1072101", required = true, description = "서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)")
   public Long getCode() {
     return code;
   }
@@ -55,7 +55,7 @@ public class ErrorResponse {
    * 에러 메세지
    * @return message
   **/
-  @Schema(example = "same payload ID or payload was already anchored", required = true, description = "에러 메세지")
+  @Schema(example = "all configured accounts have insufficient funds", required = true, description = "에러 메세지")
   public String getMessage() {
     return message;
   }
