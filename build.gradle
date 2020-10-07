@@ -1,5 +1,6 @@
 buildscript {
-    ext.caver = '1.5.3-rc.2-android'
+    ext.caver_version = '1.5.3-rc.2'
+    ext.caver_android_version = '1.5.3-rc.2-android'
 }
 
 plugins {
@@ -136,7 +137,7 @@ allprojects {
 
 
     dependencies {
-        compile "com.klaytn.caver:core:$caver"
+        compile "com.klaytn.caver:core:$caver_version"
 
         compile 'io.swagger.core.v3:swagger-annotations:2.0.0'
         compile 'com.squareup.okhttp:okhttp:2.7.5'
