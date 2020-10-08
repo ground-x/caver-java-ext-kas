@@ -4,7 +4,7 @@ executors:
   default:
     docker:
     - image: circleci/openjdk:8-jdk
-    working_directory: ~/circleci-caver-java-ext-kas-major
+    working_directory: ~/caver-java-ext-kas
 
 commands:
   notify-success:
@@ -42,26 +42,18 @@ jobs:
           ./gradlew clean
           ./gradlew test --debug
 
-  lint_test:
-    executor: default
-    steps:
-      - checkout
-      - run: {{ test command }}
-
-  integration_test:
-    executor: default
-    steps:
-      - checkout
-      - run: {{ test command }}
-
   build:
     executor: default
     steps:
       - checkout
       - check_rc
       - run: ./gradlew build -x test --debug
-      - store_artifacts: ## If you want to store build_file
-          path: /tmp/artifacts ## Change path to build_file
+      - persist_to_workspace:
+          root: ~/caver-java-ext-kas
+          paths:
+            - build/*
+      - store_artifacts:
+          path: ./build
 
   tag_verify:
     executor: default
@@ -75,10 +67,11 @@ jobs:
     executor: default
     steps:
       - checkout
-      ## This process only upload and flush cache on Cloudfront, if project deploy other way, need to add in this job
+      - attach_workspace:
+          at: ~/caver-java-ext-kas
       - check_rc
       - run:
-          name: ""
+          name: "publish"
           command: |
               ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
@@ -139,8 +132,6 @@ stage_defaults:
   tests: &test_steps
     requires:
       - unit_test
-      - lint_test
-      - integration_test
       - tag_verify
 
 workflows:
@@ -149,9 +140,7 @@ workflows:
     jobs:
       - unit_test:
           <<: *stage_default
-      - lint_test:
-          <<: *stage_default
-      - integration_test:
+      - build:
           <<: *stage_default
 
       # publish jobs - rc
