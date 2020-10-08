@@ -660,7 +660,7 @@ public class Wallet {
      * @return FDTransactionResult
      * @throws ApiException
      */
-    public FDTransactionResult requestRawTransactionPaidByGlobalFeePayer(FDProcessRLPRequest request) throws ApiException {
+    public FDTransactionResult requestFDRawTransactionPaidByGlobalFeePayer(FDProcessRLPRequest request) throws ApiException {
         return getFeeDelegatedTransactionPaidByKasApi().fDProcessRLP(chainId, request);
     }
 
@@ -673,7 +673,7 @@ public class Wallet {
      * @return Call
      * @throws ApiException
      */
-    public Call requestRawTransactionPaidByGlobalFeePayerAsync(FDProcessRLPRequest request, ApiCallback callback) throws ApiException {
+    public Call requestFDRawTransactionPaidByGlobalFeePayerAsync(FDProcessRLPRequest request, ApiCallback callback) throws ApiException {
         return getFeeDelegatedTransactionPaidByKasApi().fDProcessRLPAsync(chainId, request, callback);
     }
 
@@ -837,7 +837,7 @@ public class Wallet {
      * @return FDTransactionResult
      * @throws ApiException
      */
-    public FDTransactionResult requestRawTransactionPaidByUser(FDUserProcessRLPRequest request) throws ApiException {
+    public FDTransactionResult requestFDRawTransactionPaidByUser(FDUserProcessRLPRequest request) throws ApiException {
         return getFeeDelegatedTransactionPaidByUserApi().uFDProcessRLP(chainId, request);
     }
 
@@ -850,7 +850,7 @@ public class Wallet {
      * @return Call
      * @throws ApiException
      */
-    public Call requestRawTransactionPaidByUserAsync(FDUserProcessRLPRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
+    public Call requestFDRawTransactionPaidByUserAsync(FDUserProcessRLPRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
         return getFeeDelegatedTransactionPaidByUserApi().uFDProcessRLPAsync(chainId, request, callback);
     }
 
