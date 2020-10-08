@@ -129,6 +129,7 @@ stage_defaults:
     requires:
       # - unit_test
       - tag_verify
+      - build
 
 workflows:
   version: 2
