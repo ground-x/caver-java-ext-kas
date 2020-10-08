@@ -48,12 +48,12 @@ public class KAS {
 
     /**
      * Initialize Anchor API.
-     * @param url An URL to request Anchor API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Anchor API.
      */
-    public KAS initAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
@@ -65,12 +65,12 @@ public class KAS {
 
     /**
      * Initialize Wallet API.
-     * @param url An URL to request Wallet API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Wallet API.
      */
-    public KAS initWalletAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
@@ -82,12 +82,12 @@ public class KAS {
 
     /**
      * Initialize Token History API.
-     * @param url An URL to request Token History API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Token History API.
      */
-    public KAS initTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public KAS initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);

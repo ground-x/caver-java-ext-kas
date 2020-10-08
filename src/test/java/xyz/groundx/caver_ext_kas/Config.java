@@ -42,7 +42,7 @@ public class Config {
 
     static void init() {
         caver = new CaverExtKAS();
-        caver.initNodeAPI("https://node-api.dev.klaytn.com/v1/klaytn", "1001", accessKey, secretAccessKey);
+        caver.initNodeAPI("1001", accessKey, secretAccessKey, "https://node-api.dev.klaytn.com/v1/klaytn");
 
         richAccount = (SingleKeyring)caver.wallet.add(KeyringFactory.createFromPrivateKey(richAccountPrivateKey));
     }

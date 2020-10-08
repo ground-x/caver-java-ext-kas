@@ -26,6 +26,11 @@ import xyz.groundx.caver_ext_kas.kas.KAS;
  * Representing wrapping class that can use Klaytn API Service
  */
 public class CaverExtKAS extends Caver {
+    private static final String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
+    private static final String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
+    private static final String URL_TH_API = "https://th-api.klaytnapi.com";
+    private static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
+
     /**
      * The KAS instance.
      */
@@ -39,24 +44,69 @@ public class CaverExtKAS extends Caver {
     }
 
     /**
-     * Initialize Node API.
-     * @param url An URL to request Node API.
+     * Initialize all KAS API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initNodeAPI(String url, int chainId, String accessKeyId, String secretAccessKey) {
-        initNodeAPI(url, String.valueOf(chainId), accessKeyId, secretAccessKey);
+    public void initKASApi(int chainId, String accessKeyId, String secretAccessKey) {
+        initKASApi(String.valueOf(chainId), accessKeyId, secretAccessKey);
+    }
+
+    /**
+     * Initialize all KAS API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKASApi(String chainId, String accessKeyId, String secretAccessKey) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey);
+        initAnchorAPI(chainId,accessKeyId, secretAccessKey);
+        initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey);
+        initWalletAPI(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
      * Initialize Node API.
-     * @param url An URL to request Node API.
+     * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initNodeAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API);
+    }
+
+    /**
+     * Initialize Node API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API);
+    }
+
+    /**
+     * Initialize Node API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Node API.
+     */
+    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Node API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Node API.
+     */
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         HttpService httpService = new HttpService(url);
 
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
@@ -66,68 +116,134 @@ public class CaverExtKAS extends Caver {
 
     /**
      * Initialize Anchor API.
-     * @param url An URL to request Anchor API.
+     * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initAnchorAPI(String url, int chainId, String accessKeyId, String secretAccessKey) {
-        initAnchorAPI(url, String.valueOf(chainId), accessKeyId, secretAccessKey);
+    public void initAnchorAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initAnchorAPI(chainId, accessKeyId, secretAccessKey, URL_ANCHOR_API);
     }
 
     /**
      * Initialize Anchor API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        kas.initAnchorAPI(accessKeyId, secretAccessKey, URL_ANCHOR_API, chainId);
+    }
+
+    /**
+     * Initialize Anchor API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Anchor API.
+     */
+    public void initAnchorAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initAnchorAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Anchor API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Anchor API.
      */
-    public void initAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initAnchorAPI(url, chainId, accessKeyId, secretAccessKey);
+    public void initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initAnchorAPI(chainId, accessKeyId, secretAccessKey, url);
     }
 
     /**
      * Initialize Wallet API.
-     * @param url An URL to request Wallet API.
+     * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initWalletAPI(String url, int chainId, String accessKeyId, String secretAccessKey) {
-        initWalletAPI(url, String.valueOf(chainId), accessKeyId, secretAccessKey);
+    public void initWalletAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initWalletAPI(chainId, accessKeyId, secretAccessKey, URL_WALLET_API);
     }
 
     /**
      * Initialize Wallet API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        kas.initWalletAPI(accessKeyId, secretAccessKey, URL_WALLET_API, chainId);
+    }
+
+    /**
+     * Initialize Wallet API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Wallet API.
+     */
+    public void initWalletAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initWalletAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Wallet API.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Wallet API.
      */
-    public void initWalletAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initWalletAPI(url, chainId, accessKeyId, secretAccessKey);
+    public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
     }
 
     /**
      * Initialize Token History API.
-     * @param url An URL to request Token History API.
+     * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initTokenHistoryAPI(String url, int chainId, String accessKeyId, String secretAccessKey) {
-        initTokenHistoryAPI(url, String.valueOf(chainId), accessKeyId, secretAccessKey);
+    public void initTokenHistoryAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_TH_API);
     }
 
     /**
      * Initialize Token History API.
-     * @param url An URL to request Token History API.
+     * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initTokenHistoryAPI(url, chainId, accessKeyId, secretAccessKey);
+    public void initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        kas.initTokenHistoryAPI(accessKeyId, secretAccessKey, URL_TH_API, chainId);
+    }
+
+    /**
+     * Initialize Token History API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Token History API.
+     */
+    public void initTokenHistoryAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initTokenHistoryAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Token History API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Token History API.
+     */
+    public void initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, url);
     }
 
     /**

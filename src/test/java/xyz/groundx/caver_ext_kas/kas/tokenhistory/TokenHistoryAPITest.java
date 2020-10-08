@@ -47,7 +47,7 @@ public class TokenHistoryAPITest {
     @BeforeClass
     public static void init() {
         caver = new CaverExtKAS();
-        caver.initTokenHistoryAPI(baseUrl, chainId, accessKey, secretAccessKey);
+        caver.initTokenHistoryAPI(chainId, accessKey, secretAccessKey, baseUrl);
         kas = caver.getKas();
     }
 

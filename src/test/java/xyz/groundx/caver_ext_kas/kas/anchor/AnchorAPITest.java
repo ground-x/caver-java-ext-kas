@@ -50,7 +50,7 @@ public class AnchorAPITest {
     @BeforeClass
     public static void init() {
         caver = new CaverExtKAS();
-        caver.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
+        caver.initAnchorAPI("1001", accessKey, secretAccessKey, basPath);
         kas = caver.getKas();
 
         kas.getAnchor().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
@@ -59,7 +59,7 @@ public class AnchorAPITest {
     @Test
     public void enableAPITest() {
         KAS kas = new KAS();
-        kas.initAnchorAPI(basPath, "1001", accessKey, secretAccessKey);
+        kas.initAnchorAPI("1001", accessKey, secretAccessKey, basPath);
 
         assertNotNull(kas.getAnchor());
     }
@@ -149,16 +149,19 @@ public class AnchorAPITest {
     @Test
     public void getOperatorsWithDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
+        anchorQueryParams.setSize(3l);
         anchorQueryParams.setFromTimestamp("2020-08-17");
         anchorQueryParams.setToTimestamp("2020-08-25");
 
-        Operators res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.getAnchor().getOperatorList(anchorQueryParams);
+        System.out.println(res);
         assertNotNull(res);
     }
 
     @Test
     public void getOperatorTest() throws ApiException {
-        Operator res = kas.getAnchor().getOperator(operatorID);
+        Operator res = caver.kas.getAnchor().getOperator("0x0Ea563A80f5ea22C174030416E7fCdbeD920D5EB");
+        System.out.println(res);
         assertNotNull(res);
     }
 
