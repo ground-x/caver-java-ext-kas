@@ -147,7 +147,7 @@ public class WalletAPITest {
     @BeforeClass
     public static void init() throws IOException, TransactionException, ApiException {
         caver = new CaverExtKAS();
-        caver.initWalletAPI(baseUrl, chainId, accessKey, secretAccessKey);
+        caver.initWalletAPI(chainId, accessKey, secretAccessKey, baseUrl);
 
         kas = caver.getKas();
         kas.getWallet().getBasicTransactionApi().getApiClient().setDebugging(true);
@@ -408,11 +408,11 @@ public class WalletAPITest {
     public void getAccountListWithOption() {
         try {
             WalletQueryOptions options = new WalletQueryOptions();
-            options.setSize(3l);
+            options.setSize(5l);
+            options.setFromTimestamp("2020-09-01 00:00:00");
+            options.setToTimestamp("2020-10-01 00:00:00");
             Accounts accounts = kas.getWallet().getAccountList(options);
             assertNotNull(accounts);
-            assertNotNull(accounts.getCursor());
-            assertEquals(3, accounts.getItems().size());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -461,7 +461,6 @@ public class WalletAPITest {
         try {
             Account expected = makeAccount();
             Account actual = kas.getWallet().getAccount(expected.getAddress());
-
             assertEquals(expected.getAddress(), actual.getAddress());
         } catch (ApiException e) {
             e.printStackTrace();
