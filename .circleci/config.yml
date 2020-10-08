@@ -114,7 +114,6 @@ stage_defaults:
         ignore: 
           - /release\/.*/
   qa: &stage_qa
-    context: klip_sdk_prod
     filters:
       tags:
         only:
@@ -123,7 +122,6 @@ stage_defaults:
       branches:
         ignore: /.*/
   rc: &stage_rc
-    context: klip_sdk_prod
     filters:
       tags:
         only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
@@ -164,7 +162,6 @@ workflows:
 
       # publish jobs - prod
       - publish:
-          context: klip_sdk_prod
           name: publish_prod
           filters:
             branches:
