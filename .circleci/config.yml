@@ -60,7 +60,7 @@ jobs:
       - checkout
       - run:
           name: "Verify tag and file verison match"
-          command: ./.circleci/scripts/tag_verify.sh ## Change script if version is not indicated on package.json
+          command: ./.circleci/scripts/tag_verify.sh
 
   publish:
     executor: default
@@ -72,7 +72,6 @@ jobs:
       - run:
           name: "publish"
           command: |
-              ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
       - notify-failure
       - notify-success
