@@ -66,12 +66,11 @@ jobs:
     executor: default
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/caver-java-ext-kas
       - check_rc
       - run:
           name: "publish"
           command: |
+              ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
       - notify-failure
       - notify-success
