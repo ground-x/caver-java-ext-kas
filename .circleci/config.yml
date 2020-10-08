@@ -128,7 +128,7 @@ stage_defaults:
         ignore: /.*/
   tests: &test_steps
     requires:
-      - unit_test
+      # - unit_test
       - tag_verify
 
 workflows:
