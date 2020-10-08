@@ -13,8 +13,7 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.api;
 
 import com.google.gson.reflect.TypeToken;
-import io.swagger.client.*;
-import io.swagger.client.api.wallet.model.*;
+
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
