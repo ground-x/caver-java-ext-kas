@@ -107,6 +107,10 @@ public class CaverExtKAS extends Caver {
      * @param url An URL to request Node API.
      */
     public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        if(url.equals("https://node-api.klaytnapi.com")) {
+            url = url + "/v1/klaytn";
+        }
+
         HttpService httpService = new HttpService(url);
 
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
