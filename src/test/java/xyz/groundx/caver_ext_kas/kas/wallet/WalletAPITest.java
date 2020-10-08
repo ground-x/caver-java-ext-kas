@@ -1552,7 +1552,7 @@ public class WalletAPITest {
             requestRLP.setRlp(result.getRlp());
             requestRLP.setSubmit(true);
 
-            FDTransactionResult result1 = kas.getWallet().requestRawTransactionPaidByGlobalFeePayer(requestRLP);
+            FDTransactionResult result1 = kas.getWallet().requestFDRawTransactionPaidByGlobalFeePayer(requestRLP);
             assertNotNull(result1);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -1576,7 +1576,7 @@ public class WalletAPITest {
             requestRLP.setRlp(result.getRlp());
             requestRLP.setSubmit(true);
 
-            kas.getWallet().requestRawTransactionPaidByGlobalFeePayerAsync(requestRLP, callBack);
+            kas.getWallet().requestFDRawTransactionPaidByGlobalFeePayerAsync(requestRLP, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -2009,7 +2009,7 @@ public class WalletAPITest {
             processRLPRequest.setRlp(result.getRlp());
             processRLPRequest.setFeePayer(userFeePayer);
             processRLPRequest.setSubmit(true);
-            FDTransactionResult resultRLP = kas.getWallet().requestRawTransactionPaidByUser(processRLPRequest);
+            FDTransactionResult resultRLP = kas.getWallet().requestFDRawTransactionPaidByUser(processRLPRequest);
             assertNotNull(resultRLP);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2036,7 +2036,7 @@ public class WalletAPITest {
             processRLPRequest.setFeePayer(userFeePayer);
             processRLPRequest.setSubmit(true);
 
-            kas.getWallet().requestRawTransactionPaidByUserAsync(processRLPRequest, callBack);
+            kas.getWallet().requestFDRawTransactionPaidByUserAsync(processRLPRequest, callBack);
             callBack.checkResponse();
         } catch (Exception e) {
             e.printStackTrace();
