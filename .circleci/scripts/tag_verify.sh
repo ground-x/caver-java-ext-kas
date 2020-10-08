@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-VERSION=v$(awk '/ext.caver_version = '\''/ {gsub("'\''",""); print $3}' build.gradle)
+VERSION=v$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
 echo "Pushing tag version is " $CIRCLE_TAG
 
 echo "version on build.gradle" $VERSION

@@ -27,8 +27,8 @@ commands:
           name: Check RC
           command: |
             if [[ -n $CIRCLE_TAG ]]; then
-              sed -i "s/ext.caver_version = '.*'/ext.caver_version = '${CIRCLE_TAG:1}'/" build.gradle
-              sed -n '/ext.caver_version/p' build.gradle
+              sed -i "s/version '.*'/version '${CIRCLE_TAG:1}'/" build.gradle
+              sed -n '/version/p' build.gradle
             else
               echo "Not RC version"
             fi
