@@ -1,10 +1,10 @@
 #!/bin/bash
 set -x
 
-VERSION=v$(awk '/"version/ {gsub("\"",""); print $2}' package.json | tr -d ',')
+VERSION=v$(awk '/ext.caver_version = '\''/ {gsub("'\''",""); print $3}' build.gradle)
 echo "Pushing tag version is " $CIRCLE_TAG
 
-echo "version on version.go" $VERSION
+echo "version on build.gradle" $VERSION
 
 if [ $VERSION == ${CIRCLE_TAG%-*} ]; then
   echo "Pushing tag and Real version match!"
