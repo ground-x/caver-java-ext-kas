@@ -49,8 +49,8 @@ public class CaverExtKAS extends Caver {
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initKASApi(int chainId, String accessKeyId, String secretAccessKey) {
-        initKASApi(String.valueOf(chainId), accessKeyId, secretAccessKey);
+    public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey);
     }
 
     /**
@@ -59,7 +59,7 @@ public class CaverExtKAS extends Caver {
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
-    public void initKASApi(String chainId, String accessKeyId, String secretAccessKey) {
+    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey) {
         initNodeAPI(chainId, accessKeyId, secretAccessKey);
         initAnchorAPI(chainId,accessKeyId, secretAccessKey);
         initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey);
@@ -137,7 +137,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initAnchorAPI(accessKeyId, secretAccessKey, URL_ANCHOR_API, chainId);
+        kas.initAnchorAPI(chainId, accessKeyId, secretAccessKey, URL_ANCHOR_API);
     }
 
     /**
@@ -181,7 +181,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initWalletAPI(accessKeyId, secretAccessKey, URL_WALLET_API, chainId);
+        kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, URL_WALLET_API);
     }
 
     /**
@@ -225,7 +225,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initTokenHistoryAPI(accessKeyId, secretAccessKey, URL_TH_API, chainId);
+        kas.initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_TH_API);
     }
 
     /**
