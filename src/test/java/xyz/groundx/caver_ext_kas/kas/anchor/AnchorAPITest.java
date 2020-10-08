@@ -154,14 +154,12 @@ public class AnchorAPITest {
         anchorQueryParams.setToTimestamp("2020-08-25");
 
         Operators res = caver.kas.getAnchor().getOperatorList(anchorQueryParams);
-        System.out.println(res);
         assertNotNull(res);
     }
 
     @Test
     public void getOperatorTest() throws ApiException {
         Operator res = caver.kas.getAnchor().getOperator("0x0Ea563A80f5ea22C174030416E7fCdbeD920D5EB");
-        System.out.println(res);
         assertNotNull(res);
     }
 

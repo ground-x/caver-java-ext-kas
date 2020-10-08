@@ -412,8 +412,7 @@ public class WalletAPITest {
             options.setFromTimestamp("2020-09-01 00:00:00");
             options.setToTimestamp("2020-10-01 00:00:00");
             Accounts accounts = kas.getWallet().getAccountList(options);
-
-            System.out.println(accounts);
+            assertNotNull(accounts);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -462,7 +461,6 @@ public class WalletAPITest {
         try {
             Account expected = makeAccount();
             Account actual = kas.getWallet().getAccount(expected.getAddress());
-            System.out.println(actual);
             assertEquals(expected.getAddress(), actual.getAddress());
         } catch (ApiException e) {
             e.printStackTrace();
