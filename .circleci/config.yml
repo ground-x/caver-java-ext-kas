@@ -32,6 +32,14 @@ commands:
             else
               echo "Not RC version"
             fi
+  android_versioning:
+    steps:
+      - run:
+          name: "Change to Android version"
+          command: |
+            VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
+            sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
+            sed -n '/version/p' build.gradle
 jobs:
   unit_test:
     executor: default
@@ -55,11 +63,7 @@ jobs:
     steps:
       - checkout
       - check_rc
-      - run:
-          name: "Change to Android version"
-          command: |
-            VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
-            sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
+      - android_versioning
       - run: ./gradlew build -x test --debug
       - store_artifacts:
           path: ./build
@@ -92,6 +96,7 @@ jobs:
     steps:
       - checkout
       - check_rc
+      - android_versioning
       - run:
           name: "build and publish for android"
           command: |
