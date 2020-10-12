@@ -50,6 +50,8 @@ allprojects {
         bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
         bintrayKey = project.hasProperty('bintrayKey') ? project.property('bintrayKey') : System.getenv('BINTRAY_KEY')
         bintrayGpgPassphrase = project.hasProperty('bintrayGpgPassphrase') ? project.property('bintrayGpgPassphrase') : System.getenv('BINTRAY_GPG_PASSPHRASE')
+
+        isAndroidBuild = project.version.endsWith("-android")
     }
 
     publishing {
@@ -137,7 +139,12 @@ allprojects {
 
 
     dependencies {
-        compile "com.klaytn.caver:core:$caver_version"
+        if(isAndroidBuild) {
+            compile "com.klaytn.caver:core:$caver_android_version"
+        } else {
+            compile "com.klaytn.caver:core:$caver_version"
+        }
+
 
         compile 'io.swagger.core.v3:swagger-annotations:2.0.0'
         compile 'com.squareup.okhttp:okhttp:2.7.5'
