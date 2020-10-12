@@ -41,20 +41,16 @@ jobs:
           ./gradlew clean
           ./gradlew test --debug
 
-  build:
+  build_test:
     executor: default
     steps:
       - checkout
       - check_rc
       - run: ./gradlew build -x test --debug
-      - persist_to_workspace:
-          root: ~/caver-java-ext-kas
-          paths:
-            - build/*
       - store_artifacts:
           path: ./build
 
-  build_android:
+  build_android_test:
     executor: default
     steps:
       - checkout
@@ -65,6 +61,8 @@ jobs:
             VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
             sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
       - run: ./gradlew build -x test --debug
+      - store_artifacts:
+          path: ./build
 
   tag_verify:
     executor: default
@@ -78,13 +76,14 @@ jobs:
     executor: default
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/caver-java-ext-kas
       - check_rc
       - run:
           name: "publish"
           command: |
+              ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
+      - store_artifacts:
+          path: ./build
       - notify-failure
       - notify-success
 
@@ -95,9 +94,11 @@ jobs:
       - check_rc
       - run:
           name: "build and publish for android"
-          command: | ## Cannot attach workspace since build and android build create files on same build directory so that it will conflict if use attach_workspace. 
+          command: |
               ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
+      - store_artifacts:
+          path: ./build
       - notify-failure
       - notify-success
 
@@ -151,8 +152,8 @@ stage_defaults:
     requires:
       # - unit_test
       - tag_verify
-      - build
-      - build_android
+      - build_test
+      - build_android_test
 
 workflows:
   version: 2
@@ -160,9 +161,9 @@ workflows:
     jobs:
       # - unit_test:
       #     <<: *stage_default
-      - build:
+      - build_test:
           <<: *stage_default
-      - build_android:
+      - build_android_test:
           <<: *stage_default
 
       # publish jobs - rc
