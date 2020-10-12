@@ -14,7 +14,7 @@ plugins {
 
 allprojects {
     version '1.0.0'
-    group 'xyz.groundx.caver-java-ext-kas'
+    group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
     sourceCompatibility = 1.8
