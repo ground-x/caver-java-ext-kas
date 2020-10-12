@@ -65,12 +65,6 @@ jobs:
             VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
             sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
       - run: ./gradlew build -x test --debug
-      - persist_to_workspace:
-          root: ~/caver-java-ext-kas
-          paths:
-            - build/*
-      - store_artifacts:
-          path: ./build
 
   tag_verify:
     executor: default
