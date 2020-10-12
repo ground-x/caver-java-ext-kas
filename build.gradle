@@ -1,6 +1,5 @@
 buildscript {
     ext.caver_version = '1.5.3-rc.2'
-    ext.caver_android_version = '1.5.3-rc.2-android'
 }
 
 plugins {
@@ -140,7 +139,7 @@ allprojects {
 
     dependencies {
         if(isAndroidBuild) {
-            compile "com.klaytn.caver:core:$caver_android_version"
+            compile "com.klaytn.caver:core:$caver_version-android"
         } else {
             compile "com.klaytn.caver:core:$caver_version"
         }
