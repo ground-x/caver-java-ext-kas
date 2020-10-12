@@ -54,6 +54,24 @@ jobs:
       - store_artifacts:
           path: ./build
 
+  android_build:
+    executor: default
+    steps:
+      - checkout
+      - check_rc
+      - run:
+          name: "Change to Android version"
+          command: |
+            VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
+            sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
+      - run: ./gradlew build -x test --debug
+      - persist_to_workspace:
+          root: ~/caver-java-ext-kas
+          paths:
+            - build/*
+      - store_artifacts:
+          path: ./build
+
   tag_verify:
     executor: default
     steps:
@@ -137,6 +155,8 @@ workflows:
       - unit_test:
           <<: *stage_default
       - build:
+          <<: *stage_default
+      - android_build:
           <<: *stage_default
 
       # publish jobs - rc
