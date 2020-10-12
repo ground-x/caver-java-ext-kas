@@ -54,7 +54,7 @@ jobs:
       - store_artifacts:
           path: ./build
 
-  android_build:
+  build_android:
     executor: default
     steps:
       - checkout
@@ -81,6 +81,20 @@ jobs:
           command: ./.circleci/scripts/tag_verify.sh
 
   publish:
+    executor: default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/caver-java-ext-kas
+      - check_rc
+      - run:
+          name: "publish"
+          command: |
+              ./gradlew bintrayUpload --stacktrace --debug
+      - notify-failure
+      - notify-success
+
+  publish_android:
     executor: default
     steps:
       - checkout
@@ -124,29 +138,25 @@ stage_defaults:
       tags:
         only:
           - /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
-          - /^v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]+.*/
       branches:
         ignore: 
           - /release\/.*/
-  qa: &stage_qa
-    filters:
-      tags:
-        only:
-          - /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
-          - /^v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]+.*/
-      branches:
-        ignore: /.*/
   rc: &stage_rc
     filters:
       tags:
         only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
       branches:
         ignore: /.*/
+  prod: &stage_prod
+    filters:
+      branches:
+        only: master
   tests: &test_steps
     requires:
       # - unit_test
       - tag_verify
       - build
+      - build_android
 
 workflows:
   version: 2
@@ -161,30 +171,33 @@ workflows:
 
       # publish jobs - rc
       - tag_verify:
-          <<: *stage_qa
+          <<: *stage_rc
           filters:
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
             branches:
               ignore: /.*/
-
       - publish:
-          <<: *stage_qa
+          <<: *stage_rc
           <<: *test_steps
           name: publish_rc
-
+      - publish_android:
+          <<: *stage_rc
+          <<: *test_steps
+          name: publish_android_rc
       - release_PR:
           <<: *stage_rc
           requires:
             - publish_rc
+            - publish_android_rc
 
       # publish jobs - prod
       - publish:
+          <<: *stage_prod
           name: publish_prod
-          filters:
-            branches:
-              only: master
-      
+      - publish_android:
+          <<: *stage_prod
+          name: publish_android_prod
       - tagging:
           requires:
             - publish_prod
