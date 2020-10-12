@@ -100,7 +100,7 @@ jobs:
       - run:
           name: "build and publish for android"
           command: |
-              ./gradlew build -x test  --debug
+              ./gradlew clean build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
       - store_artifacts:
           path: ./build
