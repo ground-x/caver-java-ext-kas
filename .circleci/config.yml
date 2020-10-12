@@ -94,8 +94,8 @@ jobs:
       - checkout
       - check_rc
       - run:
-          name: "publish"
-          command: |
+          name: "build and publish for android"
+          command: | ## Cannot attach workspace since build and android build create files on same build directory so that it will conflict if use attach_workspace. 
               ./gradlew build -x test  --debug
               ./gradlew bintrayUpload --stacktrace --debug
       - notify-failure
@@ -158,8 +158,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - unit_test:
-          <<: *stage_default
+      # - unit_test:
+      #     <<: *stage_default
       - build:
           <<: *stage_default
       - build_android:
