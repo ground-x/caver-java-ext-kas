@@ -64,7 +64,7 @@ jobs:
       - checkout
       - check_rc
       - android_versioning
-      - run: ./gradlew build -x test --debug
+      - run: ./gradlew clean build -x test --debug
       - store_artifacts:
           path: ./build
 
