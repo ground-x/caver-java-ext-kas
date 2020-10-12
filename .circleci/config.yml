@@ -54,7 +54,7 @@ jobs:
     steps:
       - checkout
       - check_rc
-      - run: ./gradlew build -x test --debug
+      - run: ./gradlew clean build -x test --debug
       - store_artifacts:
           path: ./build
 
