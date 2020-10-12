@@ -166,7 +166,7 @@ workflows:
           <<: *stage_default
       - build:
           <<: *stage_default
-      - android_build:
+      - build_android:
           <<: *stage_default
 
       # publish jobs - rc
