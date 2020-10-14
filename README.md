@@ -5,7 +5,7 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
 ## Table of contents
   * [Installation](#installation)
   * [Getting Started](#getting-started)
-    * [Activate API](#activate-api)
+    * [Initialize API](#initialize-api)
     * [Use Node API](#use-node-api)
     * [Use Token History API](#use-token-history-api)
     * [Use Wallet API](#use-wallet-api)
