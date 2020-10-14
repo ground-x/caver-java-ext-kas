@@ -17,7 +17,7 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
 ```groovy
 <dependency>
   <groupId>xyz.groundx.caver</groupId>
-  <artifactId>caver-java-kas-ext</artifactId>
+  <artifactId>caver-java-ext-kas</artifactId>
   <version>X.X.X</version>
   <type>pom</type>
 </dependency>
@@ -26,18 +26,18 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
 ```groovy
 <dependency>
   <groupId>xyz.groundx.caver</groupId>
-  <artifactId>caver-java-kas-ext</artifactId>
+  <artifactId>caver-java-ext-kas</artifactId>
   <version>X.X.X-android</version>
   <type>pom</type>
 </dependency>
 ```
 #### gradle
 ```groovy
-implementation 'xyz.groundx.caver:caver-java-kas-ext:X.X.X'
+implementation 'xyz.groundx.caver:caver-java-ext-kas:X.X.X'
 ```
 
 ```groovy
-implementation 'xyz.groundx.caver:caver-java-kas-ext:X.X.X-android'
+implementation 'xyz.groundx.caver:caver-java-ext-kas:X.X.X-android'
 ```
 You can find latest caver-java-ext-kas version at [release page](https://github.com/ground-x/caver-java-ext-kas/releases).
 
