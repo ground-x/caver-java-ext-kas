@@ -16,85 +16,133 @@
 
 package xyz.groundx.caver_ext_kas.kas;
 
-import com.klaytn.caver.Caver;
-import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryAPI;
-import xyz.groundx.caver_ext_kas.kas.anchor.AnchorAPI;
-import xyz.groundx.caver_ext_kas.kas.wallet.WalletAPI;
-import com.klaytn.caver.rpc.RPC;
-import com.squareup.okhttp.Credentials;
-import io.swagger.client.ApiClient;
-import org.web3j.protocol.http.HttpService;
+import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
+import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 
+/**
+ * Representing a wrapping class to use KAS API in rest_client package.
+ */
 public class KAS {
-    private AnchorAPI anchorAPI;
-    private TokenHistoryAPI tokenHistoryAPI;
-    private WalletAPI walletAPI;
+    /**
+     * The Anchor API instance.
+     */
+    public Anchor anchor;
 
+    /**
+     * The Token history API instance.
+     */
+    public TokenHistory tokenHistory;
+
+    /**
+     * The Wallet API instance.
+     */
+    public Wallet wallet;
+
+    /**
+     * Creates a KAS instance.
+     */
     public KAS() {
     }
 
-    public KAS initAnchorAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    /**
+     * Initialize Anchor API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Anchor API.
+     */
+    public KAS initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setAnchorAPI(new AnchorAPI(chainId, apiClient));
+        setAnchor(new Anchor(chainId, apiClient));
         return this;
     }
 
-    public KAS initWalletAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    /**
+     * Initialize Wallet API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Wallet API.
+     */
+    public KAS initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setWalletAPI(new WalletAPI(chainId, apiClient));
+        setWallet(new Wallet(chainId, apiClient));
         return this;
     }
 
-    public KAS initNodeAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
-        HttpService httpService = new HttpService(url);
-
-        httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
-        httpService.addHeader("x-chain-id", chainId);
-        this.rpc = new RPC(httpService);
-
-        return this;
-    }
-
-    public KAS initTokenHistoryAPI(String url, String chainId, String accessKeyId, String secretAccessKey) {
+    /**
+     * Initialize Token History API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Token History API.
+     */
+    public KAS initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setTokenHistoryAPI(new TokenHistoryAPI(chainId, apiClient));
+        setTokenHistory(new TokenHistory(chainId, apiClient));
 
         return this;
     }
 
-    public AnchorAPI getAnchorAPI() {
-        return anchorAPI;
+    /**
+     * Getter function for anchor.
+     * @return Anchor API
+     */
+    public Anchor getAnchor() {
+        return anchor;
     }
 
-    public void setAnchorAPI(AnchorAPI anchorAPI) {
-        this.anchorAPI = anchorAPI;
+    /**
+     * Setter function for anchor.
+     * @param anchor The Anchor API instance.
+     */
+    public void setAnchor(Anchor anchor) {
+        this.anchor = anchor;
     }
 
-    public TokenHistoryAPI getTokenHistoryAPI() {
-        return tokenHistoryAPI;
+    /**
+     * Getter function for Token History
+     * @return TokenHistoryAPI.
+     */
+    public TokenHistory getTokenHistory() {
+        return tokenHistory;
     }
 
-    public void setTokenHistoryAPI(TokenHistoryAPI tokenHistoryAPI) {
-        this.tokenHistoryAPI = tokenHistoryAPI;
+    /**
+     * Setter function for Token History.
+     * @param tokenHistory The Token History API Instance
+     */
+    public void setTokenHistory(TokenHistory tokenHistory) {
+        this.tokenHistory = tokenHistory;
     }
 
-    public WalletAPI getWalletAPI() {
-        return walletAPI;
+    /**
+     * Getter function for wallet
+     * @return WalletAPI
+     */
+    public Wallet getWallet() {
+        return wallet;
     }
 
-    public void setWalletAPI(WalletAPI walletAPI) {
-        this.walletAPI = walletAPI;
+    /**
+     * Setter function for Wallet
+     * @param wallet The WalletAPI instance.
+     */
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

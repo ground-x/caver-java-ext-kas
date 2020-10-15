@@ -1,0 +1,205 @@
+version: 2.1
+
+executors:
+  default:
+    docker:
+    - image: circleci/openjdk:8-jdk
+    working_directory: ~/caver-java-ext-kas
+
+commands:
+  notify-success:
+    steps:
+      - run:
+          name: "notify slack when job success"
+          command : |
+            curl --data '{"text": "✅ Job *'$CIRCLE_JOB'* succeeded on *'$CIRCLE_BRANCH''$CIRCLE_TAG'*. Please see '$CIRCLE_BUILD_URL' for details."}' "$SLACK_WEBHOOK_URL"
+          when: on_success
+  notify-failure:
+    steps:
+      - run:
+          name: "notify slack when job fail"
+          command : |
+            curl --data '{"text": "❌ Job *'$CIRCLE_JOB'* failed on *'$CIRCLE_BRANCH''$CIRCLE_TAG'*. Please see '$CIRCLE_BUILD_URL' for details."}' "$SLACK_WEBHOOK_URL"
+          when: on_fail
+  check_rc:
+    steps:
+      - run:
+          name: Check RC
+          command: |
+            if [[ -n $CIRCLE_TAG ]]; then
+              sed -i "s/version '.*'/version '${CIRCLE_TAG:1}'/" build.gradle
+              sed -n '/version/p' build.gradle
+            else
+              echo "Not RC version"
+            fi
+  android_versioning:
+    steps:
+      - run:
+          name: "Change to Android version"
+          command: |
+            VERSION=$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
+            sed -i "s/version '.*'/version '${VERSION}-android'/" build.gradle
+            sed -n '/version/p' build.gradle
+jobs:
+  unit_test:
+    executor: default
+    steps:
+      - checkout
+      - run: |
+          ./gradlew clean
+          ./gradlew test --debug
+
+  build_test:
+    executor: default
+    steps:
+      - checkout
+      - check_rc
+      - run: ./gradlew clean build -x test --debug
+      - store_artifacts:
+          path: ./build
+
+  build_android_test:
+    executor: default
+    steps:
+      - checkout
+      - check_rc
+      - android_versioning
+      - run: ./gradlew clean build -x test --debug
+      - store_artifacts:
+          path: ./build
+
+  tag_verify:
+    executor: default
+    steps:
+      - checkout
+      - run:
+          name: "Verify tag and file verison match"
+          command: ./.circleci/scripts/tag_verify.sh
+
+  publish:
+    executor: default
+    steps:
+      - checkout
+      - check_rc
+      - run:
+          name: "publish"
+          command: |
+              ./gradlew clean build -x test  --debug
+              ./gradlew bintrayUpload --stacktrace --debug
+      - store_artifacts:
+          path: ./build
+      - notify-failure
+      - notify-success
+
+  publish_android:
+    executor: default
+    steps:
+      - checkout
+      - check_rc
+      - android_versioning
+      - run:
+          name: "build and publish for android"
+          command: |
+              ./gradlew clean build -x test  --debug
+              ./gradlew bintrayUpload --stacktrace --debug
+      - store_artifacts:
+          path: ./build
+      - notify-failure
+      - notify-success
+
+  release_PR:
+    executor: default
+    steps:
+      - add_ssh_keys 
+      - checkout
+      - run:
+          name: "Push release branch"
+          command: |
+              set -x
+              echo "push to release branch: /release/${CIRCLE_TAG%-*}"
+              git checkout -b release/${CIRCLE_TAG%-*}
+              git push origin release/${CIRCLE_TAG%-*}
+      - run:
+          name: "Make PR to master branch"
+          command: ./.circleci/scripts/release_pr.sh
+
+  tagging:
+    executor: default
+    steps:
+      - add_ssh_keys
+      - checkout
+      - run:
+          name: "Tagging and delete release branch"
+          command: ./.circleci/scripts/release_tag_branch.sh
+
+stage_defaults:
+  default: &stage_default
+    filters:
+      tags:
+        only:
+          - /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
+      branches:
+        ignore: 
+          - /release\/.*/
+  rc: &stage_rc
+    context: sdk_java_prod
+    filters:
+      tags:
+        only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
+      branches:
+        ignore: /.*/
+  prod: &stage_prod
+    context: sdk_java_prod
+    filters:
+      branches:
+        only: master
+  tests: &test_steps
+    requires:
+      # - unit_test
+      - tag_verify
+      - build_test
+      - build_android_test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      # - unit_test:
+      #     <<: *stage_default
+      - build_test:
+          <<: *stage_default
+      - build_android_test:
+          <<: *stage_default
+
+      # publish jobs - rc
+      - tag_verify:
+          <<: *stage_rc
+          filters:
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
+            branches:
+              ignore: /.*/
+      - publish:
+          <<: *stage_rc
+          <<: *test_steps
+          name: publish_rc
+      - publish_android:
+          <<: *stage_rc
+          <<: *test_steps
+          name: publish_android_rc
+      - release_PR:
+          <<: *stage_rc
+          requires:
+            - publish_rc
+            - publish_android_rc
+
+      # publish jobs - prod
+      - publish:
+          <<: *stage_prod
+          name: publish_prod
+      - publish_android:
+          <<: *stage_prod
+          name: publish_android_prod
+      - tagging:
+          requires:
+            - publish_prod

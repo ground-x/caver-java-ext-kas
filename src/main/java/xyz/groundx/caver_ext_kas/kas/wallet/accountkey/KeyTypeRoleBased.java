@@ -16,8 +16,9 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.accountkey;
 
-import io.swagger.client.api.wallet.model.AccountUpdateKey;
-import io.swagger.client.api.wallet.model.RoleBasedUpdateKeyType;
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RoleBasedUpdateKeyType;
 
 import java.util.List;
 
