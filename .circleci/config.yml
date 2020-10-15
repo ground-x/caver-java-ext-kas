@@ -174,11 +174,6 @@ workflows:
       # publish jobs - rc
       - tag_verify:
           <<: *stage_rc
-          filters:
-            tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+.*/
-            branches:
-              ignore: /.*/
       - publish:
           <<: *stage_rc
           <<: *test_steps
@@ -196,10 +191,13 @@ workflows:
       # publish jobs - prod
       - publish:
           <<: *stage_prod
+          <<: *test_steps
           name: publish_prod
       - publish_android:
           <<: *stage_prod
+          <<: *test_steps
           name: publish_android_prod
       - tagging:
           requires:
             - publish_prod
+            - publish_android_prod
