@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -28,6 +29,11 @@ import static org.junit.Assert.assertEquals;
 public class TokenHistoryQueryOptionsTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    String getExpectedTimestampData(String date) {
+        long timestamp = Timestamp.valueOf(date).getTime();
+        return Long.toString(timestamp / 1000);
+    }
 
     @Test
     public void kindTest() {
@@ -82,9 +88,9 @@ public class TokenHistoryQueryOptionsTest {
 
     @Test
     public void rangeTimestampTest() {
-        String expectedTimeStamp = "1599145200";
         String dateFormat = "2020-09-04";
         String dateTimeFormat = "2020-09-04 00:00:00";
+        String expectedTimeStamp = getExpectedTimestampData(dateTimeFormat);
 
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setRange(dateFormat);
@@ -99,14 +105,14 @@ public class TokenHistoryQueryOptionsTest {
 
     @Test
     public void rangeFromToTest() {
-        String expectedString = "1599145200,1599231600";
-        String[] actualDataSet_timestamp = new String[] {"1599145200", "1599231600"};
+
         String[] actualDataSet_date = new String[] {"2020-09-04", "2020-09-05"};
         String[] actualDataSet_dateTime = new String[] {"2020-09-04 00:00:00", "2020-09-05 00:00:00"};
 
+        String expectedString = getExpectedTimestampData(actualDataSet_dateTime[0])+ "," + getExpectedTimestampData(actualDataSet_dateTime[1]);
+
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setRange(actualDataSet_timestamp[0], actualDataSet_timestamp[1]);
-        assertEquals(expectedString, options.getRange());
+
 
         options.setRange(actualDataSet_date[0], actualDataSet_date[1]);
         assertEquals(expectedString, options.getRange());
@@ -114,13 +120,10 @@ public class TokenHistoryQueryOptionsTest {
         options.setRange(actualDataSet_dateTime[0], actualDataSet_dateTime[1]);
         assertEquals(expectedString, options.getRange());
 
-        options.setRange(actualDataSet_timestamp[0], actualDataSet_date[1]);
-        assertEquals(expectedString, options.getRange());
-
         options.setRange(actualDataSet_date[0], actualDataSet_dateTime[1]);
         assertEquals(expectedString, options.getRange());
 
-        options.setRange(actualDataSet_date[0], actualDataSet_dateTime[1]);
+        options.setRange(actualDataSet_dateTime[0], actualDataSet_date[1]);
         assertEquals(expectedString, options.getRange());
     }
 
