@@ -79,7 +79,7 @@ public class Config {
         secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY") : secretAccessKey;
         feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR") : feePayerAddress;
         operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR") : operatorAddress;
-        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRIVATE_KEY") : klayProviderPrivateKey;
+        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY") : klayProviderPrivateKey;
 
         presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET")) : presetID;
     }
