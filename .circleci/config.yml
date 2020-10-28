@@ -1,10 +1,18 @@
 version: 2.1
+orbs:
+  aws-eks: circleci/aws-eks@1.0.2
 
 executors:
   default:
     docker:
     - image: circleci/openjdk:8-jdk
     working_directory: ~/caver-java-ext-kas
+  test_machine:
+    machine:
+      image: ubuntu-1604:202007-01
+    working_directory: ~/caver-java-ext-kas
+    environment:
+       TZ: "Asia/Seoul"
 
 commands:
   notify-success:
@@ -42,12 +50,20 @@ commands:
             sed -n '/version/p' build.gradle
 jobs:
   unit_test:
-    executor: default
+    executor: test_machine
     steps:
       - checkout
-      - run: |
-          ./gradlew clean
-          ./gradlew test --debug
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: ${EKS_CLUSTER_NAME}
+          install-kubectl: true
+          cluster-context-alias: test-cluster
+      - run:
+          command: |
+            set -xoeu
+            echo "127.0.0.1 $KAS_BASEDOMAINS" | sudo tee -a /etc/hosts
+            kubectl port-forward service/$KAS_SERVICE 8888:80 -n $KAS_NAMESPACE
+          background: true
+      - run: ./gradlew clean test --debug
 
   build_test:
     executor: default
@@ -155,7 +171,7 @@ stage_defaults:
         only: master
   tests: &test_steps
     requires:
-      # - unit_test
+      - unit_test
       - tag_verify
       - build_test
       - build_android_test
@@ -164,8 +180,9 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # - unit_test:
-      #     <<: *stage_default
+      - unit_test:
+          context: kas_caver_test
+          <<: *stage_default
       - build_test:
           <<: *stage_default
       - build_android_test:
