@@ -16,10 +16,19 @@
 
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
+import com.klaytn.caver.Caver;
+import com.klaytn.caver.contract.ContractDeployParams;
+import com.klaytn.caver.contract.SendOptions;
+import com.klaytn.caver.kct.kip17.KIP17;
+import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip7.KIP7;
+import com.klaytn.caver.kct.kip7.KIP7ConstantData;
+import com.klaytn.caver.kct.kip7.KIP7DeployParams;
 import com.squareup.okhttp.Call;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.kas.KAS;
@@ -28,6 +37,9 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.JSON;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -42,20 +54,49 @@ public class TokenHistoryAPITest {
 
     public static String account;
 
-    public static String ftAddress = "0xf0e5186029a70062e7e1fccb0f4ad53a4b7d6294";
-    public static String nftAddress = "0x677837af7bf37f70a56a2c3853d5d1fa53d3bd92";
+    public static String ftAddress = "";
+    public static String nftAddress = "";
     public static String tokenId = "0x2";
 
 
 
     @BeforeClass
-    public static void init() {
+    public static void init() throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         Config.init();
         caver = Config.getCaver();
         preset = Config.getPresetID();
         account = Config.getKlayProviderKeyring().getAddress();
 
+        ftAddress = deployKIP7(caver, account);
+        nftAddress = deployKIP17(caver, account);
+        mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
+
         caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
+    }
+
+    public static String deployKIP7(Caver caver, String deployer) throws IOException, NoSuchMethodException, InstantiationException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, TransactionException {
+        BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+        KIP7DeployParams deployParams = new KIP7DeployParams("TEST", "TES", 18, initialSupply);
+
+        return KIP7.deploy(caver, deployParams, deployer).getContractAddress();
+    }
+
+    public static String deployKIP17(Caver caver, String deployer) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        String contractName = "TEST_KIP17";
+        String contractSymbol = "KIP17";
+
+        KIP17 kip17 = new KIP17(caver);
+        KIP17DeployParams deployParams = new KIP17DeployParams(contractName, contractSymbol);
+        SendOptions sendOptions = new SendOptions(deployer, BigInteger.valueOf(5500000));
+
+        return KIP17.deploy(caver, deployParams, deployer).getContractAddress();
+    }
+
+    public static void mintKIP17Token(Caver caver, String contractAddress, String ownerAddress, BigInteger tokenId) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        KIP17 kip17 = new KIP17(caver, contractAddress);
+        SendOptions sendOptions = new SendOptions(ownerAddress, BigInteger.valueOf(5500000));
+
+        kip17.mint(ownerAddress, tokenId, sendOptions);
     }
 
     @Test
@@ -428,7 +469,7 @@ public class TokenHistoryAPITest {
 
             PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress, options);
             assertNotNull(nfts);
-            Assert.assertEquals(3, nfts.getItems().size());
+            Assert.assertTrue(nfts.getItems().size() <=3);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();

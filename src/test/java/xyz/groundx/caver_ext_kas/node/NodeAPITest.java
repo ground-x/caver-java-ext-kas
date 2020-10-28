@@ -48,14 +48,13 @@ import static org.junit.Assert.fail;
 public class NodeAPITest {
     static CaverExtKAS caver;
 
-    static SingleKeyring testKeyring;
     static String account;
 
     static KIP17 kip17Contract;
 
-    static long blockNumber = 42225542;
-    static String blockHash = "0xbb8a733fc831c1ea873582e5c432e0042505597b2ed3be78a077d14221251f20";
-    static String transactionHash = "0x1e3379f35f118baa0a2b453d0ee1ebc7092691c2faef8166a425be3a9bceab13";
+    static long blockNumber;
+    static String blockHash = "";
+    static String transactionHash = "";
 
     @BeforeClass
     public static void init() throws Exception {
@@ -63,6 +62,11 @@ public class NodeAPITest {
         caver = Config.getCaver();
 
         account = Config.getKlayProviderKeyring().getAddress();
+
+        TransactionReceipt.TransactionReceiptData receipt = Config.sendValue("0xf9ca77f63353285bed406215033fa572347339e3");
+        blockHash = receipt.getBlockHash();
+        transactionHash = receipt.getTransactionHash();
+        blockNumber = Numeric.toBigInt(receipt.getBlockNumber()).longValue();
         deployContract();
     }
 
