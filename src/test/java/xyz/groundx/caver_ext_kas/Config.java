@@ -38,11 +38,6 @@ public class Config {
     public static final String URL_TH_API = "https://th-api.klaytnapi.com";
     public static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
 
-//    public static final String URL_NODE_API = "https://node-api.dev.klaytn.com/v1/klaytn";
-//    public static final String URL_ANCHOR_API = "https://anchor-api.dev.klaytn.com";
-//    public static final String URL_TH_API = "https://th-api.dev.klaytn.com";
-//    public static final String URL_WALLET_API = "https://wallet-api.dev.klaytn.com";
-
     public static final String CHAIN_ID_BAOBOB = "1001";
 
     static String accessKey = "";
