@@ -180,8 +180,8 @@ options.setToTimesatamp();
 ```
 
 ## Test
-For test, You must modify data in Config.java or use .env to set the data necessary for test. 
-If you use .env, you must set variable below. 
+To test, You must modify data in "Config.java" or use ".env" to set the data necessary for test. 
+If you use ".env", you must set variable below. 
 
 ```groovy
 ACCESS_KEY= //KAS service access key
