@@ -16,6 +16,8 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
+import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
+import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import xyz.groundx.caver_ext_kas.Config;
 import com.klaytn.caver.abi.ABI;
 import com.klaytn.caver.kct.kip7.KIP7;
@@ -48,16 +50,16 @@ public class WalletAPITest {
     static String userFeePayer;
 
 
-    static String baseAccount = "0x39Cfd335D69902301129895d930BB3719CE0CDDf";
-    static String toAccount = "0x9c30Fe7D69b59caE7739421e67d44A27DF9248FE";
-    static String multiSigAddress = "0x3BBBb9b2e7A5A1105e6AE35313019A319CD6CC75";
+    static String baseAccount = "";
+    static String toAccount = "";
+    static String multiSigAddress = "";
 
     static Account multiSigAccount;
 
-    static String ftContractAddress = "0xdec4864ab241197dbf638af8cabafd1475d7ab3b";
+    static String ftContractAddress = "";
 
 
-    static String txHash = "0x0eecf4ba1c9bd2f4ba4a2a963d04bac913a30fcc4a2f4fd48d0fb4f79676da33";
+    static String txHash;
     static String krn = "krn:1001:wallet:173db69c-f1b8-4dd5-9ac2-ed8a0badab29:account-pool:kas_sdk_account_pool";
 
     @BeforeClass
@@ -66,34 +68,89 @@ public class WalletAPITest {
         caver = Config.getCaver();
         userFeePayer = Config.getFeePayerAddress();
 
-        caver.kas.wallet.accountApi.getApiClient().setDebugging(true);
+        baseAccount = baseAccount.equals("") ? makeAccount().getAddress() : baseAccount;
+        toAccount = toAccount.equals("") ? makeAccount().getAddress() : toAccount;
+        multiSigAddress = multiSigAddress.equals("") ? createMultiSig().getAddress() : multiSigAddress;
+        multiSigAccount = caver.kas.getWallet().getAccount(multiSigAddress);
 
-        BigInteger balance = Config.getBalance(baseAccount);
+        //Send balance to baseAccount
+        com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = Config.sendValue(baseAccount);
+        txHash = receiptData.getTransactionHash();
+
+        //Send balance to multiSig address
+        Config.sendValue(multiSigAddress);
+
+        //Send balance to userFeePayer
+        BigInteger balance = Config.getBalance(userFeePayer);
         BigInteger milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
-        if(balance.compareTo(milliKLAY) <= 0) {
-            com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = Config.sendValue(baseAccount);
-        }
-
-        balance = Config.getBalance(userFeePayer);
-        milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
         if(balance.compareTo(milliKLAY) <= 0) {
             Config.sendValue(userFeePayer);
         }
 
-        multiSigAccount = caver.kas.getWallet().getAccount(multiSigAddress);
+        ftContractAddress = ftContractAddress.equals("") ? deployKIP7() : ftContractAddress;
 
-        balance = Config.getBalance(multiSigAddress);
-        milliKLAY = new BigInteger(Utils.convertToPeb("999", Utils.KlayUnit.mKLAY));
-        if(balance.compareTo(milliKLAY) <= 0) {
-            Config.sendValue(multiSigAddress);
-        }
+        caver.kas.wallet.accountApi.getApiClient().setDebugging(true);
     }
 
-    public Account makeAccount() throws ApiException{
+    public static Account makeAccount() throws ApiException{
         return caver.kas.getWallet().createAccount();
     }
 
-    private String encodeContractDeploy() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException {
+    public static Account createMultiSig() {
+        try {
+            Account baseAccount = makeAccount();
+            Account multiSigAccount = makeAccount();
+            Account multiSigAccount2 = makeAccount();
+
+            Config.sendValue(baseAccount.getAddress());
+
+            List<Account> accountList = Arrays.asList(baseAccount, multiSigAccount, multiSigAccount2);
+            List<MultisigKey> multiSigKeys = accountList.stream().map(account -> {
+                MultisigKey multisigKey = new MultisigKey();
+                multisigKey.setWeight((long)2);
+                multisigKey.setPublicKey(account.getPublicKey());
+
+                return multisigKey;
+            }).collect(Collectors.toList());
+
+            MultisigAccountUpdateRequest request = new MultisigAccountUpdateRequest();
+            request.setThreshold((long)3);
+            request.setWeightedKeys(multiSigKeys);
+
+            MultisigAccount account = caver.kas.getWallet().updateToMultiSigAccount(baseAccount.getAddress(), request);
+            return baseAccount;
+        } catch (ApiException | TransactionException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public static String deployKIP7() {
+        try {
+            ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
+            String input = encodeContractDeploy();
+
+            request.setFrom(baseAccount);
+            request.setInput(Utils.addHexPrefix(input));
+            request.setGas(5500000L);
+            request.submit(true);
+
+            TransactionResult transactionResult = caver.kas.getWallet().requestSmartContractDeploy(request);
+
+            TransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
+            return processor.waitForTransactionReceipt(transactionResult.getTransactionHash()).getContractAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        return null;
+    }
+
+
+    private static String encodeContractDeploy() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException {
         KIP7 kip7 = new KIP7(caver);
         BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
         String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("KALE", "KAL", 18, initialSupply));
@@ -101,7 +158,7 @@ public class WalletAPITest {
         return input;
     }
 
-    private String encodeKIP7Transfer(String address) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private static String encodeKIP7Transfer(String address) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         KIP7 kip7 = new KIP7(caver, address);
         BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
         String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAccount, transferAmount));
@@ -109,7 +166,7 @@ public class WalletAPITest {
         return input;
     }
 
-    private void sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException {
+    private static void sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException {
         ValueTransferTransactionRequest request = new ValueTransferTransactionRequest();
         request.setFrom(fromAddress);
         request.setTo(toAddress);
@@ -119,15 +176,15 @@ public class WalletAPITest {
         caver.kas.getWallet().requestValueTransfer(request);
     }
 
-    private KeyTypeLegacy createLegacyKeyType() {
+    private static KeyTypeLegacy createLegacyKeyType() {
         return new KeyTypeLegacy();
     }
 
-    private KeyTypeFail createFailKeyType() {
+    private static KeyTypeFail createFailKeyType() {
         return new KeyTypeFail();
     }
 
-    private KeyTypePublic createPublicKeyType() throws ApiException {
+    private static KeyTypePublic createPublicKeyType() throws ApiException {
         Account account = makeAccount();
 
         KeyTypePublic keyType = new KeyTypePublic();
@@ -136,7 +193,7 @@ public class WalletAPITest {
         return keyType;
     }
 
-    private MultisigKey createMultiSig(long weight, String publicKey) {
+    private static MultisigKey createMultiSig(long weight, String publicKey) {
         MultisigKey key = new MultisigKey();
         key.setWeight(weight);
         key.setPublicKey(publicKey);
@@ -144,7 +201,7 @@ public class WalletAPITest {
         return key;
     }
 
-    private KeyTypeMultiSig createWeightedMultiSigKeyType(Account account) throws ApiException {
+    private static KeyTypeMultiSig createWeightedMultiSigKeyType(Account account) throws ApiException {
         Account account1 = makeAccount();
         Account account2 = makeAccount();
 
@@ -161,7 +218,7 @@ public class WalletAPITest {
         return keyTypeMultiSig;
     }
 
-    private KeyTypeRoleBased createRoleBasedKeyType(Account account) throws ApiException {
+    private static KeyTypeRoleBased createRoleBasedKeyType(Account account) throws ApiException {
         KeyTypePublic txKey = createPublicKeyType();
         KeyTypePublic accountUpdateKey = createPublicKeyType();
         KeyTypeMultiSig fdKey = createWeightedMultiSigKeyType(account);
