@@ -180,7 +180,7 @@ options.setToTimesatamp();
 ```
 
 ## Test
-To test, You must modify data in "Config.java" or use ".env" to set the data necessary for test. 
+Before testing, you need to either modify the data in "Config.java" or use ".env" to set the data required for testing.
 If you use ".env", you must set variable below. 
 
 ```groovy
