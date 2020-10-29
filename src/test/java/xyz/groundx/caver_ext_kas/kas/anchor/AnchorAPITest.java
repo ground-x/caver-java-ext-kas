@@ -61,7 +61,7 @@ public class AnchorAPITest {
 
     @Test
     public void enableAPITest() {
-        assertNotNull(caver.kas.getAnchor());
+        assertNotNull(caver.kas.anchor);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class AnchorAPITest {
 
     @Test
     public void getOperatorsTest() throws ApiException {
-        Operators res = caver.kas.getAnchor().getOperatorList();
+        Operators res = caver.kas.anchor.getOperatorList();
         assertNotNull(res);
     }
 
@@ -121,7 +121,7 @@ public class AnchorAPITest {
     public void getOperatorsWithCursorTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize((long)3);
-        Operators res = caver.kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
 
         anchorQueryParams.setCursor(res.getCursor());
         res = caver.kas.anchor.getOperatorList(anchorQueryParams);
@@ -159,7 +159,7 @@ public class AnchorAPITest {
 
     @Test
     public void getOperatorTest() throws ApiException {
-        Operator res = caver.kas.getAnchor().getOperator(operatorID);
+        Operator res = caver.kas.anchor.getOperator(operatorID);
         assertNotNull(res);
     }
 
@@ -196,7 +196,7 @@ public class AnchorAPITest {
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromTimestamp("2020-08-20 15:00:00");
-        AnchorTransactions res = caver.kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
     }
