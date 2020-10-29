@@ -462,14 +462,14 @@ public class NodeAPITest {
     public void getFilterChangesTest() throws Exception {
         KlayLogs response = caver.rpc.klay.getFilterChanges(
                 "").send();
-        TestCase.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
     public void getFilterLogsTest() throws Exception {
         KlayLogs response = caver.rpc.klay.getFilterLogs(
                 "0xf9081aeb4a0dc3109959748c659c8cd7").send();
-        TestCase.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
@@ -477,10 +477,10 @@ public class NodeAPITest {
         KlayLogFilter filter = new KlayLogFilter(
                 DefaultBlockParameterName.EARLIEST,
                 DefaultBlockParameterName.LATEST,
-                "0xdaaaa0d41d5fa020004b4cb34c6f8212f0f1566c",
+                account,
                 blockHash);
         KlayLogs response = caver.rpc.klay.getLogs(filter).send();
-        TestCase.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
