@@ -155,7 +155,7 @@ stage_defaults:
         only: master
   tests: &test_steps
     requires:
-      # - unit_test
+      - unit_test
       - tag_verify
       - build_test
       - build_android_test
@@ -164,8 +164,9 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # - unit_test:
-      #     <<: *stage_default
+      - unit_test:
+          <<: *stage_default
+          context: kas_caver_test
       - build_test:
           <<: *stage_default
       - build_android_test:
