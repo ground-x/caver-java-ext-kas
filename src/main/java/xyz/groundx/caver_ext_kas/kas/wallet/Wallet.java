@@ -87,8 +87,8 @@ public class Wallet {
     }
 
     /**
-     * Creates a Klaytn account.
-     * It generates Klaytn address and private key, public key pair.
+     * Creates a Klaytn account.<p>
+     * It generates Klaytn address and private key, public key pair.<p>
      * POST /v2/account
      * @return Account
      * @throws ApiException
@@ -98,8 +98,8 @@ public class Wallet {
     }
 
     /**
-     * Creates a Klaytn account asynchronously.
-     * It generates Klaytn address and private key, public key pair.
+     * Creates a Klaytn account asynchronously.<p>
+     * It generates Klaytn address and private key, public key pair.<p>
      * POST /v2/account
      * @param callback The callback function to handle response.
      * @return Call
@@ -110,8 +110,8 @@ public class Wallet {
     }
 
     /**
-     * Get the list of accounts created previously.
-     * It will send a request without filter options.
+     * Get the list of accounts created previously.<p>
+     * It will send a request without filter options.<p>
      * GET /v2/account
      * @return Accounts
      * @throws ApiException
@@ -121,8 +121,8 @@ public class Wallet {
     }
 
     /**
-     * Get the list of accounts created previously asynchronously.
-     * It will send a request without filter options.
+     * Get the list of accounts created previously asynchronously.<p>
+     * It will send a request without filter options.<p>
      * GET /v2/account
      * @param callback The callback function to handle response.
      * @return Call
@@ -133,7 +133,7 @@ public class Wallet {
     }
 
     /**
-     * Get the list of accounts created previously.
+     * Get the list of accounts created previously.<p>
      * GET /v2/account
      * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, and `cursor`.
      * @return Accounts
@@ -144,7 +144,7 @@ public class Wallet {
     }
 
     /**
-     * Get the list of accounts created previously asynchronously.
+     * Get the list of accounts created previously asynchronously.<p>
      * GET /v2/account
      * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -156,7 +156,7 @@ public class Wallet {
     }
 
     /**
-     * Get the account information passed as a parameter.
+     * Get the account information passed as a parameter.<p>
      * GET /v2/account/{address}
      * @param address The address to get account information.
      * @return Account
@@ -167,7 +167,7 @@ public class Wallet {
     }
 
     /**
-     * Get the account information passed as a parameter asynchronously.
+     * Get the account information passed as a parameter asynchronously.<p>
      * GET /v2/account/{address}
      * @param address The address to get account information.
      * @param callback The callback function to handle response.
@@ -179,7 +179,7 @@ public class Wallet {
     }
 
     /**
-     * Delete an account.
+     * Delete an account.<p>
      * DELETE /v2/account/{address}
      * @param address The address to delete.
      * @return AccountStatus
@@ -190,7 +190,7 @@ public class Wallet {
     }
 
     /**
-     * Delete an account asynchronously.
+     * Delete an account asynchronously.<p>
      * DELETE /v2/account/{address}
      * @param address The address to delete.
      * @param callback The callback function to handle response.
@@ -202,8 +202,8 @@ public class Wallet {
     }
 
     /**
-     * Disable an account.
-     * The disabled account will not be retrieved account information.
+     * Disable an account.<p>
+     * The disabled account will not be retrieved account information.<p>
      * PUT /v2/account/{address}/disable
      * @param address The address to disable
      * @return AccountStatus
@@ -214,8 +214,8 @@ public class Wallet {
     }
 
     /**
-     * Disable an account asynchronously.
-     * The disabled account will not be retrieved account information.
+     * Disable an account asynchronously.<p>
+     * The disabled account will not be retrieved account information.<p>
      * PUT /v2/account/{address}/disable
      * @param address The address to disable
      * @param callback The callback function to handle response.
@@ -227,7 +227,7 @@ public class Wallet {
     }
 
     /**
-     * Enable an account.
+     * Enable an account.<p>
      * PUT /v2/account/{address}/enable
      * @param address The address to enable.
      * @return AccountStatus
@@ -238,7 +238,7 @@ public class Wallet {
     }
 
     /**
-     * Enable an account asynchronously.
+     * Enable an account asynchronously.<p>
      * PUT /v2/account/{address}/enable
      * @param address The address to enable.
      * @param callback The callback function to handle response.
@@ -250,7 +250,7 @@ public class Wallet {
     }
 
     /**
-     * Signs the transaction corresponding to the passed TransactionID with the key of the passed address.
+     * Signs the transaction corresponding to the passed TransactionID with the key of the passed address.<p>
      * POST /v2/account/{address}/tx/{transaction-id}/sign
      * @param address The address to sign transaction.
      * @param transactionId The transaction id to get transaction for sign.
@@ -262,7 +262,7 @@ public class Wallet {
     }
 
     /**
-     * Signs the transaction corresponding to the passed TransactionID with the key of the passed address asynchronously.
+     * Signs the transaction corresponding to the passed TransactionID with the key of the passed address asynchronously.<p>
      * POST /v2/account/{address}/tx/{transaction-id}/sign
      * @param address The address to sign transaction.
      * @param transactionId The transaction id to get transaction for sign.
@@ -275,7 +275,7 @@ public class Wallet {
     }
 
     /**
-     * Updates an account to MultiSig Account.
+     * Updates an account to MultiSig Account.<p>
      * PUT /v2/account/{address}/multisig
      * @param address The address to update multisig account.
      * @param request The MultisigAccountUpdateRequest instance required for updating account.
@@ -287,7 +287,7 @@ public class Wallet {
     }
 
     /**
-     * Updates an account to MultiSig Account asynchronously.
+     * Updates an account to MultiSig Account asynchronously.<p>
      * PUT /v2/account/{address}/multisig
      * @param address The address to update multisig account.
      * @param request The MultisigAccountUpdateRequest instance required for updating account.
@@ -300,7 +300,7 @@ public class Wallet {
     }
 
     /**
-     * Get list of accounts that has a public key passed as a parameter.
+     * Get list of accounts that has a public key passed as a parameter.<p>
      * GET /v2/pubkey/{public-key}/account
      * @param publicKey A public key to get list of accounts.
      * @return AccountsByPubkey
@@ -311,7 +311,7 @@ public class Wallet {
     }
 
     /**
-     * Get list of accounts that has a public key passed as a parameter asynchronously.
+     * Get list of accounts that has a public key passed as a parameter asynchronously.<p>
      * GET /v2/pubkey/{public-key}/account
      * @param publicKey A public key to get list of accounts.
      * @param callback The callback function to handle response.
@@ -323,7 +323,7 @@ public class Wallet {
     }
 
     /**
-     * Send a Legacy transaction.
+     * Send a Legacy transaction.<p>
      * POST /v2/tx/legacy
      * @param request The LegacyTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -334,7 +334,7 @@ public class Wallet {
     }
 
     /**
-     * Send a Legacy transaction asynchronously.
+     * Send a Legacy transaction asynchronously.<p>
      * POST /v2/tx/legacy
      * @param request The LegacyTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -346,7 +346,7 @@ public class Wallet {
     }
 
     /**
-     * Send a ValueTransfer transaction.
+     * Send a ValueTransfer transaction.<p>
      * POST /v2/tx/value
      * @param request The ValueTransferTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -357,7 +357,7 @@ public class Wallet {
     }
 
     /**
-     * Send a ValueTransfer transaction asynchronously.
+     * Send a ValueTransfer transaction asynchronously.<p>
      * POST /v2/tx/value
      * @param request The ValueTransferTransactionRequest instance to send a transaction.
      * @param callback THe callback function to handle response.
@@ -369,7 +369,7 @@ public class Wallet {
     }
 
     /**
-     * Send a SmartContractDeploy transaction.
+     * Send a SmartContractDeploy transaction.<p>
      * POST /v2/tx/contract/deploy
      * @param request The ContractDeployTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -380,7 +380,7 @@ public class Wallet {
     }
 
     /**
-     * Send a SmartContractDeploy transaction asynchronously.
+     * Send a SmartContractDeploy transaction asynchronously.<p>
      * POST /v2/tx/contract/deploy
      * @param request The ContractDeployTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -392,7 +392,7 @@ public class Wallet {
     }
 
     /**
-     * Send a SmartContractExecution transaction.
+     * Send a SmartContractExecution transaction.<p>
      * POST /v2/tx/contract/execute
      * @param request The ContractExecutionTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -403,7 +403,7 @@ public class Wallet {
     }
 
     /**
-     * Send a SmartContractExecution transaction asynchronously.
+     * Send a SmartContractExecution transaction asynchronously.<p>
      * POST /v2/tx/contract/execute
      * @param request The ContractExecutionTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -415,7 +415,7 @@ public class Wallet {
     }
 
     /**
-     * Send a Cancel transaction.
+     * Send a Cancel transaction.<p>
      * DELETE /v2/tx
      * @param request The CancelTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -426,7 +426,7 @@ public class Wallet {
     }
 
     /**
-     * Send a Cancel transaction asynchronously.
+     * Send a Cancel transaction asynchronously.<p>
      * DELETE /v2/tx
      * @param request The CancelTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -438,7 +438,7 @@ public class Wallet {
     }
 
     /**
-     * Send a ChainDataAnchoring transaction.
+     * Send a ChainDataAnchoring transaction.<p>
      * POST /v2/tx/anchor
      * @param request The AnchorTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -449,7 +449,7 @@ public class Wallet {
     }
 
     /**
-     * Send a ChainDataAnchoring transaction asynchronously.
+     * Send a ChainDataAnchoring transaction asynchronously.<p>
      * POST /v2/tx/anchor
      * @param request The AnchorTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -461,7 +461,7 @@ public class Wallet {
     }
 
     /**
-     * Send a raw transaction.
+     * Send a raw transaction.<p>
      * POST /v2/tx/rlp
      * @param request The ProcessRLPRequest instance to send a transaction.
      * @return TransactionResult
@@ -472,7 +472,7 @@ public class Wallet {
     }
 
     /**
-     * Send a raw transaction asynchronously.
+     * Send a raw transaction asynchronously.<p>
      * POST /v2/tx/rlp
      * @param request The ProcessRLPRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -484,7 +484,7 @@ public class Wallet {
     }
 
     /**
-     * Send a AccountUpdate transaction.
+     * Send a AccountUpdate transaction.<p>
      * POST /v2/tx/account
      * @param request The AccountUpdateTransactionRequest instance to send a transaction.
      * @return TransactionResult
@@ -496,7 +496,7 @@ public class Wallet {
     }
 
     /**
-     * Send a AccountUpdate transaction asynchronously.
+     * Send a AccountUpdate transaction asynchronously.<p>
      * POST /v2/tx/account
      * @param request The AccountUpdateTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
@@ -509,7 +509,8 @@ public class Wallet {
     }
 
     /**
-     * Get a transaction receipt.
+     * Get a transaction receipt.<p>
+     * GET /v2/tx/{transaction-hash}
      * @param transactionHash A transaction hash to get a transaction receipt.
      * @return TransactionReceipt
      * @throws ApiException
@@ -519,7 +520,8 @@ public class Wallet {
     }
 
     /**
-     * Get a transaction receipt asynchronously.
+     * Get a transaction receipt asynchronously.<p>
+     * GET /v2/tx/{transaction-hash}
      * @param transactionHash A transaction hash to get a transaction receipt.
      * @param callback The callback function to handle response.
      * @return Call
@@ -530,9 +532,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedValueTransfer(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedValueTransfer(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/value
      * @param request The FDValueTransferTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -542,9 +545,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedValueTransfer(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedValueTransfer(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/value
      * @param request The FDValueTransferTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -555,9 +559,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/contract/deploy
      * @param request The FDContractDeployTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -567,9 +572,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/contract/deploy
      * @param request The FDContractDeployTransactionRequest instance to send a transaction.
      * @return Call
      * @throws ApiException
@@ -579,9 +585,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/contract/execute
      * @param request The FDContractExecutionTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -591,9 +598,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/contract/execute
      * @param request The FDContractExecutionTransactionRequest instance to send a transaction.
      * @return Call
      * @throws ApiException
@@ -603,9 +611,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedCancelTransaction(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedCancelTransaction(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * DELETE /v2/tx/fd
      * @param request The FDCancelTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -615,9 +624,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedCancelTransaction(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedCancelTransaction(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * DELETE /v2/tx/fd
      * @param request The FDCancelTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -628,9 +638,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/anchor
      * @param request The FDAnchorTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -640,9 +651,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/anchor
      * @param request The FDAnchorTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -653,9 +665,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegated(WithRatio) type raw transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegated(WithRatio) type raw transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/rlp
      * @param request The FDProcessRLPRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -665,9 +678,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegated(WithRatio) type raw transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegated(WithRatio) type raw transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd/rlp
      * @param request The FDProcessRLPRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -678,9 +692,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * PUT /v2/tx/fd/account
      * @param request The FDAccountUpdateTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -691,9 +706,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction asynchronously.
-     * KAS pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction asynchronously.<p>
+     * KAS pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * PUT /v2/tx/fd/account
      * @param request The FDAccountUpdateTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -705,9 +721,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedValueTransfer(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedValueTransfer(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/value
      * @param request The FDUserValueTransferTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -717,9 +734,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedValueTransfer(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedValueTransfer(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/value
      * @param request The FDUserValueTransferTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -730,9 +748,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/contract/deploy
      * @param request The FDUserContractDeployTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -742,9 +761,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractDeploy(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/contract/deploy
      * @param request The FDUserContractDeployTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -755,9 +775,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/contract/execute
      * @param request The FDUserContractExecutionTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -767,9 +788,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedSmartContractExecution(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/contract/execute
      * @param request The FDUserContractExecutionTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -780,9 +802,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedCancel(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedCancel(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * DELETE /v2/tx/fd-user
      * @param request The FDUserCancelTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -792,9 +815,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedCancel(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedCancel(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * DELETE /v2/tx/fd-user
      * @param request The FDUserCancelTransactionRequest instance to send a request.
      * @param callback The callback function to handle response
      * @return Call
@@ -805,9 +829,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/anchor
      * @param request The FDUserAnchorTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -817,9 +842,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedChainDataAnchoring(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/anchor
      * @param request The FDUserAnchorTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -830,9 +856,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegated(WithRatio) raw transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegated(WithRatio) raw transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/rlp
      * @param request The FDUserProcessRLPRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -842,9 +869,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegated(WithRatio) raw transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegated(WithRatio) raw transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * POST /v2/tx/fd-user/rlp
      * @param request The FDUserProcessRLPRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -855,9 +883,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * PUT /v2/tx/fd-user/account
      * @param request The FDUserAccountUpdateTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -868,9 +897,10 @@ public class Wallet {
     }
 
     /**
-     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction asynchronously.
-     * The feePayer defined by the user pays the fee for this transaction.
-     * If you want to send withRatio Transaction, you can set feeRatio field in request.
+     * Send a FeeDelegatedAccountUpdate(WithRatio) transaction asynchronously.<p>
+     * The feePayer defined by the user pays the fee for this transaction.<p>
+     * If you want to send withRatio Transaction, you can set feeRatio field in request.<p>
+     * PUT /v2/tx/fd-user/account
      * @param request The FDUserAccountUpdateTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -882,8 +912,9 @@ public class Wallet {
     }
 
     /**
-     * Get pending transaction list.
-     * It will send a request without filter options.
+     * Get pending transaction list.<p>
+     * It will send a request without filter options.<p>
+     * GET /v2/multisig/account/{address}/tx
      * @param address The sender address to get pending transaction list.
      * @return MultisigTransactions
      * @throws ApiException
@@ -893,8 +924,9 @@ public class Wallet {
     }
 
     /**
-     * Get pending transaction list asynchronously.
-     * It will send a request without filter options.
+     * Get pending transaction list asynchronously.<p>
+     * It will send a request without filter options.<p>
+     * GET /v2/multisig/account/{address}/tx
      * @param address The sender address to get pending transaction list.
      * @param callback The callback function to handle response.
      * @return Call
@@ -905,7 +937,8 @@ public class Wallet {
     }
 
     /**
-     * Get pending transaction list.
+     * Get pending transaction list.<p>
+     * GET /v2/multisig/account/{address}/tx
      * @param address The sender address to retrieve pending transaction list.
      * @param options Filter required when retrieving data. `cursor`, `to-timestamp`, `from-timestamp`
      * @return MultisigTransactions
@@ -916,7 +949,8 @@ public class Wallet {
     }
 
     /**
-     * Get pending transaction list asynchronously.
+     * Get pending transaction list asynchronously.<p>
+     * GET /v2/multisig/account/{address}/tx
      * @param address The sender address to retrieve pending transaction list.
      * @param options Filter required when retrieving data. `cursor`, `to-timestamp`, `from-timestamp`
      * @param callback The callback function to handle response.
@@ -928,7 +962,8 @@ public class Wallet {
     }
 
     /**
-     * Sign a pending transaction.
+     * Sign a pending transaction.<p>
+     * POST /v2/multisig/account/{address}/tx/{transaction-id}/sign
      * @param address The singer address to sign.
      * @param transactionId The pending transaction id.
      * @return MultisigTransactionStatus
@@ -939,7 +974,8 @@ public class Wallet {
     }
 
     /**
-     * Sign a pending transaction asynchronously.
+     * Sign a pending transaction asynchronously.<p>
+     * POST /v2/multisig/account/{address}/tx/{transaction-id}/sign
      * @param address The singer address to sign.
      * @param transactionId The pending transaction id.
      * @param callback The callback function to handle response.
@@ -951,7 +987,8 @@ public class Wallet {
     }
 
     /**
-     * Append a signature to pending transaction.
+     * Append a signature to pending transaction.<p>
+     * POST /v2/multisig/tx/{transaction-id}/sign
      * @param transactionId The transaction id to append signature.
      * @param request The SignPendingTransactionBySigRequest instance to send a request.
      * @return MultisigTransactionStatus
@@ -962,7 +999,8 @@ public class Wallet {
     }
 
     /**
-     * Append a signature to pending transaction asynchronously.
+     * Append a signature to pending transaction asynchronously.<p>
+     * POST /v2/multisig/tx/{transaction-id}/sign
      * @param transactionId The transaction id to append signature.
      * @param request The SignPendingTransactionBySigRequest instance to send a request.
      * @param callback The callback function to handle response.
@@ -974,7 +1012,7 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts in KAS.
+     * Return the number of accounts in KAS.<p>
      * GET /v2/stat/count
      * @return AccountCountByAccountID
      * @throws ApiException
@@ -984,7 +1022,7 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts in KAS asynchronously.
+     * Return the number of accounts in KAS asynchronously.<p>
      * GET /v2/stat/count
      * @param callback The callback function to handle response.
      * @return Call
@@ -995,8 +1033,8 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts by passed as KRN in KAS.
-     * It use default krn.
+     * Return the number of accounts by passed as KRN in KAS.<p>
+     * It use default krn.<p>
      * GET /v2/stat/count/krn
      * @return AccountCountByKRN
      * @throws ApiException
@@ -1006,8 +1044,8 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts by passed as KRN in KAS asynchronously.
-     * It use default krn.
+     * Return the number of accounts by passed as KRN in KAS asynchronously.<p>
+     * It use default krn.<p>
      * GET /v2/stat/count/krn
      * @param callback The callback function to handle response.
      * @return AccountCountByKRN
@@ -1018,7 +1056,7 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts by passed as KRN in KAS.
+     * Return the number of accounts by passed as KRN in KAS.<p>
      * GET /v2/stat/count/krn
      * @param krn The krn string to search
      * @return AccountCountByKRN
@@ -1029,7 +1067,7 @@ public class Wallet {
     }
 
     /**
-     * Return the number of accounts by passed as KRN in KAS asynchronously.
+     * Return the number of accounts by passed as KRN in KAS asynchronously.<p>
      * GET /v2/stat/count/krn
      * @param krn The krn string to search
      * @param callback The callback function to handle response.
