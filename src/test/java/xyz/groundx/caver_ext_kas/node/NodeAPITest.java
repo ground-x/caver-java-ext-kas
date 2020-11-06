@@ -30,6 +30,7 @@ import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;
@@ -474,12 +475,8 @@ public class NodeAPITest {
 
     @Test
     public void getLogsTest() throws Exception {
-        KlayLogFilter filter = new KlayLogFilter(
-                DefaultBlockParameterName.EARLIEST,
-                DefaultBlockParameterName.LATEST,
-                account,
-                blockHash);
-        KlayLogs response = caver.rpc.klay.getLogs(filter).send();
+        KlayLogFilter logFilter = new KlayLogFilter();
+        KlayLogs response = caver.rpc.klay.getLogs(logFilter).send();
         assertNotNull(response);
     }
 
