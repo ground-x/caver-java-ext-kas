@@ -73,8 +73,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list.<p>
-     * It will send a request without filter options.<p>
+     * Gets transfer history list.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @return PageableTransfers
@@ -86,8 +86,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list.<p>
-     * It will send a request without filter options.<p>
+     * Gets transfer history list.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @return PageableTransfers
@@ -99,7 +99,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list.<p>
+     * Gets transfer history list.<br>
      * GET /v2/transfer
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
@@ -111,7 +111,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list.<p>
+     * Gets transfer history list.<br>
      * GET /v2/transfer
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
@@ -123,8 +123,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Gets transfer history list asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param callback The callback function to handle response.
@@ -137,8 +137,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Gets transfer history list asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @param callback The callback function to handle response.
@@ -151,7 +151,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list asynchronously.<p>
+     * Gets transfer history list asynchronously.<br>
      * GET /v2/transfer
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
@@ -164,7 +164,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets transfer history list asynchronously.<p>
+     * Gets transfer history list asynchronously.<br>
      * GET /v2/transfer
      * @param presets Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
@@ -177,7 +177,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific transaction hash.<p>
+     * Gets token history list with a specific transaction hash.<br>
      * GET /v2/transfer/tx/{transaction-hash}
      * @param txHash A transaction hash to get token history
      * @return Transfers
@@ -188,7 +188,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific transaction hash asynchronously.<p>
+     * Gets token history list with a specific transaction hash asynchronously.<br>
      * GET /v2/transfer/tx/{transaction-hash}
      * @param txHash A transaction hash to get token history
      * @param callback The callback function to handle response.
@@ -200,8 +200,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific EOA.<p>
-     * It will send a request without filter options.<p>
+     * Gets token history list with a specific EOA.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer/account/{address}
      * @param address The EOA address used to search for token transfer history.
      * @return PageableTransfers
@@ -213,7 +213,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific EOA.<p>
+     * Gets token history list with a specific EOA.<br>
      * GET /v2/transfer/account/{address}
      * @param address The EOA address used to search for token transfer history.
      * @param options Filters required when retrieving data. `kind`, `caFilter`, `range`, `size`, and `cursor`.
@@ -225,8 +225,8 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific EOA asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Gets token history list with a specific EOA asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/transfer/account/{address}
      * @param address The EOA address used to search for token transfer history.
      * @param callback The callback function to handle response.
@@ -239,7 +239,7 @@ public class TokenHistory {
     }
 
     /**
-     * Gets token history list with a specific EOA asynchronously.<p>
+     * Gets token history list with a specific EOA asynchronously.<br>
      * GET /v2/transfer/account/{address}
      * @param address The EOA address used to search for token transfer history.
      * @param options Filters required when retrieving data. `kind`, `caFilter`, `range`, `size`, and `cursor`.
@@ -252,8 +252,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled FT contracts.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve information of all labeled FT contracts.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/ft
      * @return PageableFtContractDetails
      * @throws ApiException
@@ -264,7 +264,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled FT contracts.<p>
+     * Retrieve information of all labeled FT contracts.<br>
      * GET /v2/contract/ft
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @return PageableFtContractDetails
@@ -275,8 +275,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled FT contracts asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve information of all labeled FT contracts asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/ft
      * @param callback The callback function to handle response.
      * @return Call
@@ -288,7 +288,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled FT contracts asynchronously.<p>
+     * Retrieve information of all labeled FT contracts asynchronously.<br>
      * GET /v2/contract/ft
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -300,7 +300,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves the information of the FT contract labeled with the address of the FT contract.<p>
+     * Retrieves the information of the FT contract labeled with the address of the FT contract.<br>
      * GET /v2/contract/ft/{ft-address}
      * @param ftAddress The FT contract address to retrieve contract information.
      * @return FtContractDetail
@@ -311,7 +311,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves the information of the FT contract labeled with the address of the FT contract asynchronously.<p>
+     * Retrieves the information of the FT contract labeled with the address of the FT contract asynchronously.<br>
      * GET /v2/contract/ft/{ft-address}
      * @param ftAddress The FT contract address to retrieve contract information.
      * @param callback The callback function to handle response.
@@ -323,8 +323,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled NFT contracts.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve information of all labeled NFT contracts.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft
      * @return PageableNftContractDetails
      * @throws ApiException
@@ -335,7 +335,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled NFT contracts.<p>
+     * Retrieve information of all labeled NFT contracts.<br>
      * GET /v2/contract/nft
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @return PageableNftContractDetails
@@ -346,8 +346,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled NFT contracts asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve information of all labeled NFT contracts asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft
      * @param callback The callback function to handle response.
      * @return Call
@@ -359,7 +359,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of all labeled NFT contracts asynchronously.<p>
+     * Retrieve information of all labeled NFT contracts asynchronously.<br>
      * GET /v2/contract/nft
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -371,7 +371,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves the information of the NFT contract labeled with the address of the NFT contract.<p>
+     * Retrieves the information of the NFT contract labeled with the address of the NFT contract.<br>
      * GET /v2/contract/nft/{nftAddress}
      * @param nftAddress The NFT contract address to retrieve contract information.
      * @return NftContractDetail
@@ -382,7 +382,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves the information of the NFT contract labeled with the address of the NFT contract asynchronously.<p>
+     * Retrieves the information of the NFT contract labeled with the address of the NFT contract asynchronously.<br>
      * GET /v2/contract/nft/{nftAddress}
      * @param nftAddress The NFT contract address to retrieve contract information.
      * @param callback The callback function to handle response.
@@ -394,8 +394,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves information of all NFTs issued by a specific NFT contract.<p>
-     * It will send a request without filter options.<p>
+     * Retrieves information of all NFTs issued by a specific NFT contract.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @return PageableNfts
@@ -407,7 +407,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves information of all NFTs issued by a specific NFT contract.<p>
+     * Retrieves information of all NFTs issued by a specific NFT contract.<br>
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
      * @return PageableNfts
@@ -418,8 +418,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param callback The callback function to handle response.
@@ -432,7 +432,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<p>
+     * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
@@ -445,9 +445,9 @@ public class TokenHistory {
     }
 
     /**
-     * Among the NFTs issued from the NFT contract address,<p>
-     * the information of the NFT owned by the EOA address received as a parameter is retrieved.<p>
-     * It will send a request without filter options.<p>
+     * Among the NFTs issued from the NFT contract address,<br>
+     * the information of the NFT owned by the EOA address received as a parameter is retrieved.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
@@ -460,8 +460,8 @@ public class TokenHistory {
     }
 
     /**
-     * Among the NFTs issued from the NFT contract address,<p>
-     * the information of the NFT owned by the EOA address received as a parameter is retrieved.<p>
+     * Among the NFTs issued from the NFT contract address,<br>
+     * the information of the NFT owned by the EOA address received as a parameter is retrieved.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
@@ -474,9 +474,9 @@ public class TokenHistory {
     }
 
     /**
-     * Among the NFTs issued from the NFT contract address.<p>
-     * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Among the NFTs issued from the NFT contract address.<br>
+     * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
@@ -490,8 +490,8 @@ public class TokenHistory {
     }
 
     /**
-     * Among the NFTs issued from the NFT contract address,<p>
-     * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<p>
+     * Among the NFTs issued from the NFT contract address,<br>
+     * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
@@ -505,7 +505,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of a specific NFT.<p>
+     * Retrieve information of a specific NFT.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
@@ -517,7 +517,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve information of a specific NFT asynchronously.<p>
+     * Retrieve information of a specific NFT asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
@@ -530,8 +530,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve the record of ownership changes for a specific NFT.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve the record of ownership changes for a specific NFT.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
@@ -544,7 +544,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve the record of ownership changes for a specific NFT.<p>
+     * Retrieve the record of ownership changes for a specific NFT.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
@@ -557,8 +557,8 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve the record of ownership changes for a specific NFT asynchronously.<p>
-     * It will send a request without filter options.<p>
+     * Retrieve the record of ownership changes for a specific NFT asynchronously.<br>
+     * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
@@ -572,7 +572,7 @@ public class TokenHistory {
     }
 
     /**
-     * Retrieve the record of ownership changes for a specific NFT asynchronously.<p>
+     * Retrieve the record of ownership changes for a specific NFT asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
