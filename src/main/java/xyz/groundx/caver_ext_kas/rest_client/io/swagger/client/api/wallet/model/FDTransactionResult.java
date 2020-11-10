@@ -1,6 +1,6 @@
 /*
  * Wallet API
- * # Introduction Wallet API는 클레이튼 계정을 만들어 관리하고 트랜잭션을 전송하는 API입니다. Wallet API로 Klaytn 계정을 만들면 여러분은 개인키를 따로 관리할 필요가 없습니다. Wallet API는 BApp을 위해 Klaytn 계정 개인키를 안전하게 보관하는 지갑을 제공합니다. Wallet API 사용에 관한 자세한 내용은 [튜토리얼](https://docs.klaytnapi.com/v/ko/tutorial)을 확인하십시오.  Wallet API는 크게 Klaytn 계정을 만들고 관리하는 Account 파트와 여러 종류의 트랜잭션을 전송하는 Transaction 파트로 나뉩니다.  Wallet API는 Klaytn 계정을 생성, 삭제, 모니터링하고 계정을 다중 서명 계정(Multisig 계정)으로 업데이트하며 KAS에 등록된 모든 계정의 개인키를 관리합니다.  또 Wallet API는 트랜잭션을 만들어 Klaytn에 전송합니다. 이 트랜잭션에는 다중 서명 계정이 보내는 트랜잭션도 포함됩니다. 다중 서명 시 임계값\\(Threshold\\)을 만족하면 트랜잭션은 Klaytn에 자동으로 전송됩니다. 다중 서명에 관한 자세한 내용은 [다음](https://docs.klaytnapi.com/v/ko/tutorial)을 확인하십시오.  트랜잭션은 크게 기본 트랜잭션과 수수료 대납 트랜잭션으로 나뉩니다. 수수료 대납 트랜잭션은 크게 글로벌 수수료 대납 트랜잭션과 사용자 수수료 대납 트랜잭션으로 나뉩니다. 글로벌 수수료 대납 트랜잭션은 Ground X의 KAS 계정에서 트랜잭션 수수료를 일단 대납해주고 나중에 여러분에게 이 수수료를 청구하는 방식입니다. 사용자 수수료 대납 트랜잭션은 여러분이 직접 트랜잭션 수수료를 대납하는 계정을 만들고, 트랜잭션을 보낼 때 이 대납 계정이 트랜잭션 수수료를 납부하도록 하는 방식입니다.  Wallet API는 아래와 같은 기능 및 제약사항을 갖고 있습니다.  | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | 제약사항 | Cypress(Mainnet), Baobab(Testnet) 지원\\(Service Chain 미지원\\) | |  |  | 외부 관리키에 대한 계정 관리 미지원 | |  |  | RLP 인코딩된 트랜잭션의 다중 서명 미지원 | |  | 계정관리 | 계정 생성, 조회, 삭제 | |  |  | 다중 서명 계정 업데이트 | |  | 트랜잭션 관리 | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) 트랜잭션 생성 및 전송 | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) 트랜잭션 생성 및 전송 | |  |  | RLP 인코딩된 트랜잭션\\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation)\\) 생성 및 전송 | |  |  | 다중 서명 트랜잭션 관리 및 전송 | |  | 관리자 | 리소스 풀 관리\\(생성, 풀 조회, 삭제, 계정 조회\\) |    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1061010 | data don't exist 1061510 | account has been already deleted or disabled 1061511 | account has been already deleted or enabled 1061512 | account is invalid to sign the transaction; 0xc9bFDDabf2c38396b097C8faBE9151955413995D</br>account is invalid to sign the transaction; 0x35Cc4921B17Dfa67a58B93c9F8918f823e58b77e 1061515 | the requested account must be a legacy account; if the account is multisig account, use `PUT /v2/tx/{fd|fd-user}/account` API for multisig transaction and /v2/multisig/_**_/_** APIs 1061607 | it has to start with '0x' and allows [0-9a-fA-F]; input</br>it has to start with '0x' and allows [0-9a-fA-F]; transaction-id 1061608 | cannot be empty or zero value; to</br>cannot be empty or zero value; input 1061609 | it just allow Klaytn address form; to 1061903 | failed to decode account keys 1061905 | failed to get feepayer 1061912 | rlp value and request value are not same; feeRatio</br>rlp value and request value are not same; feePayer 1061914 | already submitted transaction. Confirm transaction hash; 0xb9612ec6ec39bfd3f2841daa7ab062fc94cf33f23503606c979b2f81e50b2cb1 1061917 | AccountKeyLegacy type is not supported in AccountKeyRoleBased type 1061918 | it just allow (Partial)FeeDelegation transaction type 1061919 | PartialFeeDelegation transaction must set fee ratio to non-zero value 1061920 | FeeDelegation transaction cannot set fee ratio, use PartialFeeDelegation transaction type 1061921 | it just allow Basic transaction type 1065000 | failed to retrieve a transaction from klaytn node 1065001 | failed to send a raw transaction to klaytn node; -32000::insufficient funds of the sender for value </br>failed to send a raw transaction to klaytn node; -32000::not a program account (e.g., an account having code and storage)</br>failed to send a raw transaction to klaytn node; -32000::nonce too low</br>failed to send a raw transaction to klaytn node; -32000::insufficient funds of the fee payer for gas * price 1065100 | failed to get an account from AMS</br>failed to get an account from AMS; account key corrupted. can not use this account 1065102 | account key corrupted. can not use this account 1616 | feeration must be between 1 and 99; feeRatio 1918 | it just allow (Partial)FeeDelegation transaction type |  
+ * # Introduction Wallet API is used to create and manage Klaytn accounts and transfer transactions. If you create a Klaytn account with Wallet API, you do not need to manage private keys separately. Wallet API provides a secure wallet to keep your Klaytn account’s private keys for BApp. For more details on Wallet API, refer to our [tutorial](https://docs.klaytnapi.com/v/ko/tutorial).  Wallet API features an “Account” section for creating and managing Klaytn accounts and a “Transaction” section for transferring transactions. Wallet API creates, deletes, and monitors Klaytn accounts; updates multisig accounts; and manages the privates keys of all accounts registered to KAS.  In addition, Wallet API creates transactions and transfers them to Klaytn. They include transactions that are sent through the multisig accounts. A transaction will be automatically transferred to Klaytn if the threshold is met for the number of signatures. For more details on multisignatures, refer to [the followings](https://docs.klaytnapi.com/v/ko/tutorial).  Transactions include basic and fee delegation transactions. In particular, fee delegation transactions include global and user fee delegation transactions. In the global fee delegation transaction, Ground X’s KAS account first pays the transaction fee and charges the users later. Meanwhile, in the user fee delegation transaction, a user creates an account to pay for transaction fees when sending transactions.  Wallet API has the following functions and limitations.  | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | Limitations | Support for Cypress (mainnet) and Baobab (testnet) (Service Chain not supported) | |  |  | Account management for external management keys not supported | |  |  | Multisignatures of RLP-encoded transactions not supported | |  | Account management  | Account creation, search, and deletion | |  |  | Multisignature account updates | |  | Transaction management | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) Transaction Creation and Transfer | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) Transaction Creation and Transfer | |  |  | RLP-encoded transaction \\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) Transaction Creation and Transfer \\) | |  |  | Multisignature transaction management and transfer | |  | Administrator | Resource pool management (creation, pool search, deletion, and account search) |    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1061010 | data don't exist 1061510 | account has been already deleted or disabled 1061511 | account has been already deleted or enabled 1061512 | account is invalid to sign the transaction; 0xc9bFDDabf2c38396b097C8faBE9151955413995D</br>account is invalid to sign the transaction; 0x35Cc4921B17Dfa67a58B93c9F8918f823e58b77e 1061515 | the requested account must be a legacy account; if the account is multisig account, use `PUT /v2/tx/{fd|fd-user}/account` API for multisig transaction and /v2/multisig/_**_/_** APIs 1061607 | it has to start with '0x' and allows [0-9a-fA-F]; input</br>it has to start with '0x' and allows [0-9a-fA-F]; tx_id 1061608 | cannot be empty or zero value; to</br>cannot be empty or zero value; input 1061609 | it just allow Klaytn address form; to 1061615 | its value is out of range; size 1061616 | feeration must be between 1 and 99; feeRatio 1061903 | failed to decode account keys 1061905 | failed to get feepayer 1061912 | rlp value and request value are not same; feeRatio</br>rlp value and request value are not same; feePayer 1061914 | already submitted transaction. Confirm transaction hash; 0xb9612ec6ec39bfd3f2841daa7ab062fc94cf33f23503606c979b2f81e50b2cb1 1061917 | AccountKeyLegacy type is not supported in AccountKeyRoleBased type 1061918 | it just allow (Partial)FeeDelegation transaction type 1061919 | PartialFeeDelegation transaction must set fee ratio to non-zero value 1061920 | FeeDelegation transaction cannot set fee ratio, use PartialFeeDelegation transaction type 1061921 | it just allow Basic transaction type 1065000 | failed to retrieve a transaction from klaytn node 1065001 | failed to send a raw transaction to klaytn node; -32000::insufficient funds of the sender for value </br>failed to send a raw transaction to klaytn node; -32000::not a program account (e.g., an account having code and storage)</br>failed to send a raw transaction to klaytn node; -32000::nonce too low</br>failed to send a raw transaction to klaytn node; -32000::insufficient funds of the fee payer for gas * price 1065100 | failed to get an account from AMS</br>failed to get an account from AMS; account key corrupted. can not use this account 1065102 | account key corrupted. can not use this account |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,20 +12,29 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Signature;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 /**
- * Klaytn에 전송한 수수료 대납 트랜잭션 정보
+ * Fee delegation transaction information sent to Klaytn
  */
-@Schema(description = "Klaytn에 전송한 수수료 대납 트랜잭션 정보")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T06:43:29.805Z[GMT]")
+@Schema(description = "Fee delegation transaction information sent to Klaytn")
+
 public class FDTransactionResult {
   @SerializedName("feePayer")
   private String feePayer = null;
+
+  @SerializedName("feeRatio")
+  private Long feeRatio = null;
 
   @SerializedName("from")
   private String from = null;
@@ -63,9 +72,6 @@ public class FDTransactionResult {
   @SerializedName("value")
   private String value = null;
 
-  @SerializedName("feeRatio")
-  private Long feeRatio = null;
-
   @SerializedName("transactionId")
   private String transactionId = null;
 
@@ -78,10 +84,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 트랜잭션 수수료를 대납할 계정 주소
+   * Account address for fee delegation of transaction
    * @return feePayer
   **/
-  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", required = true, description = "트랜잭션 수수료를 대납할 계정 주소")
+  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", required = true, description = "Account address for fee delegation of transaction")
   public String getFeePayer() {
     return feePayer;
   }
@@ -90,16 +96,34 @@ public class FDTransactionResult {
     this.feePayer = feePayer;
   }
 
+  public FDTransactionResult feeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+    return this;
+  }
+
+   /**
+   * Ratio to be paid by the Proxy fee payer for the entire transaction fee
+   * @return feeRatio
+  **/
+  @Schema(example = "10", description = "Ratio to be paid by the Proxy fee payer for the entire transaction fee")
+  public Long getFeeRatio() {
+    return feeRatio;
+  }
+
+  public void setFeeRatio(Long feeRatio) {
+    this.feeRatio = feeRatio;
+  }
+
   public FDTransactionResult from(String from) {
     this.from = from;
     return this;
   }
 
    /**
-   * 트랜잭션을 보낸 Klaytn 계정 주소
+   * Klaytn account address sending a transaction
    * @return from
   **/
-  @Schema(example = "0x569a3da2e37b4c08e342820d580122e5283bafbc", required = true, description = "트랜잭션을 보낸 Klaytn 계정 주소")
+  @Schema(example = "0x0225b5a7683ac651931c1b6123b7d197d6c24d9d", required = true, description = "Klaytn account address sending a transaction")
   public String getFrom() {
     return from;
   }
@@ -114,10 +138,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값
+   * Max. transaction fee (gas) for sending the transaction
    * @return gas
   **/
-  @Schema(example = "1000000", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas)의 최대값")
+  @Schema(example = "1000000", required = true, description = "Max. transaction fee (gas) for sending the transaction")
   public Long getGas() {
     return gas;
   }
@@ -132,10 +156,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용
+   * Gas price for sending the transaction
    * @return gasPrice
   **/
-  @Schema(example = "0x5d21dba00", required = true, description = "해당 트랜잭션을 보낼 때 사용할 트랜잭션 수수료(gas) 비용")
+  @Schema(example = "0x5d21dba00", required = true, description = "Gas price for sending the transaction")
   public String getGasPrice() {
     return gasPrice;
   }
@@ -150,10 +174,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터
+   * Data attached to and used for executing the outgoing transaction
    * @return input
   **/
-  @Schema(example = "0x6d656d6f", description = "트랜잭션을 Klaytn에 보낼 때 함께 보내는 데이터")
+  @Schema(example = "0x6d656d6f", description = "Data attached to and used for executing the outgoing transaction")
   public String getInput() {
     return input;
   }
@@ -168,10 +192,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수
+   * No. of current user’s previous transactions
    * @return nonce
   **/
-  @Schema(example = "0", required = true, description = "현재 해당 트랜잭션을 보내는 이가 과거에 보냈던 모든 트랜잭션의 개수")
+  @Schema(example = "0", required = true, description = "No. of current user’s previous transactions")
   public Long getNonce() {
     return nonce;
   }
@@ -186,10 +210,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션의 RLP 직렬화(serialization) 값
+   * RLP serialization value of the transaction
    * @return rlp
   **/
-  @Schema(example = "0x11f8e2808505d21dba00830f4240942f87ba64de5526f7880f21481effbf950f70005c1294569a3da2e37b4c08e342820d580122e5283bafbc846d656d6ff847f8458207f5a048a6618e31293c2b05c093b6fe5c5f2513b844b793b3560934169f0fb7fa4fb5a02aaa4645c711bf0cc25dc3a3878462b13276143b30fed875455b62e14ab9a0a29485b98485444c89880cd9c48807cef727c296f2daf847f8458207f6a0307c6e2df0ba301a3a535c4cede427ce3d43a8a0ec2aaad17fcde9f753555a86a026e4d176ebd1e66b32b5bfa383edd60884e87fd5e788729116916c9313d30976", required = true, description = "해당 트랜잭션의 RLP 직렬화(serialization) 값")
+  @Schema(example = "0x12f8e3808505d21dba00830f4240942f87ba64de5526f7880f21481effbf950f70005c12940225b5a7683ac651931c1b6123b7d197d6c24d9d846d656d6f0af847f8458207f5a06edfb59009dd8d9e1ab0deb9632bd5557a1b701eaad1bccc06087772d7d10e0ea04b2032b6f7c4f716d30da650533499ff0d6e3451cb419bf19e5897678db8644a9485b98485444c89880cd9c48807cef727c296f2daf847f8458207f6a0915ef11a6411ce25ea1c0b5363c37d90eee5b131a03ddaeabf987b34a960894ea020b13b210c4ad961746d087682fc8c272adb9b5183a2d83ad74c0a9ea148d776", required = true, description = "RLP serialization value of the transaction")
   public String getRlp() {
     return rlp;
   }
@@ -230,10 +254,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)
+   * Status of the transaction(“Submitted” or “Pending”)
    * @return status
   **/
-  @Schema(example = "Submitted", description = "해당 트랜잭션 전송 후의 상태(“Submitted” 또는 “Pending”)")
+  @Schema(example = "Submitted", description = "Status of the transaction(“Submitted” or “Pending”)")
   public String getStatus() {
     return status;
   }
@@ -248,10 +272,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * KLAY를 받는 Klaytn 계정 주소
+   * Klaytn account address to receive KLAY
    * @return to
   **/
-  @Schema(example = "0x2f87ba64de5526f7880f21481effbf950f70005c", description = "KLAY를 받는 Klaytn 계정 주소")
+  @Schema(example = "0x2f87ba64de5526f7880f21481effbf950f70005c", description = "Klaytn account address to receive KLAY")
   public String getTo() {
     return to;
   }
@@ -266,10 +290,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션에 대한 해시값
+   * Transaction hash value
    * @return transactionHash
   **/
-  @Schema(example = "0x0b3b7f02640692af371060c311576bc42c3c48122e4f68ca032e5076a3f983d0", description = "해당 트랜잭션에 대한 해시값")
+  @Schema(example = "0xd4ebc769956b8471fb497d22f655895e675a907ca9db8a64f84998ee460e8d21", description = "Transaction hash value")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -284,10 +308,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 해당 트랜잭션 타입을 나타내는 숫자값
+   * Numeric value of transaction type
    * @return typeInt
   **/
-  @Schema(example = "17", required = true, description = "해당 트랜잭션 타입을 나타내는 숫자값")
+  @Schema(example = "18", required = true, description = "Numeric value of transaction type")
   public Long getTypeInt() {
     return typeInt;
   }
@@ -302,10 +326,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * PEB 단위로 환산된 KLAY
+   * KLAY converted into PEB unit
    * @return value
   **/
-  @Schema(example = "0x12", description = "PEB 단위로 환산된 KLAY")
+  @Schema(example = "0x12", description = "KLAY converted into PEB unit")
   public String getValue() {
     return value;
   }
@@ -314,34 +338,16 @@ public class FDTransactionResult {
     this.value = value;
   }
 
-  public FDTransactionResult feeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-    return this;
-  }
-
-   /**
-   * 발생 계정과 대납 계정 간의 수수료 대납 비율
-   * @return feeRatio
-  **/
-  @Schema(example = "10", description = "발생 계정과 대납 계정 간의 수수료 대납 비율")
-  public Long getFeeRatio() {
-    return feeRatio;
-  }
-
-  public void setFeeRatio(Long feeRatio) {
-    this.feeRatio = feeRatio;
-  }
-
   public FDTransactionResult transactionId(String transactionId) {
     this.transactionId = transactionId;
     return this;
   }
 
    /**
-   * Multisig 트랜잭션의 ID
+   * Multisig transaction ID
    * @return transactionId
   **/
-  @Schema(example = "0x0416bf52b804211220aca957250d6bc2e2c6ab8688e68dc9096ae035d009c334", description = "Multisig 트랜잭션의 ID")
+  @Schema(example = "0x0416bf52b804211220aca957250d6bc2e2c6ab8688e68dc9096ae035d009c334", description = "Multisig transaction ID")
   public String getTransactionId() {
     return transactionId;
   }
@@ -356,10 +362,10 @@ public class FDTransactionResult {
   }
 
    /**
-   * 새롭게 업데이트된 계정 키
+   * Updated account key
    * @return accountKey
   **/
-  @Schema(example = "0x04f84b04f848e303a102f06c992530e09ba93588b3878c5f575314a73e88d420ff1eba7690eeeb7a20f1e301a103ecc37d272d5ff2cee8c0724f9a94b25a748a766c2491a3c198f08942ca42ff68", description = "새롭게 업데이트된 계정 키")
+  @Schema(example = "0x04f84b04f848e303a102c7460ef57f8b648220667785dc6c87f132d57b8e5d8d3373e37c4c9798460eafe301a102ffb48935aa7460b0595e1fe6749c402eaa59d6fd78dd64217470191580f73211", description = "Updated account key")
   public String getAccountKey() {
     return accountKey;
   }
@@ -379,6 +385,7 @@ public class FDTransactionResult {
     }
     FDTransactionResult fdTransactionResult = (FDTransactionResult) o;
     return Objects.equals(this.feePayer, fdTransactionResult.feePayer) &&
+        Objects.equals(this.feeRatio, fdTransactionResult.feeRatio) &&
         Objects.equals(this.from, fdTransactionResult.from) &&
         Objects.equals(this.gas, fdTransactionResult.gas) &&
         Objects.equals(this.gasPrice, fdTransactionResult.gasPrice) &&
@@ -391,14 +398,13 @@ public class FDTransactionResult {
         Objects.equals(this.transactionHash, fdTransactionResult.transactionHash) &&
         Objects.equals(this.typeInt, fdTransactionResult.typeInt) &&
         Objects.equals(this.value, fdTransactionResult.value) &&
-        Objects.equals(this.feeRatio, fdTransactionResult.feeRatio) &&
         Objects.equals(this.transactionId, fdTransactionResult.transactionId) &&
         Objects.equals(this.accountKey, fdTransactionResult.accountKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, from, gas, gasPrice, input, nonce, rlp, signatures, status, to, transactionHash, typeInt, value, feeRatio, transactionId, accountKey);
+    return Objects.hash(feePayer, feeRatio, from, gas, gasPrice, input, nonce, rlp, signatures, status, to, transactionHash, typeInt, value, transactionId, accountKey);
   }
 
 
@@ -408,6 +414,7 @@ public class FDTransactionResult {
     sb.append("class FDTransactionResult {\n");
     
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
+    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
@@ -420,7 +427,6 @@ public class FDTransactionResult {
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    accountKey: ").append(toIndentedString(accountKey)).append("\n");
     sb.append("}");

@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,15 +12,20 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 /**
- * 에러에 대한 설명을 포함한 응답
+ * This response contains error description.
  */
-@Schema(description = "에러에 대한 설명을 포함한 응답")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-10-06T07:59:17.215Z[GMT]")
+@Schema(description = "This response contains error description.")
+
 public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;
@@ -34,10 +39,10 @@ public class ErrorResponse {
   }
 
    /**
-   * 서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)
+   * Service code (first 3 digits) and error code (last 4 digits)
    * @return code
   **/
-  @Schema(example = "1072101", required = true, description = "서비스 코드(앞 3자리)와 에러 코드(뒤 4자리)")
+  @Schema(example = "1072101", required = true, description = "Service code (first 3 digits) and error code (last 4 digits)")
   public Long getCode() {
     return code;
   }
@@ -52,10 +57,10 @@ public class ErrorResponse {
   }
 
    /**
-   * 에러 메세지
+   * Error message
    * @return message
   **/
-  @Schema(example = "all configured accounts have insufficient funds", required = true, description = "에러 메세지")
+  @Schema(example = "all configured accounts have insufficient funds", required = true, description = "Error message")
   public String getMessage() {
     return message;
   }

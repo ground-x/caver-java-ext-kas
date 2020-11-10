@@ -1,6 +1,6 @@
 /*
  * Wallet API
- * # Introduction Wallet API는 클레이튼 계정을 만들어 관리하고 트랜잭션을 전송하는 API입니다. Wallet API로 Klaytn 계정을 만들면 여러분은 개인키를 따로 관리할 필요가 없습니다. Wallet API는 BApp을 위해 Klaytn 계정 개인키를 안전하게 보관하는 지갑을 제공합니다. Wallet API 사용에 관한 자세한 내용은 [튜토리얼](https://docs.klaytnapi.com/v/ko/tutorial)을 확인하십시오.  Wallet API는 크게 Klaytn 계정을 만들고 관리하는 Account 파트와 여러 종류의 트랜잭션을 전송하는 Transaction 파트로 나뉩니다.  Wallet API는 Klaytn 계정을 생성, 삭제, 모니터링하고 계정을 다중 서명 계정(Multisig 계정)으로 업데이트하며 KAS에 등록된 모든 계정의 개인키를 관리합니다.  또 Wallet API는 트랜잭션을 만들어 Klaytn에 전송합니다. 이 트랜잭션에는 다중 서명 계정이 보내는 트랜잭션도 포함됩니다. 다중 서명 시 임계값\\(Threshold\\)을 만족하면 트랜잭션은 Klaytn에 자동으로 전송됩니다. 다중 서명에 관한 자세한 내용은 [다음](https://docs.klaytnapi.com/v/ko/tutorial)을 확인하십시오.  트랜잭션은 크게 기본 트랜잭션과 수수료 대납 트랜잭션으로 나뉩니다. 수수료 대납 트랜잭션은 크게 글로벌 수수료 대납 트랜잭션과 사용자 수수료 대납 트랜잭션으로 나뉩니다. 글로벌 수수료 대납 트랜잭션은 Ground X의 KAS 계정에서 트랜잭션 수수료를 일단 대납해주고 나중에 여러분에게 이 수수료를 청구하는 방식입니다. 사용자 수수료 대납 트랜잭션은 여러분이 직접 트랜잭션 수수료를 대납하는 계정을 만들고, 트랜잭션을 보낼 때 이 대납 계정이 트랜잭션 수수료를 납부하도록 하는 방식입니다.  Wallet API는 아래와 같은 기능 및 제약사항을 갖고 있습니다.  | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | 제약사항 | Cypress(Mainnet), Baobab(Testnet) 지원\\(Service Chain 미지원\\) | |  |  | 외부 관리키에 대한 계정 관리 미지원 | |  |  | RLP 인코딩된 트랜잭션의 다중 서명 미지원 | |  | 계정관리 | 계정 생성, 조회, 삭제 | |  |  | 다중 서명 계정 업데이트 | |  | 트랜잭션 관리 | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) 트랜잭션 생성 및 전송 | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) 트랜잭션 생성 및 전송 | |  |  | RLP 인코딩된 트랜잭션\\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation)\\) 생성 및 전송 | |  |  | 다중 서명 트랜잭션 관리 및 전송 | |  | 관리자 | 리소스 풀 관리\\(생성, 풀 조회, 삭제, 계정 조회\\) |    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1061010 | data don't exist 1061510 | account has been already deleted or disabled 1061511 | account has been already deleted or enabled 1061512 | account is invalid to sign the transaction; 0xc9bFDDabf2c38396b097C8faBE9151955413995D</br>account is invalid to sign the transaction; 0x35Cc4921B17Dfa67a58B93c9F8918f823e58b77e 1061515 | the requested account must be a legacy account; if the account is multisig account, use `PUT /v2/tx/{fd|fd-user}/account` API for multisig transaction and /v2/multisig/_**_/_** APIs 1061607 | it has to start with '0x' and allows [0-9a-fA-F]; input</br>it has to start with '0x' and allows [0-9a-fA-F]; transaction-id 1061608 | cannot be empty or zero value; to</br>cannot be empty or zero value; input 1061609 | it just allow Klaytn address form; to 1061903 | failed to decode account keys 1061905 | failed to get feepayer 1061912 | rlp value and request value are not same; feeRatio</br>rlp value and request value are not same; feePayer 1061914 | already submitted transaction. Confirm transaction hash; 0xb9612ec6ec39bfd3f2841daa7ab062fc94cf33f23503606c979b2f81e50b2cb1 1061917 | AccountKeyLegacy type is not supported in AccountKeyRoleBased type 1061918 | it just allow (Partial)FeeDelegation transaction type 1061919 | PartialFeeDelegation transaction must set fee ratio to non-zero value 1061920 | FeeDelegation transaction cannot set fee ratio, use PartialFeeDelegation transaction type 1061921 | it just allow Basic transaction type 1065000 | failed to retrieve a transaction from klaytn node 1065001 | failed to send a raw transaction to klaytn node; -32000::insufficient funds of the sender for value </br>failed to send a raw transaction to klaytn node; -32000::not a program account (e.g., an account having code and storage)</br>failed to send a raw transaction to klaytn node; -32000::nonce too low</br>failed to send a raw transaction to klaytn node; -32000::insufficient funds of the fee payer for gas * price 1065100 | failed to get an account from AMS</br>failed to get an account from AMS; account key corrupted. can not use this account 1065102 | account key corrupted. can not use this account 1616 | feeration must be between 1 and 99; feeRatio 1918 | it just allow (Partial)FeeDelegation transaction type |  
+ * # Introduction Wallet API is used to create and manage Klaytn accounts and transfer transactions. If you create a Klaytn account with Wallet API, you do not need to manage private keys separately. Wallet API provides a secure wallet to keep your Klaytn account’s private keys for BApp. For more details on Wallet API, refer to our [tutorial](https://docs.klaytnapi.com/v/ko/tutorial).  Wallet API features an “Account” section for creating and managing Klaytn accounts and a “Transaction” section for transferring transactions. Wallet API creates, deletes, and monitors Klaytn accounts; updates multisig accounts; and manages the privates keys of all accounts registered to KAS.  In addition, Wallet API creates transactions and transfers them to Klaytn. They include transactions that are sent through the multisig accounts. A transaction will be automatically transferred to Klaytn if the threshold is met for the number of signatures. For more details on multisignatures, refer to [the followings](https://docs.klaytnapi.com/v/ko/tutorial).  Transactions include basic and fee delegation transactions. In particular, fee delegation transactions include global and user fee delegation transactions. In the global fee delegation transaction, Ground X’s KAS account first pays the transaction fee and charges the users later. Meanwhile, in the user fee delegation transaction, a user creates an account to pay for transaction fees when sending transactions.  Wallet API has the following functions and limitations.  | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | Limitations | Support for Cypress (mainnet) and Baobab (testnet) (Service Chain not supported) | |  |  | Account management for external management keys not supported | |  |  | Multisignatures of RLP-encoded transactions not supported | |  | Account management  | Account creation, search, and deletion | |  |  | Multisignature account updates | |  | Transaction management | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) Transaction Creation and Transfer | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) Transaction Creation and Transfer | |  |  | RLP-encoded transaction \\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) Transaction Creation and Transfer \\) | |  |  | Multisignature transaction management and transfer | |  | Administrator | Resource pool management (creation, pool search, deletion, and account search) |    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1061010 | data don't exist 1061510 | account has been already deleted or disabled 1061511 | account has been already deleted or enabled 1061512 | account is invalid to sign the transaction; 0xc9bFDDabf2c38396b097C8faBE9151955413995D</br>account is invalid to sign the transaction; 0x35Cc4921B17Dfa67a58B93c9F8918f823e58b77e 1061515 | the requested account must be a legacy account; if the account is multisig account, use `PUT /v2/tx/{fd|fd-user}/account` API for multisig transaction and /v2/multisig/_**_/_** APIs 1061607 | it has to start with '0x' and allows [0-9a-fA-F]; input</br>it has to start with '0x' and allows [0-9a-fA-F]; tx_id 1061608 | cannot be empty or zero value; to</br>cannot be empty or zero value; input 1061609 | it just allow Klaytn address form; to 1061615 | its value is out of range; size 1061616 | feeration must be between 1 and 99; feeRatio 1061903 | failed to decode account keys 1061905 | failed to get feepayer 1061912 | rlp value and request value are not same; feeRatio</br>rlp value and request value are not same; feePayer 1061914 | already submitted transaction. Confirm transaction hash; 0xb9612ec6ec39bfd3f2841daa7ab062fc94cf33f23503606c979b2f81e50b2cb1 1061917 | AccountKeyLegacy type is not supported in AccountKeyRoleBased type 1061918 | it just allow (Partial)FeeDelegation transaction type 1061919 | PartialFeeDelegation transaction must set fee ratio to non-zero value 1061920 | FeeDelegation transaction cannot set fee ratio, use PartialFeeDelegation transaction type 1061921 | it just allow Basic transaction type 1065000 | failed to retrieve a transaction from klaytn node 1065001 | failed to send a raw transaction to klaytn node; -32000::insufficient funds of the sender for value </br>failed to send a raw transaction to klaytn node; -32000::not a program account (e.g., an account having code and storage)</br>failed to send a raw transaction to klaytn node; -32000::nonce too low</br>failed to send a raw transaction to klaytn node; -32000::insufficient funds of the fee payer for gas * price 1065100 | failed to get an account from AMS</br>failed to get an account from AMS; account key corrupted. can not use this account 1065102 | account key corrupted. can not use this account |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,14 +12,25 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.api;
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Configuration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Pair;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressRequestBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressResponseBody;
+
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ErrorResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactionStatus;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactions;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.SignPendingTransactionBySigRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,12 +58,12 @@ public class MultisigTransactionManagementApi {
 
     /**
      * Build call for retrieveMultisigTransactions
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -131,14 +142,14 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랜잭션 조회
-     * Multisig 계정으로 보낸 보류(pending) 중 인 트랜잭션들을 조회합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * RetrieveMultisigTransactions
+     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
      * @return MultisigTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -148,14 +159,14 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랜잭션 조회
-     * Multisig 계정으로 보낸 보류(pending) 중 인 트랜잭션들을 조회합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * RetrieveMultisigTransactions
+     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
      * @return ApiResponse&lt;MultisigTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -166,14 +177,14 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랜잭션 조회 (asynchronously)
-     * Multisig 계정으로 보낸 보류(pending) 중 인 트랜잭션들을 조회합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 다중 서명 키를 가진 계정 주소 또는 서명자 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
+     * RetrieveMultisigTransactions (asynchronously)
+     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -206,9 +217,9 @@ public class MultisigTransactionManagementApi {
     }
     /**
      * Build call for signPendingTransaction
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 서명자의 계정 주소 (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Signer&#x27;s account address (required)
+     * @param transactionId ID of pending transaction (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -284,11 +295,11 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랙잭션에 서명
-     * 유효한 서명자(signer)가 보류중인 트랜잭션에 서명을 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 서명자의 계정 주소 (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign to pending transaction
+     * Sign to pending transaction from valid signer
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Signer&#x27;s account address (required)
+     * @param transactionId ID of pending transaction (required)
      * @return MultisigTransactionStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -298,11 +309,11 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랙잭션에 서명
-     * 유효한 서명자(signer)가 보류중인 트랜잭션에 서명을 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 서명자의 계정 주소 (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign to pending transaction
+     * Sign to pending transaction from valid signer
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Signer&#x27;s account address (required)
+     * @param transactionId ID of pending transaction (required)
      * @return ApiResponse&lt;MultisigTransactionStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -313,11 +324,11 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 보류중인 트랙잭션에 서명 (asynchronously)
-     * 유효한 서명자(signer)가 보류중인 트랜잭션에 서명을 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param address 서명자의 계정 주소 (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign to pending transaction (asynchronously)
+     * Sign to pending transaction from valid signer
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param address Signer&#x27;s account address (required)
+     * @param transactionId ID of pending transaction (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -350,8 +361,8 @@ public class MultisigTransactionManagementApi {
     }
     /**
      * Build call for signPendingTransactionBySig
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -423,10 +434,10 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 준비된 서명 값으로 트랙잭션 서명
-     * 준비된 서명 값을 이용하여 보류중인 트랜잭션에 서명을 덧붙입니다. 본인이 가지고 있지 않은 계정에 대해서 외부에서 서명값을 받아 덧붙이고 싶은 경우 사용할 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign pending transaction from signatures
+     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @return MultisigTransactionStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -437,10 +448,10 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 준비된 서명 값으로 트랙잭션 서명
-     * 준비된 서명 값을 이용하여 보류중인 트랜잭션에 서명을 덧붙입니다. 본인이 가지고 있지 않은 계정에 대해서 외부에서 서명값을 받아 덧붙이고 싶은 경우 사용할 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign pending transaction from signatures
+     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @return ApiResponse&lt;MultisigTransactionStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -452,10 +463,10 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * 준비된 서명 값으로 트랙잭션 서명 (asynchronously)
-     * 준비된 서명 값을 이용하여 보류중인 트랜잭션에 서명을 덧붙입니다. 본인이 가지고 있지 않은 계정에 대해서 외부에서 서명값을 받아 덧붙이고 싶은 경우 사용할 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param transactionId 보류중인 트랜잭션의 ID (required)
+     * Sign pending transaction from signatures (asynchronously)
+     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
