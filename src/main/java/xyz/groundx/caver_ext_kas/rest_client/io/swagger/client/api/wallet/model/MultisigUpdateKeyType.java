@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.MultisigUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 @Schema(description = "New account key (AccountKey) to be used with the account key")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
+public class MultisigUpdateKeyType extends AccountUpdateKey {
   @SerializedName("keyType")
   private Long keyType = null;
 

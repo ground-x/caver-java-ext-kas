@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @Schema(description = "New account key (AccountKey) to be used with the account key")
 
-public class PubkeyUpdateKeyType implements OneOfAccountUpdateKey {
+public class PubkeyUpdateKeyType extends AccountUpdateKey {
   @SerializedName("keyType")
   private Long keyType = null;
 

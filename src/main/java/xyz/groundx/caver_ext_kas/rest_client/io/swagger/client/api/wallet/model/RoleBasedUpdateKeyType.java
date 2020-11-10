@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Schema(description = "New account key (AccountKey) to be used with the account key")
 
-public class RoleBasedUpdateKeyType implements OneOfAccountUpdateKey {
+public class RoleBasedUpdateKeyType extends AccountUpdateKey {
   @SerializedName("keyType")
   private Long keyType = null;
 
