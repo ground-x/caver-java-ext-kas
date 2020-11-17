@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
+import java.sql.Timestamp;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,17 +29,20 @@ public class KASUtilsTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    String getExpectedTimestampData(String date) {
+        long timestamp = Timestamp.valueOf(date).getTime();
+        return Long.toString(timestamp / 1000);
+    }
+
     @Test
     public void convertDateTest() {
-        String testDate1 = "2020-08-01 09:00:00";
+        String testDate1 = "2020-08-01 00:00:00";
         String testDate2 = "2020-08-01";
-        String testDate3 = "2020-08-01 09:00:00:111";
-        String testDate4 = "1596240000";
+        String testDate3 = "2020-08-01 00:00:00:111";
 
-        assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate1));
-        assertEquals("1596207600", KASUtils.convertDateToTimestamp(testDate2));
-        assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate3));
-        assertEquals("1596240000", KASUtils.convertDateToTimestamp(testDate4));
+        assertEquals(getExpectedTimestampData(testDate1), KASUtils.convertDateToTimestamp(testDate1));
+        assertEquals(getExpectedTimestampData(testDate1), KASUtils.convertDateToTimestamp(testDate2));
+        assertEquals(getExpectedTimestampData(testDate1), KASUtils.convertDateToTimestamp(testDate3));
     }
 
     @Test

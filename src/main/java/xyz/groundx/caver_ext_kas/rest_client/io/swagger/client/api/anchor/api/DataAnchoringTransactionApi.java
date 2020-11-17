@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,15 +12,26 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api;
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Configuration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Pair;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressRequestBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
+
+import java.io.IOException;
+
+
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorBlockRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorBlockStatus;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransactionDetail;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransactions;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.ErrorResponse;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +59,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Build call for anchorBlock
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -107,12 +118,17 @@ public class DataAnchoringTransactionApi {
         
         com.squareup.okhttp.Call call = anchorBlockCall(xChainId, body, progressListener, progressRequestListener);
         return call;
+
+        
+        
+        
+        
     }
 
     /**
-     * 앵커링 트랜잭션 생성
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * Create Anchoring Transaction
+     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return AnchorBlockStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -123,9 +139,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 앵커링 트랜잭션 생성
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * Create Anchoring Transaction
+     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;AnchorBlockStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -137,9 +153,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 앵커링 트랜잭션 생성 (asynchronously)
-     * 블록체인 데이터를 앵커링 하기 위해 사용됩니다. 이미 설정한 오퍼레이터를 통해 앵커 트랜잭션 발생 및 관리합니다. 오퍼레이터 또는 사용자 Feepayer 를 통한 앵커링을 성공하기 위해서는 실제 요구되는 수수료의 10배이상 잔액을 보유하여야 합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
+     * Create Anchoring Transaction (asynchronously)
+     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -173,9 +189,9 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for getAnchorBlockByPayloadID
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param payloadId 페이로드 ID (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param payloadId Payload ID (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -251,11 +267,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 페이로드로 앵커링 트랜잭션 조회
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param payloadId 페이로드 ID (required)
+     * Search Anchoring Transactions with Payload
+     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param payloadId Payload ID (required)
      * @return AnchorTransactionDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -265,11 +281,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 페이로드로 앵커링 트랜잭션 조회
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param payloadId 페이로드 ID (required)
+     * Search Anchoring Transactions with Payload
+     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param payloadId Payload ID (required)
      * @return ApiResponse&lt;AnchorTransactionDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -280,11 +296,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 페이로드로 앵커링 트랜잭션 조회 (asynchronously)
-     * Paylaod ID와 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param payloadId 페이로드 ID (required)
+     * Search Anchoring Transactions with Payload (asynchronously)
+     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param payloadId Payload ID (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -317,9 +333,9 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for getAnchorBlockByTx
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param transactionHash 트랜잭션 해시 (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param transactionHash Transaction hash (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -395,11 +411,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 트랜잭션 해시로 앵커링 트랜잭션 조회
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param transactionHash 트랜잭션 해시 (required)
+     * Search Anchoring Transactions with Transaction Hash
+     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param transactionHash Transaction hash (required)
      * @return AnchorTransactionDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -409,11 +425,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 트랜잭션 해시로 앵커링 트랜잭션 조회
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param transactionHash 트랜잭션 해시 (required)
+     * Search Anchoring Transactions with Transaction Hash
+     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param transactionHash Transaction hash (required)
      * @return ApiResponse&lt;AnchorTransactionDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -424,11 +440,11 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 트랜잭션 해시로 앵커링 트랜잭션 조회 (asynchronously)
-     * 트랜잭션 해시값과 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션을 조회합니다. 트랜잭션을 일으킬 때 트랜잭션에 덧붙인 Payload를 살펴볼 수 있습니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param transactionHash 트랜잭션 해시 (required)
+     * Search Anchoring Transactions with Transaction Hash (asynchronously)
+     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param transactionHash Transaction hash (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -461,12 +477,12 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for retrieveAnchorBlock
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -545,14 +561,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 오퍼레이터로 앵커링 트랜잭션 목록 조회
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of Anchoring Transactions with Operator
+     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @return AnchorTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -562,14 +578,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 오퍼레이터로 앵커링 트랜잭션 목록 조회
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of Anchoring Transactions with Operator
+     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @return ApiResponse&lt;AnchorTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -580,14 +596,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * 오퍼레이터로 앵커링 트랜잭션 목록 조회 (asynchronously)
-     * 오퍼레이터 ID를 지정하여, 이 오퍼레이터가 생성한 트랜잭션 목록을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of Anchoring Transactions with Operator (asynchronously)
+     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

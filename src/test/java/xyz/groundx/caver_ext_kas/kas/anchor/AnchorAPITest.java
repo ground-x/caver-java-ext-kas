@@ -22,6 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
+import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
@@ -40,28 +41,27 @@ public class AnchorAPITest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    static String operatorID = "0x0Ea563A80f5ea22C174030416E7fCdbeD920D5EB";
-    static String basPath = "https://anchor-api.dev.klaytn.com";
-    static String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
-    static String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
+    static String operatorID;
     static CaverExtKAS caver;
-    static KAS kas;
+    static String txHash = "";
+    static String payloadId = "";
 
     @BeforeClass
-    public static void init() {
-        caver = new CaverExtKAS();
-        caver.initAnchorAPI("1001", accessKey, secretAccessKey, basPath);
-        kas = caver.getKas();
+    public static void init() throws ApiException {
+        Config.init();
+        caver = Config.getCaver();
+        operatorID = Config.getOperatorAddress();
 
-        kas.getAnchor().getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
+        AnchorTransactions txList = caver.kas.anchor.getAnchoringTransactionList(operatorID);
+        txHash = txHash.equals("") ? txList.getItems().get(0).getTransactionHash() : txHash;
+        payloadId = payloadId.equals("") ? txList.getItems().get(0).getPayloadId() : payloadId;
+
+        caver.kas.anchor.getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
     }
 
     @Test
     public void enableAPITest() {
-        KAS kas = new KAS();
-        kas.initAnchorAPI("1001", accessKey, secretAccessKey, basPath);
-
-        assertNotNull(kas.getAnchor());
+        assertNotNull(caver.kas.anchor);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class AnchorAPITest {
         payload.put("id", Integer.toString(random.nextInt()));
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockStatus res = kas.getAnchor().sendAnchoringData(operatorID, payload);
+        AnchorBlockStatus res = caver.kas.anchor.sendAnchoringData(operatorID, payload);
         assertNotNull(res);
     }
 
@@ -84,7 +84,7 @@ public class AnchorAPITest {
         AnchorBlockPayload payload = new AnchorBlockPayload();
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockStatus res = kas.getAnchor().sendAnchoringData(operatorID, payload);
+        AnchorBlockStatus res = caver.kas.anchor.sendAnchoringData(operatorID, payload);
     }
 
     @Test
@@ -99,12 +99,12 @@ public class AnchorAPITest {
         payload.put("id", 1000);
         payload.put("field", "1");
         payload.put("filed2", 4);
-        AnchorBlockStatus res = kas.getAnchor().sendAnchoringData(operatorID, payload);
+        AnchorBlockStatus res = caver.kas.anchor.sendAnchoringData(operatorID, payload);
     }
 
     @Test
     public void getOperatorsTest() throws ApiException {
-        Operators res = kas.getAnchor().getOperatorList();
+        Operators res = caver.kas.anchor.getOperatorList();
         assertNotNull(res);
     }
 
@@ -113,7 +113,7 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize((long)3);
 
-        Operators res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
     }
 
@@ -121,10 +121,10 @@ public class AnchorAPITest {
     public void getOperatorsWithCursorTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize((long)3);
-        Operators res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
 
         anchorQueryParams.setCursor(res.getCursor());
-        res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
     }
 
@@ -133,16 +133,16 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromTimestamp("2020-08-25");
 
-        Operators res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
     }
 
     @Test
     public void getOperatorsWithToDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToTimestamp("2020-08-25");
+        anchorQueryParams.setToTimestamp("2020-11-30");
 
-        Operators res = kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
     }
 
@@ -150,22 +150,22 @@ public class AnchorAPITest {
     public void getOperatorsWithDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3l);
-        anchorQueryParams.setFromTimestamp("2020-08-17");
-        anchorQueryParams.setToTimestamp("2020-08-25");
+        anchorQueryParams.setFromTimestamp("2020-10-17");
+        anchorQueryParams.setToTimestamp("2020-10-30");
 
-        Operators res = caver.kas.getAnchor().getOperatorList(anchorQueryParams);
+        Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
     }
 
     @Test
     public void getOperatorTest() throws ApiException {
-        Operator res = caver.kas.getAnchor().getOperator("0x0Ea563A80f5ea22C174030416E7fCdbeD920D5EB");
+        Operator res = caver.kas.anchor.getOperator(operatorID);
         assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionsTest() throws ApiException {
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID);
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID);
         assertNotNull(res);
     }
 
@@ -173,7 +173,7 @@ public class AnchorAPITest {
     public void getAnchoringTransactionsWithSize() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize((long)3);
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
     }
@@ -182,13 +182,13 @@ public class AnchorAPITest {
     public void getAnchoringTransactionsWithCursor() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize((long)3);
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         String cursor = res.getCursor();
         anchorQueryParams.setSize((long)3);
         anchorQueryParams.setCursor(cursor);
 
-        res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
         assertNotNull(res);
     }
 
@@ -196,7 +196,7 @@ public class AnchorAPITest {
     public void getAnchoringTransactionsWithFromDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromTimestamp("2020-08-20 15:00:00");
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
     }
@@ -204,8 +204,8 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithToDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToTimestamp("2020-08-27 15:00:00");
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        anchorQueryParams.setToTimestamp("2020-11-30 15:00:00");
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
     }
@@ -213,25 +213,23 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setFromTimestamp("2020-08-20 15:00:00");
-        anchorQueryParams.setToTimestamp("2020-08-25 18:00:00");
-        AnchorTransactions res = kas.getAnchor().getAnchoringTransactionList(operatorID, anchorQueryParams);
+        anchorQueryParams.setFromTimestamp("2020-10-26 15:00:00");
+        anchorQueryParams.setToTimestamp("2020-10-28 18:00:00");
+        AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionByTxHash() throws ApiException {
-        String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
-        AnchorTransactionDetail res = kas.getAnchor().getAnchoringTransactionByTxHash(operatorID, txHash);
+        AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByTxHash(operatorID, txHash);
 
         assertNotNull(res);
     }
 
     @Test
     public void getAnchoringTransactionByPayloadId() throws ApiException {
-        String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
-        AnchorTransactionDetail res = kas.getAnchor().getAnchoringTransactionByPayloadId(operatorID, payloadId);
+        AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByPayloadId(operatorID, payloadId);
 
         assertNotNull(res);
     }
@@ -248,7 +246,7 @@ public class AnchorAPITest {
         CompletableFuture<AnchorBlockStatus> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchor().sendAnchoringDataAsync(operatorID, payload, new ApiCallback<AnchorBlockStatus>() {
+            Call res = caver.kas.anchor.sendAnchoringDataAsync(operatorID, payload, new ApiCallback<AnchorBlockStatus>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -286,7 +284,7 @@ public class AnchorAPITest {
         CompletableFuture<Operators> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchor().getOperatorListAsync(new ApiCallback<Operators>() {
+            Call res = caver.kas.anchor.getOperatorListAsync(new ApiCallback<Operators>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -324,7 +322,7 @@ public class AnchorAPITest {
         CompletableFuture<Operator> future = new CompletableFuture();
 
         try {
-            Call res = kas.getAnchor().getOperatorAsync(operatorID, new ApiCallback<Operator>() {
+            Call res = caver.kas.anchor.getOperatorAsync(operatorID, new ApiCallback<Operator>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -362,7 +360,7 @@ public class AnchorAPITest {
         CompletableFuture<AnchorTransactions> completableFuture = new CompletableFuture();
 
         try {
-            kas.getAnchor().getAnchoringTransactionListAsync(operatorID, new ApiCallback<AnchorTransactions>() {
+            caver.kas.anchor.getAnchoringTransactionListAsync(operatorID, new ApiCallback<AnchorTransactions>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
@@ -397,10 +395,9 @@ public class AnchorAPITest {
 
     @Test
     public void getAnchoringTransactionByTxHashAsyncTest() {
-        String txHash = "0x74ee2fcf41b7bee3cb6ff0e9d5facb877cf9da178236d5ccc371318cbf09d6de";
         CompletableFuture<AnchorTransactionDetail> completableFuture = new CompletableFuture();
         try {
-            kas.getAnchor().getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<AnchorTransactionDetail>() {
+            caver.kas.anchor.getAnchoringTransactionByTxHashAsync(operatorID, txHash, new ApiCallback<AnchorTransactionDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);
@@ -435,11 +432,10 @@ public class AnchorAPITest {
 
     @Test
     public void getAnchoringTransactionByPayloadIdAsyncTest() {
-        String payloadId = "0xca0577c2f7f2537d499357c2bd08c72a808d7bb718a336b69fd37f640c73ba6d";
         CompletableFuture<AnchorTransactionDetail> completableFuture = new CompletableFuture<>();
 
         try {
-            kas.getAnchor().getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<AnchorTransactionDetail>() {
+            caver.kas.anchor.getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, new ApiCallback<AnchorTransactionDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     completableFuture.completeExceptionally(e);

@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,13 +12,24 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api;
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Configuration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Pair;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressRequestBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
+
+import java.io.IOException;
+
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.ErrorResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.Operator;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.Operators;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,8 +57,8 @@ public class OperatorApi {
 
     /**
      * Build call for getOperator
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -118,10 +129,10 @@ public class OperatorApi {
     }
 
     /**
-     * 특정 오퍼레이터 조회
-     * 해당 오퍼레이터 설정 및 오퍼레이터 계정 잔액을 조회합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * Search Specific Operator
+     * Search for the settings of a specific operator.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
      * @return Operator
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -131,10 +142,10 @@ public class OperatorApi {
     }
 
     /**
-     * 특정 오퍼레이터 조회
-     * 해당 오퍼레이터 설정 및 오퍼레이터 계정 잔액을 조회합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * Search Specific Operator
+     * Search for the settings of a specific operator.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
      * @return ApiResponse&lt;Operator&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -145,10 +156,10 @@ public class OperatorApi {
     }
 
     /**
-     * 특정 오퍼레이터 조회 (asynchronously)
-     * 해당 오퍼레이터 설정 및 오퍼레이터 계정 잔액을 조회합니다.
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param operatorId 오퍼레이터 계정 주소 (required)
+     * Search Specific Operator (asynchronously)
+     * Search for the settings of a specific operator.
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param operatorId Operator account address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -181,11 +192,11 @@ public class OperatorApi {
     }
     /**
      * Build call for retrieveOperators
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -259,13 +270,13 @@ public class OperatorApi {
     }
 
     /**
-     * 모든 오퍼레이터 목록 조회
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of All Operators
+     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @return Operators
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -275,13 +286,13 @@ public class OperatorApi {
     }
 
     /**
-     * 모든 오퍼레이터 목록 조회
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of All Operators
+     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @return ApiResponse&lt;Operators&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -292,13 +303,13 @@ public class OperatorApi {
     }
 
     /**
-     * 모든 오퍼레이터 목록 조회 (asynchronously)
-     * 이미 생성된 오퍼레이터 목록 및 각 오퍼레이터 설정값을 조회합니다.  ## Size  * &#x60;size&#x60; 쿼리 파라미터는 선택 파라미터입니다 (최소값 &#x3D; 1, 최대값 &#x3D; 1000, 기본값 &#x3D; 100) * 음수를 입력하면 오류를 반환합니다 * 0을 입력하면 기본값(&#x60;size&#x3D;100&#x60;)을 사용합니다 * 최대값보다 큰 값을 입력하면 최대값을 사용합니다
-     * @param xChainId Klaytn 체인 네트워크 ID (1001 or 8217) (required)
-     * @param size 검색할 계정의 최대 사이즈 (optional, default to 100)
-     * @param cursor 마지막으로 검색된 커서의 정보 (optional)
-     * @param fromTimestamp 검색하고자 하는 처음 시간의 타임스탬프 (초단위) (optional)
-     * @param toTimestamp 검색하고자 하는 마지막 시간의 타임스탬프 (초단위) (optional)
+     * Search List of All Operators (asynchronously)
+     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param size Maximum size of account to search (optional, default to 100)
+     * @param cursor Information on last searched cursor (optional)
+     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

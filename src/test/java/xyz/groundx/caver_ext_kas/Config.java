@@ -25,7 +25,7 @@ import com.klaytn.caver.transaction.type.ValueTransfer;
 import com.klaytn.caver.utils.Utils;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
-import org.junit.Test;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.web3j.protocol.exceptions.TransactionException;
 
 import java.io.IOException;
@@ -33,34 +33,83 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Config {
-    static final String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
-    static final String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
+    public static final String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
+    public static final String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
+    public static final String URL_TH_API = "https://th-api.klaytnapi.com";
+    public static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
 
-    static CaverExtKAS caver;
-    public static SingleKeyring richAccount;
-    static final String richAccountPrivateKey = "0xc34442bae4b74023081d8fb05003eb13f11c40d6fc79b9f30c9caa036947ffe8";
+    public static final String CHAIN_ID_BAOBOB = "1001";
 
-    static void init() {
-        caver = new CaverExtKAS();
-        caver.initNodeAPI("1001", accessKey, secretAccessKey, "https://node-api.dev.klaytn.com/v1/klaytn");
+    static String accessKey = "";
+    static String secretAccessKey = "";
 
-        richAccount = (SingleKeyring)caver.wallet.add(KeyringFactory.createFromPrivateKey(richAccountPrivateKey));
+    public static String feePayerAddress = "";
+    public static String operatorAddress = "";
+
+    static String klayProviderPrivateKey = "";
+
+    public static Integer presetID = null;
+
+
+    public static CaverExtKAS caver;
+    public static SingleKeyring klayProviderKeyring;
+
+    public static String loadEnvData(Dotenv env, String envName) {
+
+        String data = System.getenv(envName);
+
+        if(data == null) {
+            data = env.get(envName);
+        }
+
+        if(data.equals("")) {
+            throw new NullPointerException(envName + " is not exist.");
+        }
+
+        return data;
     }
 
-    public static void sendValue(String toAddress) throws IOException, TransactionException {
+    public static void loadTestData() {
+        Dotenv env = Dotenv.configure()
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
+
+        accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY") : accessKey;
+        secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY") : secretAccessKey;
+        feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR") : feePayerAddress;
+        operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR") : operatorAddress;
+        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY") : klayProviderPrivateKey;
+
+        presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET")) : presetID;
+    }
+
+    public static void init() {
+        loadTestData();
+
+        caver = new CaverExtKAS();
+        caver.initNodeAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_NODE_API);
+        caver.initAnchorAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_ANCHOR_API);
+        caver.initWalletAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_WALLET_API);
+        caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
+
+        klayProviderKeyring = (SingleKeyring)caver.wallet.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
+    }
+
+    public static TransactionReceipt.TransactionReceiptData sendValue(String toAddress) throws IOException, TransactionException {
         init();
 
         BigInteger value = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.KLAY));
 
         ValueTransfer valueTransfer = new ValueTransfer.Builder()
                 .setKlaytnCall(caver.rpc.getKlay())
-                .setFrom(richAccount.getAddress())
+                .setFrom(klayProviderKeyring.getAddress())
                 .setTo(toAddress)
                 .setValue(value)
                 .setGas(BigInteger.valueOf(25000))
                 .build();
 
-        caver.wallet.sign(richAccount.getAddress(), valueTransfer);
+        caver.wallet.sign(klayProviderKeyring.getAddress(), valueTransfer);
         Bytes32 result = caver.rpc.klay.sendRawTransaction(valueTransfer.getRawTransaction()).send();
         if(result.hasError()) {
             throw new RuntimeException(result.getError().getMessage());
@@ -69,6 +118,8 @@ public class Config {
         //Check transaction receipt.
         TransactionReceiptProcessor transactionReceiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         TransactionReceipt.TransactionReceiptData transactionReceipt = transactionReceiptProcessor.waitForTransactionReceipt(result.getResult());
+
+        return transactionReceipt;
     }
 
     public static BigInteger getBalance(String address) {
@@ -84,9 +135,23 @@ public class Config {
         return null;
     }
 
-    @Test
-    public void checkBalance() {
-        init();
-        getBalance("0xF09900677531faAa51D9032169EBcB7CDF434B41");
+    public static CaverExtKAS getCaver() {
+        return caver;
+    }
+
+    public static String getFeePayerAddress() {
+        return feePayerAddress;
+    }
+
+    public static String getOperatorAddress() {
+        return operatorAddress;
+    }
+
+    public static SingleKeyring getKlayProviderKeyring() {
+        return klayProviderKeyring;
+    }
+
+    public static Integer getPresetID() {
+        return presetID;
     }
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-VERSION=v$(awk '/"version/ {gsub("\"",""); print $2}' package.json | tr -d ',')
+VERSION=v$(awk '/version '\''/ {gsub("'\''",""); print $2}' build.gradle)
 
 echo "Tagging major $VERSION"
 git config --global user.email "team.devops@groundx.xyz"

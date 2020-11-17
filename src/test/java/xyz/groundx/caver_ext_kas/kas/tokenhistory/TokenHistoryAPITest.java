@@ -16,17 +16,30 @@
 
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
+import com.klaytn.caver.Caver;
+import com.klaytn.caver.contract.ContractDeployParams;
+import com.klaytn.caver.contract.SendOptions;
+import com.klaytn.caver.kct.kip17.KIP17;
+import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip7.KIP7;
+import com.klaytn.caver.kct.kip7.KIP7ConstantData;
+import com.klaytn.caver.kct.kip7.KIP7DeployParams;
 import com.squareup.okhttp.Call;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
+import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.JSON;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,24 +50,59 @@ import static org.junit.Assert.fail;
 
 public class TokenHistoryAPITest {
     public static CaverExtKAS caver;
-    public static KAS kas;
-    public static String baseUrl = "https://th-api.dev.klaytn.com";
+    public static int preset;
 
-    static String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
-    static String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
-    static String chainId = "1001";
+    public static String account;
+
+    public static String ftAddress = "";
+    public static String nftAddress = "";
+    public static String tokenId = "0x2";
+
+
 
     @BeforeClass
-    public static void init() {
-        caver = new CaverExtKAS();
-        caver.initTokenHistoryAPI(chainId, accessKey, secretAccessKey, baseUrl);
-        kas = caver.getKas();
+    public static void init() throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        Config.init();
+        caver = Config.getCaver();
+        preset = Config.getPresetID();
+        account = Config.getKlayProviderKeyring().getAddress();
+
+        ftAddress = deployKIP7(caver, account);
+        nftAddress = deployKIP17(caver, account);
+        mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
+
+        caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
+    }
+
+    public static String deployKIP7(Caver caver, String deployer) throws IOException, NoSuchMethodException, InstantiationException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, TransactionException {
+        BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+        KIP7DeployParams deployParams = new KIP7DeployParams("TEST", "TES", 18, initialSupply);
+
+        return KIP7.deploy(caver, deployParams, deployer).getContractAddress();
+    }
+
+    public static String deployKIP17(Caver caver, String deployer) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        String contractName = "TEST_KIP17";
+        String contractSymbol = "KIP17";
+
+        KIP17 kip17 = new KIP17(caver);
+        KIP17DeployParams deployParams = new KIP17DeployParams(contractName, contractSymbol);
+        SendOptions sendOptions = new SendOptions(deployer, BigInteger.valueOf(5500000));
+
+        return KIP17.deploy(caver, deployParams, deployer).getContractAddress();
+    }
+
+    public static void mintKIP17Token(Caver caver, String contractAddress, String ownerAddress, BigInteger tokenId) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        KIP17 kip17 = new KIP17(caver, contractAddress);
+        SendOptions sendOptions = new SendOptions(ownerAddress, BigInteger.valueOf(5500000));
+
+        kip17.mint(ownerAddress, tokenId, sendOptions);
     }
 
     @Test
     public void getTransferHistory() {
         try {
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset);
             assertNotNull(transfersData.getItems());
         } catch (ApiException e) {
             e.printStackTrace();
@@ -65,7 +113,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getTransferHistoryWithPresetsList() {
         try {
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(Arrays.asList(82,83));
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(Arrays.asList(preset));
             assertNotNull(transfersData.getItems());
         } catch (ApiException e) {
             e.printStackTrace();
@@ -79,7 +127,7 @@ public class TokenHistoryAPITest {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)3);
 
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
             assertNotNull(transfersData.getItems());
             Assert.assertEquals(3, transfersData.getItems().size());
         } catch (ApiException e) {
@@ -94,7 +142,7 @@ public class TokenHistoryAPITest {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setKind("ft");
 
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
             assertNotNull(transfersData.getItems());
         } catch (ApiException e) {
             e.printStackTrace();
@@ -108,7 +156,7 @@ public class TokenHistoryAPITest {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setKind(Arrays.asList("ft", "nft"));
 
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
             assertNotNull(transfersData.getItems());
         } catch (ApiException e) {
             e.printStackTrace();
@@ -122,11 +170,11 @@ public class TokenHistoryAPITest {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)10);
 
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
             String cursor = transfersData.getCursor();
 
             options.setCursor(cursor);
-            PageableTransfers transfersData_cont = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData_cont = caver.kas.tokenHistory.getTransferHistory(preset, options);
             assertNotNull(transfersData_cont);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -140,7 +188,7 @@ public class TokenHistoryAPITest {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setRange("1584583000", "1584583388");
 
-            PageableTransfers transfersData = kas.getTokenHistory().getTransferHistory(82, options);
+            PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -150,7 +198,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getTransferHistoryInvalidPreset() {
         try {
-            kas.getTokenHistory().getTransferHistory(0);
+            caver.kas.tokenHistory.getTransferHistory(0);
         } catch (ApiException e) {
             InvalidQueryParameterValue res = new JSON().deserialize(e.getResponseBody(), InvalidQueryParameterValue.class);
             Assert.assertEquals(1040400, res.getCode().longValue());
@@ -162,7 +210,7 @@ public class TokenHistoryAPITest {
         String txHash = "0x617a56786f97c76f6d0573d36a624610f1bfb0029e8e8f7afc02c7262e9224fb";
 
         try {
-            Transfers transfers = kas.getTokenHistory().getTransferHistoryByTxHash(txHash);
+            Transfers transfers = caver.kas.tokenHistory.getTransferHistoryByTxHash(txHash);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -172,9 +220,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccount() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -184,12 +231,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccountWithKind() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
-
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setKind("nft");
+        options.setKind("klay");
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -205,7 +250,7 @@ public class TokenHistoryAPITest {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setCaFilter(caFilter);
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -215,13 +260,11 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccountWithRange() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
-
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setRange("1584573000", "1584583388");
 
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -231,13 +274,11 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccountWithSize() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
-
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setRange("1584573000", "1584583388");
 
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -247,16 +288,14 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccountWithCursor() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
-
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setSize((long)3);
 
         try {
-            PageableTransfers transfers = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             options.setCursor(transfers.getCursor());
 
-            PageableTransfers transfersContd = kas.getTokenHistory().getTransferHistoryByAccount(account, options);
+            PageableTransfers transfersContd = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
             assertNotNull(transfersContd);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -267,7 +306,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getFTContractList() {
         try {
-            PageableFtContractDetails details = kas.getTokenHistory().getFTContractList();
+            PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList();
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -280,7 +319,7 @@ public class TokenHistoryAPITest {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setStatus("completed");
         try {
-            PageableFtContractDetails details = kas.getTokenHistory().getFTContractList(options);
+            PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList(options);
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -291,7 +330,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getFTContractListWithType() {
         try {
-            PageableFtContractDetails details = kas.getTokenHistory().getFTContractList();
+            PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList();
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -302,7 +341,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getFTContractListWithSize() {
         try {
-            PageableFtContractDetails details = kas.getTokenHistory().getFTContractList();
+            PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList();
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -313,7 +352,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getFTContractListWithCursor() {
         try {
-            PageableFtContractDetails details = kas.getTokenHistory().getFTContractList();
+            PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList();
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -323,9 +362,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getFTContract() {
-        String address = "0xa35fc8998eee155ec1a9a693f83c7d6c5a3ef927";
         try {
-            FtContractDetail contract = kas.getTokenHistory().getFTContract(address);
+            FtContractDetail contract = caver.kas.tokenHistory.getFTContract(ftAddress);
             assertNotNull(contract);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -336,7 +374,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getNFTContractList() {
         try {
-            PageableNftContractDetails details = kas.getTokenHistory().getNFTContractList();
+            PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList();
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -349,7 +387,7 @@ public class TokenHistoryAPITest {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setStatus("processing");
-            PageableNftContractDetails details = kas.getTokenHistory().getNFTContractList(options);
+            PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -362,7 +400,7 @@ public class TokenHistoryAPITest {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setType("KIP-17");
-            PageableNftContractDetails details = kas.getTokenHistory().getNFTContractList(options);
+            PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
             assertNotNull(details);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -375,7 +413,7 @@ public class TokenHistoryAPITest {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)3);
-            PageableNftContractDetails details = kas.getTokenHistory().getNFTContractList(options);
+            PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
             assertNotNull(details);
             Assert.assertEquals(3, details.getItems().size());
         } catch (ApiException e) {
@@ -389,11 +427,11 @@ public class TokenHistoryAPITest {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)3);
-            PageableNftContractDetails details = kas.getTokenHistory().getNFTContractList(options);
+            PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
             assertNotNull(details);
 
             options.setCursor(details.getCursor());
-            PageableNftContractDetails detailWithCursor = kas.getTokenHistory().getNFTContractList(options);
+            PageableNftContractDetails detailWithCursor = caver.kas.tokenHistory.getNFTContractList(options);
             assertNotNull(detailWithCursor);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -403,9 +441,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTContract() {
-        String addr = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
         try {
-            NftContractDetail detail = kas.getTokenHistory().getNFTContract(addr);
+            NftContractDetail detail = caver.kas.tokenHistory.getNFTContract(nftAddress);
             assertNotNull(detail);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -415,9 +452,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTList() {
-        String contractAddress = "0xb50ebdb5026a1df752c69d8a6ce7140c99a426db";
         try {
-            PageableNfts nfts = kas.getTokenHistory().getNFTList(contractAddress);
+            PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress);
             assertNotNull(nfts);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -427,14 +463,13 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTListWithSize() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)3);
 
-            PageableNfts nfts = kas.getTokenHistory().getNFTList(contractAddress, options);
+            PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress, options);
             assertNotNull(nfts);
-            Assert.assertEquals(3, nfts.getItems().size());
+            Assert.assertTrue(nfts.getItems().size() <=3);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -443,17 +478,16 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTListWithCursor() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)3);
 
-            PageableNfts nfts = kas.getTokenHistory().getNFTList(contractAddress, options);
+            PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress, options);
             assertNotNull(nfts);
 
             options.setCursor(nfts.getCursor());
 
-            PageableNfts nftsWithCursor = kas.getTokenHistory().getNFTList(contractAddress, options);
+            PageableNfts nftsWithCursor = caver.kas.tokenHistory.getNFTList(nftAddress, options);
             assertNotNull(nftsWithCursor);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -463,11 +497,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTListByOwner() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
         String owner = "0x88ab3cdbf31f856de69be569564b751a97ddf5d8";
 
         try {
-            PageableNfts nfts = kas.getTokenHistory().getNFTListByOwner(contractAddress, owner);
+            PageableNfts nfts = caver.kas.tokenHistory.getNFTListByOwner(nftAddress, owner);
             assertNotNull(nfts);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -477,11 +510,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFT() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         try {
-            Nft nft = kas.getTokenHistory().getNFT(contractAddress, tokenId);
+            Nft nft = caver.kas.tokenHistory.getNFT(nftAddress, tokenId);
             assertNotNull(nft);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -491,11 +521,8 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTOwnershipHistory() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         try {
-            PageableNftOwnershipChanges ownershipChanges = kas.getTokenHistory().getNFTOwnershipHistory(contractAddress, tokenId);
+            PageableNftOwnershipChanges ownershipChanges = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId);
             assertNotNull(ownershipChanges);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -505,13 +532,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTOwnershipHistoryWithSize() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)1);
-            PageableNftOwnershipChanges ownershipChanges = kas.getTokenHistory().getNFTOwnershipHistory(contractAddress, tokenId, options);
+            PageableNftOwnershipChanges ownershipChanges = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId, options);
             assertNotNull(ownershipChanges);
             Assert.assertEquals(1, ownershipChanges.getItems().size());
         } catch (ApiException e) {
@@ -522,19 +546,16 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTOwnershipHistoryWithCursor() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             options.setSize((long)1);
 
-            PageableNftOwnershipChanges ownershipChanges = kas.getTokenHistory().getNFTOwnershipHistory(contractAddress, tokenId, options);
+            PageableNftOwnershipChanges ownershipChanges = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId, options);
             assertNotNull(ownershipChanges);
 
             options.setCursor(ownershipChanges.getCursor());
 
-            PageableNftOwnershipChanges ownershipChangesWithCursor = kas.getTokenHistory().getNFTOwnershipHistory(contractAddress, tokenId, options);
+            PageableNftOwnershipChanges ownershipChangesWithCursor = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId, options);
             assertNotNull(ownershipChangesWithCursor);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -547,7 +568,7 @@ public class TokenHistoryAPITest {
         CompletableFuture<PageableTransfers> future = new CompletableFuture<>();
 
         try {
-            Call response = kas.getTokenHistory().getTransferHistoryAsync(82, new ApiCallback<PageableTransfers>() {
+            Call response = caver.kas.tokenHistory.getTransferHistoryAsync(preset, new ApiCallback<PageableTransfers>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -586,7 +607,7 @@ public class TokenHistoryAPITest {
         CompletableFuture<Transfers> future = new CompletableFuture<>();
 
         try {
-            Call res = kas.getTokenHistory().getTransferHistoryByTxHashAsync(txHash, new ApiCallback<Transfers>() {
+            Call res = caver.kas.tokenHistory.getTransferHistoryByTxHashAsync(txHash, new ApiCallback<Transfers>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -621,10 +642,9 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByAccountAsync() {
-        String account = "0x74f630bfcf6f3e8d7523b39de821b876446adbd4";
         CompletableFuture<PageableTransfers> future = new CompletableFuture<>();
         try {
-            Call call = kas.getTokenHistory().getTransferHistoryAccountAsync(account, new ApiCallback<PageableTransfers>() {
+            Call call = caver.kas.tokenHistory.getTransferHistoryAccountAsync(account, new ApiCallback<PageableTransfers>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -661,7 +681,7 @@ public class TokenHistoryAPITest {
     public void getFTContractListAsync() {
         CompletableFuture<PageableFtContractDetails> future = new CompletableFuture();
         try {
-            Call call = kas.getTokenHistory().getFTContractListAsync(new ApiCallback<PageableFtContractDetails>() {
+            Call call = caver.kas.tokenHistory.getFTContractListAsync(new ApiCallback<PageableFtContractDetails>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -696,10 +716,9 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getFTContractAsync() {
-        String address = "0xa35fc8998eee155ec1a9a693f83c7d6c5a3ef927";
         CompletableFuture<FtContractDetail> future = new CompletableFuture<>();
         try {
-            Call call = kas.getTokenHistory().getFTContractAsync(address, new ApiCallback<FtContractDetail>() {
+            Call call = caver.kas.tokenHistory.getFTContractAsync(ftAddress, new ApiCallback<FtContractDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -737,7 +756,7 @@ public class TokenHistoryAPITest {
         CompletableFuture<PageableNftContractDetails> future = new CompletableFuture();
 
         try {
-            Call call = kas.getTokenHistory().getNFTContractListAsync(new ApiCallback<PageableNftContractDetails>() {
+            Call call = caver.kas.tokenHistory.getNFTContractListAsync(new ApiCallback<PageableNftContractDetails>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -772,10 +791,9 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTContractTest() {
-        String addr = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
         CompletableFuture<NftContractDetail> future = new CompletableFuture<>();
         try {
-            Call call = kas.getTokenHistory().getNFTContractAsync(addr, new ApiCallback<NftContractDetail>() {
+            Call call = caver.kas.tokenHistory.getNFTContractAsync(nftAddress, new ApiCallback<NftContractDetail>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -810,10 +828,9 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTListAsync() {
-        String contractAddress = "0xb50ebdb5026a1df752c69d8a6ce7140c99a426db";
         CompletableFuture<PageableNfts> future = new CompletableFuture<>();
         try {
-            Call call = kas.getTokenHistory().getNFTListAsync(contractAddress, new ApiCallback<PageableNfts>() {
+            Call call = caver.kas.tokenHistory.getNFTListAsync(nftAddress, new ApiCallback<PageableNfts>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -848,13 +865,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTAsync() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         CompletableFuture<Nft> future = new CompletableFuture<>();
 
         try {
-            Call call = kas.getTokenHistory().getNFTAsync(contractAddress, tokenId, new ApiCallback<Nft>() {
+            Call call = caver.kas.tokenHistory.getNFTAsync(nftAddress, tokenId, new ApiCallback<Nft>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);
@@ -889,13 +903,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getNFTOwnershipHistoryAsync() {
-        String contractAddress = "0xbbe63781168c9e67e7a8b112425aa84c479f39aa";
-        String tokenId = "0x7b";
-
         CompletableFuture<PageableNftOwnershipChanges> future = new CompletableFuture<>();
 
         try {
-            Call call = kas.getTokenHistory().getNFTOwnershipHistoryAsync(contractAddress, tokenId, new ApiCallback<PageableNftOwnershipChanges>() {
+            Call call = caver.kas.tokenHistory.getNFTOwnershipHistoryAsync(nftAddress, tokenId, new ApiCallback<PageableNftOwnershipChanges>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);

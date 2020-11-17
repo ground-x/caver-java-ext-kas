@@ -30,12 +30,14 @@ import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.Response;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
+import xyz.groundx.caver_ext_kas.Config;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -46,33 +48,32 @@ import static org.junit.Assert.fail;
 
 public class NodeAPITest {
     static CaverExtKAS caver;
-    static final String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
-    static final String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
 
-    static final String privateKey = "0xc34442bae4b74023081d8fb05003eb13f11c40d6fc79b9f30c9caa036947ffe8";
-    static SingleKeyring testKeyring;
     static String account;
 
     static KIP17 kip17Contract;
 
-    static long blockNumber = 19037067;
-    static String blockHash = "0x9743edbd9463c725efdb2050262560b8c11a7e4ddde46b7e94165dab76af3567";
-    static String transactionHash = "0xbf0ca9b24a51a089ad4a9e41607a50cfbe7fa76f658d64437e885b42af075ec2";
+    static long blockNumber;
+    static String blockHash = "";
+    static String transactionHash = "";
 
     @BeforeClass
-    public static void config() throws Exception {
-        caver = new CaverExtKAS();
-        testKeyring = (SingleKeyring) caver.wallet.add(KeyringFactory.createFromPrivateKey(privateKey));
-        account = testKeyring.getAddress();
+    public static void init() throws Exception {
+        Config.init();
+        caver = Config.getCaver();
 
-        caver.initNodeAPI("1001", accessKey, secretAccessKey, "https://node-api.dev.klaytn.com/v1/klaytn");
+        account = Config.getKlayProviderKeyring().getAddress();
 
-        deployContract(caver);
+        TransactionReceipt.TransactionReceiptData receipt = Config.sendValue("0xf9ca77f63353285bed406215033fa572347339e3");
+        blockHash = receipt.getBlockHash();
+        transactionHash = receipt.getTransactionHash();
+        blockNumber = Numeric.toBigInt(receipt.getBlockNumber()).longValue();
+        deployContract();
     }
 
-    public static void deployContract(CaverExtKAS kas) throws Exception {
+    public static void deployContract() throws Exception {
         KIP17DeployParams deployParams = new KIP17DeployParams("KIP17", "KIP17");
-        kip17Contract = KIP17.deploy(caver, deployParams, testKeyring.getAddress());
+        kip17Contract = KIP17.deploy(caver, deployParams, account);
 
         System.out.println("Contract address : " + kip17Contract.getContractAddress());
     }
@@ -81,7 +82,7 @@ public class NodeAPITest {
     @Test
     public void accountCreatedTest() {
         try {
-            Boolean created = caver.rpc.klay.accountCreated(testKeyring.getAddress()).send();
+            Boolean created = caver.rpc.klay.accountCreated(account).send();
             if(created.hasError()) {
                 throw new IOException(created.getError().getMessage());
             }
@@ -462,25 +463,21 @@ public class NodeAPITest {
     public void getFilterChangesTest() throws Exception {
         KlayLogs response = caver.rpc.klay.getFilterChanges(
                 "").send();
-        TestCase.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
     public void getFilterLogsTest() throws Exception {
         KlayLogs response = caver.rpc.klay.getFilterLogs(
                 "0xf9081aeb4a0dc3109959748c659c8cd7").send();
-        TestCase.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
     public void getLogsTest() throws Exception {
-        KlayLogFilter filter = new KlayLogFilter(
-                DefaultBlockParameterName.EARLIEST,
-                DefaultBlockParameterName.LATEST,
-                account,
-                "0xe2649fe9fbaa75601408fc54200e3f9b2128e8fec7cea96c9a65b9caf905c9e3");
-        KlayLogs response = caver.rpc.klay.getLogs(filter).send();
-        TestCase.assertNotNull(response);
+        KlayLogFilter logFilter = new KlayLogFilter();
+        KlayLogs response = caver.rpc.klay.getLogs(logFilter).send();
+        assertNotNull(response);
     }
 
     @Test

@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction 이 문서는 KAS\\(Klaytn API Service\\)의 Anchor API를 소개하는 문서입니다. Anchor API는 서비스 체인 데이터의 신뢰성을 보장하기 위해 데이터 신뢰성을 증명할 수 있는 메타데이터를 Klaytn 메인 체인에 전송하는 기능을 제공합니다.  자세한 사용 예시는 [튜토리얼](링크)를 확인하십시오.    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
+ * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,15 +12,16 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.util.HashMap;
 import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.HashMap;
+import java.util.Map;
 /**
- * 앵커 데이터. ID 를 설정하지 않는 경우에는 기본적으로 id &#x3D; SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.
+ * Anchor data. ID is set to SHA256 (payload) by default if an ID is not provided. It receives a string-type ID value and determines that it is not set if it is not a string type.
  */
-@Schema(description = "앵커 데이터. ID 를 설정하지 않는 경우에는 기본적으로 id = SHA256(payload)로 설정됨. string 타입의 id 값을 받으며 string 타입이 아닌 경우 설정하지 않은 것으로 판단함.")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-10-06T07:59:17.215Z[GMT]")
+@Schema(description = "Anchor data. ID is set to SHA256 (payload) by default if an ID is not provided. It receives a string-type ID value and determines that it is not set if it is not a string type.")
+
 public class AnchorBlockPayload extends HashMap<String, Object> {
 
   @Override
