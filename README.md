@@ -14,7 +14,36 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
 
 ## Installation
 
-#### maven
+### Installation
+
+#### add a Repository
+
+To install caver-java-ext-kas, you need to install caver-java.
+To install the latest version of caver-java, you should add a jitpack repository for IPFS feature.
+
+**maven**
+```groovy
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+**gradle**
+```groovy
+allprojects {
+    repositories {
+        ... //mavenCentral() or jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+#### add a dependency
+
+**maven**
 ```groovy
 <dependency>
   <groupId>xyz.groundx.caver</groupId>
@@ -32,7 +61,8 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
   <type>pom</type>
 </dependency>
 ```
-#### gradle
+
+**gradle**
 ```groovy
 implementation 'xyz.groundx.caver:caver-java-ext-kas:X.X.X'
 ```
