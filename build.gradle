@@ -1,5 +1,5 @@
 buildscript {
-    ext.caver_version = '1.5.3-rc.2'
+    ext.caver_version = '1.5.6-rc.1'
 }
 
 plugins {
@@ -27,7 +27,8 @@ allprojects {
 
 
     repositories {
-        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
     }
 
     javadoc {
