@@ -61,17 +61,23 @@ public class KASWallet implements IWallet {
      * @return List
      */
     @Override
-    public List<String> generate(int num) {
-        try {
-            List<String> addressList = new ArrayList<>();
-            for(int i=0; i < num; i++) {
-                Account account = this.walletAPI.createAccount();
-                addressList.add(account.getAddress());
-            }
-            return addressList;
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
+    public List<String> generate(int num) throws ApiException {
+        List<String> addressList = new ArrayList<>();
+        for(int i=0; i < num; i++) {
+            Account account = this.walletAPI.createAccount();
+            addressList.add(account.getAddress());
         }
+        return addressList;
+    }
+
+    /**
+     * Get an account corresponding to the given address in KAS wallet service.
+     * @param address An address to get account in KAS Wallet service.
+     * @return Account
+     * @throws ApiException
+     */
+    public Account getAccount(String address) throws ApiException {
+        return this.walletAPI.getAccount(address);
     }
 
     /**
@@ -85,7 +91,6 @@ public class KASWallet implements IWallet {
             AccountStatus status = this.walletAPI.deleteAccount(address);
             return status.getStatus().equals("deleted");
         } catch (ApiException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -98,10 +103,9 @@ public class KASWallet implements IWallet {
     @Override
     public boolean isExisted(String address) {
         try {
-            Account account = this.walletAPI.getAccount(address);
+            Account account = getAccount(address);
             return true;
         } catch (ApiException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -241,7 +245,7 @@ public class KASWallet implements IWallet {
     }
 
     /**
-     * Setter function for wallletAPI
+     * Setter function for walletAPI
      * @param walletAPI The WalletAPI instance to use KAS Wallet API.
      */
     public void setWalletAPI(Wallet walletAPI) {
