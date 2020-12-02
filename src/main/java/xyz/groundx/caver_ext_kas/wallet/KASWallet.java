@@ -132,6 +132,7 @@ public class KASWallet implements IWallet {
      * @param transaction A transaction instance to sign.
      * @return AbstractTransaction
      * @throws IOException
+     * @throws ApiException
      */
     @Override
     public AbstractTransaction sign(String address, AbstractTransaction transaction) throws IOException, ApiException {
@@ -247,6 +248,7 @@ public class KASWallet implements IWallet {
         this.walletAPI = walletAPI;
     }
 
+
     private boolean isWeightedMultiSigType(AbstractTransaction transaction, String address) throws IOException {
         AccountKey res = transaction.getKlaytnCall().getAccountKey(address).send();
         AccountKey.AccountKeyData accountKeyData = res.getResult();
@@ -309,6 +311,7 @@ public class KASWallet implements IWallet {
         return convertSignatureData(result.getSignatures());
     }
 
+    
     private List<SignatureData> makeSignature(AbstractFeeDelegatedTransaction transaction) throws ApiException, IOException {
         transaction.fillTransaction();
 
