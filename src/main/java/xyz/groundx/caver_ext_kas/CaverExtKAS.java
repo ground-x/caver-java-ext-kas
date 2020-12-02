@@ -18,9 +18,11 @@ package xyz.groundx.caver_ext_kas;
 
 import com.klaytn.caver.Caver;
 import com.klaytn.caver.rpc.RPC;
+import com.klaytn.caver.wallet.IWallet;
 import com.squareup.okhttp.Credentials;
 import org.web3j.protocol.http.HttpService;
 import xyz.groundx.caver_ext_kas.kas.KAS;
+import xyz.groundx.caver_ext_kas.wallet.KASWallet;
 
 /**
  * Representing wrapping class that can use Klaytn API Service
@@ -35,6 +37,11 @@ public class CaverExtKAS extends Caver {
      * The KAS instance.
      */
     public KAS kas;
+
+    /**
+     * The KAS wallet instance.
+     */
+    public KASWallet wallet;
 
     /**
      * Creates a CaverExtKAS instance.
@@ -204,6 +211,7 @@ public class CaverExtKAS extends Caver {
      */
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
+        setWallet(new KASWallet(this.kas.wallet));
     }
 
     /**
@@ -258,11 +266,20 @@ public class CaverExtKAS extends Caver {
         return kas;
     }
 
+    @Override
+    public IWallet getWallet() {
+        return this.wallet;
+    }
+
     /**
      * Setter function for KAS instance
      * @param kas The KAS instance.
      */
     public void setKas(KAS kas) {
         this.kas = kas;
+    }
+
+    public void setWallet(KASWallet wallet) {
+        this.wallet = wallet;
     }
 }
