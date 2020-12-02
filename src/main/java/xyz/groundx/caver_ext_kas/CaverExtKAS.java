@@ -44,10 +44,35 @@ public class CaverExtKAS extends Caver {
     public KASWallet wallet;
 
     /**
-     * Creates a CaverExtKAS instance.
+     * Creates a CaverExtKAS instance.<br>
+     * It need to init each KAS API manually.
      */
     public CaverExtKAS() {
         this.kas = new KAS();
+    }
+
+    /**
+     * Creates a CaverExtKAS instance.<br>
+     * It init all supported KAS API(Node API, Anchor API, Wallet API)
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey) {
+        this.kas = new KAS();
+        initKASAPI(chainId, accessKeyId, secretAccessKey);
+    }
+
+    /**
+     * Creates a CaverExtKAS instance.<br>
+     * It init all supported KAS API(Node API, Anchor API, Wallet API)
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey) {
+        this.kas = new KAS();
+        initKASAPI(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
@@ -144,7 +169,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initAnchorAPI(chainId, accessKeyId, secretAccessKey, URL_ANCHOR_API);
+        initAnchorAPI(chainId, accessKeyId, secretAccessKey, URL_ANCHOR_API);
     }
 
     /**
@@ -188,7 +213,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, URL_WALLET_API);
+        initWalletAPI(chainId, accessKeyId, secretAccessKey, URL_WALLET_API);
     }
 
     /**
@@ -233,7 +258,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initTokenHistoryAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        kas.initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_TH_API);
+        initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_TH_API);
     }
 
     /**
