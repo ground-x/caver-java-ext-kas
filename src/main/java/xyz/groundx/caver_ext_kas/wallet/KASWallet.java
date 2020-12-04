@@ -308,6 +308,7 @@ public class KASWallet implements IWallet {
     }
 
     private List<SignatureData> makeSignature(AbstractTransaction transaction) throws ApiException, IOException {
+        //If transaction type is fee delegated type
         if(transaction instanceof AbstractFeeDelegatedTransaction) {
             return makeSignature((AbstractFeeDelegatedTransaction)transaction);
         }
@@ -315,6 +316,8 @@ public class KASWallet implements IWallet {
         transaction.fillTransaction();
 
         ProcessRLPRequest request = new ProcessRLPRequest();
+
+        //If transaction type is LegacyTransaction, it must set a from field in ProcessRLPRequest.
         if(transaction instanceof LegacyTransaction) {
             request.setFrom(transaction.getFrom());
         }
