@@ -24,6 +24,7 @@ import com.klaytn.caver.transaction.AbstractFeeDelegatedWithRatioTransaction;
 import com.klaytn.caver.transaction.AbstractTransaction;
 import com.klaytn.caver.transaction.TransactionDecoder;
 import com.klaytn.caver.transaction.type.AccountUpdate;
+import com.klaytn.caver.transaction.type.LegacyTransaction;
 import com.klaytn.caver.wallet.IWallet;
 import com.klaytn.caver.wallet.keyring.SignatureData;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
@@ -209,7 +210,7 @@ public class KASWallet implements IWallet {
         }
 
         if(!feeDelegatedTransaction.getFeePayer().toLowerCase().equals(feePayerAddress.toLowerCase())) {
-            throw new IllegalArgumentException("From address are not matched");
+            throw new IllegalArgumentException("Fee payer address are not matched");
         }
 
         if(isWeightedMultiSigType(feeDelegatedTransaction, feePayerAddress)) {
@@ -290,7 +291,7 @@ public class KASWallet implements IWallet {
             return true;
         }
 
-        if(accountKeyData.getType().equals(AccountKeyRoleBased.getType())) {
+        if(type.equals(AccountKeyRoleBased.getType())) {
             AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
             if(roleBased.getRoleFeePayerKey() instanceof AccountKeyWeightedMultiSig) {
                 return true;
@@ -308,6 +309,10 @@ public class KASWallet implements IWallet {
         transaction.fillTransaction();
 
         ProcessRLPRequest request = new ProcessRLPRequest();
+        if(transaction instanceof LegacyTransaction) {
+            request.setFrom(transaction.getFrom());
+        }
+
         request.setRlp(transaction.getRLPEncoding());
         request.setSubmit(false);
 
