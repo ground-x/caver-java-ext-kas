@@ -933,17 +933,19 @@ public class KASWalletTest {
         }
 
         @Test
-        public void existedFeePayer_throwException() throws IOException, ApiException {
+        public void NotMatchedFeePayer_throwException() throws IOException, ApiException {
             expectedException.expect(RuntimeException.class);
-            expectedException.expectMessage("To sign the transaction using the global fee payer, feePayer cannot be defined in the transaction.");
+            expectedException.expectMessage("Invalid fee payer: The address of the fee payer defined in the transaction does not match the address of the global fee payer. To sign with a global fee payer, you must define the global fee payer's address in the feePayer field, or the feePayer field must not be defined.");
             FeeDelegatedValueTransfer valueTransfer = makeFDValueTransfer();
-            valueTransfer.setFeePayer(feePayer);
+            valueTransfer.setFeePayer(to);
 
             AccountKey accountKey = new AccountKey();
             accountKey.setResult(new AccountKey.AccountKeyData(AccountKeyLegacy.getType(), new AccountKeyLegacy()));
 
             Wallet walletAPI = mock(Wallet.class);
             KASWallet kasWallet = new KASWallet(walletAPI);
+            
+            when(walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(any())).thenReturn(makeFDTransactionResult());
 
             kasWallet.signAsGlobalFeePayer(valueTransfer);
         }

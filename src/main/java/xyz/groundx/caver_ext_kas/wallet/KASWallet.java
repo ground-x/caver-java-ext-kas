@@ -167,10 +167,6 @@ public class KASWallet implements IWallet {
      * @throws ApiException
      */
     public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, ApiException {
-        if(!feeDelegatedTransaction.getFeePayer().equals("0x")) {
-            throw new RuntimeException("To sign the transaction using the global fee payer, feePayer cannot be defined in the transaction.");
-        }
-
         feeDelegatedTransaction.fillTransaction();
         String rlp = feeDelegatedTransaction.getRLPEncoding();
 
@@ -183,8 +179,13 @@ public class KASWallet implements IWallet {
         }
 
         FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(rlpRequest);
-
         AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
+
+        String existFeePayer = feeDelegatedTransaction.getFeePayer();
+        if(!existFeePayer.equals("0x") && !existFeePayer.toLowerCase().equals(tx.getFeePayer().toLowerCase())) {
+            throw new RuntimeException("Invalid fee payer: The address of the fee payer defined in the transaction does not match the address of the global fee payer. To sign with a global fee payer, you must define the global fee payer's address in the feePayer field, or the feePayer field must not be defined.");
+        }
+
         feeDelegatedTransaction.setFeePayer(tx.getFeePayer());
         feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
 
