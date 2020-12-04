@@ -256,15 +256,18 @@ public class KASWallet implements IWallet {
 
     private boolean isWeightedMultiSigType(AbstractTransaction transaction, String address) throws IOException {
         AccountKey res = transaction.getKlaytnCall().getAccountKey(address).send();
-        AccountKey.AccountKeyData accountKeyData = res.getResult();
+        if(res == null) {
+            return true;
+        }
 
+        AccountKey.AccountKeyData accountKeyData = res.getResult();
         String type = accountKeyData.getType();
 
         if(type.equals(AccountKeyWeightedMultiSig.getType())) {
             return true;
         }
 
-        if(accountKeyData.getType().equals(AccountKeyRoleBased.getType())) {
+        if(type.equals(AccountKeyRoleBased.getType())) {
             AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
 
             if(transaction instanceof AccountUpdate) {
@@ -283,6 +286,9 @@ public class KASWallet implements IWallet {
 
     private boolean isWeightedMultiSigType(AbstractFeeDelegatedTransaction fdTransaction, String address) throws IOException {
         AccountKey res = fdTransaction.getKlaytnCall().getAccountKey(address).send();
+        if(res == null) {
+            return true;
+        }
         AccountKey.AccountKeyData accountKeyData = res.getResult();
 
         String type = accountKeyData.getType();
