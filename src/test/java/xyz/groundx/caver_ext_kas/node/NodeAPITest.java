@@ -18,6 +18,7 @@ package xyz.groundx.caver_ext_kas.node;
 
 import com.klaytn.caver.kct.kip17.KIP17;
 import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.methods.request.CallObject;
 import com.klaytn.caver.methods.request.KlayFilter;
 import com.klaytn.caver.methods.request.KlayLogFilter;
@@ -25,6 +26,7 @@ import com.klaytn.caver.methods.response.Boolean;
 import com.klaytn.caver.methods.response.*;
 import com.klaytn.caver.transaction.type.ValueTransfer;
 import com.klaytn.caver.utils.ChainId;
+import com.klaytn.caver.wallet.KeyringContainer;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import junit.framework.TestCase;
@@ -51,11 +53,13 @@ public class NodeAPITest {
 
     static String account;
 
-    static KIP17 kip17Contract;
+    static String kip17Contract;
 
     static long blockNumber;
     static String blockHash = "";
     static String transactionHash = "";
+
+    static KeyringContainer container;
 
     @BeforeClass
     public static void init() throws Exception {
@@ -68,14 +72,13 @@ public class NodeAPITest {
         blockHash = receipt.getBlockHash();
         transactionHash = receipt.getTransactionHash();
         blockNumber = Numeric.toBigInt(receipt.getBlockNumber()).longValue();
+
         deployContract();
     }
 
     public static void deployContract() throws Exception {
-        KIP17DeployParams deployParams = new KIP17DeployParams("KIP17", "KIP17");
-        kip17Contract = KIP17.deploy(caver, deployParams, account);
-
-        System.out.println("Contract address : " + kip17Contract.getContractAddress());
+        kip17Contract = Config.deployKIP17(caver, account);
+        System.out.println("Contract address : " + kip17Contract);
     }
 
 
@@ -139,7 +142,7 @@ public class NodeAPITest {
     @Test
     public void getCodeTest() {
         try {
-            Bytes res = caver.rpc.klay.getCode(kip17Contract.getContractAddress()).send();
+            Bytes res = caver.rpc.klay.getCode(kip17Contract).send();
 
             if(res.hasError()) {
                 throw new IOException(res.getError().getMessage());
@@ -163,7 +166,7 @@ public class NodeAPITest {
     @Test
     public void isContractAccountTest() {
         try {
-            Boolean result = caver.rpc.klay.isContractAccount(kip17Contract.getContractAddress()).send();
+            Boolean result = caver.rpc.klay.isContractAccount(kip17Contract).send();
             if(result.hasError()) {
                 throw new IOException(result.getError().getMessage());
             }
@@ -325,11 +328,12 @@ public class NodeAPITest {
     @Test
     public void callTest() {
         try {
-            String encoded = kip17Contract.getMethod("symbol").encodeABI(Collections.emptyList());
+            KIP17 kip17 = new KIP17(caver, kip17Contract);
+            String encoded = kip17.getMethod("symbol").encodeABI(Collections.emptyList());
 
             CallObject callObject = CallObject.createCallObject(
                     account,
-                    kip17Contract.getContractAddress(),
+                    kip17Contract,
                     new BigInteger("100000000", 16),
                     new BigInteger("5d21dba00", 16),
                     new BigInteger("0", 16),
@@ -347,11 +351,12 @@ public class NodeAPITest {
 
     @Test
     public void estimateGasTest() throws Exception {
-        String encoded = kip17Contract.getMethod("pause").encodeABI(Collections.emptyList());
+        KIP17 kip17 = new KIP17(caver, kip17Contract);
+        String encoded = kip17.getMethod("pause").encodeABI(Collections.emptyList());
 
         CallObject callObject = CallObject.createCallObject(
                 account,
-                kip17Contract.getContractAddress(),
+                kip17.getContractAddress(),
                 new BigInteger("100000000", 16),
                 new BigInteger("5d21dba00", 16),
                 new BigInteger("0", 16),
@@ -364,11 +369,12 @@ public class NodeAPITest {
 
     @Test
     public void estimateComputationCostTest() throws Exception {
-        String encoded = kip17Contract.getMethod("pause").encodeABI(Collections.emptyList());
+        KIP17 kip17 = new KIP17(caver, kip17Contract);
+        String encoded = kip17.getMethod("pause").encodeABI(Collections.emptyList());
 
         CallObject callObject = CallObject.createCallObject(
                 account,
-                kip17Contract.getContractAddress(),
+                kip17.getContractAddress(),
                 new BigInteger("100000000", 16),
                 new BigInteger("5d21dba00", 16),
                 new BigInteger("0", 16),
@@ -417,10 +423,9 @@ public class NodeAPITest {
                 .setGas(BigInteger.valueOf(25000))
                 .build();
 
-        caver.wallet.sign(account, valueTransfer);
-
+        Config.keyringContainer.sign(account, valueTransfer);
         Bytes32 txHash = caver.rpc.klay.sendRawTransaction(valueTransfer).send();
-        TestCase.assertNotNull(txHash);
+        assertNotNull(txHash);
     }
 
 
