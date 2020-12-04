@@ -42,28 +42,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Config {
-    //    public static final String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
-//    public static final String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
-//    public static final String URL_TH_API = "https://th-api.klaytnapi.com";
-//    public static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
-
-    public static final String URL_NODE_API = "https://node-api.dev.klaytn.com/v1/klaytn";
-    public static final String URL_ANCHOR_API = "https://anchor-api.dev.klaytn.com";
-    public static final String URL_TH_API = "https://th-api.dev.klaytn.com";
-    public static final String URL_WALLET_API = "https://wallet-api.dev.klaytn.com";
-
+    public static final String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
+    public static final String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
+    public static final String URL_TH_API = "https://th-api.klaytnapi.com";
+    public static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
-    static String accessKey = "KASKPC4Y2BI5R9S102XZQ6HQ";
-    static String secretAccessKey = "A46xEUiEP72ReGfNENktb29CUkMb6VXRV0Ovq1QO";
+    static String accessKey = "";
+    static String secretAccessKey = "";
 
-    public static String feePayerAddress = "0x31d845Ac80A0B2a38f6267CabcF34F8fA9DcD2B7";
-    public static String operatorAddress = "0xF2604f33Ae49213fEB3Cd9BB8122A55D8E28e6DB";
+    public static String feePayerAddress = "";
+    public static String operatorAddress = "";
 
-    static String klayProviderPrivateKey = "0xc34442bae4b74023081d8fb05003eb13f11c40d6fc79b9f30c9caa036947ffe8";
+    static String klayProviderPrivateKey = "";
 
-    public static Integer presetID = 82;
+    public static Integer presetID;
 
 
 
