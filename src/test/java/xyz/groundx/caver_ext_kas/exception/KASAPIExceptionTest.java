@@ -4,15 +4,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 
-import static org.junit.Assert.*;
+import java.math.BigInteger;
+
+import static org.junit.Assert.assertEquals;
 
 public class KASAPIExceptionTest {
     static CaverExtKAS caver;
 
     @BeforeClass
-    public static void init() throws ApiException {
+    public static void init() {
         Config.init();
         caver = Config.getCaver();
         caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -28,6 +29,5 @@ public class KASAPIExceptionTest {
             assertEquals(1061010, e.getResponseBody().getCode());
             assertEquals("data don't exist", e.getResponseBody().getMessage());
         }
-
     }
 }

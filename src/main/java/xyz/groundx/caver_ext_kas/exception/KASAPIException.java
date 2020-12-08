@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class KASAPIException extends IOException {
+public class KASAPIException extends RuntimeException {
     private int code = 0;
     private Map<String, List<String>> responseHeaders = null;
     private ExceptionDetail responseBody = null;
@@ -84,6 +84,5 @@ public class KASAPIException extends IOException {
         } catch (IOException e){
             throw new RuntimeException("Failed to parsed json string : " + responseBody);
         }
-
     }
 }

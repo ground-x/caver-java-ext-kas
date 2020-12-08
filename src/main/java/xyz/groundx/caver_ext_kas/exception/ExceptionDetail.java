@@ -2,7 +2,7 @@ package xyz.groundx.caver_ext_kas.exception;
 
 public class ExceptionDetail {
     int code;
-    String message;
+    String message = "";
 
     public ExceptionDetail() {
     }

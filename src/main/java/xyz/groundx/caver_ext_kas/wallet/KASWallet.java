@@ -90,7 +90,6 @@ public class KASWallet implements IWallet {
         } catch (ApiException e) {
             throw new KASAPIException(e);
         }
-
     }
 
     /**
@@ -129,8 +128,13 @@ public class KASWallet implements IWallet {
      * @return AccountSummary
      * @throws ApiException
      */
-    public AccountSummary enableAccount(String address) throws ApiException {
-        return this.walletAPI.enableAccount(address);
+    public AccountSummary enableAccount(String address) throws KASAPIException {
+        try {
+            return this.walletAPI.enableAccount(address);
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
+        }
+
     }
 
     /**
@@ -139,8 +143,12 @@ public class KASWallet implements IWallet {
      * @return AccountSummary
      * @throws ApiException
      */
-    public AccountSummary disableAccount(String address) throws ApiException {
-        return this.walletAPI.disableAccount(address);
+    public AccountSummary disableAccount(String address) throws KASAPIException {
+        try {
+            return this.walletAPI.disableAccount(address);
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
+        }
     }
 
     /**
@@ -151,7 +159,7 @@ public class KASWallet implements IWallet {
      * @throws IOException
      */
     @Override
-    public AbstractTransaction sign(String address, AbstractTransaction transaction) throws KASAPIException {
+    public AbstractTransaction sign(String address, AbstractTransaction transaction) throws IOException, KASAPIException {
         if(transaction.getFrom().equals("0x")) {
             transaction.setFrom(address);
         }
@@ -175,9 +183,8 @@ public class KASWallet implements IWallet {
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
      * @throws IOException
-     * @throws ApiException
      */
-    public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws KASAPIException {
+    public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, KASAPIException {
         try {
             feeDelegatedTransaction.fillTransaction();
             String rlp = feeDelegatedTransaction.getRLPEncoding();
@@ -201,13 +208,11 @@ public class KASWallet implements IWallet {
 
             feeDelegatedTransaction.setFeePayer(tx.getFeePayer());
             feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
+
+            return feeDelegatedTransaction;
         } catch (ApiException e) {
             throw new KASAPIException(e);
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
         }
-
-        return feeDelegatedTransaction;
     }
 
     /**
@@ -219,7 +224,7 @@ public class KASWallet implements IWallet {
      * @throws IOException
      */
     @Override
-    public AbstractFeeDelegatedTransaction signAsFeePayer(String feePayerAddress, AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws KASAPIException {
+    public AbstractFeeDelegatedTransaction signAsFeePayer(String feePayerAddress, AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, KASAPIException {
         try {
             if(feePayerAddress == null) {
                 return signAsGlobalFeePayer(feeDelegatedTransaction);
@@ -257,8 +262,6 @@ public class KASWallet implements IWallet {
             return feeDelegatedTransaction;
         } catch (ApiException e) {
             throw new KASAPIException(e);
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
         }
     }
 
@@ -279,69 +282,60 @@ public class KASWallet implements IWallet {
     }
 
 
-    private boolean isWeightedMultiSigType(AbstractTransaction transaction, String address) throws KASAPIException {
-        try {
-            AccountKey res = transaction.getKlaytnCall().getAccountKey(address).send();
-            if(res == null) {
-                return false;
-            }
+    private boolean isWeightedMultiSigType(AbstractTransaction transaction, String address) throws IOException {
+        AccountKey res = transaction.getKlaytnCall().getAccountKey(address).send();
+        if(res == null) {
+            return false;
+        }
 
-            AccountKey.AccountKeyData accountKeyData = res.getResult();
-            String type = accountKeyData.getType();
+        AccountKey.AccountKeyData accountKeyData = res.getResult();
+        String type = accountKeyData.getType();
 
-            if(type.equals(AccountKeyWeightedMultiSig.getType())) {
-                return true;
-            }
+        if(type.equals(AccountKeyWeightedMultiSig.getType())) {
+            return true;
+        }
 
-            if(type.equals(AccountKeyRoleBased.getType())) {
-                AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
+        if(type.equals(AccountKeyRoleBased.getType())) {
+            AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
 
-                if(transaction instanceof AccountUpdate) {
-                    if(roleBased.getRoleAccountUpdateKey() instanceof AccountKeyWeightedMultiSig) {
-                        return true;
-                    }
-                } else {
-                    if(roleBased.getRoleTransactionKey() instanceof  AccountKeyWeightedMultiSig) {
-                        return true;
-                    }
+            if(transaction instanceof AccountUpdate) {
+                if(roleBased.getRoleAccountUpdateKey() instanceof AccountKeyWeightedMultiSig) {
+                    return true;
+                }
+            } else {
+                if(roleBased.getRoleTransactionKey() instanceof  AccountKeyWeightedMultiSig) {
+                    return true;
                 }
             }
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
         }
 
         return false;
     }
 
-    private boolean isWeightedMultiSigType(AbstractFeeDelegatedTransaction fdTransaction, String address) throws KASAPIException {
-        try {
-            AccountKey res = fdTransaction.getKlaytnCall().getAccountKey(address).send();
-            if(res == null) {
-                return true;
-            }
-            AccountKey.AccountKeyData accountKeyData = res.getResult();
-
-            String type = accountKeyData.getType();
-
-            if(type.equals(AccountKeyWeightedMultiSig.getType())) {
-                return true;
-            }
-
-            if(type.equals(AccountKeyRoleBased.getType())) {
-                AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
-                if(roleBased.getRoleFeePayerKey() instanceof AccountKeyWeightedMultiSig) {
-                    return true;
-                }
-            }
-
-            return false;
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
+    private boolean isWeightedMultiSigType(AbstractFeeDelegatedTransaction fdTransaction, String address) throws IOException {
+        AccountKey res = fdTransaction.getKlaytnCall().getAccountKey(address).send();
+        if(res == null) {
+            return true;
         }
+        AccountKey.AccountKeyData accountKeyData = res.getResult();
+
+        String type = accountKeyData.getType();
+
+        if(type.equals(AccountKeyWeightedMultiSig.getType())) {
+            return true;
+        }
+
+        if(type.equals(AccountKeyRoleBased.getType())) {
+            AccountKeyRoleBased roleBased = (AccountKeyRoleBased) accountKeyData.getAccountKey();
+            if(roleBased.getRoleFeePayerKey() instanceof AccountKeyWeightedMultiSig) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private List<SignatureData> makeSignature(AbstractTransaction transaction) throws KASAPIException {
-
+    private List<SignatureData> makeSignature(AbstractTransaction transaction) throws IOException {
         try {
             //If transaction type is fee delegated type
             if(transaction instanceof AbstractFeeDelegatedTransaction) {
@@ -364,13 +358,11 @@ public class KASWallet implements IWallet {
             return convertSignatureData(result.getSignatures());
         } catch (ApiException e) {
             throw new KASAPIException(e);
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
         }
     }
 
     
-    private List<SignatureData> makeSignature(AbstractFeeDelegatedTransaction transaction) throws KASAPIException {
+    private List<SignatureData> makeSignature(AbstractFeeDelegatedTransaction transaction) throws IOException, KASAPIException {
         try {
             transaction.fillTransaction();
 
@@ -387,22 +379,11 @@ public class KASWallet implements IWallet {
             return convertSignatureData(result.getSignatures());
         } catch (ApiException e) {
             throw new KASAPIException(e);
-        } catch (IOException e) {
-            throw new KASAPIException(e.getMessage(), e.getCause());
         }
     }
 
     private List<SignatureData> convertSignatureData(List<Signature> signatureList) {
         return signatureList.stream().map(signature -> new SignatureData(signature.getV(), signature.getR(), signature.getS()))
                 .collect(Collectors.toList());
-    }
-
-    private String getErrorMessage(ApiException e) {
-        String message = e.getCode() + " " + e.getMessage();
-        if(e.getResponseBody() != null && !e.getResponseBody().equals("")) {
-            message = message + "\n" + e.getResponseBody();
-        }
-
-        return message;
     }
 }
