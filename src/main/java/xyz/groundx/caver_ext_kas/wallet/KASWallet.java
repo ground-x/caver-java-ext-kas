@@ -61,6 +61,7 @@ public class KASWallet implements IWallet {
      * Generates accounts in KAS Wallet service.
      * @param num The number of accounts to generate.
      * @return List
+     * @throws KASAPIException
      */
     @Override
     public List<String> generate(int num) throws KASAPIException {
@@ -126,7 +127,7 @@ public class KASWallet implements IWallet {
      * Enable account in KAS Wallet service.
      * @param address The address of account to enable.
      * @return AccountSummary
-     * @throws ApiException
+     * @throws KASAPIException
      */
     public AccountSummary enableAccount(String address) throws KASAPIException {
         try {
@@ -141,7 +142,7 @@ public class KASWallet implements IWallet {
      * Disable account in KAS Wallet service.
      * @param address The address of account to disable.
      * @return AccountSummary
-     * @throws ApiException
+     * @throws KASAPIException
      */
     public AccountSummary disableAccount(String address) throws KASAPIException {
         try {
@@ -157,6 +158,7 @@ public class KASWallet implements IWallet {
      * @param transaction A transaction instance to sign.
      * @return AbstractTransaction
      * @throws IOException
+     * @throws KASAPIException
      */
     @Override
     public AbstractTransaction sign(String address, AbstractTransaction transaction) throws IOException, KASAPIException {
@@ -183,6 +185,7 @@ public class KASWallet implements IWallet {
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
      * @throws IOException
+     * @throws KASAPIException
      */
     public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, KASAPIException {
         try {
@@ -220,7 +223,7 @@ public class KASWallet implements IWallet {
      * @param feePayerAddress An address of account to sign as a fee payer in KAS Wallet service
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
-     * @throws ApiException
+     * @throws KASAPIException
      * @throws IOException
      */
     @Override
