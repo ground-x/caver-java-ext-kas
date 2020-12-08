@@ -31,9 +31,9 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
+import xyz.groundx.caver_ext_kas.exception.KASAPIException;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
@@ -60,7 +60,7 @@ public class KASWalletTest {
                 List<String> addressList = kasWallet.generate(3);
                 verify(wallet, times(3)).createAccount();
                 assertEquals(3, addressList.size());
-            } catch (ApiException e) {
+            } catch (KASAPIException | ApiException e) {
                 e.printStackTrace();
                 fail();
             }
@@ -72,7 +72,7 @@ public class KASWalletTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException, ApiException {
+        public static void init() throws ApiException {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -90,7 +90,7 @@ public class KASWalletTest {
 
                 verify(wallet, times(1)).getAccount(account.getAddress());
                 assertNotNull(actual);
-            } catch (ApiException e) {
+            } catch (KASAPIException | ApiException e) {
                 e.printStackTrace();
                 fail();
             }

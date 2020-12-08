@@ -27,6 +27,7 @@ import com.klaytn.caver.transaction.type.AccountUpdate;
 import com.klaytn.caver.transaction.type.LegacyTransaction;
 import com.klaytn.caver.wallet.IWallet;
 import com.klaytn.caver.wallet.keyring.SignatureData;
+import xyz.groundx.caver_ext_kas.exception.KASAPIException;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
@@ -60,25 +61,36 @@ public class KASWallet implements IWallet {
      * Generates accounts in KAS Wallet service.
      * @param num The number of accounts to generate.
      * @return List
+     * @throws KASAPIException
      */
     @Override
-    public List<String> generate(int num) throws ApiException {
-        List<String> addressList = new ArrayList<>();
-        for(int i=0; i < num; i++) {
-            Account account = this.walletAPI.createAccount();
-            addressList.add(account.getAddress());
+    public List<String> generate(int num) throws KASAPIException {
+        try {
+            List<String> addressList = new ArrayList<>();
+            for(int i=0; i < num; i++) {
+                Account account = this.walletAPI.createAccount();
+                addressList.add(account.getAddress());
+            }
+
+            return addressList;
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
         }
-        return addressList;
+
     }
 
     /**
      * Get an account corresponding to the given address in KAS wallet service.
      * @param address An address to get account in KAS Wallet service.
      * @return Account
-     * @throws ApiException
+     * @throws KASAPIException
      */
-    public Account getAccount(String address) throws ApiException {
-        return this.walletAPI.getAccount(address);
+    public Account getAccount(String address) throws KASAPIException {
+        try {
+            return this.walletAPI.getAccount(address);
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
+        }
     }
 
     /**
@@ -106,7 +118,7 @@ public class KASWallet implements IWallet {
         try {
             Account account = getAccount(address);
             return true;
-        } catch (ApiException e) {
+        } catch (KASAPIException e) {
             return false;
         }
     }
@@ -115,20 +127,29 @@ public class KASWallet implements IWallet {
      * Enable account in KAS Wallet service.
      * @param address The address of account to enable.
      * @return AccountSummary
-     * @throws ApiException
+     * @throws KASAPIException
      */
-    public AccountSummary enableAccount(String address) throws ApiException {
-        return this.walletAPI.enableAccount(address);
+    public AccountSummary enableAccount(String address) throws KASAPIException {
+        try {
+            return this.walletAPI.enableAccount(address);
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
+        }
+
     }
 
     /**
      * Disable account in KAS Wallet service.
      * @param address The address of account to disable.
      * @return AccountSummary
-     * @throws ApiException
+     * @throws KASAPIException
      */
-    public AccountSummary disableAccount(String address) throws ApiException {
-        return this.walletAPI.disableAccount(address);
+    public AccountSummary disableAccount(String address) throws KASAPIException {
+        try {
+            return this.walletAPI.disableAccount(address);
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
+        }
     }
 
     /**
@@ -137,10 +158,10 @@ public class KASWallet implements IWallet {
      * @param transaction A transaction instance to sign.
      * @return AbstractTransaction
      * @throws IOException
-     * @throws ApiException
+     * @throws KASAPIException
      */
     @Override
-    public AbstractTransaction sign(String address, AbstractTransaction transaction) throws IOException, ApiException {
+    public AbstractTransaction sign(String address, AbstractTransaction transaction) throws IOException, KASAPIException {
         if(transaction.getFrom().equals("0x")) {
             transaction.setFrom(address);
         }
@@ -164,32 +185,37 @@ public class KASWallet implements IWallet {
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
      * @throws IOException
-     * @throws ApiException
+     * @throws KASAPIException
      */
-    public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, ApiException {
-        feeDelegatedTransaction.fillTransaction();
-        String rlp = feeDelegatedTransaction.getRLPEncoding();
+    public AbstractFeeDelegatedTransaction signAsGlobalFeePayer(AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, KASAPIException {
+        try {
+            feeDelegatedTransaction.fillTransaction();
+            String rlp = feeDelegatedTransaction.getRLPEncoding();
 
-        FDProcessRLPRequest rlpRequest = new FDProcessRLPRequest();
-        rlpRequest.setRlp(rlp);
-        rlpRequest.setSubmit(false);
+            FDProcessRLPRequest rlpRequest = new FDProcessRLPRequest();
+            rlpRequest.setRlp(rlp);
+            rlpRequest.setSubmit(false);
 
-        if(feeDelegatedTransaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
-            rlpRequest.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) feeDelegatedTransaction).getFeeRatioInteger().longValue());
+            if(feeDelegatedTransaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
+                rlpRequest.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) feeDelegatedTransaction).getFeeRatioInteger().longValue());
+            }
+
+            FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(rlpRequest);
+
+            AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
+
+            String existFeePayer = feeDelegatedTransaction.getFeePayer();
+            if(!existFeePayer.equals("0x") && !existFeePayer.toLowerCase().equals(tx.getFeePayer().toLowerCase())) {
+                throw new RuntimeException("Invalid fee payer: The address of the fee payer defined in the transaction does not match the address of the global fee payer. To sign with a global fee payer, you must define the global fee payer's address in the feePayer field, or the feePayer field must not be defined.");
+            }
+
+            feeDelegatedTransaction.setFeePayer(tx.getFeePayer());
+            feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
+
+            return feeDelegatedTransaction;
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
         }
-
-        FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(rlpRequest);
-        AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
-
-        String existFeePayer = feeDelegatedTransaction.getFeePayer();
-        if(!existFeePayer.equals("0x") && !existFeePayer.toLowerCase().equals(tx.getFeePayer().toLowerCase())) {
-            throw new RuntimeException("Invalid fee payer: The address of the fee payer defined in the transaction does not match the address of the global fee payer. To sign with a global fee payer, you must define the global fee payer's address in the feePayer field, or the feePayer field must not be defined.");
-        }
-
-        feeDelegatedTransaction.setFeePayer(tx.getFeePayer());
-        feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
-
-        return feeDelegatedTransaction;
     }
 
     /**
@@ -197,45 +223,49 @@ public class KASWallet implements IWallet {
      * @param feePayerAddress An address of account to sign as a fee payer in KAS Wallet service
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
-     * @throws ApiException
+     * @throws KASAPIException
      * @throws IOException
      */
     @Override
-    public AbstractFeeDelegatedTransaction signAsFeePayer(String feePayerAddress, AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws ApiException, IOException {
-        if(feePayerAddress == null) {
-            return signAsGlobalFeePayer(feeDelegatedTransaction);
+    public AbstractFeeDelegatedTransaction signAsFeePayer(String feePayerAddress, AbstractFeeDelegatedTransaction feeDelegatedTransaction) throws IOException, KASAPIException {
+        try {
+            if(feePayerAddress == null) {
+                return signAsGlobalFeePayer(feeDelegatedTransaction);
+            }
+
+            if(feeDelegatedTransaction.getFeePayer().equals("0x")) {
+                feeDelegatedTransaction.setFeePayer(feePayerAddress);
+            }
+
+            if(!feeDelegatedTransaction.getFeePayer().toLowerCase().equals(feePayerAddress.toLowerCase())) {
+                throw new IllegalArgumentException("Fee payer address are not matched");
+            }
+
+            if(isWeightedMultiSigType(feeDelegatedTransaction, feePayerAddress)) {
+                throw new IllegalArgumentException("Not supported: Using multiple keys in an account is currently not supported.");
+            }
+
+            feeDelegatedTransaction.fillTransaction();
+            String rlp = feeDelegatedTransaction.getRLPEncoding();
+
+            FDUserProcessRLPRequest rlpRequest = new FDUserProcessRLPRequest();
+            rlpRequest.setRlp(rlp);
+            rlpRequest.setFeePayer(feeDelegatedTransaction.getFeePayer());
+            rlpRequest.setSubmit(false);
+
+            if(feeDelegatedTransaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
+                rlpRequest.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) feeDelegatedTransaction).getFeeRatioInteger().longValue());
+            }
+
+            FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByUser(rlpRequest);
+
+            AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
+            feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
+
+            return feeDelegatedTransaction;
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
         }
-
-        if(feeDelegatedTransaction.getFeePayer().equals("0x")) {
-            feeDelegatedTransaction.setFeePayer(feePayerAddress);
-        }
-
-        if(!feeDelegatedTransaction.getFeePayer().toLowerCase().equals(feePayerAddress.toLowerCase())) {
-            throw new IllegalArgumentException("Fee payer address are not matched");
-        }
-
-        if(isWeightedMultiSigType(feeDelegatedTransaction, feePayerAddress)) {
-            throw new IllegalArgumentException("Not supported: Using multiple keys in an account is currently not supported.");
-        }
-
-        feeDelegatedTransaction.fillTransaction();
-        String rlp = feeDelegatedTransaction.getRLPEncoding();
-
-        FDUserProcessRLPRequest rlpRequest = new FDUserProcessRLPRequest();
-        rlpRequest.setRlp(rlp);
-        rlpRequest.setFeePayer(feeDelegatedTransaction.getFeePayer());
-        rlpRequest.setSubmit(false);
-
-        if(feeDelegatedTransaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
-            rlpRequest.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) feeDelegatedTransaction).getFeeRatioInteger().longValue());
-        }
-
-        FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByUser(rlpRequest);
-
-        AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
-        feeDelegatedTransaction.appendFeePayerSignatures(tx.getFeePayerSignatures());
-
-        return feeDelegatedTransaction;
     }
 
     /**
@@ -308,43 +338,51 @@ public class KASWallet implements IWallet {
         return false;
     }
 
-    private List<SignatureData> makeSignature(AbstractTransaction transaction) throws ApiException, IOException {
-        //If transaction type is fee delegated type
-        if(transaction instanceof AbstractFeeDelegatedTransaction) {
-            return makeSignature((AbstractFeeDelegatedTransaction)transaction);
+    private List<SignatureData> makeSignature(AbstractTransaction transaction) throws IOException {
+        try {
+            //If transaction type is fee delegated type
+            if(transaction instanceof AbstractFeeDelegatedTransaction) {
+                return makeSignature((AbstractFeeDelegatedTransaction)transaction);
+            }
+
+            transaction.fillTransaction();
+
+            ProcessRLPRequest request = new ProcessRLPRequest();
+
+            //If transaction type is LegacyTransaction, it must set a from field in ProcessRLPRequest.
+            if(transaction instanceof LegacyTransaction) {
+                request.setFrom(transaction.getFrom());
+            }
+
+            request.setRlp(transaction.getRLPEncoding());
+            request.setSubmit(false);
+
+            TransactionResult result = this.walletAPI.requestRawTransaction(request);
+            return convertSignatureData(result.getSignatures());
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
         }
-
-        transaction.fillTransaction();
-
-        ProcessRLPRequest request = new ProcessRLPRequest();
-
-        //If transaction type is LegacyTransaction, it must set a from field in ProcessRLPRequest.
-        if(transaction instanceof LegacyTransaction) {
-            request.setFrom(transaction.getFrom());
-        }
-
-        request.setRlp(transaction.getRLPEncoding());
-        request.setSubmit(false);
-
-        TransactionResult result = this.walletAPI.requestRawTransaction(request);
-        return convertSignatureData(result.getSignatures());
     }
 
     
-    private List<SignatureData> makeSignature(AbstractFeeDelegatedTransaction transaction) throws ApiException, IOException {
-        transaction.fillTransaction();
+    private List<SignatureData> makeSignature(AbstractFeeDelegatedTransaction transaction) throws IOException, KASAPIException {
+        try {
+            transaction.fillTransaction();
 
-        FDProcessRLPRequest request = new FDProcessRLPRequest();
+            FDProcessRLPRequest request = new FDProcessRLPRequest();
 
-        if (transaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
-            request.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) transaction).getFeeRatioInteger().longValue());
+            if (transaction instanceof AbstractFeeDelegatedWithRatioTransaction) {
+                request.setFeeRatio(((AbstractFeeDelegatedWithRatioTransaction) transaction).getFeeRatioInteger().longValue());
+            }
+
+            request.setRlp(transaction.getRLPEncoding());
+            request.setSubmit(false);
+
+            FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(request);
+            return convertSignatureData(result.getSignatures());
+        } catch (ApiException e) {
+            throw new KASAPIException(e);
         }
-
-        request.setRlp(transaction.getRLPEncoding());
-        request.setSubmit(false);
-
-        FDTransactionResult result = this.walletAPI.requestFDRawTransactionPaidByGlobalFeePayer(request);
-        return convertSignatureData(result.getSignatures());
     }
 
     private List<SignatureData> convertSignatureData(List<Signature> signatureList) {
