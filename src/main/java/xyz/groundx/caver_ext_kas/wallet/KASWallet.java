@@ -25,6 +25,7 @@ import com.klaytn.caver.transaction.AbstractTransaction;
 import com.klaytn.caver.transaction.TransactionDecoder;
 import com.klaytn.caver.transaction.type.AccountUpdate;
 import com.klaytn.caver.transaction.type.LegacyTransaction;
+import com.klaytn.caver.utils.Utils;
 import com.klaytn.caver.wallet.IWallet;
 import com.klaytn.caver.wallet.keyring.SignatureData;
 import xyz.groundx.caver_ext_kas.exception.KASAPIException;
@@ -205,7 +206,7 @@ public class KASWallet implements IWallet {
             AbstractFeeDelegatedTransaction tx = (AbstractFeeDelegatedTransaction)TransactionDecoder.decode(result.getRlp());
 
             String existFeePayer = feeDelegatedTransaction.getFeePayer();
-            if(!existFeePayer.equals("0x") && !existFeePayer.toLowerCase().equals(tx.getFeePayer().toLowerCase())) {
+            if(!existFeePayer.equals("0x") && !existFeePayer.equals(Utils.DEFAULT_ZERO_ADDRESS) && !existFeePayer.toLowerCase().equals(tx.getFeePayer().toLowerCase())) {
                 throw new RuntimeException("Invalid fee payer: The address of the fee payer defined in the transaction does not match the address of the global fee payer. To sign with a global fee payer, you must define the global fee payer's address in the feePayer field, or the feePayer field must not be defined.");
             }
 
@@ -233,7 +234,7 @@ public class KASWallet implements IWallet {
                 return signAsGlobalFeePayer(feeDelegatedTransaction);
             }
 
-            if(feeDelegatedTransaction.getFeePayer().equals("0x")) {
+            if(feeDelegatedTransaction.getFeePayer().equals("0x") || feeDelegatedTransaction.getFeePayer().equals(Utils.DEFAULT_ZERO_ADDRESS)) {
                 feeDelegatedTransaction.setFeePayer(feePayerAddress);
             }
 
