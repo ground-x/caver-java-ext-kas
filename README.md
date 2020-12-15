@@ -211,14 +211,14 @@ options.setToTimesatamp();
 
 ### Introduced KASWallet
 KASWallet allows you to handle transaction instance in caver-java by using KAS Wallet API. 
-  - Generate and manage account by using KAS Wallet API.
+  - Generate and manage accounts by using KAS Wallet API.
   - Sign a transaction instance in caver-java by using KAS Wallet API.
 
 KASWallet can be used as a member called `wallet` of the `CaverExtKAS` class.
 The `CaverExtKAS` class can provide the same usability as the 'wallet' of `Caver` class in caver-java through KASWallet.
 Also, `Contract`, `KIP7`, `KIP17` classes in caver-java can be used the same as the existing caver-java.
 
-Here we introduced a simple example using Contract, KIP7 and KIP17 respectively. Please refer to Contract, KIP7 and KIP17 of Klaytn Docs for detailed usage.
+Here we introduced a simple example using Contract, KIP7 and KIP17 respectively. Please refer to Contract, KIP7 and KIP17 of [Klaytn Docs](https://docs.klaytn.com/bapp/sdk/caver-java/getting-started#smart-contract) for detailed usage.
 
 #### Use Contract class with KASWallet
 ```java
@@ -231,13 +231,13 @@ CaverExtKAS caver = new CaverExtKAS(ChainId.BAOBAB_TESTNET, accessKey, secretAcc
 Contract contract = new Contract(caver, abi);
 
 //Deploy Contract
-String deployer = "0x{address}";
+String account = "0x{address}";
 BigInteger gas = BigInteger.valueOf(10000000);
-SendOptions sendOptions = new SendOptions(deployer, gas);
+SendOptions sendOptions = new SendOptions(account, gas);
 contract.deploy(sendOptions, BINARY);
 
 //Execute contract's "set" function.
-SendOptions sendOptions = new SendOptions(deployer, BigInteger.valueOf(5000000));
+SendOptions sendOptions = new SendOptions(account, BigInteger.valueOf(5000000));
 TransactionReceipt.TransactionReceiptData receiptData = contract.send(sendOptions, "set", "key", "value");
 ```
 
