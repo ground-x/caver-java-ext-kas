@@ -1,5 +1,5 @@
 buildscript {
-    ext.caver_version = '1.5.6-rc.4'
+    ext.caver_version = '1.5.6-rc.5'
 }
 
 plugins {
