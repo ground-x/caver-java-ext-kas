@@ -10,11 +10,41 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
     * [Use Token History API](#use-token-history-api)
     * [Use Wallet API](#use-wallet-api)
     * [Use Anchor API](#use-anchor-api)
+    * [Introduced KASWallet](#introduced-kaswallet)
   * [Test](#test)
 
 ## Installation
 
-#### maven
+### Installation
+
+#### add a Repository
+
+To install caver-java-ext-kas, you need to install caver-java.
+To install the latest version of caver-java, you should add a jitpack repository for IPFS feature.
+
+**maven**
+```groovy
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+**gradle**
+```groovy
+allprojects {
+    repositories {
+        ... //mavenCentral() or jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+#### add a dependency
+
+**maven**
 ```groovy
 <dependency>
   <groupId>xyz.groundx.caver</groupId>
@@ -32,7 +62,8 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
   <type>pom</type>
 </dependency>
 ```
-#### gradle
+
+**gradle**
 ```groovy
 implementation 'xyz.groundx.caver:caver-java-ext-kas:X.X.X'
 ```
@@ -177,6 +208,90 @@ options.setSize();
 options.setCursor();
 options.setFromTimestamp();
 options.setToTimesatamp();
+```
+
+### Introduced KASWallet
+KASWallet allows you to handle transaction instance in caver-java by using KAS Wallet API. 
+  - Generate and manage accounts by using KAS Wallet API.
+  - Sign a transaction instance in caver-java by using KAS Wallet API.
+
+KASWallet can be used as a member called `wallet` of the `CaverExtKAS` class.
+The `CaverExtKAS` class can provide the same usability as the 'wallet' of `Caver` class in caver-java through KASWallet.
+Also, `Contract`, `KIP7`, `KIP17` classes in caver-java can be used the same as the existing caver-java.
+
+Here we introduced a simple example using Contract, KIP7 and KIP17 respectively. Please refer to Contract, KIP7 and KIP17 of [Klaytn Docs](https://docs.klaytn.com/bapp/sdk/caver-java/getting-started#smart-contract) for detailed usage.
+
+#### Use Contract class with KASWallet
+```java
+final String ABI = "[{\"constant\":true,\"inputs\":[{\"name\":\"key\",\"type\":\"string\"}],\"name\":\"get\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},...]";
+final String BINARY = "Smart contract binary Data";
+String accessKey = "your access key";
+String secretAccessKey = "your secret access key";
+CaverExtKAS caver = new CaverExtKAS(ChainId.BAOBAB_TESTNET, accessKey, secretAccessKey);
+
+Contract contract = new Contract(caver, abi);
+
+//Deploy Contract
+String account = "0x{address}";
+BigInteger gas = BigInteger.valueOf(10000000);
+SendOptions sendOptions = new SendOptions(account, gas);
+contract.deploy(sendOptions, BINARY);
+
+//Execute contract's "set" function.
+SendOptions sendOptions = new SendOptions(account, BigInteger.valueOf(5000000));
+TransactionReceipt.TransactionReceiptData receiptData = contract.send(sendOptions, "set", "key", "value");
+```
+
+#### Use KIP7 class with KASWallet
+```java
+String accessKey = "your access key";
+String secretAccessKey = "your secret access key";
+CaverExtKAS caver = new CaverExtKAS(ChainId.BAOBAB_TESTNET, accessKey, secretAccessKey);
+
+String from = "0x{from address}";
+String to = "0x{to address}";
+
+//deploy KIP7 contract
+BigInteger initialSupply = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+KIP7 kip7 = KIP7.deploy(caver, from, "KAS", "SDK", 18, iniinitialSupply);
+
+//execute KIP7's transfer function.
+BigInteger transferAmount = BigInteger.ONE.multiply(BigInteger.TEN.pow(18));
+SendOptions sendOptions = new SendOptions(from, (String)null);
+TransactionReceipt.TransactionReceiptData receiptData = kip7.transfer(to, amount, sendOptions);
+```
+
+#### Use KIP17 class with KASWallet
+```java
+String accessKey = "your access key";
+String secretAccessKey = "your secret access key";
+CaverExtKAS caver = new CaverExtKAS(ChainId.BAOBAB_TESTNET, accessKey, secretAccessKey);
+
+//deploy KIP17 contract.
+String from = "0x{from address}";
+KIP17 kip17 = KIP17.deploy(caver, from, name, symbol);
+
+//execute KIP17's mint function.
+SendOptions sendOptions = new SendOptions(from, (String)null);
+TransactionReceipt.TransactionReceiptData receiptData = kip17.mint(kip17, from, BigInteger.ZERO);
+```
+
+#### Handling KASAPIException
+When an error occurs while using KAS Wallet API in `KASWallet` class, it throws `KASAPIException`(extends RuntimeException).
+KASAPIException has HTTP Error code and message and also it contains response body.
+
+Below is an example code that handles the error that occurred while executing the KAS Wallet API.
+
+```java
+try {
+    String unKnownAddress = "0x785ba1146cc1bed97b9c8d73e9293cc3b6bc3691";
+    Account account = caver.wallet.getAccount(unKnownAddress);
+} catch (KASAPIException e) {
+    System.out.println(e.getcode()); // 400
+    System.out.println(e.getMessage()); // "Bad Request"
+    System.out.println(e.getResponseBody().getCode()); // 1061010
+    System.out.println(e.getResponseBody().getMessage()); // "data don't exist"
+}
 ```
 
 ## Test

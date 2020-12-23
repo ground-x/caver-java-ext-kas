@@ -61,42 +61,17 @@ public class TokenHistoryAPITest {
 
 
     @BeforeClass
-    public static void init() throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public static void init() throws Exception {
         Config.init();
         caver = Config.getCaver();
         preset = Config.getPresetID();
         account = Config.getKlayProviderKeyring().getAddress();
 
-        ftAddress = deployKIP7(caver, account);
-        nftAddress = deployKIP17(caver, account);
-        mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
-
         caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
-    }
 
-    public static String deployKIP7(Caver caver, String deployer) throws IOException, NoSuchMethodException, InstantiationException, ClassNotFoundException, IllegalAccessException, InvocationTargetException, TransactionException {
-        BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-        KIP7DeployParams deployParams = new KIP7DeployParams("TEST", "TES", 18, initialSupply);
-
-        return KIP7.deploy(caver, deployParams, deployer).getContractAddress();
-    }
-
-    public static String deployKIP17(Caver caver, String deployer) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        String contractName = "TEST_KIP17";
-        String contractSymbol = "KIP17";
-
-        KIP17 kip17 = new KIP17(caver);
-        KIP17DeployParams deployParams = new KIP17DeployParams(contractName, contractSymbol);
-        SendOptions sendOptions = new SendOptions(deployer, BigInteger.valueOf(5500000));
-
-        return KIP17.deploy(caver, deployParams, deployer).getContractAddress();
-    }
-
-    public static void mintKIP17Token(Caver caver, String contractAddress, String ownerAddress, BigInteger tokenId) throws NoSuchMethodException, TransactionException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        KIP17 kip17 = new KIP17(caver, contractAddress);
-        SendOptions sendOptions = new SendOptions(ownerAddress, BigInteger.valueOf(5500000));
-
-        kip17.mint(ownerAddress, tokenId, sendOptions);
+        ftAddress = Config.deployKIP7(caver, account);
+        nftAddress = Config.deployKIP17(caver, account);
+        Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
     }
 
     @Test

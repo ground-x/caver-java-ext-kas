@@ -1,5 +1,5 @@
 buildscript {
-    ext.caver_version = '1.5.3-rc.2'
+    ext.caver_version = '1.5.6-rc.6'
 }
 
 plugins {
@@ -13,7 +13,7 @@ plugins {
 }
 
 allprojects {
-    version '1.0.1'
+    version '1.0.2'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
@@ -27,7 +27,8 @@ allprojects {
 
 
     repositories {
-        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
     }
 
     javadoc {
@@ -156,8 +157,8 @@ allprojects {
 
 
         testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile 'org.mockito:mockito-core:3.6.28'
         testCompile "ch.qos.logback:logback-core:1.2.3",
                 "ch.qos.logback:logback-classic:1.2.3"
     }
 }
-
