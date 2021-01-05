@@ -23,25 +23,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtToken;
 /**
- * PageableFtContractDetails
+ * PageableMtTokens
  */
 
 
-public class PageableFtContractDetails {
+public class PageableMtTokens {
   @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+  private List<MtToken> items = new ArrayList<MtToken>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
+  public PageableMtTokens items(List<MtToken> items) {
     this.items = items;
     return this;
   }
 
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
+  public PageableMtTokens addItemsItem(MtToken itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -51,15 +51,15 @@ public class PageableFtContractDetails {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
+  public List<MtToken> getItems() {
     return items;
   }
 
-  public void setItems(List<FtContractDetail> items) {
+  public void setItems(List<MtToken> items) {
     this.items = items;
   }
 
-  public PageableFtContractDetails cursor(String cursor) {
+  public PageableMtTokens cursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
@@ -86,9 +86,9 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    PageableMtTokens pageableMtTokens = (PageableMtTokens) o;
+    return Objects.equals(this.items, pageableMtTokens.items) &&
+        Objects.equals(this.cursor, pageableMtTokens.cursor);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class PageableFtContractDetails {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class PageableMtTokens {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");

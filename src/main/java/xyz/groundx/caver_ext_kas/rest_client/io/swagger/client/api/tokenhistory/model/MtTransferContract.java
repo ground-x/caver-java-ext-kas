@@ -21,60 +21,31 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
 /**
- * PageableFtContractDetails
+ * MtTransferContract
  */
 
 
-public class PageableFtContractDetails {
-  @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+public class MtTransferContract {
+  @SerializedName("address")
+  private String address = null;
 
-  @SerializedName("cursor")
-  private String cursor = null;
-
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
-    this.items = items;
-    return this;
-  }
-
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
-    this.items.add(itemsItem);
+  public MtTransferContract address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Contract address (20-byte)
+   * @return address
   **/
-  @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
-    return items;
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Contract address (20-byte)")
+  public String getAddress() {
+    return address;
   }
 
-  public void setItems(List<FtContractDetail> items) {
-    this.items = items;
-  }
-
-  public PageableFtContractDetails cursor(String cursor) {
-    this.cursor = cursor;
-    return this;
-  }
-
-   /**
-   * Next page cursor
-   * @return cursor
-  **/
-  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Next page cursor")
-  public String getCursor() {
-    return cursor;
-  }
-
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -86,24 +57,22 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    MtTransferContract mtTransferContract = (MtTransferContract) o;
+    return Objects.equals(this.address, mtTransferContract.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, cursor);
+    return Objects.hash(address);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class MtTransferContract {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }

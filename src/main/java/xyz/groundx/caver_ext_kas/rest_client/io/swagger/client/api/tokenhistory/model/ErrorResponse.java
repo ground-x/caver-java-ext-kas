@@ -21,60 +21,73 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
 /**
- * PageableFtContractDetails
+ * ErrorResponse
  */
 
 
-public class PageableFtContractDetails {
-  @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+public class ErrorResponse {
+  @SerializedName("code")
+  private Integer code = null;
 
-  @SerializedName("cursor")
-  private String cursor = null;
+  @SerializedName("message")
+  private String message = null;
 
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
-    this.items = items;
-    return this;
-  }
+  @SerializedName("requestId")
+  private String requestId = null;
 
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
-    this.items.add(itemsItem);
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
-    return items;
-  }
-
-  public void setItems(List<FtContractDetail> items) {
-    this.items = items;
-  }
-
-  public PageableFtContractDetails cursor(String cursor) {
-    this.cursor = cursor;
+  public ErrorResponse code(Integer code) {
+    this.code = code;
     return this;
   }
 
    /**
-   * Next page cursor
-   * @return cursor
+   * KAS error code
+   * @return code
   **/
-  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Next page cursor")
-  public String getCursor() {
-    return cursor;
+  @Schema(required = true, description = "KAS error code")
+  public Integer getCode() {
+    return code;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setCode(Integer code) {
+    this.code = code;
+  }
+
+  public ErrorResponse message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * KAS error message
+   * @return message
+  **/
+  @Schema(required = true, description = "KAS error message")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public ErrorResponse requestId(String requestId) {
+    this.requestId = requestId;
+    return this;
+  }
+
+   /**
+   * ID of the request caused the error
+   * @return requestId
+  **/
+  @Schema(required = true, description = "ID of the request caused the error")
+  public String getRequestId() {
+    return requestId;
+  }
+
+  public void setRequestId(String requestId) {
+    this.requestId = requestId;
   }
 
 
@@ -86,24 +99,26 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    ErrorResponse errorResponse = (ErrorResponse) o;
+    return Objects.equals(this.code, errorResponse.code) &&
+        Objects.equals(this.message, errorResponse.message) &&
+        Objects.equals(this.requestId, errorResponse.requestId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, cursor);
+    return Objects.hash(code, message, requestId);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class ErrorResponse {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

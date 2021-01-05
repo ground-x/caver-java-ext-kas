@@ -21,60 +21,73 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
 /**
- * PageableFtContractDetails
+ * Mt
  */
 
 
-public class PageableFtContractDetails {
-  @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+public class Mt {
+  @SerializedName("tokenId")
+  private String tokenId = null;
 
-  @SerializedName("cursor")
-  private String cursor = null;
+  @SerializedName("totalSupply")
+  private String totalSupply = null;
 
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
-    this.items = items;
-    return this;
-  }
+  @SerializedName("tokenUri")
+  private String tokenUri = null;
 
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
-    this.items.add(itemsItem);
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
-    return items;
-  }
-
-  public void setItems(List<FtContractDetail> items) {
-    this.items = items;
-  }
-
-  public PageableFtContractDetails cursor(String cursor) {
-    this.cursor = cursor;
+  public Mt tokenId(String tokenId) {
+    this.tokenId = tokenId;
     return this;
   }
 
    /**
-   * Next page cursor
-   * @return cursor
+   * Token ID (hex)
+   * @return tokenId
   **/
-  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Next page cursor")
-  public String getCursor() {
-    return cursor;
+  @Schema(example = "0x1", required = true, description = "Token ID (hex)")
+  public String getTokenId() {
+    return tokenId;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setTokenId(String tokenId) {
+    this.tokenId = tokenId;
+  }
+
+  public Mt totalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
+    return this;
+  }
+
+   /**
+   * Total supply (hex)
+   * @return totalSupply
+  **/
+  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total supply (hex)")
+  public String getTotalSupply() {
+    return totalSupply;
+  }
+
+  public void setTotalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
+  }
+
+  public Mt tokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
+    return this;
+  }
+
+   /**
+   * Token URI
+   * @return tokenUri
+  **/
+  @Schema(example = "https://link.to/mt/1", required = true, description = "Token URI")
+  public String getTokenUri() {
+    return tokenUri;
+  }
+
+  public void setTokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
   }
 
 
@@ -86,24 +99,26 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    Mt mt = (Mt) o;
+    return Objects.equals(this.tokenId, mt.tokenId) &&
+        Objects.equals(this.totalSupply, mt.totalSupply) &&
+        Objects.equals(this.tokenUri, mt.tokenUri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, cursor);
+    return Objects.hash(tokenId, totalSupply, tokenUri);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class Mt {\n");
     
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+    sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
+    sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
+    sb.append("    tokenUri: ").append(toIndentedString(tokenUri)).append("\n");
     sb.append("}");
     return sb.toString();
   }

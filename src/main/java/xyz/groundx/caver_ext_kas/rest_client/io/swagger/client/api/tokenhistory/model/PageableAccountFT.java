@@ -23,25 +23,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.AccountFT;
 /**
- * PageableFtContractDetails
+ * PageableAccountFT
  */
 
 
-public class PageableFtContractDetails {
+public class PageableAccountFT {
   @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+  private List<AccountFT> items = new ArrayList<AccountFT>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
+  public PageableAccountFT items(List<AccountFT> items) {
     this.items = items;
     return this;
   }
 
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
+  public PageableAccountFT addItemsItem(AccountFT itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -51,15 +51,15 @@ public class PageableFtContractDetails {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
+  public List<AccountFT> getItems() {
     return items;
   }
 
-  public void setItems(List<FtContractDetail> items) {
+  public void setItems(List<AccountFT> items) {
     this.items = items;
   }
 
-  public PageableFtContractDetails cursor(String cursor) {
+  public PageableAccountFT cursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
@@ -86,9 +86,9 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    PageableAccountFT pageableAccountFT = (PageableAccountFT) o;
+    return Objects.equals(this.items, pageableAccountFT.items) &&
+        Objects.equals(this.cursor, pageableAccountFT.cursor);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class PageableFtContractDetails {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class PageableAccountFT {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
