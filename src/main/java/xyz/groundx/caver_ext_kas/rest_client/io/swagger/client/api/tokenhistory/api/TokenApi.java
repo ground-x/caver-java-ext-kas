@@ -380,7 +380,7 @@ public class TokenApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdCall(String xChainId, String mtAddress, String tokenId, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdCall(String xChainId, String mtAddress, String tokenId, String cursor, Long size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -430,7 +430,7 @@ public class TokenApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdValidateBeforeCall(String xChainId, String mtAddress, String tokenId, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdValidateBeforeCall(String xChainId, String mtAddress, String tokenId, String cursor, Long size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling getMtTokensByContractAddressAndTokenId(Async)");
@@ -464,7 +464,7 @@ public class TokenApi {
      * @return PageableMtTokens
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public PageableMtTokens getMtTokensByContractAddressAndTokenId(String xChainId, String mtAddress, String tokenId, String cursor, String size) throws ApiException {
+    public PageableMtTokens getMtTokensByContractAddressAndTokenId(String xChainId, String mtAddress, String tokenId, String cursor, Long size) throws ApiException {
         ApiResponse<PageableMtTokens> resp = getMtTokensByContractAddressAndTokenIdWithHttpInfo(xChainId, mtAddress, tokenId, cursor, size);
         return resp.getData();
     }
@@ -480,7 +480,7 @@ public class TokenApi {
      * @return ApiResponse&lt;PageableMtTokens&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<PageableMtTokens> getMtTokensByContractAddressAndTokenIdWithHttpInfo(String xChainId, String mtAddress, String tokenId, String cursor, String size) throws ApiException {
+    public ApiResponse<PageableMtTokens> getMtTokensByContractAddressAndTokenIdWithHttpInfo(String xChainId, String mtAddress, String tokenId, String cursor, Long size) throws ApiException {
         com.squareup.okhttp.Call call = getMtTokensByContractAddressAndTokenIdValidateBeforeCall(xChainId, mtAddress, tokenId, cursor, size, null, null);
         Type localVarReturnType = new TypeToken<PageableMtTokens>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -498,7 +498,7 @@ public class TokenApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdAsync(String xChainId, String mtAddress, String tokenId, String cursor, String size, final ApiCallback<PageableMtTokens> callback) throws ApiException {
+    public com.squareup.okhttp.Call getMtTokensByContractAddressAndTokenIdAsync(String xChainId, String mtAddress, String tokenId, String cursor, Long size, final ApiCallback<PageableMtTokens> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

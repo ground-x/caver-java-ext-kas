@@ -26,6 +26,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.ErrorResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableAccountFT;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableNftOwnershipChanges;
 
 import java.lang.reflect.Type;
@@ -53,6 +55,159 @@ public class TokenOwnershipApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Build call for getFtSummaryByEoaAddress
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param address  (required)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (optional)
+     * @param caFilters (csv) Contract addresses to filter, separated by comma (0x..,0xa...) (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getFtSummaryByEoaAddressCall(String xChainId, String address, Long size, String cursor, String caFilters, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/account/token/{address}/ft"
+            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (size != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+        if (cursor != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
+        if (caFilters != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("ca-filters", caFilters));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getFtSummaryByEoaAddressValidateBeforeCall(String xChainId, String address, Long size, String cursor, String caFilters, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getFtSummaryByEoaAddress(Async)");
+        }
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException("Missing the required parameter 'address' when calling getFtSummaryByEoaAddress(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getFtSummaryByEoaAddressCall(xChainId, address, size, cursor, caFilters, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Search All FT Information Owned by a Specific EOA
+     * Lists all fungible tokens owned by the queried EOA address.<p></p>  ## Ca Filters<p></p>  * Filter contracts by specifying contract addresses to include in &#x60;ca-filters&#x60;.<br> * Separate addresses by comma e.g., &#x60;?ca-filters&#x3D;0x...,0x...&#x60;.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param address  (required)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (optional)
+     * @param caFilters (csv) Contract addresses to filter, separated by comma (0x..,0xa...) (optional)
+     * @return PageableAccountFT
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PageableAccountFT getFtSummaryByEoaAddress(String xChainId, String address, Long size, String cursor, String caFilters) throws ApiException {
+        ApiResponse<PageableAccountFT> resp = getFtSummaryByEoaAddressWithHttpInfo(xChainId, address, size, cursor, caFilters);
+        return resp.getData();
+    }
+
+    /**
+     * Search All FT Information Owned by a Specific EOA
+     * Lists all fungible tokens owned by the queried EOA address.<p></p>  ## Ca Filters<p></p>  * Filter contracts by specifying contract addresses to include in &#x60;ca-filters&#x60;.<br> * Separate addresses by comma e.g., &#x60;?ca-filters&#x3D;0x...,0x...&#x60;.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param address  (required)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (optional)
+     * @param caFilters (csv) Contract addresses to filter, separated by comma (0x..,0xa...) (optional)
+     * @return ApiResponse&lt;PageableAccountFT&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<PageableAccountFT> getFtSummaryByEoaAddressWithHttpInfo(String xChainId, String address, Long size, String cursor, String caFilters) throws ApiException {
+        com.squareup.okhttp.Call call = getFtSummaryByEoaAddressValidateBeforeCall(xChainId, address, size, cursor, caFilters, null, null);
+        Type localVarReturnType = new TypeToken<PageableAccountFT>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Search All FT Information Owned by a Specific EOA (asynchronously)
+     * Lists all fungible tokens owned by the queried EOA address.<p></p>  ## Ca Filters<p></p>  * Filter contracts by specifying contract addresses to include in &#x60;ca-filters&#x60;.<br> * Separate addresses by comma e.g., &#x60;?ca-filters&#x3D;0x...,0x...&#x60;.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param address  (required)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (optional)
+     * @param caFilters (csv) Contract addresses to filter, separated by comma (0x..,0xa...) (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getFtSummaryByEoaAddressAsync(String xChainId, String address, Long size, String cursor, String caFilters, final ApiCallback<PageableAccountFT> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getFtSummaryByEoaAddressValidateBeforeCall(xChainId, address, size, cursor, caFilters, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<PageableAccountFT>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
     /**
      * Build call for getListOfNftOwnershipChanges
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
