@@ -69,7 +69,6 @@ public class TokenHistoryAPITest {
 
         caver.kas.tokenHistory.tokenApi.getApiClient().setConnectTimeout(10000);
         caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
-        
         ftAddress = Config.deployKIP7(caver, account);
         nftAddress = Config.deployKIP17(caver, account);
         Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
