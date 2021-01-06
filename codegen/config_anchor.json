@@ -1,0 +1,6 @@
+{
+    "hideGenerationTimestamp" : true,
+    "modelPackage" : "xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model",
+    "apiPackage" : "xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.api",
+    "invokerPackage" : "xyz.groundx.caver_ext_kas.rest_client.io.swagger.client"
+}
