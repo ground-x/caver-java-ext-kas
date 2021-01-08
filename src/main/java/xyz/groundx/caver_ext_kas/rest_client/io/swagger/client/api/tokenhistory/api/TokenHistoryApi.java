@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,12 +12,24 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api;
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Configuration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Pair;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressRequestBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressResponseBody;
+
 import com.google.gson.reflect.TypeToken;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
+
+import java.io.IOException;
+
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.ErrorResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableTransfers;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.Transfers;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +59,7 @@ public class TokenHistoryApi {
      * Build call for getTransfers
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param presets  (csv) Preset IDs to use in search, check Preset IDs in KSA Console (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor Response offset (optional)
@@ -96,7 +108,7 @@ public class TokenHistoryApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -134,7 +146,7 @@ public class TokenHistoryApi {
      * Search for integrated transfer details. The transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers.<p></p>  ## KlayTransfer in the FT/NFT Transaction Details Search Result<p></p>  For FT and NFT transfers, the &#x60;KlayTransfer&#x60; transfer detail for executing the token transfer is included. This is because the FT/NFT token transfer is basically an execution of the FT/NFT contract function, and the API includes the triggering KlayTransfer in response which executed the token transfer. Because transactions that execute contract functions do not generally transfer KLAY, the &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Preset<p></p>  A Preset contains EOA, FT, and NFT contract addresses, allowing users to easily and quickly retrieve transfer histories of a frequently requested set of accounts.<p></p>  * The &#x60;presets&#x60; query parameter is a required parameter.<br> * [Preset](https://console.klaytnapi.com/service/th/preset/list) must be pre-generated in the KAS Console.<br> * The preset ID can be checked in the KAS Console.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param presets  (csv) Preset IDs to use in search, check Preset IDs in KSA Console (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor Response offset (optional)
@@ -151,7 +163,7 @@ public class TokenHistoryApi {
      * Search for integrated transfer details. The transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers.<p></p>  ## KlayTransfer in the FT/NFT Transaction Details Search Result<p></p>  For FT and NFT transfers, the &#x60;KlayTransfer&#x60; transfer detail for executing the token transfer is included. This is because the FT/NFT token transfer is basically an execution of the FT/NFT contract function, and the API includes the triggering KlayTransfer in response which executed the token transfer. Because transactions that execute contract functions do not generally transfer KLAY, the &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Preset<p></p>  A Preset contains EOA, FT, and NFT contract addresses, allowing users to easily and quickly retrieve transfer histories of a frequently requested set of accounts.<p></p>  * The &#x60;presets&#x60; query parameter is a required parameter.<br> * [Preset](https://console.klaytnapi.com/service/th/preset/list) must be pre-generated in the KAS Console.<br> * The preset ID can be checked in the KAS Console.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param presets  (csv) Preset IDs to use in search, check Preset IDs in KSA Console (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor Response offset (optional)
@@ -169,7 +181,7 @@ public class TokenHistoryApi {
      * Search for integrated transfer details. The transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers.<p></p>  ## KlayTransfer in the FT/NFT Transaction Details Search Result<p></p>  For FT and NFT transfers, the &#x60;KlayTransfer&#x60; transfer detail for executing the token transfer is included. This is because the FT/NFT token transfer is basically an execution of the FT/NFT contract function, and the API includes the triggering KlayTransfer in response which executed the token transfer. Because transactions that execute contract functions do not generally transfer KLAY, the &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Preset<p></p>  A Preset contains EOA, FT, and NFT contract addresses, allowing users to easily and quickly retrieve transfer histories of a frequently requested set of accounts.<p></p>  * The &#x60;presets&#x60; query parameter is a required parameter.<br> * [Preset](https://console.klaytnapi.com/service/th/preset/list) must be pre-generated in the KAS Console.<br> * The preset ID can be checked in the KAS Console.<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param presets  (csv) Preset IDs to use in search, check Preset IDs in KSA Console (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param cursor Response offset (optional)
@@ -207,7 +219,7 @@ public class TokenHistoryApi {
      * Build call for getTransfersByEoa
      * @param xChainId  Klaytn chain network ID (1001 or 8217) (required)
      * @param address EOA to search, the response only contains transfer details where each transfer detail&#x27;s &#x60;from&#x60; or &#x60;to&#x60; is equal to &#x60;address&#x60; (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param caFilter FT/NFT contract address to filter from the result. If set, the response only contains FT/NFT transfer details with the matching address specified in &#x60;ca-filter&#x60;.  (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -258,7 +270,7 @@ public class TokenHistoryApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -296,7 +308,7 @@ public class TokenHistoryApi {
      * Search for token transfer details of a specific EOA. This is functionally similar to &#x60;GET /v2/transfer&#x60;. However, if this EOA receives or transfers the token in the returned transfer object, &#x60;to&#x60; or &#x60;from&#x60; is the same with the EOA, respectively.<p></p>  Transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers. For the FT and NFT transfers, the KlayTransfer transfer details for executing the token transfer are included. The &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0. For more details, refer to &#x60;GET /v2/transfer&#x60;.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn chain network ID (1001 or 8217) (required)
      * @param address EOA to search, the response only contains transfer details where each transfer detail&#x27;s &#x60;from&#x60; or &#x60;to&#x60; is equal to &#x60;address&#x60; (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param caFilter FT/NFT contract address to filter from the result. If set, the response only contains FT/NFT transfer details with the matching address specified in &#x60;ca-filter&#x60;.  (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -314,7 +326,7 @@ public class TokenHistoryApi {
      * Search for token transfer details of a specific EOA. This is functionally similar to &#x60;GET /v2/transfer&#x60;. However, if this EOA receives or transfers the token in the returned transfer object, &#x60;to&#x60; or &#x60;from&#x60; is the same with the EOA, respectively.<p></p>  Transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers. For the FT and NFT transfers, the KlayTransfer transfer details for executing the token transfer are included. The &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0. For more details, refer to &#x60;GET /v2/transfer&#x60;.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn chain network ID (1001 or 8217) (required)
      * @param address EOA to search, the response only contains transfer details where each transfer detail&#x27;s &#x60;from&#x60; or &#x60;to&#x60; is equal to &#x60;address&#x60; (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param caFilter FT/NFT contract address to filter from the result. If set, the response only contains FT/NFT transfer details with the matching address specified in &#x60;ca-filter&#x60;.  (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -333,7 +345,7 @@ public class TokenHistoryApi {
      * Search for token transfer details of a specific EOA. This is functionally similar to &#x60;GET /v2/transfer&#x60;. However, if this EOA receives or transfers the token in the returned transfer object, &#x60;to&#x60; or &#x60;from&#x60; is the same with the EOA, respectively.<p></p>  Transfer details include KLAY (&#x60;KlayTransfer&#x60;), FT (&#x60;FtTransfer&#x60;), and NFT (&#x60;NftTransfer&#x60;) transfers. For the FT and NFT transfers, the KlayTransfer transfer details for executing the token transfer are included. The &#x60;value&#x60; of the &#x60;KlayTransfer&#x60; for executing the FT and NFT transfers can be 0. For more details, refer to &#x60;GET /v2/transfer&#x60;.<p></p>  ## Transaction Type<p></p>  * Set the &#x60;kind&#x60; parameter to search for transaction details regarding KLAY, FT, or NFT.<br> * Transaction details for all types will be included in the search response if the &#x60;kind&#x60; parameter is not set.<p></p><br>  ## Search period<p></p>  * For &#x60;range&#x60;, enter the query in the &#x60;range&#x3D;{from},{to}&#x60; format.<br> * &#x60;{from}&#x60; and &#x60;{to}&#x60; will be regarded as Unix time if they are integers and block numbers if they are in hexadecimal format.<br> * If the &#x60;{to}&#x60; value is empty, the current time or recent block number will be used.<br> * Transaction details can be retrieved for up to six (6) months at once (for both Unix time and block numbers).<p></p><br>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
      * @param xChainId  Klaytn chain network ID (1001 or 8217) (required)
      * @param address EOA to search, the response only contains transfer details where each transfer detail&#x27;s &#x60;from&#x60; or &#x60;to&#x60; is equal to &#x60;address&#x60; (required)
-     * @param kind (csv) Indicate the [“klay”, “ft”, or “nft”] type. All types will be searched if no type is specified. (optional)
+     * @param kind (csv) Indicate the [“klay”, “ft”, “nft”, \&quot;mt\&quot;] type. All types will be searched if no type is specified. (optional)
      * @param caFilter FT/NFT contract address to filter from the result. If set, the response only contains FT/NFT transfer details with the matching address specified in &#x60;ca-filter&#x60;.  (optional)
      * @param range Search range (block number of Unix time) (optional)
      * @param size Maximum number of items to retrieve (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
@@ -408,7 +420,7 @@ public class TokenHistoryApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))

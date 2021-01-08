@@ -23,25 +23,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtContractDetail;
 /**
- * PageableFtContractDetails
+ * PageableMtContractDetails
  */
 
 
-public class PageableFtContractDetails {
+public class PageableMtContractDetails {
   @SerializedName("items")
-  private List<FtContractDetail> items = new ArrayList<FtContractDetail>();
+  private List<MtContractDetail> items = new ArrayList<MtContractDetail>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableFtContractDetails items(List<FtContractDetail> items) {
+  public PageableMtContractDetails items(List<MtContractDetail> items) {
     this.items = items;
     return this;
   }
 
-  public PageableFtContractDetails addItemsItem(FtContractDetail itemsItem) {
+  public PageableMtContractDetails addItemsItem(MtContractDetail itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -51,24 +51,24 @@ public class PageableFtContractDetails {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<FtContractDetail> getItems() {
+  public List<MtContractDetail> getItems() {
     return items;
   }
 
-  public void setItems(List<FtContractDetail> items) {
+  public void setItems(List<MtContractDetail> items) {
     this.items = items;
   }
 
-  public PageableFtContractDetails cursor(String cursor) {
+  public PageableMtContractDetails cursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
 
    /**
-   * Next page cursor
+   * Offset for the next batch of items
    * @return cursor
   **/
-  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Next page cursor")
+  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Offset for the next batch of items")
   public String getCursor() {
     return cursor;
   }
@@ -86,9 +86,9 @@ public class PageableFtContractDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableFtContractDetails pageableFtContractDetails = (PageableFtContractDetails) o;
-    return Objects.equals(this.items, pageableFtContractDetails.items) &&
-        Objects.equals(this.cursor, pageableFtContractDetails.cursor);
+    PageableMtContractDetails pageableMtContractDetails = (PageableMtContractDetails) o;
+    return Objects.equals(this.items, pageableMtContractDetails.items) &&
+        Objects.equals(this.cursor, pageableMtContractDetails.cursor);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class PageableFtContractDetails {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableFtContractDetails {\n");
+    sb.append("class PageableMtContractDetails {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");

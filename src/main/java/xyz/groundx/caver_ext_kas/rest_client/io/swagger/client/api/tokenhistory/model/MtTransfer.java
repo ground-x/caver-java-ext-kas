@@ -21,19 +21,21 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContract;
+import java.util.ArrayList;
+import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtTransferContract;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.Transaction;
 /**
- * FtTransfer
+ * MtTransfer
  */
 
 
-public class FtTransfer implements AnyOfTransferArrayItems {
+public class MtTransfer implements AnyOfTransferArrayItems {
   @SerializedName("contract")
-  private FtContract contract = null;
+  private MtTransferContract contract = null;
 
-  @SerializedName("formattedValue")
-  private String formattedValue = null;
+  @SerializedName("operator")
+  private String operator = null;
 
   @SerializedName("from")
   private String from = null;
@@ -47,10 +49,13 @@ public class FtTransfer implements AnyOfTransferArrayItems {
   @SerializedName("transferType")
   private String transferType = null;
 
-  @SerializedName("value")
-  private String value = null;
+  @SerializedName("ids")
+  private List<String> ids = new ArrayList<String>();
 
-  public FtTransfer contract(FtContract contract) {
+  @SerializedName("values")
+  private List<String> values = new ArrayList<String>();
+
+  public MtTransfer contract(MtTransferContract contract) {
     this.contract = contract;
     return this;
   }
@@ -60,42 +65,42 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * @return contract
   **/
   @Schema(required = true, description = "")
-  public FtContract getContract() {
+  public MtTransferContract getContract() {
     return contract;
   }
 
-  public void setContract(FtContract contract) {
+  public void setContract(MtTransferContract contract) {
     this.contract = contract;
   }
 
-  public FtTransfer formattedValue(String formattedValue) {
-    this.formattedValue = formattedValue;
+  public MtTransfer operator(String operator) {
+    this.operator = operator;
     return this;
   }
 
    /**
-   * Converted value with the contract specific decimal
-   * @return formattedValue
+   * Operator address (20-byte)
+   * @return operator
   **/
-  @Schema(example = "0.000000000000000002", required = true, description = "Converted value with the contract specific decimal")
-  public String getFormattedValue() {
-    return formattedValue;
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Operator address (20-byte)")
+  public String getOperator() {
+    return operator;
   }
 
-  public void setFormattedValue(String formattedValue) {
-    this.formattedValue = formattedValue;
+  public void setOperator(String operator) {
+    this.operator = operator;
   }
 
-  public FtTransfer from(String from) {
+  public MtTransfer from(String from) {
     this.from = from;
     return this;
   }
 
    /**
-   * Sender EOA (20-byte)
+   * Owner address (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner address (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -104,16 +109,16 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.from = from;
   }
 
-  public FtTransfer to(String to) {
+  public MtTransfer to(String to) {
     this.to = to;
     return this;
   }
 
    /**
-   * Receiver EOA (20-byte)
+   * Recipient address (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver EOA (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Recipient address (20-byte)")
   public String getTo() {
     return to;
   }
@@ -122,7 +127,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.to = to;
   }
 
-  public FtTransfer transaction(Transaction transaction) {
+  public MtTransfer transaction(Transaction transaction) {
     this.transaction = transaction;
     return this;
   }
@@ -140,16 +145,16 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.transaction = transaction;
   }
 
-  public FtTransfer transferType(String transferType) {
+  public MtTransfer transferType(String transferType) {
     this.transferType = transferType;
     return this;
   }
 
    /**
-   * Type of transaction detail
+   * Transfer type
    * @return transferType
   **/
-  @Schema(example = "ft", required = true, description = "Type of transaction detail")
+  @Schema(example = "mt", required = true, description = "Transfer type")
   public String getTransferType() {
     return transferType;
   }
@@ -158,22 +163,50 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     this.transferType = transferType;
   }
 
-  public FtTransfer value(String value) {
-    this.value = value;
+  public MtTransfer ids(List<String> ids) {
+    this.ids = ids;
+    return this;
+  }
+
+  public MtTransfer addIdsItem(String idsItem) {
+    this.ids.add(idsItem);
     return this;
   }
 
    /**
-   * Number of tokens transferred (in hexadecimal)
-   * @return value
+   * Array of token IDs (hex)
+   * @return ids
   **/
-  @Schema(example = "0xa", required = true, description = "Number of tokens transferred (in hexadecimal)")
-  public String getValue() {
-    return value;
+  @Schema(example = "[0x1,0x2]", required = true, description = "Array of token IDs (hex)")
+  public List<String> getIds() {
+    return ids;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setIds(List<String> ids) {
+    this.ids = ids;
+  }
+
+  public MtTransfer values(List<String> values) {
+    this.values = values;
+    return this;
+  }
+
+  public MtTransfer addValuesItem(String valuesItem) {
+    this.values.add(valuesItem);
+    return this;
+  }
+
+   /**
+   * Array of numbers of tranferring tokens (hex)
+   * @return values
+  **/
+  @Schema(example = "[0xa,0xb]", required = true, description = "Array of numbers of tranferring tokens (hex)")
+  public List<String> getValues() {
+    return values;
+  }
+
+  public void setValues(List<String> values) {
+    this.values = values;
   }
 
 
@@ -185,34 +218,36 @@ public class FtTransfer implements AnyOfTransferArrayItems {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FtTransfer ftTransfer = (FtTransfer) o;
-    return Objects.equals(this.contract, ftTransfer.contract) &&
-        Objects.equals(this.formattedValue, ftTransfer.formattedValue) &&
-        Objects.equals(this.from, ftTransfer.from) &&
-        Objects.equals(this.to, ftTransfer.to) &&
-        Objects.equals(this.transaction, ftTransfer.transaction) &&
-        Objects.equals(this.transferType, ftTransfer.transferType) &&
-        Objects.equals(this.value, ftTransfer.value);
+    MtTransfer mtTransfer = (MtTransfer) o;
+    return Objects.equals(this.contract, mtTransfer.contract) &&
+        Objects.equals(this.operator, mtTransfer.operator) &&
+        Objects.equals(this.from, mtTransfer.from) &&
+        Objects.equals(this.to, mtTransfer.to) &&
+        Objects.equals(this.transaction, mtTransfer.transaction) &&
+        Objects.equals(this.transferType, mtTransfer.transferType) &&
+        Objects.equals(this.ids, mtTransfer.ids) &&
+        Objects.equals(this.values, mtTransfer.values);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contract, formattedValue, from, to, transaction, transferType, value);
+    return Objects.hash(contract, operator, from, to, transaction, transferType, ids, values);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FtTransfer {\n");
+    sb.append("class MtTransfer {\n");
     
     sb.append("    contract: ").append(toIndentedString(contract)).append("\n");
-    sb.append("    formattedValue: ").append(toIndentedString(formattedValue)).append("\n");
+    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transaction: ").append(toIndentedString(transaction)).append("\n");
     sb.append("    transferType: ").append(toIndentedString(transferType)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+    sb.append("    values: ").append(toIndentedString(values)).append("\n");
     sb.append("}");
     return sb.toString();
   }

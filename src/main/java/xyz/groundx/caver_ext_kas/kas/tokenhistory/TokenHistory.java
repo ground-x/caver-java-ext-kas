@@ -21,10 +21,7 @@ import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenContractApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenHistoryApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenOwnershipApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 
 import java.util.Arrays;
@@ -583,5 +580,227 @@ public class TokenHistory {
      */
     public Call getNFTOwnershipHistoryAsync(String nftAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableNftOwnershipChanges> callback) throws ApiException {
         return tokenOwnershipApi.getListOfNftOwnershipChangesAsync(chainId, nftAddress, tokenId, options.getSize(), options.getCursor(), callback);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTListByOwner(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @return PageableMtTokensWithBalance
+     * @throws ApiException
+     */
+    public PageableMtTokensWithBalance getMTListByOwner(String mtAddress, String ownerAddress) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTListByOwner(mtAddress, ownerAddress, options);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param options  Filters required when retrieving data. `size`, `cursor`.
+     * @return PageableMtTokensWithBalance
+     * @throws ApiException
+     */
+    public PageableMtTokensWithBalance getMTListByOwner(String mtAddress, String ownerAddress, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddress(chainId, mtAddress, ownerAddress, options.getCursor(), options.getSize());
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTListByOwnerAsync(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTListByOwnerAsync(String mtAddress, String ownerAddress, ApiCallback<PageableMtTokensWithBalance> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTListByOwnerAsync(mtAddress, ownerAddress, options, callback);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param options  Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTListByOwnerAsync(String mtAddress, String ownerAddress, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokensWithBalance> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAsync(chainId, mtAddress, ownerAddress, options.getCursor(), options.getSize(), callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @return MtToken
+     * @throws ApiException
+     */
+    public MtToken getMT(String mtAddress, String ownerAddress, String tokenID) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAndTokenId(chainId, mtAddress, ownerAddress, tokenID);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTAsync(String mtAddress, String ownerAddress, String tokenID, ApiCallback<MtToken> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAndTokenIdAsync(chainId, mtAddress, ownerAddress, tokenID, callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTOwnerListByTokenId(mtAddress, tokenId, options);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndTokenId(chainId, mtAddress, tokenId, options.getCursor(), options.getSize());
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndTokenIdAsync(chainId, mtAddress, tokenId, options.getCursor(), options.getSize(), callback);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt
+     * @return PageableMtContractDetails
+     * @throws ApiException
+     */
+    public PageableMtContractDetails getMTContractList() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTContractList(options);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
+     * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt
+     * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
+     * @return PageableMtContractDetails
+     * @throws ApiException
+     */
+    public PageableMtContractDetails getMTContractList(TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenContractApi.getListOfMtContracts(chainId, options.getStatus(), options.getType(), options.getSize(), options.getCursor());
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractListAsync(ApiCallback<PageableMtContractDetails> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTContractListAsync(options, callback);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
+     * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt
+     * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractListAsync(TokenHistoryQueryOptions options, ApiCallback<PageableMtContractDetails> callback) throws ApiException {
+        return this.tokenContractApi.getListOfMtContractsAsync(chainId, options.getStatus(), options.getType(), options.getSize(), options.getCursor(), callback);
+    }
+
+    /**
+     * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract.<br>
+     * GET /v2/contract/mt/{mt-address}
+     * @param mtAddress The MT contract address.
+     * @return MtContractDetail
+     * @throws ApiException
+     */
+    public MtContractDetail getMTContract(String mtAddress) throws ApiException {
+        return this.tokenContractApi.getMtContractDetail(chainId, mtAddress);
+    }
+
+    /**
+     * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract asynchronously.<br>
+     * GET /v2/contract/mt/{mt-address}
+     * @param mtAddress The MT contract address.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractAsync(String mtAddress, ApiCallback<MtContractDetail> callback) throws ApiException {
+        return this.tokenContractApi.getMtContractDetailAsync(chainId, mtAddress, callback);
     }
 }

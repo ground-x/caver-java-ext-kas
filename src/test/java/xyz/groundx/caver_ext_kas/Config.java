@@ -18,6 +18,7 @@ package xyz.groundx.caver_ext_kas;
 
 import com.klaytn.caver.Caver;
 import com.klaytn.caver.abi.ABI;
+import com.klaytn.caver.contract.Contract;
 import com.klaytn.caver.contract.ContractDeployParams;
 import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.kct.kip17.KIP17;
@@ -43,6 +44,7 @@ import com.squareup.okhttp.Credentials;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.KIP37ConstantData;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -237,7 +239,92 @@ public class Config {
         Bytes32 res = caver.rpc.klay.sendRawTransaction(smartContractExecution).send();
         PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
+    }
 
+    public static String deployKIP37(Caver caver, String deployer) {
+        try {
+            Contract contract = new Contract(caver, KIP37ConstantData.ABI);
+            ContractDeployParams contractDeployParams = new ContractDeployParams(KIP37ConstantData.BINARY, "uri");
+
+            String input = ABI.encodeContractDeploy(contract.getConstructor(), contractDeployParams.getBytecode(), contractDeployParams.getDeployParams());
+
+            SmartContractDeploy deployTx = new SmartContractDeploy.Builder()
+                    .setKlaytnCall(caver.rpc.klay)
+                    .setFrom(deployer)
+                    .setInput(input)
+                    .setCodeFormat(CodeFormat.EVM)
+                    .setHumanReadable(false)
+                    .setGas(BigInteger.valueOf(7500000))
+                    .build();
+
+            keyringContainer.sign(deployer, deployTx);
+            Bytes32 res = caver.rpc.klay.sendRawTransaction(deployTx).send();
+            PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
+            TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
+
+            return receiptData.getContractAddress();
+        } catch (IOException | ReflectiveOperationException | TransactionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static TransactionReceipt.TransactionReceiptData createTokenKIP37(String contractAddress, String minter, BigInteger tokenId) {
+        try {
+            Contract contract = new Contract(caver, KIP37ConstantData.ABI, contractAddress);
+
+            String input = contract.getMethod("create").encodeABI(Arrays.asList(tokenId, BigInteger.valueOf(1), ""));
+
+            SmartContractExecution smartContractExecution = new SmartContractExecution.Builder()
+                    .setKlaytnCall(caver.rpc.klay)
+                    .setFrom(minter)
+                    .setTo(contractAddress)
+                    .setInput(input)
+                    .setGas(BigInteger.valueOf(5500000))
+                    .build();
+
+            keyringContainer.sign(minter, smartContractExecution);
+            Bytes32 res = caver.rpc.klay.sendRawTransaction(smartContractExecution).send();
+            PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
+            TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
+
+            return receiptData;
+        } catch (IOException | ReflectiveOperationException | TransactionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static TransactionReceipt.TransactionReceiptData mintBatchKIP37(String contractAddress, String minter, String owner) {
+        try {
+            BigInteger[] ids = {BigInteger.valueOf(1), BigInteger.valueOf(2)};
+            BigInteger[] amount = {BigInteger.TEN, BigInteger.TEN};
+
+            Contract contract = new Contract(caver, KIP37ConstantData.ABI, contractAddress);
+
+            String input = contract.getMethod("mintBatch").encodeABI(Arrays.asList(owner, ids, amount));
+
+            SmartContractExecution smartContractExecution = new SmartContractExecution.Builder()
+                    .setKlaytnCall(caver.rpc.klay)
+                    .setFrom(minter)
+                    .setTo(contractAddress)
+                    .setInput(input)
+                    .setGas(BigInteger.valueOf(5500000))
+                    .build();
+
+            keyringContainer.sign(minter, smartContractExecution);
+            Bytes32 res = caver.rpc.klay.sendRawTransaction(smartContractExecution).send();
+            PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
+            TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
+
+            return receiptData;
+        } catch (IOException | ReflectiveOperationException | TransactionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public static CaverExtKAS getCaver() {
