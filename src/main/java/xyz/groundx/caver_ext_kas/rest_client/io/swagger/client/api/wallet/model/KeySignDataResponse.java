@@ -21,53 +21,31 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Key Sign Data Response Schema
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Key Sign Data Response Schema")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class KeySignDataResponse {
+  @SerializedName("signedData")
+  private String signedData = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
-
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  public KeySignDataResponse signedData(String signedData) {
+    this.signedData = signedData;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * Signed data
+   * @return signedData
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(example = "0xe22e5b356e93ff1c240c30ec81f6ee75c67ea579b1e951d73637abac1663dbd6552084487bafdab4663fcd4c41b19ff78d08c6d1c2e99cfb3756d13b85b8e3f400", required = true, description = "Signed data")
+  public String getSignedData() {
+    return signedData;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
-  }
-
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
-    return this;
-  }
-
-   /**
-   * Get key
-   * @return key
-  **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
-  }
-
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setSignedData(String signedData) {
+    this.signedData = signedData;
   }
 
 
@@ -79,24 +57,22 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    KeySignDataResponse keySignDataResponse = (KeySignDataResponse) o;
+    return Objects.equals(this.signedData, keySignDataResponse.signedData);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(signedData);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class KeySignDataResponse {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    signedData: ").append(toIndentedString(signedData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

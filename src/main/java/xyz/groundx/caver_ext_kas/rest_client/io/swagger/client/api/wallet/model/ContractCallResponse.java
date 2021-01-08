@@ -21,53 +21,52 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Contract call response schema
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Contract call response schema")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class ContractCallResponse {
+  @SerializedName("data")
+  private String data = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  @SerializedName("result")
+  private String result = null;
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  public ContractCallResponse data(String data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * Contract call data
+   * @return data
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(example = "0x70a0823100000000000000000000000085b98485444c89880cd9c48807cef727c296f2da", required = true, description = "Contract call data")
+  public String getData() {
+    return data;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
+  public void setData(String data) {
+    this.data = data;
   }
 
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
+  public ContractCallResponse result(String result) {
+    this.result = result;
     return this;
   }
 
    /**
-   * Get key
-   * @return key
+   * result
+   * @return result
   **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  @Schema(example = "0x00000000000000000000000000000000000000000000003635c9adc5dea00000", required = true, description = "result")
+  public String getResult() {
+    return result;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setResult(String result) {
+    this.result = result;
   }
 
 
@@ -79,24 +78,24 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    ContractCallResponse contractCallResponse = (ContractCallResponse) o;
+    return Objects.equals(this.data, contractCallResponse.data) &&
+        Objects.equals(this.result, contractCallResponse.result);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(data, result);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class ContractCallResponse {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
     sb.append("}");
     return sb.toString();
   }

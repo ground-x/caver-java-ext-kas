@@ -21,53 +21,73 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Account Registration Request Item
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Account Registration Request Item")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class AccountRegistration {
+  @SerializedName("keyId")
+  private String keyId = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  @SerializedName("address")
+  private String address = null;
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  @SerializedName("rlp")
+  private String rlp = null;
+
+  public AccountRegistration keyId(String keyId) {
+    this.keyId = keyId;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * Key ID which is create in KMS(Key Management System)
+   * @return keyId
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(required = true, description = "Key ID which is create in KMS(Key Management System)")
+  public String getKeyId() {
+    return keyId;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
+  public void setKeyId(String keyId) {
+    this.keyId = keyId;
   }
 
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
+  public AccountRegistration address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Get key
-   * @return key
+   * Klaytn address
+   * @return address
   **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  @Schema(required = true, description = "Klaytn address")
+  public String getAddress() {
+    return address;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public AccountRegistration rlp(String rlp) {
+    this.rlp = rlp;
+    return this;
+  }
+
+   /**
+   * RLP value. If RLP value is received, account update is executed using the value
+   * @return rlp
+  **/
+  @Schema(description = "RLP value. If RLP value is received, account update is executed using the value")
+  public String getRlp() {
+    return rlp;
+  }
+
+  public void setRlp(String rlp) {
+    this.rlp = rlp;
   }
 
 
@@ -79,24 +99,26 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    AccountRegistration accountRegistration = (AccountRegistration) o;
+    return Objects.equals(this.keyId, accountRegistration.keyId) &&
+        Objects.equals(this.address, accountRegistration.address) &&
+        Objects.equals(this.rlp, accountRegistration.rlp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(keyId, address, rlp);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class AccountRegistration {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    keyId: ").append(toIndentedString(keyId)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    rlp: ").append(toIndentedString(rlp)).append("\n");
     sb.append("}");
     return sb.toString();
   }

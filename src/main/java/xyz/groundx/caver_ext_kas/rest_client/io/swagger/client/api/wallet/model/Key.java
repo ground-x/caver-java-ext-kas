@@ -21,53 +21,94 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Created key information
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Created key information")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class Key {
+  @SerializedName("blob")
+  private String blob = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  @SerializedName("keyId")
+  private String keyId = null;
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  @SerializedName("krn")
+  private String krn = null;
+
+  @SerializedName("publicKey")
+  private String publicKey = null;
+
+  public Key blob(String blob) {
+    this.blob = blob;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * Encrypted private key
+   * @return blob
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(example = "0x43bfd97caaeacc818cd6b62abccf21de569649f31f644142eb1fcfd5beb69e61", required = true, description = "Encrypted private key")
+  public String getBlob() {
+    return blob;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
+  public void setBlob(String blob) {
+    this.blob = blob;
   }
 
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
+  public Key keyId(String keyId) {
+    this.keyId = keyId;
     return this;
   }
 
    /**
-   * Get key
-   * @return key
+   * Key ID
+   * @return keyId
   **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  @Schema(example = "krn:1001:wallet:test:account-pool:default:0xd80ff4019cfd96f0812adece82dd956c5e781b79ca707cb5e957c97f27593221", required = true, description = "Key ID")
+  public String getKeyId() {
+    return keyId;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setKeyId(String keyId) {
+    this.keyId = keyId;
+  }
+
+  public Key krn(String krn) {
+    this.krn = krn;
+    return this;
+  }
+
+   /**
+   * Name of the resource
+   * @return krn
+  **/
+  @Schema(example = "krn:1001:wallet:test:account-pool:default", required = true, description = "Name of the resource")
+  public String getKrn() {
+    return krn;
+  }
+
+  public void setKrn(String krn) {
+    this.krn = krn;
+  }
+
+  public Key publicKey(String publicKey) {
+    this.publicKey = publicKey;
+    return this;
+  }
+
+   /**
+   * Public key
+   * @return publicKey
+  **/
+  @Schema(example = "0x04a081eaf8603b9be528b86da338ba8051bfc073876dbdf00f5161b393b5735f85a76634ea38c43fbbc5d7a630b76ca2a1d81d446debc937b24a77eb3b352a1b6d", required = true, description = "Public key")
+  public String getPublicKey() {
+    return publicKey;
+  }
+
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
   }
 
 
@@ -79,24 +120,28 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    Key key = (Key) o;
+    return Objects.equals(this.blob, key.blob) &&
+        Objects.equals(this.keyId, key.keyId) &&
+        Objects.equals(this.krn, key.krn) &&
+        Objects.equals(this.publicKey, key.publicKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(blob, keyId, krn, publicKey);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class Key {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    blob: ").append(toIndentedString(blob)).append("\n");
+    sb.append("    keyId: ").append(toIndentedString(keyId)).append("\n");
+    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

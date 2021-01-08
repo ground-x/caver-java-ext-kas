@@ -21,53 +21,42 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
+import java.util.ArrayList;
+import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Key;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Key Creation Response
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Key Creation Response")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class KeyCreationResponse {
+  @SerializedName("items")
+  private List<Key> items = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  public KeyCreationResponse items(List<Key> items) {
+    this.items = items;
+    return this;
+  }
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  public KeyCreationResponse addItemsItem(Key itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<Key>();
+    }
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
-  **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
-  }
-
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
-  }
-
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
-    return this;
-  }
-
-   /**
-   * Get key
-   * @return key
+   * Get items
+   * @return items
   **/
   @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  public List<Key> getItems() {
+    return items;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setItems(List<Key> items) {
+    this.items = items;
   }
 
 
@@ -79,24 +68,22 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    KeyCreationResponse keyCreationResponse = (KeyCreationResponse) o;
+    return Objects.equals(this.items, keyCreationResponse.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(items);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class KeyCreationResponse {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -21,53 +21,53 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RegistrationFailure;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Status Response Schema
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Status Response Schema")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class StatusResponse {
+  @SerializedName("failures")
+  private RegistrationFailure failures = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  @SerializedName("status")
+  private String status = null;
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  public StatusResponse failures(RegistrationFailure failures) {
+    this.failures = failures;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
-  **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
-  }
-
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
-  }
-
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
-    return this;
-  }
-
-   /**
-   * Get key
-   * @return key
+   * Get failures
+   * @return failures
   **/
   @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  public RegistrationFailure getFailures() {
+    return failures;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setFailures(RegistrationFailure failures) {
+    this.failures = failures;
+  }
+
+  public StatusResponse status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * status of request
+   * @return status
+  **/
+  @Schema(example = "all failed", required = true, description = "status of request")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 
@@ -79,24 +79,24 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    StatusResponse statusResponse = (StatusResponse) o;
+    return Objects.equals(this.failures, statusResponse.failures) &&
+        Objects.equals(this.status, statusResponse.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(failures, status);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class StatusResponse {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    failures: ").append(toIndentedString(failures)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

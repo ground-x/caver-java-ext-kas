@@ -21,53 +21,31 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Key Sign Data Request Schema
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Key Sign Data Request Schema")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class KeySignDataRequest {
+  @SerializedName("data")
+  private String data = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
-
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  public KeySignDataRequest data(String data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * data to sign. the size is limited to 32bytes
+   * @return data
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(example = "0x88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589", required = true, description = "data to sign. the size is limited to 32bytes")
+  public String getData() {
+    return data;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
-  }
-
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
-    return this;
-  }
-
-   /**
-   * Get key
-   * @return key
-  **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
-  }
-
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setData(String data) {
+    this.data = data;
   }
 
 
@@ -79,24 +57,22 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    KeySignDataRequest keySignDataRequest = (KeySignDataRequest) o;
+    return Objects.equals(this.data, keySignDataRequest.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class KeySignDataRequest {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

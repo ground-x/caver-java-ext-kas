@@ -14,62 +14,15 @@ package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
+import java.util.HashMap;
+import java.util.Map;
 /**
- * New account key (AccountKey) to be used with the account key
+ * failed addresses and causes to register accounts
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "failed addresses and causes to register accounts")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
-
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
-
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
-    return this;
-  }
-
-   /**
-   * Type of account key
-   * @return keyType
-  **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
-  }
-
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
-  }
-
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
-    return this;
-  }
-
-   /**
-   * Get key
-   * @return key
-  **/
-  @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
-  }
-
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
-  }
-
+public class RegistrationFailure extends HashMap<String, String> {
 
   @Override
   public boolean equals(Object o) {
@@ -79,24 +32,20 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
-    
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("class RegistrationFailure {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

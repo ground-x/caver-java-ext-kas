@@ -26,8 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountCountByAccountID;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountCountByKRN;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountRegistration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ErrorResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.StatusResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,14 +36,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StatisticsApi {
+public class RegistrationApi {
     private ApiClient apiClient;
 
-    public StatisticsApi() {
+    public RegistrationApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public StatisticsApi(ApiClient apiClient) {
+    public RegistrationApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -55,18 +56,19 @@ public class StatisticsApi {
     }
 
     /**
-     * Build call for getAccountCountByAccountID
+     * Build call for registerAccount
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByAccountIDCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call registerAccountCall(String xChainId, List<AccountRegistration> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v2/stat/count";
+        String localVarPath = "/v2/registration/account";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -84,7 +86,7 @@ public class StatisticsApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
+            "application/json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -102,17 +104,17 @@ public class StatisticsApi {
         }
 
         String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getAccountCountByAccountIDValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call registerAccountValidateBeforeCall(String xChainId, List<AccountRegistration> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getAccountCountByAccountID(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling registerAccount(Async)");
         }
         
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDCall(xChainId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = registerAccountCall(xChainId, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -122,39 +124,42 @@ public class StatisticsApi {
     }
 
     /**
-     * The number of Klaytn account which KAS account owned
-     * Show the number of Klaytn account which KAS account owned
+     * Account Registration
+     * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @return AccountCountByAccountID
+     * @param body  (optional)
+     * @return StatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AccountCountByAccountID getAccountCountByAccountID(String xChainId) throws ApiException {
-        ApiResponse<AccountCountByAccountID> resp = getAccountCountByAccountIDWithHttpInfo(xChainId);
+    public StatusResponse registerAccount(String xChainId, List<AccountRegistration> body) throws ApiException {
+        ApiResponse<StatusResponse> resp = registerAccountWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
     /**
-     * The number of Klaytn account which KAS account owned
-     * Show the number of Klaytn account which KAS account owned
+     * Account Registration
+     * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @return ApiResponse&lt;AccountCountByAccountID&gt;
+     * @param body  (optional)
+     * @return ApiResponse&lt;StatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AccountCountByAccountID> getAccountCountByAccountIDWithHttpInfo(String xChainId) throws ApiException {
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDValidateBeforeCall(xChainId, null, null);
-        Type localVarReturnType = new TypeToken<AccountCountByAccountID>(){}.getType();
+    public ApiResponse<StatusResponse> registerAccountWithHttpInfo(String xChainId, List<AccountRegistration> body) throws ApiException {
+        com.squareup.okhttp.Call call = registerAccountValidateBeforeCall(xChainId, body, null, null);
+        Type localVarReturnType = new TypeToken<StatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * The number of Klaytn account which KAS account owned (asynchronously)
-     * Show the number of Klaytn account which KAS account owned
+     * Account Registration (asynchronously)
+     * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByAccountIDAsync(String xChainId, final ApiCallback<AccountCountByAccountID> callback) throws ApiException {
+    public com.squareup.okhttp.Call registerAccountAsync(String xChainId, List<AccountRegistration> body, final ApiCallback<StatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -175,140 +180,8 @@ public class StatisticsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDValidateBeforeCall(xChainId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AccountCountByAccountID>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for getAccountCountByKRN
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call getAccountCountByKRNCall(String xChainId, String xKrn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/v2/stat/count/krn";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        if (xChainId != null)
-        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
-        if (xKrn != null)
-        localVarHeaderParams.put("x-krn", apiClient.parameterToString(xKrn));
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getAccountCountByKRNValidateBeforeCall(String xChainId, String xKrn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getAccountCountByKRN(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = getAccountCountByKRNCall(xChainId, xKrn, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * The number of Klaytn account from certain account pool
-     * Show the number of Klaytn account which KAS account owned from certain account pool
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
-     * @return AccountCountByKRN
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public AccountCountByKRN getAccountCountByKRN(String xChainId, String xKrn) throws ApiException {
-        ApiResponse<AccountCountByKRN> resp = getAccountCountByKRNWithHttpInfo(xChainId, xKrn);
-        return resp.getData();
-    }
-
-    /**
-     * The number of Klaytn account from certain account pool
-     * Show the number of Klaytn account which KAS account owned from certain account pool
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
-     * @return ApiResponse&lt;AccountCountByKRN&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<AccountCountByKRN> getAccountCountByKRNWithHttpInfo(String xChainId, String xKrn) throws ApiException {
-        com.squareup.okhttp.Call call = getAccountCountByKRNValidateBeforeCall(xChainId, xKrn, null, null);
-        Type localVarReturnType = new TypeToken<AccountCountByKRN>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * The number of Klaytn account from certain account pool (asynchronously)
-     * Show the number of Klaytn account which KAS account owned from certain account pool
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call getAccountCountByKRNAsync(String xChainId, String xKrn, final ApiCallback<AccountCountByKRN> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = getAccountCountByKRNValidateBeforeCall(xChainId, xKrn, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AccountCountByKRN>(){}.getType();
+        com.squareup.okhttp.Call call = registerAccountValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<StatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

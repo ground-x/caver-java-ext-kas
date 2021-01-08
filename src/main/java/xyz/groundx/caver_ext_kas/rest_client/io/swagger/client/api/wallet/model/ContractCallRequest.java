@@ -21,53 +21,116 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ContractCallData;
 /**
- * New account key (AccountKey) to be used with the account key
+ * Contract Call Request Scheme
  */
-@Schema(description = "New account key (AccountKey) to be used with the account key")
+@Schema(description = "Contract Call Request Scheme")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
-  @SerializedName("keyType")
-  private Long keyType = null;
+public class ContractCallRequest {
+  @SerializedName("from")
+  private String from = null;
 
-  @SerializedName("key")
-  private MultisigUpdateKey key = null;
+  @SerializedName("value")
+  private String value = null;
 
-  public MultisigUpdateKeyType keyType(Long keyType) {
-    this.keyType = keyType;
+  @SerializedName("to")
+  private String to = null;
+
+  @SerializedName("data")
+  private ContractCallData data = null;
+
+  @SerializedName("gas")
+  private Long gas = null;
+
+  public ContractCallRequest from(String from) {
+    this.from = from;
     return this;
   }
 
    /**
-   * Type of account key
-   * @return keyType
+   * Klaytn account address sending a transaction
+   * @return from
   **/
-  @Schema(description = "Type of account key")
-  public Long getKeyType() {
-    return keyType;
+  @Schema(example = "0x5bb85d4032354E88020595AFAFC081C24098202e", description = "Klaytn account address sending a transaction")
+  public String getFrom() {
+    return from;
   }
 
-  public void setKeyType(Long keyType) {
-    this.keyType = keyType;
+  public void setFrom(String from) {
+    this.from = from;
   }
 
-  public MultisigUpdateKeyType key(MultisigUpdateKey key) {
-    this.key = key;
+  public ContractCallRequest value(String value) {
+    this.value = value;
     return this;
   }
 
    /**
-   * Get key
-   * @return key
+   * KLAY converted into PEB unit
+   * @return value
+  **/
+  @Schema(example = "0x0", description = "KLAY converted into PEB unit")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public ContractCallRequest to(String to) {
+    this.to = to;
+    return this;
+  }
+
+   /**
+   * Contract address
+   * @return to
+  **/
+  @Schema(example = "0x358b2381fcf00d2cb2daa7d89032b12e140b6058", description = "Contract address")
+  public String getTo() {
+    return to;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
+  public ContractCallRequest data(ContractCallData data) {
+    this.data = data;
+    return this;
+  }
+
+   /**
+   * Get data
+   * @return data
   **/
   @Schema(description = "")
-  public MultisigUpdateKey getKey() {
-    return key;
+  public ContractCallData getData() {
+    return data;
   }
 
-  public void setKey(MultisigUpdateKey key) {
-    this.key = key;
+  public void setData(ContractCallData data) {
+    this.data = data;
+  }
+
+  public ContractCallRequest gas(Long gas) {
+    this.gas = gas;
+    return this;
+  }
+
+   /**
+   * Max. transaction fee (gas) for sending the transaction
+   * @return gas
+  **/
+  @Schema(example = "1000000", description = "Max. transaction fee (gas) for sending the transaction")
+  public Long getGas() {
+    return gas;
+  }
+
+  public void setGas(Long gas) {
+    this.gas = gas;
   }
 
 
@@ -79,24 +142,30 @@ public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigUpdateKeyType multisigUpdateKeyType = (MultisigUpdateKeyType) o;
-    return Objects.equals(this.keyType, multisigUpdateKeyType.keyType) &&
-        Objects.equals(this.key, multisigUpdateKeyType.key);
+    ContractCallRequest contractCallRequest = (ContractCallRequest) o;
+    return Objects.equals(this.from, contractCallRequest.from) &&
+        Objects.equals(this.value, contractCallRequest.value) &&
+        Objects.equals(this.to, contractCallRequest.to) &&
+        Objects.equals(this.data, contractCallRequest.data) &&
+        Objects.equals(this.gas, contractCallRequest.gas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, key);
+    return Objects.hash(from, value, to, data, gas);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigUpdateKeyType {\n");
+    sb.append("class ContractCallRequest {\n");
     
-    sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    to: ").append(toIndentedString(to)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    gas: ").append(toIndentedString(gas)).append("\n");
     sb.append("}");
     return sb.toString();
   }

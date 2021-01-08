@@ -26,10 +26,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ErrorResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactionStatus;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigTransactions;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.SignPendingTransactionBySigRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Key;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyCreationRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyCreationResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeySignDataRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeySignDataResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -37,14 +38,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MultisigTransactionManagementApi {
+public class KeyApi {
     private ApiClient apiClient;
 
-    public MultisigTransactionManagementApi() {
+    public KeyApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public MultisigTransactionManagementApi(ApiClient apiClient) {
+    public KeyApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -57,35 +58,23 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * Build call for retrieveMultisigTransactions
+     * Build call for getKey
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param keyId  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call retrieveMultisigTransactionsCall(String xChainId, String address, Long size, String cursor, Long toTimestamp, Long fromTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getKeyCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/multisig/account/{address}/tx"
-            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
+        String localVarPath = "/v2/key/{key-id}"
+            .replaceAll("\\{" + "key-id" + "\\}", apiClient.escapeString(keyId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (size != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-        if (cursor != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
-        if (toTimestamp != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("to-timestamp", toTimestamp));
-        if (fromTimestamp != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("from-timestamp", fromTimestamp));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (xChainId != null)
@@ -122,17 +111,17 @@ public class MultisigTransactionManagementApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call retrieveMultisigTransactionsValidateBeforeCall(String xChainId, String address, Long size, String cursor, Long toTimestamp, Long fromTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getKeyValidateBeforeCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveMultisigTransactions(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getKey(Async)");
         }
-        // verify the required parameter 'address' is set
-        if (address == null) {
-            throw new ApiException("Missing the required parameter 'address' when calling retrieveMultisigTransactions(Async)");
+        // verify the required parameter 'keyId' is set
+        if (keyId == null) {
+            throw new ApiException("Missing the required parameter 'keyId' when calling getKey(Async)");
         }
         
-        com.squareup.okhttp.Call call = retrieveMultisigTransactionsCall(xChainId, address, size, cursor, toTimestamp, fromTimestamp, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getKeyCall(xChainId, keyId, progressListener, progressRequestListener);
         return call;
 
         
@@ -142,54 +131,42 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * RetrieveMultisigTransactions
-     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * Get Key
+     * Find key info
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @return MultisigTransactions
+     * @param keyId  (required)
+     * @return Key
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MultisigTransactions retrieveMultisigTransactions(String xChainId, String address, Long size, String cursor, Long toTimestamp, Long fromTimestamp) throws ApiException {
-        ApiResponse<MultisigTransactions> resp = retrieveMultisigTransactionsWithHttpInfo(xChainId, address, size, cursor, toTimestamp, fromTimestamp);
+    public Key getKey(String xChainId, String keyId) throws ApiException {
+        ApiResponse<Key> resp = getKeyWithHttpInfo(xChainId, keyId);
         return resp.getData();
     }
 
     /**
-     * RetrieveMultisigTransactions
-     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * Get Key
+     * Find key info
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @return ApiResponse&lt;MultisigTransactions&gt;
+     * @param keyId  (required)
+     * @return ApiResponse&lt;Key&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MultisigTransactions> retrieveMultisigTransactionsWithHttpInfo(String xChainId, String address, Long size, String cursor, Long toTimestamp, Long fromTimestamp) throws ApiException {
-        com.squareup.okhttp.Call call = retrieveMultisigTransactionsValidateBeforeCall(xChainId, address, size, cursor, toTimestamp, fromTimestamp, null, null);
-        Type localVarReturnType = new TypeToken<MultisigTransactions>(){}.getType();
+    public ApiResponse<Key> getKeyWithHttpInfo(String xChainId, String keyId) throws ApiException {
+        com.squareup.okhttp.Call call = getKeyValidateBeforeCall(xChainId, keyId, null, null);
+        Type localVarReturnType = new TypeToken<Key>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * RetrieveMultisigTransactions (asynchronously)
-     * List of Pending Transactions<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
+     * Get Key (asynchronously)
+     * Find key info
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Account address which has multisig keys or signer&#x27;s account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
+     * @param keyId  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retrieveMultisigTransactionsAsync(String xChainId, String address, Long size, String cursor, Long toTimestamp, Long fromTimestamp, final ApiCallback<MultisigTransactions> callback) throws ApiException {
+    public com.squareup.okhttp.Call getKeyAsync(String xChainId, String keyId, final ApiCallback<Key> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -210,171 +187,25 @@ public class MultisigTransactionManagementApi {
             };
         }
 
-        com.squareup.okhttp.Call call = retrieveMultisigTransactionsValidateBeforeCall(xChainId, address, size, cursor, toTimestamp, fromTimestamp, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<MultisigTransactions>(){}.getType();
+        com.squareup.okhttp.Call call = getKeyValidateBeforeCall(xChainId, keyId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Key>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for signPendingTransaction
+     * Build call for keyCreation
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Signer&#x27;s account address (required)
-     * @param transactionId ID of pending transaction (required)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call signPendingTransactionCall(String xChainId, String address, String transactionId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/v2/multisig/account/{address}/tx/{transaction-id}/sign"
-            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()))
-            .replaceAll("\\{" + "transaction-id" + "\\}", apiClient.escapeString(transactionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        if (xChainId != null)
-        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call signPendingTransactionValidateBeforeCall(String xChainId, String address, String transactionId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling signPendingTransaction(Async)");
-        }
-        // verify the required parameter 'address' is set
-        if (address == null) {
-            throw new ApiException("Missing the required parameter 'address' when calling signPendingTransaction(Async)");
-        }
-        // verify the required parameter 'transactionId' is set
-        if (transactionId == null) {
-            throw new ApiException("Missing the required parameter 'transactionId' when calling signPendingTransaction(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = signPendingTransactionCall(xChainId, address, transactionId, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * Sign to pending transaction
-     * Sign to pending transaction from valid signer
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Signer&#x27;s account address (required)
-     * @param transactionId ID of pending transaction (required)
-     * @return MultisigTransactionStatus
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public MultisigTransactionStatus signPendingTransaction(String xChainId, String address, String transactionId) throws ApiException {
-        ApiResponse<MultisigTransactionStatus> resp = signPendingTransactionWithHttpInfo(xChainId, address, transactionId);
-        return resp.getData();
-    }
-
-    /**
-     * Sign to pending transaction
-     * Sign to pending transaction from valid signer
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Signer&#x27;s account address (required)
-     * @param transactionId ID of pending transaction (required)
-     * @return ApiResponse&lt;MultisigTransactionStatus&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<MultisigTransactionStatus> signPendingTransactionWithHttpInfo(String xChainId, String address, String transactionId) throws ApiException {
-        com.squareup.okhttp.Call call = signPendingTransactionValidateBeforeCall(xChainId, address, transactionId, null, null);
-        Type localVarReturnType = new TypeToken<MultisigTransactionStatus>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Sign to pending transaction (asynchronously)
-     * Sign to pending transaction from valid signer
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param address Signer&#x27;s account address (required)
-     * @param transactionId ID of pending transaction (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call signPendingTransactionAsync(String xChainId, String address, String transactionId, final ApiCallback<MultisigTransactionStatus> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = signPendingTransactionValidateBeforeCall(xChainId, address, transactionId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<MultisigTransactionStatus>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for signPendingTransactionBySig
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call signPendingTransactionBySigCall(String xChainId, String transactionId, SignPendingTransactionBySigRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call keyCreationCall(String xChainId, KeyCreationRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v2/multisig/tx/{transaction-id}/sign"
-            .replaceAll("\\{" + "transaction-id" + "\\}", apiClient.escapeString(transactionId.toString()));
+        String localVarPath = "/v2/key";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -414,17 +245,13 @@ public class MultisigTransactionManagementApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call signPendingTransactionBySigValidateBeforeCall(String xChainId, String transactionId, SignPendingTransactionBySigRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call keyCreationValidateBeforeCall(String xChainId, KeyCreationRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling signPendingTransactionBySig(Async)");
-        }
-        // verify the required parameter 'transactionId' is set
-        if (transactionId == null) {
-            throw new ApiException("Missing the required parameter 'transactionId' when calling signPendingTransactionBySig(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling keyCreation(Async)");
         }
         
-        com.squareup.okhttp.Call call = signPendingTransactionBySigCall(xChainId, transactionId, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = keyCreationCall(xChainId, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -434,45 +261,42 @@ public class MultisigTransactionManagementApi {
     }
 
     /**
-     * Sign pending transaction from signatures
-     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * Key Creation
+     * You can create key up to 100
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
-     * @return MultisigTransactionStatus
+     * @return KeyCreationResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MultisigTransactionStatus signPendingTransactionBySig(String xChainId, String transactionId, SignPendingTransactionBySigRequest body) throws ApiException {
-        ApiResponse<MultisigTransactionStatus> resp = signPendingTransactionBySigWithHttpInfo(xChainId, transactionId, body);
+    public KeyCreationResponse keyCreation(String xChainId, KeyCreationRequest body) throws ApiException {
+        ApiResponse<KeyCreationResponse> resp = keyCreationWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
     /**
-     * Sign pending transaction from signatures
-     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * Key Creation
+     * You can create key up to 100
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;MultisigTransactionStatus&gt;
+     * @return ApiResponse&lt;KeyCreationResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MultisigTransactionStatus> signPendingTransactionBySigWithHttpInfo(String xChainId, String transactionId, SignPendingTransactionBySigRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = signPendingTransactionBySigValidateBeforeCall(xChainId, transactionId, body, null, null);
-        Type localVarReturnType = new TypeToken<MultisigTransactionStatus>(){}.getType();
+    public ApiResponse<KeyCreationResponse> keyCreationWithHttpInfo(String xChainId, KeyCreationRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = keyCreationValidateBeforeCall(xChainId, body, null, null);
+        Type localVarReturnType = new TypeToken<KeyCreationResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Sign pending transaction from signatures (asynchronously)
-     * Add Sign to pending transaction using prepared signatures. This API can be used when signer is not your own account but you got from signature from signer.
+     * Key Creation (asynchronously)
+     * You can create key up to 100
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param transactionId ID of pending transaction (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call signPendingTransactionBySigAsync(String xChainId, String transactionId, SignPendingTransactionBySigRequest body, final ApiCallback<MultisigTransactionStatus> callback) throws ApiException {
+    public com.squareup.okhttp.Call keyCreationAsync(String xChainId, KeyCreationRequest body, final ApiCallback<KeyCreationResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -493,8 +317,153 @@ public class MultisigTransactionManagementApi {
             };
         }
 
-        com.squareup.okhttp.Call call = signPendingTransactionBySigValidateBeforeCall(xChainId, transactionId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<MultisigTransactionStatus>(){}.getType();
+        com.squareup.okhttp.Call call = keyCreationValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<KeyCreationResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for keySignData
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param keyId  (required)
+     * @param body  (optional)
+     * @param xKrn  (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call keySignDataCall(String xChainId, String keyId, KeySignDataRequest body, String xKrn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/v2/key/{key-id}/sign"
+            .replaceAll("\\{" + "key-id" + "\\}", apiClient.escapeString(keyId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+        if (xKrn != null)
+        localVarHeaderParams.put("x-krn", apiClient.parameterToString(xKrn));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call keySignDataValidateBeforeCall(String xChainId, String keyId, KeySignDataRequest body, String xKrn, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling keySignData(Async)");
+        }
+        // verify the required parameter 'keyId' is set
+        if (keyId == null) {
+            throw new ApiException("Missing the required parameter 'keyId' when calling keySignData(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = keySignDataCall(xChainId, keyId, body, xKrn, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Sign Data using key
+     * Sign the data using key
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param keyId  (required)
+     * @param body  (optional)
+     * @param xKrn  (optional)
+     * @return KeySignDataResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public KeySignDataResponse keySignData(String xChainId, String keyId, KeySignDataRequest body, String xKrn) throws ApiException {
+        ApiResponse<KeySignDataResponse> resp = keySignDataWithHttpInfo(xChainId, keyId, body, xKrn);
+        return resp.getData();
+    }
+
+    /**
+     * Sign Data using key
+     * Sign the data using key
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param keyId  (required)
+     * @param body  (optional)
+     * @param xKrn  (optional)
+     * @return ApiResponse&lt;KeySignDataResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<KeySignDataResponse> keySignDataWithHttpInfo(String xChainId, String keyId, KeySignDataRequest body, String xKrn) throws ApiException {
+        com.squareup.okhttp.Call call = keySignDataValidateBeforeCall(xChainId, keyId, body, xKrn, null, null);
+        Type localVarReturnType = new TypeToken<KeySignDataResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Sign Data using key (asynchronously)
+     * Sign the data using key
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param keyId  (required)
+     * @param body  (optional)
+     * @param xKrn  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call keySignDataAsync(String xChainId, String keyId, KeySignDataRequest body, String xKrn, final ApiCallback<KeySignDataResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = keySignDataValidateBeforeCall(xChainId, keyId, body, xKrn, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<KeySignDataResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
