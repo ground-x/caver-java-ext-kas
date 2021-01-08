@@ -681,7 +681,7 @@ public class TokenHistory {
      */
     public Call getMTListByOwnerAsync(String mtAddress, String ownerAddress, ApiCallback<PageableMtTokensWithBalance> callback) throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        return getMTListByOwnerAsync(chainId, mtAddress, options, callback);
+        return getMTListByOwnerAsync(mtAddress, ownerAddress, options, callback);
     }
 
     /**
@@ -736,9 +736,9 @@ public class TokenHistory {
      * @return PageableMtTokens
      * @throws ApiException
      */
-    public PageableMtTokens getMTOwnerByTokenId(String mtAddress, String tokenId) throws ApiException {
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId) throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        return getMTOwnerByTokenId(mtAddress, tokenId, options);
+        return getMTOwnerListByTokenId(mtAddress, tokenId, options);
     }
 
     /**
@@ -751,7 +751,7 @@ public class TokenHistory {
      * @return PageableMtTokens
      * @throws ApiException
      */
-    public PageableMtTokens getMTOwnerByTokenId(String mtAddress, String tokenId, TokenHistoryQueryOptions options) throws ApiException {
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId, TokenHistoryQueryOptions options) throws ApiException {
         return this.tokenApi.getMtTokensByContractAddressAndTokenId(chainId, mtAddress, tokenId, options.getCursor(), options.getSize());
     }
 
@@ -766,9 +766,9 @@ public class TokenHistory {
      * @return Call
      * @throws ApiException
      */
-    public Call getMTOwnerByTokenIdAsync(String mtAddress, String tokenId, ApiCallback<PageableMtTokens> callback) throws ApiException {
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, ApiCallback<PageableMtTokens> callback) throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        return getMTOwnerByTokenIdAsync(mtAddress, tokenId, options, callback);
+        return getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
     }
 
     /**
@@ -782,7 +782,7 @@ public class TokenHistory {
      * @return Call
      * @throws ApiException
      */
-    public Call getMTOwnerByTokenIdAsync(String mtAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokens> callback) throws ApiException {
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokens> callback) throws ApiException {
         return this.tokenApi.getMtTokensByContractAddressAndTokenIdAsync(chainId, mtAddress, tokenId, options.getCursor(), options.getSize(), callback);
     }
 
