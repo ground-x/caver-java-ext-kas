@@ -18,6 +18,7 @@ package xyz.groundx.caver_ext_kas;
 
 import com.klaytn.caver.Caver;
 import com.klaytn.caver.abi.ABI;
+import com.klaytn.caver.contract.Contract;
 import com.klaytn.caver.contract.ContractDeployParams;
 import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.kct.kip17.KIP17;
@@ -43,6 +44,7 @@ import com.squareup.okhttp.Credentials;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.KIP37ConstantData;
 
 import java.io.IOException;
 import java.math.BigDecimal;

@@ -582,63 +582,6 @@ public class TokenHistory {
         return tokenOwnershipApi.getListOfNftOwnershipChangesAsync(chainId, nftAddress, tokenId, options.getSize(), options.getCursor(), callback);
     }
 
-
-    /**
-     * Retrieve FT(Fungible Token) information owned EOA passed as a address parameter.<br>
-     * It will send a request without filter options.<br>
-     * If you want to execute this function with search options(size, cursor, ca-filters), use getFTSummaryByAddress(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/account/token/{address}/ft
-     * @param address The EOA Address.
-     * @return PageableAccountFT
-     * @throws ApiException
-     */
-    public PageableAccountFT getFTSummaryByAddress(String address) throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        return getFTSummaryByAddress(address, options);
-    }
-
-    /**
-     * Retrieve FT(Fungible Token) information owned EOA passed as a address parameter.<br>
-     * You can set a search options(size, cursor, ca-filters) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/account/token/{address}/ft
-     * @param address The EOA Address.
-     * @param options Filters required when retrieving data. `size`, `cursor` and `ca-filters`
-     * @return PageableAccountFT
-     * @throws ApiException
-     */
-    public PageableAccountFT getFTSummaryByAddress(String address, TokenHistoryQueryOptions options) throws ApiException {
-        return this.tokenOwnershipApi.getFtSummaryByEoaAddress(chainId, address, options.getSize(), options.getCursor(), options.getCaFilter());
-    }
-
-    /**
-     * Retrieve FT(Fungible Token) information owned EOA passed as a address parameter asynchronously.<br>
-     * It will send a request without filter options.<br>
-     * If you want to execute this function with search options(size, cursor, ca-filters), use getFTSummaryByAddressAsync(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/account/token/{address}/ft
-     * @param address The EOA Address.
-     * @param callback The callback function to handle response.
-     * @return Call
-     * @throws ApiException
-     */
-    public Call getFTSummaryByAddressAsync(String address, ApiCallback<PageableAccountFT> callback) throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        return getFTSummaryByAddressAsync(address, options, callback);
-    }
-
-    /**
-     * Retrieve FT(Fungible Token) information owned EOA passed as a address parameter asynchronously.<br>
-     * You can set a search options(size, cursor, ca-filters) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/account/token/{address}/ft
-     * @param address The EOA Address.
-     * @param options Filters required when retrieving data. `size`, `cursor` and `ca-filters`
-     * @param callback The callback function to handle response.
-     * @return Call
-     * @throws ApiException
-     */
-    public Call getFTSummaryByAddressAsync(String address, TokenHistoryQueryOptions options, ApiCallback<PageableAccountFT> callback) throws ApiException {
-        return this.tokenOwnershipApi.getFtSummaryByEoaAddressAsync(chainId, address, options.getSize(), options.getCursor(), options.getCaFilter(), callback);
-    }
-
     /**
      * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
      * It will send a request without filter options.<br>
