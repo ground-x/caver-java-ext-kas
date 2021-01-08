@@ -27,7 +27,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.
  */
 @Schema(description = "New account key (AccountKey) to be used with the account key")
 
-public class MultisigUpdateKeyType implements OneOfAccountUpdateKey {
+public class MultisigUpdateKeyType extends AccountUpdateKey {
   @SerializedName("keyType")
   private Long keyType = null;
 

@@ -43,6 +43,11 @@ public class WalletQueryOptions {
     Long toTimestamp;
 
     /**
+     * The account status to query
+     */
+    String status;
+
+    /**
      * Creates an WalletQueryOptions instance.
      */
     public WalletQueryOptions() {
@@ -94,6 +99,10 @@ public class WalletQueryOptions {
         return toTimestamp;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     /**
      * Setter function for size.
      * @param size Maximum number of data to query.
@@ -142,5 +151,9 @@ public class WalletQueryOptions {
      */
     public void setToTimestamp(Long toTimestamp) {
         this.toTimestamp = toTimestamp;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

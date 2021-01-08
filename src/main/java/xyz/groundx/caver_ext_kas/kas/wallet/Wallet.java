@@ -140,7 +140,7 @@ public class Wallet {
      * @throws ApiException
      */
     public Accounts getAccountList(WalletQueryOptions options) throws ApiException {
-        return getAccountApi().retrieveAccounts(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp());
+        return getAccountApi().retrieveAccounts(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), options.getStatus());
     }
 
     /**
@@ -152,7 +152,7 @@ public class Wallet {
      * @throws ApiException
      */
     public Call getAccountListAsync(WalletQueryOptions options, ApiCallback<Accounts> callback) throws ApiException {
-        return getAccountApi().retrieveAccountsAsync(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), callback);
+        return getAccountApi().retrieveAccountsAsync(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), options.getStatus(), callback);
     }
 
     /**
