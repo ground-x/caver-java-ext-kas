@@ -39,8 +39,8 @@ public class WalletQueryOptions {
         }
 
         /**
-         * Check if there is an enum mapped to the given type string.
-         * @param status The type string to find enum defined in LABEL_STATUS
+         * Check if there is an enum mapped to the given status string.
+         * @param status The status string to find enum defined in LABEL_STATUS
          * @return boolean
          */
         public static boolean isExist(String status) {
