@@ -100,7 +100,7 @@ public class TokenHistoryQueryOptions {
 
         /**
          * Check if there is an enum mapped to the given type string.
-         * @param kind The type string to find enum defined in CONTRACT_TYPE
+         * @param kind The kind string to find enum defined in CONTRACT_KIND
          * @return boolean
          */
         public static boolean isExist(String kind) {
