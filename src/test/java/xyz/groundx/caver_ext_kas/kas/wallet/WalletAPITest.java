@@ -2827,7 +2827,7 @@ public class WalletAPITest {
         assertEquals(2, response.getItems().size());
     }
 
-    @Test
+    @Ignore
     public void createKeysAsync() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<KeyCreationResponse> future = new CompletableFuture<>();
         Call result = caver.kas.wallet.createKeysAsync(2, new ApiCallback<KeyCreationResponse>() {
