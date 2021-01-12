@@ -3002,6 +3002,7 @@ public class WalletAPITest {
 
         RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(Collections.singletonList(registration));
         assertNotNull(result);
+        assertEquals("ok", result.getStatus());
     }
 
     @Ignore
@@ -3047,6 +3048,7 @@ public class WalletAPITest {
             fail();
         } else {
             assertNotNull(future.get());
+            assertEquals("ok", future.get().getStatus());
         }
     }
 }
