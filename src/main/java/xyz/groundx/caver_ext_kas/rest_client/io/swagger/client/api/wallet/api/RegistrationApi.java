@@ -127,7 +127,7 @@ public class RegistrationApi {
      * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return RegistrationStausResponse
+     * @return RegistrationStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public RegistrationStatusResponse registerAccount(String xChainId, List<AccountRegistration> body) throws ApiException {
