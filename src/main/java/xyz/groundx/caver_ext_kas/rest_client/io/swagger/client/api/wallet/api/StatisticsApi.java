@@ -122,8 +122,8 @@ public class StatisticsApi {
     }
 
     /**
-     * The number of Klaytn account which KAS account owned
-     * Show the number of Klaytn account which KAS account owned
+     * The number of Klaytn account and key which KAS account owned
+     * Show the number of Klaytn account and key which KAS account owned
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @return AccountCountByAccountID
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -134,8 +134,8 @@ public class StatisticsApi {
     }
 
     /**
-     * The number of Klaytn account which KAS account owned
-     * Show the number of Klaytn account which KAS account owned
+     * The number of Klaytn account and key which KAS account owned
+     * Show the number of Klaytn account and key which KAS account owned
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @return ApiResponse&lt;AccountCountByAccountID&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -147,8 +147,8 @@ public class StatisticsApi {
     }
 
     /**
-     * The number of Klaytn account which KAS account owned (asynchronously)
-     * Show the number of Klaytn account which KAS account owned
+     * The number of Klaytn account and key which KAS account owned (asynchronously)
+     * Show the number of Klaytn account and key which KAS account owned
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -183,7 +183,7 @@ public class StatisticsApi {
     /**
      * Build call for getAccountCountByKRN
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
+     * @param xKrn Account pool name (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -254,7 +254,7 @@ public class StatisticsApi {
      * The number of Klaytn account from certain account pool
      * Show the number of Klaytn account which KAS account owned from certain account pool
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
+     * @param xKrn Account pool name (optional)
      * @return AccountCountByKRN
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -267,7 +267,7 @@ public class StatisticsApi {
      * The number of Klaytn account from certain account pool
      * Show the number of Klaytn account which KAS account owned from certain account pool
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
+     * @param xKrn Account pool name (optional)
      * @return ApiResponse&lt;AccountCountByKRN&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -281,7 +281,7 @@ public class StatisticsApi {
      * The number of Klaytn account from certain account pool (asynchronously)
      * Show the number of Klaytn account which KAS account owned from certain account pool
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param xKrn account pool name (optional)
+     * @param xKrn Account pool name (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

@@ -22,9 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Total count of Klaytn account owned by an KAS account
+ * Total count of Klaytn account and key owned by an KAS account
  */
-@Schema(description = "Total count of Klaytn account owned by an KAS account")
+@Schema(description = "Total count of Klaytn account and key owned by an KAS account")
 
 public class AccountCountByAccountID {
   @SerializedName("accountId")

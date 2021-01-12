@@ -13,28 +13,23 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
+
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RegistrationFailure;
+
 /**
  * Status Response Schema
  */
 @Schema(description = "Status Response Schema")
 
-public class StatusResponse {
+public class RegistrationStatusResponse {
   @SerializedName("failures")
   private RegistrationFailure failures = null;
 
   @SerializedName("status")
   private String status = null;
 
-  public StatusResponse failures(RegistrationFailure failures) {
+  public RegistrationStatusResponse failures(RegistrationFailure failures) {
     this.failures = failures;
     return this;
   }
@@ -52,7 +47,7 @@ public class StatusResponse {
     this.failures = failures;
   }
 
-  public StatusResponse status(String status) {
+  public RegistrationStatusResponse status(String status) {
     this.status = status;
     return this;
   }
@@ -79,9 +74,9 @@ public class StatusResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StatusResponse statusResponse = (StatusResponse) o;
-    return Objects.equals(this.failures, statusResponse.failures) &&
-        Objects.equals(this.status, statusResponse.status);
+    RegistrationStatusResponse registrationStausResponse = (RegistrationStatusResponse) o;
+    return Objects.equals(this.failures, registrationStausResponse.failures) &&
+        Objects.equals(this.status, registrationStausResponse.status);
   }
 
   @Override
@@ -93,7 +88,7 @@ public class StatusResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StatusResponse {\n");
+    sb.append("class RegistrationStausResponse {\n");
     
     sb.append("    failures: ").append(toIndentedString(failures)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");

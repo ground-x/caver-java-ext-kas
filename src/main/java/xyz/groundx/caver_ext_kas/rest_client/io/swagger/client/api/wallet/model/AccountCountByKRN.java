@@ -45,7 +45,7 @@ public class AccountCountByKRN {
    * KAS account ID
    * @return accountId
   **/
-  @Schema(example = "5adddb69-20b5-4444-a205-8bd681c815cc", required = true, description = "KAS account ID")
+  @Schema(example = "68ec0e4b-0f61-4e6f-ae35-be865ab23187", required = true, description = "KAS account ID")
   public String getAccountId() {
     return accountId;
   }
@@ -63,7 +63,7 @@ public class AccountCountByKRN {
    * The number of Klaytn account from certain account pool
    * @return count
   **/
-  @Schema(example = "8", required = true, description = "The number of Klaytn account from certain account pool")
+  @Schema(example = "4", required = true, description = "The number of Klaytn account from certain account pool")
   public Long getCount() {
     return count;
   }
@@ -81,7 +81,7 @@ public class AccountCountByKRN {
    * KAS KRN(acccount pool name)
    * @return krn
   **/
-  @Schema(example = "krn:1001:wallet:5adddb69-20b5-4444-a205-8bd681c815cc:account-pool:default", required = true, description = "KAS KRN(acccount pool name)")
+  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN(acccount pool name)")
   public String getKrn() {
     return krn;
   }

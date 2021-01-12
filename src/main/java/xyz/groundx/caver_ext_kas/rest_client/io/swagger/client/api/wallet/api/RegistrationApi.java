@@ -27,8 +27,7 @@ import java.io.IOException;
 
 
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountRegistration;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ErrorResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.StatusResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RegistrationStatusResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -128,11 +127,11 @@ public class RegistrationApi {
      * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return StatusResponse
+     * @return RegistrationStausResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public StatusResponse registerAccount(String xChainId, List<AccountRegistration> body) throws ApiException {
-        ApiResponse<StatusResponse> resp = registerAccountWithHttpInfo(xChainId, body);
+    public RegistrationStatusResponse registerAccount(String xChainId, List<AccountRegistration> body) throws ApiException {
+        ApiResponse<RegistrationStatusResponse> resp = registerAccountWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
@@ -141,12 +140,12 @@ public class RegistrationApi {
      * Register account which used before
      * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;StatusResponse&gt;
+     * @return ApiResponse&lt;RegistrationStausResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<StatusResponse> registerAccountWithHttpInfo(String xChainId, List<AccountRegistration> body) throws ApiException {
+    public ApiResponse<RegistrationStatusResponse> registerAccountWithHttpInfo(String xChainId, List<AccountRegistration> body) throws ApiException {
         com.squareup.okhttp.Call call = registerAccountValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<StatusResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<RegistrationStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -159,7 +158,7 @@ public class RegistrationApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call registerAccountAsync(String xChainId, List<AccountRegistration> body, final ApiCallback<StatusResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call registerAccountAsync(String xChainId, List<AccountRegistration> body, final ApiCallback<RegistrationStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -181,7 +180,7 @@ public class RegistrationApi {
         }
 
         com.squareup.okhttp.Call call = registerAccountValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<StatusResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<RegistrationStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -22,16 +22,16 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Method parameter
+ * method parameter
  */
-@Schema(description = "Method parameter")
+@Schema(description = "method parameter")
 
 public class CallArgument {
   @SerializedName("type")
   private String type = null;
 
   @SerializedName("value")
-  private String value = null;
+  private Object value = null;
 
   public CallArgument type(String type) {
     this.type = type;
@@ -39,10 +39,10 @@ public class CallArgument {
   }
 
    /**
-   * Parameter type
+   * ABI types. For example &#x60;uint256&#x60;, &#x60;uint32&#x60;, &#x60;string&#x60;, &#x60;bool&#x60;, &#x60;address&#x60;, &#x60;uint64[2]&#x60; and &#x60;address[]&#x60; can be used
    * @return type
   **/
-  @Schema(example = "address", required = true, description = "Parameter type")
+  @Schema(example = "address", required = true, description = "ABI types. For example `uint256`, `uint32`, `string`, `bool`, `address`, `uint64[2]` and `address[]` can be used")
   public String getType() {
     return type;
   }
@@ -51,21 +51,21 @@ public class CallArgument {
     this.type = type;
   }
 
-  public CallArgument value(String value) {
+  public CallArgument value(Object value) {
     this.value = value;
     return this;
   }
 
    /**
-   * Parameter value
+   * parameter value. &#x60;number&#x60;, &#x60;string&#x60;, &#x60;array&#x60; and &#x60;boolean&#x60; value type can be used
    * @return value
   **/
-  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", required = true, description = "Parameter value")
-  public String getValue() {
+  @Schema(example = "0x85b98485444c89880cd9c48807cef727c296f2da", required = true, description = "parameter value. `number`, `string`, `array` and `boolean` value type can be used")
+  public Object getValue() {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(Object value) {
     this.value = value;
   }
 
