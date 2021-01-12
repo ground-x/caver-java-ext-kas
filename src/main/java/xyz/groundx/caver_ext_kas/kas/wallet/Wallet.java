@@ -1227,7 +1227,7 @@ public class Wallet {
      * POST /v2/registration/account
      * @param request The List of account information to be registered in KAS. <br>
      *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
-     * @return RegistrationStausResponse
+     * @return RegistrationStatusResponse
      * @throws ApiException
      */
     public RegistrationStatusResponse registerAccounts(List<AccountRegistration> request) throws ApiException {
