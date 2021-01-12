@@ -1176,7 +1176,7 @@ public class Wallet {
 
     /**
      * Sign a message using a key create by KAS asynchronously. <br>
-     * It used default KRN. <br>
+     * The default KRN will be used. <br>
      * POST /v2/key/{key-id}/sign
      * @param keyId The key id to use for signing.
      * @param data The data to sign.
