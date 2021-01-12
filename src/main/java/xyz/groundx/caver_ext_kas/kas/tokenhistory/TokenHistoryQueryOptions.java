@@ -151,7 +151,7 @@ public class TokenHistoryQueryOptions {
         }
 
         /**
-         * Check if there is an enum mapped to the given type string.
+         * Check if there is an enum mapped to the given status string.
          * @param status The status string to find enum defined in LABEL_STATUS
          * @return boolean
          */
