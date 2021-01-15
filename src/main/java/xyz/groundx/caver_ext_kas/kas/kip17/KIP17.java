@@ -117,7 +117,7 @@ public class KIP17 {
 
     /**
      * Retrieves KIP-17 contract information by either contract address or alias.<br>
-     * POST /v1/contract/{contract-address-or-alias}
+     * GET /v1/contract/{contract-address-or-alias}
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @return Kip17ContractInfoResponse
      * @throws ApiException
@@ -128,7 +128,7 @@ public class KIP17 {
 
     /**
      * Retrieves KIP-17 contract information by either contract address or alias asynchronously.<br>
-     * POST /v1/contract/{contract-address-or-alias}
+     * GET /v1/contract/{contract-address-or-alias}
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param callback The callback function to handle response.
      * @return Call
@@ -232,7 +232,7 @@ public class KIP17 {
     }
 
     /**
-     * Get all token list minted from a specified KIP-17 contract.<br>
+     * Get all token list minted from a specified KIP-17 contract asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
      * @param addressOrAlias The KIP-17 contract address or alias.
@@ -246,7 +246,7 @@ public class KIP17 {
     }
 
     /**
-     * Get all token list minted from a specified KIP-17 contract.<br>
+     * Get all token list minted from a specified KIP-17 contract asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param options Filters required when retrieving data. `size`, `cursor`.
@@ -454,9 +454,6 @@ public class KIP17 {
      * @throws ApiException
      */
     public Kip17TransactionStatusResponse approve(String addressOrAlias, String from, String to, BigInteger tokenId) throws ApiException {
-        ApproveKip17TokenRequest request = new ApproveKip17TokenRequest();
-        request.setFrom(from);
-        request.setTo(to);
 
         return approve(addressOrAlias, from, to, Numeric.toHexStringWithPrefix(tokenId));
     }
@@ -493,10 +490,6 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call approveAsync(String addressOrAlias, String from, String to, BigInteger tokenId, ApiCallback<Kip17TransactionStatusResponse> callback) throws ApiException {
-        ApproveKip17TokenRequest request = new ApproveKip17TokenRequest();
-        request.setFrom(from);
-        request.setTo(to);
-
         return approveAsync(addressOrAlias, from, to, Numeric.toHexStringWithPrefix(tokenId), callback);
     }
 
