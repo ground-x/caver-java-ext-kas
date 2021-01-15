@@ -17,6 +17,7 @@
 package xyz.groundx.caver_ext_kas.kas;
 
 import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
+import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
@@ -39,6 +40,11 @@ public class KAS {
      * The Wallet API instance.
      */
     public Wallet wallet;
+
+    /**
+     * The KIP17 API instance.
+     */
+    public KIP17 kip17;
 
     /**
      * Creates a KAS instance.
@@ -99,6 +105,24 @@ public class KAS {
     }
 
     /**
+     * Initialize KIP17 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP17 API.
+     */
+    public KAS initKIP17API(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
+
+        setKip17(new KIP17(chainId, apiClient));
+
+        return this;
+    }
+
+    /**
      * Getter function for anchor.
      * @return Anchor API
      */
@@ -144,5 +168,21 @@ public class KAS {
      */
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    /**
+     * Getter function for kip17
+     * @return KIP17
+     */
+    public KIP17 getKip17() {
+        return kip17;
+    }
+
+    /**
+     * Setter function for KIP17
+     * @param kip17 The KIP17 API instance
+     */
+    public void setKip17(KIP17 kip17) {
+        this.kip17 = kip17;
     }
 }
