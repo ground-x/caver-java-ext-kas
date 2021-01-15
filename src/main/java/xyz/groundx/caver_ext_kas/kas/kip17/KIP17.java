@@ -568,7 +568,6 @@ public class KIP17 {
 
     /**
      * Get list of tokens belonging to a particular token owner.<br>
-     * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param owner The token owner address.
