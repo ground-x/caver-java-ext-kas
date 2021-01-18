@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.*;
 
-@Ignore
+
 public class KIP17Test {
     public static CaverExtKAS caver;
     public static int preset;
@@ -41,16 +41,18 @@ public class KIP17Test {
         return receiptProcessor.waitForTransactionReceipt(res.getTransactionHash());
     }
 
-    public static void prepareKIP17Contract() throws ApiException, IOException, TransactionException {
+    public static void prepareKIP17Contract() throws ApiException, IOException, TransactionException, InterruptedException {
         testContractAlias = "kk-" + new Date().getTime();
         Kip17TransactionStatusResponse deployStatus = caver.kas.kip17.deploy("KIP17", "KCTT", testContractAlias);
         TransactionReceiptProcessor receiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         receiptProcessor.waitForTransactionReceipt(deployStatus.getTransactionHash());
 
+        Thread.sleep(5000);
         for(int i=0; i<2; i++) {
             mintToken(testContractAlias, account, BigInteger.valueOf(new Date().getTime()));
         }
 
+        Thread.sleep(5000);
     }
 
     @BeforeClass
@@ -60,7 +62,7 @@ public class KIP17Test {
         preset = Config.getPresetID();
         account = caver.kas.wallet.createAccount().getAddress();
 
-        caver.kas.kip17.getKip17Api().getApiClient().setDebugging(true);
+        caver.kas.kip17.getApiClient().setDebugging(true);
         prepareKIP17Contract();
 
 
@@ -443,7 +445,52 @@ public class KIP17Test {
         } else {
             assertNotNull(future.get());
         }
+    }
 
+    @Test
+    public void approve() throws ApiException {
+        String from = account;
+        String to = caver.kas.wallet.createAccount().getAddress();
+
+        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
+        Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, res.getItems().get(0).getTokenId());
+    }
+
+    @Test
+    public void approveAsync() throws ApiException, ExecutionException, InterruptedException {
+        String from = account;
+        String to = caver.kas.wallet.createAccount().getAddress();
+
+        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
+
+        CompletableFuture<Kip17TransactionStatusResponse> completableFuture = new CompletableFuture<>();
+        Call result = caver.kas.kip17.approveAsync(testContractAlias, from, to, res.getItems().get(0).getTokenId(), new ApiCallback<Kip17TransactionStatusResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                completableFuture.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip17TransactionStatusResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                completableFuture.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(completableFuture.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(completableFuture.get());
+        }
     }
 
     @Test

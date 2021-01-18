@@ -56,7 +56,7 @@ public class Config {
     public static String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
     public static String URL_TH_API = "https://th-api.klaytnapi.com";
     public static String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
-    public static String URL_KIP17_API = "https://kip17-api.klaytn.com";
+    public static String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
