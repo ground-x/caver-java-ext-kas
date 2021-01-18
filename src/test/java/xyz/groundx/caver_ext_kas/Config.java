@@ -98,6 +98,7 @@ public class Config {
         caver.initAnchorAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_ANCHOR_API);
         caver.initWalletAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_WALLET_API);
         caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
+        caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
