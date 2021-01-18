@@ -84,20 +84,18 @@ public class Wallet {
     String chainId;
 
     /**
+     * The ApiClient for connecting with KAS.
+     */
+    ApiClient apiClient;
+
+    /**
      * Creates an WalletAPI instnace.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
      */
     public Wallet(String chainId, ApiClient walletApiClient) {
         setChainId(chainId);
-        setAccountApi(new AccountApi(walletApiClient));
-        setBasicTransactionApi(new BasicTransactionApi(walletApiClient));
-        setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(walletApiClient));
-        setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(walletApiClient));
-        setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(walletApiClient));
-        setStatisticsApi(new StatisticsApi(walletApiClient));
-        setKeyApi(new KeyApi(walletApiClient));
-        setRegistrationApi(new RegistrationApi(walletApiClient));
+        setApiClient(walletApiClient);
     }
 
     /**
@@ -1477,6 +1475,14 @@ public class Wallet {
     }
 
     /**
+     * Getter function for ApiClient
+     * @return ApiClient
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
+
+    /**
      * Setter function for accountApi
      * @param accountApi Account API rest client object.
      */
@@ -1546,6 +1552,22 @@ public class Wallet {
      */
     public void setChainId(String chainId) {
         this.chainId = chainId;
+    }
+
+    /**
+     * Setter function for ApiClient
+     * @param apiClient The ApiClient for connecting with KAS.
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        setAccountApi(new AccountApi(apiClient));
+        setBasicTransactionApi(new BasicTransactionApi(apiClient));
+        setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(apiClient));
+        setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(apiClient));
+        setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(apiClient));
+        setStatisticsApi(new StatisticsApi(apiClient));
+        setKeyApi(new KeyApi(apiClient));
+        setRegistrationApi(new RegistrationApi(apiClient));
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {

@@ -57,16 +57,18 @@ public class TokenHistory {
     String chainId;
 
     /**
+     * The ApiClient for connecting with KAS.
+     */
+    ApiClient apiClient;
+
+    /**
      * Creates an TokenHistoryAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param client The Api client for connection with KAS.
      */
     public TokenHistory(String chainId, ApiClient client) {
-        this.chainId = chainId;
-        tokenApi = new TokenApi(client);
-        tokenContractApi = new TokenContractApi(client);
-        tokenHistoryApi = new TokenHistoryApi(client);
-        tokenOwnershipApi = new TokenOwnershipApi(client);
+        setChainId(chainId);
+        setApiClient(client);
     }
 
     /**
@@ -802,5 +804,105 @@ public class TokenHistory {
      */
     public Call getMTContractAsync(String mtAddress, ApiCallback<MtContractDetail> callback) throws ApiException {
         return this.tokenContractApi.getMtContractDetailAsync(chainId, mtAddress, callback);
+    }
+
+    /**
+     * Getter function for tokenApi
+     * @return TokenApi
+     */
+    public TokenApi getTokenApi() {
+        return tokenApi;
+    }
+
+    /**
+     * Getter function TokenContractApi
+     * @return TokenContractApi
+     */
+    public TokenContractApi getTokenContractApi() {
+        return tokenContractApi;
+    }
+
+    /**
+     * Getter function for TokenHistoryApi
+     * @return TokenHistoryApi
+     */
+    public TokenHistoryApi getTokenHistoryApi() {
+        return tokenHistoryApi;
+    }
+
+    /**
+     * Getter function for TokenOwnershipApi
+     * @return TokenOwnershipApi
+     */
+    public TokenOwnershipApi getTokenOwnershipApi() {
+        return tokenOwnershipApi;
+    }
+
+    /**
+     * Getter function for chain id
+     * @return String
+     */
+    public String getChainId() {
+        return chainId;
+    }
+
+    /**
+     * Getter function for ApiClient
+     * @return ApiClient
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
+
+    /**
+     * Setter function for TokenApi
+     * @param tokenApi Token API rest-client object.
+     */
+    public void setTokenApi(TokenApi tokenApi) {
+        this.tokenApi = tokenApi;
+    }
+
+    /**
+     * Setter function for TokenContractApi
+     * @param tokenContractApi Token contract API rest-client object.
+     */
+    public void setTokenContractApi(TokenContractApi tokenContractApi) {
+        this.tokenContractApi = tokenContractApi;
+    }
+
+    /**
+     * Setter function for TokenHistoryApi
+     * @param tokenHistoryApi Token history API rest-client object.
+     */
+    public void setTokenHistoryApi(TokenHistoryApi tokenHistoryApi) {
+        this.tokenHistoryApi = tokenHistoryApi;
+    }
+
+    /**
+     * Setter function for TokenOwnershipApi
+     * @param tokenOwnershipApi Token owner API rest-client object.
+     */
+    public void setTokenOwnershipApi(TokenOwnershipApi tokenOwnershipApi) {
+        this.tokenOwnershipApi = tokenOwnershipApi;
+    }
+
+    /**
+     * Setter function for chain id
+     * @param chainId The klaytn network chain id.
+     */
+    public void setChainId(String chainId) {
+        this.chainId = chainId;
+    }
+
+    /**
+     * Setter function for apiClient
+     * @param apiClient The ApiClient for connecting with KAS.
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        setTokenApi(new TokenApi(apiClient));
+        setTokenContractApi(new TokenContractApi(apiClient));
+        setTokenHistoryApi(new TokenHistoryApi(apiClient));
+        setTokenOwnershipApi(new TokenOwnershipApi(apiClient));
     }
 }
