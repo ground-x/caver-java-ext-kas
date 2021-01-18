@@ -94,7 +94,7 @@ allprojects {
         user = bintrayUser
         key = bintrayKey
         publications = ['mavenJava']
-        publish = false
+        publish = true
         pkg {
             desc = project.description
             repo = 'maven'
