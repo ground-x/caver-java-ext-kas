@@ -79,6 +79,8 @@ public class WalletAPITest {
         multiSigAddress = multiSigAddress.equals("") ? createMultiSig().getAddress() : multiSigAddress;
         multiSigAccount = caver.kas.wallet.getAccount(multiSigAddress);
 
+        caver.kas.wallet.getApiClient().setDebugging(true);
+
         //Send balance to baseAccount
         com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = Config.sendValue(baseAccount);
         txHash = receiptData.getTransactionHash();
@@ -94,8 +96,6 @@ public class WalletAPITest {
         }
 
         ftContractAddress = ftContractAddress.equals("") ? deployKIP7() : ftContractAddress;
-
-        caver.kas.wallet.accountApi.getApiClient().setDebugging(true);
     }
 
     public static Account makeAccount() throws ApiException{
@@ -2970,7 +2970,7 @@ public class WalletAPITest {
         return tx;
     }
 
-    @Ignore
+    @Test
     public void registerAccounts() throws ApiException, IOException {
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
 
@@ -2989,7 +2989,7 @@ public class WalletAPITest {
         assertNotNull(result);
     }
 
-    @Ignore
+    @Test
     public void registerAccountsWithList() throws ApiException {
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
 
@@ -3005,7 +3005,7 @@ public class WalletAPITest {
         assertEquals("ok", result.getStatus());
     }
 
-    @Ignore
+    @Test
     public void registerAccountsAsync() throws ApiException, ExecutionException, InterruptedException, IOException {
         CompletableFuture<RegistrationStatusResponse> future = new CompletableFuture<>();
 
