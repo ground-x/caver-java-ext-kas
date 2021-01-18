@@ -22,13 +22,18 @@ public class KIP17 {
     String chainId;
 
     /**
+     * The ApiClient for connecting with KAS.
+     */
+    ApiClient apiClient;
+
+    /**
      * Creates an KIP17API instance.
      * @param chainId A Klaytn network chain id.
      * @param client The Api client for connection with KAS.
      */
     public KIP17(String chainId, ApiClient client) {
-        this.chainId = chainId;
-        kip17Api = new Kip17Api(client);
+        setChainId(chainId);
+        setApiClient(client);
     }
 
     /**
@@ -719,7 +724,7 @@ public class KIP17 {
     }
 
     /**
-     * Getter for Kip17Api instance.
+     * Getter function for Kip17Api instance.
      * @return Kip17Api
      */
     public Kip17Api getKip17Api() {
@@ -727,7 +732,7 @@ public class KIP17 {
     }
 
     /**
-     * Setter for Kip17Api instance.
+     * Setter function for Kip17Api instance.
      * @param kip17Api The Kip17Api instance.
      */
     public void setKip17Api(Kip17Api kip17Api) {
@@ -735,7 +740,7 @@ public class KIP17 {
     }
 
     /**
-     * Getter for chain id.
+     * Getter function for chain id.
      * @return String
      */
     public String getChainId() {
@@ -743,10 +748,27 @@ public class KIP17 {
     }
 
     /**
-     * Setter for chain id.
+     * Setter function for chain id.
      * @param chainId The Klaytn network id
      */
     public void setChainId(String chainId) {
         this.chainId = chainId;
+    }
+
+    /**
+     * Getter function for ApiClient
+     * @return ApiClient
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
+
+    /**
+     * Setter function for ApiClient
+     * @param apiClient The ApiClient for connecting with KAS.
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        setKip17Api(new Kip17Api(apiClient));
     }
 }
