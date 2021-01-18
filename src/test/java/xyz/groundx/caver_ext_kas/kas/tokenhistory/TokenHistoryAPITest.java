@@ -58,8 +58,10 @@ public class TokenHistoryAPITest {
         caver = Config.getCaver();
         preset = Config.getPresetID();
         account = Config.getKlayProviderKeyring().getAddress();
-        caver.kas.tokenHistory.tokenApi.getApiClient().setConnectTimeout(10000);
-        caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
+
+        caver.kas.tokenHistory.getApiClient().setConnectTimeout(10000);
+        caver.kas.tokenHistory.getApiClient().setDebugging(true);
+
         ftAddress = Config.deployKIP7(caver, account);
         nftAddress = Config.deployKIP17(caver, account);
         mtAddress = Config.deployKIP37(caver, account);
