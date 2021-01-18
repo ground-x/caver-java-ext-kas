@@ -52,11 +52,11 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
-    public static final String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
-    public static final String URL_TH_API = "https://th-api.klaytnapi.com";
-    public static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
-    public static final String URL_KIP17_API = "https://kip17-api.dev.klaytn.com";
+    public static String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
+    public static String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
+    public static String URL_TH_API = "https://th-api.klaytnapi.com";
+    public static String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
+    public static String URL_KIP17_API = "https://kip17-api.klaytn.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
@@ -69,8 +69,6 @@ public class Config {
     static String klayProviderPrivateKey = "";
 
     public static Integer presetID;
-
-
 
     public static CaverExtKAS caver;
     public static KeyringContainer keyringContainer;
@@ -100,16 +98,24 @@ public class Config {
         caver.initAnchorAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_ANCHOR_API);
         caver.initWalletAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_WALLET_API);
         caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
+        caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
     }
+
 
     public static void loadTestData() {
         Dotenv env = Dotenv.configure()
                 .ignoreIfMalformed()
                 .ignoreIfMissing()
                 .load();
+
+        URL_NODE_API = env.get("URL_NODE_API", URL_NODE_API);
+        URL_WALLET_API = env.get("URL_WALLET_API", URL_WALLET_API);
+        URL_TH_API = env.get("URL_TH_API", URL_TH_API);
+        URL_ANCHOR_API = env.get("URL_ANCHOR_API", URL_ANCHOR_API);
+        URL_KIP17_API = env.get("URL_KIP17_API", URL_KIP17_API);
 
         accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY") : accessKey;
         secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY") : secretAccessKey;
