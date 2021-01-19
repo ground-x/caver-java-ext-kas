@@ -142,7 +142,7 @@ public class Kip17Api {
 
     /**
      * Approve All Token Transfers
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.<p></p>  
      * @param xChainId Klaytn network chain ID, one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -156,7 +156,7 @@ public class Kip17Api {
 
     /**
      * Approve All Token Transfers
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.<p></p>  
      * @param xChainId Klaytn network chain ID, one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -171,7 +171,7 @@ public class Kip17Api {
 
     /**
      * Approve All Token Transfers (asynchronously)
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on all token of a contract which &#x60;from&#x60; owns.<p></p>  
      * @param xChainId Klaytn network chain ID, one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -287,7 +287,7 @@ public class Kip17Api {
 
     /**
      * Approve Token Transfer
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID to approve the 3rd party to transfer (required)
@@ -302,7 +302,7 @@ public class Kip17Api {
 
     /**
      * Approve Token Transfer
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID to approve the 3rd party to transfer (required)
@@ -318,7 +318,7 @@ public class Kip17Api {
 
     /**
      * Approve Token Transfer (asynchronously)
-     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Approves an EOA, &#x60;to&#x60;, to perform token operations on a particular token of a contract which &#x60;from&#x60; owns. If &#x60;from&#x60; is not the owner, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID to approve the 3rd party to transfer (required)
@@ -435,7 +435,7 @@ public class Kip17Api {
 
     /**
      * Burn a KIP-17 Token
-     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to burn (required)
@@ -450,7 +450,7 @@ public class Kip17Api {
 
     /**
      * Burn a KIP-17 Token
-     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to burn (required)
@@ -466,7 +466,7 @@ public class Kip17Api {
 
     /**
      * Burn a KIP-17 Token (asynchronously)
-     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.&lt;p&gt;&lt;/p&gt;  
+     * Burns a token. If &#x60;from&#x60; is not the owner or has been approved for this operation, then the transaction submitted from this API will be reverted.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to burn (required)
@@ -571,7 +571,7 @@ public class Kip17Api {
 
     /**
      * Deploy New KIP-17 Contract
-     * Deploys a new KIP-17 contract with user submitted parameters.&lt;p&gt;&lt;/p&gt;  
+     * Deploys a new KIP-17 contract with user submitted parameters.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param body  (optional)
      * @return Kip17TransactionStatusResponse
@@ -584,7 +584,7 @@ public class Kip17Api {
 
     /**
      * Deploy New KIP-17 Contract
-     * Deploys a new KIP-17 contract with user submitted parameters.&lt;p&gt;&lt;/p&gt;  
+     * Deploys a new KIP-17 contract with user submitted parameters.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip17TransactionStatusResponse&gt;
@@ -598,7 +598,7 @@ public class Kip17Api {
 
     /**
      * Deploy New KIP-17 Contract (asynchronously)
-     * Deploys a new KIP-17 contract with user submitted parameters.&lt;p&gt;&lt;/p&gt;  
+     * Deploys a new KIP-17 contract with user submitted parameters.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -706,7 +706,7 @@ public class Kip17Api {
 
     /**
      * Get KIP-17 Contract Information
-     * Retrieves KIP-17 contract information by either contract address or alias.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves KIP-17 contract information by either contract address or alias.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @return Kip17ContractInfoResponse
@@ -719,7 +719,7 @@ public class Kip17Api {
 
     /**
      * Get KIP-17 Contract Information
-     * Retrieves KIP-17 contract information by either contract address or alias.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves KIP-17 contract information by either contract address or alias.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @return ApiResponse&lt;Kip17ContractInfoResponse&gt;
@@ -733,7 +733,7 @@ public class Kip17Api {
 
     /**
      * Get KIP-17 Contract Information (asynchronously)
-     * Retrieves KIP-17 contract information by either contract address or alias.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves KIP-17 contract information by either contract address or alias.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param callback The callback to be executed when the API call finishes
@@ -853,7 +853,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Belonging to a Particular Token Owner
-     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param ownerAddress Token owner address (required)
@@ -869,7 +869,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Belonging to a Particular Token Owner
-     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param ownerAddress Token owner address (required)
@@ -886,7 +886,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Belonging to a Particular Token Owner (asynchronously)
-     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens of the same owner (&#x60;owner-address&#x60;) of a contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param ownerAddress Token owner address (required)
@@ -1003,7 +1003,7 @@ public class Kip17Api {
 
     /**
      * Get Particular Token Info of a KIP-17 Contract
-     * Retrieves the requested token information of a parcitular KIP-17 contract.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves the requested token information of a parcitular KIP-17 contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to retreive (required)
@@ -1017,7 +1017,7 @@ public class Kip17Api {
 
     /**
      * Get Particular Token Info of a KIP-17 Contract
-     * Retrieves the requested token information of a parcitular KIP-17 contract.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves the requested token information of a parcitular KIP-17 contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to retreive (required)
@@ -1032,7 +1032,7 @@ public class Kip17Api {
 
     /**
      * Get Particular Token Info of a KIP-17 Contract (asynchronously)
-     * Retrieves the requested token information of a parcitular KIP-17 contract.&lt;p&gt;&lt;/p&gt;  
+     * Retrieves the requested token information of a parcitular KIP-17 contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address or unique alias (required)
      * @param tokenId Token ID to retreive (required)
@@ -1153,7 +1153,7 @@ public class Kip17Api {
 
     /**
      * Get Token History
-     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.&lt;p&gt;&lt;/p&gt;  
+     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
@@ -1169,7 +1169,7 @@ public class Kip17Api {
 
     /**
      * Get Token History
-     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.&lt;p&gt;&lt;/p&gt;  
+     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
@@ -1186,7 +1186,7 @@ public class Kip17Api {
 
     /**
      * Get Token History (asynchronously)
-     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.&lt;p&gt;&lt;/p&gt;  
+     * Lists token transfer histories starting from the time the requested token was minted, where each entry of the response items shows a transfer record.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
@@ -1297,7 +1297,7 @@ public class Kip17Api {
 
     /**
      * Get List of KIP-17 Contracts
-     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.&lt;p&gt;&lt;/p&gt;  
+     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param size Number of items to return (optional)
      * @param cursor Items offset (optional)
@@ -1311,7 +1311,7 @@ public class Kip17Api {
 
     /**
      * Get List of KIP-17 Contracts
-     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.&lt;p&gt;&lt;/p&gt;  
+     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param size Number of items to return (optional)
      * @param cursor Items offset (optional)
@@ -1326,7 +1326,7 @@ public class Kip17Api {
 
     /**
      * Get List of KIP-17 Contracts (asynchronously)
-     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.&lt;p&gt;&lt;/p&gt;  
+     * Lists all contracts deployed in the requested deployer pool. If the pool is not specified, the default pool will be queried.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param size Number of items to return (optional)
      * @param cursor Items offset (optional)
@@ -1441,7 +1441,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Minted by a KIP-17 Contract
-     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param size Number of items to return (optional)
@@ -1456,7 +1456,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Minted by a KIP-17 Contract
-     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param size Number of items to return (optional)
@@ -1472,7 +1472,7 @@ public class Kip17Api {
 
     /**
      * Get List of Tokens Minted by a KIP-17 Contract (asynchronously)
-     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.&lt;p&gt;&lt;/p&gt;  
+     * Lists all tokens minted from a particular KIP-17 contract. Use contract address or alias to query the contract.<p></p>  
      * @param xChainId Klaytn network chain ID (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param size Number of items to return (optional)
@@ -1583,7 +1583,7 @@ public class Kip17Api {
 
     /**
      * Mint a New KIP-17 Token
-     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.&lt;p&gt;&lt;/p&gt;  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.&lt;p&gt;&lt;/p&gt;  
+     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.<p></p>  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -1597,7 +1597,7 @@ public class Kip17Api {
 
     /**
      * Mint a New KIP-17 Token
-     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.&lt;p&gt;&lt;/p&gt;  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.&lt;p&gt;&lt;/p&gt;  
+     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.<p></p>  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -1612,7 +1612,7 @@ public class Kip17Api {
 
     /**
      * Mint a New KIP-17 Token (asynchronously)
-     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.&lt;p&gt;&lt;/p&gt;  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.&lt;p&gt;&lt;/p&gt;  
+     * Mints a new token on the requested KIP-17 contract. The target contract can be requested by either contract address or alias.<p></p>  Do not mint a token to an address outside of account pools you control. KIP-17 APIs only allow actions among accounts populated within the KAS account pools that you own.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param body  (optional)
@@ -1728,7 +1728,7 @@ public class Kip17Api {
 
     /**
      * Transfer a KIP-17 Token
-     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.&lt;p&gt;&lt;/p&gt;  Note that this API requires two KRNs, one for the deployer pool and one for the sender. &lt;p&gt;&lt;/p&gt;  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.&lt;p&gt;&lt;/p&gt;  
+     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.<p></p>  Note that this API requires two KRNs, one for the deployer pool and one for the sender. <p></p>  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
@@ -1743,7 +1743,7 @@ public class Kip17Api {
 
     /**
      * Transfer a KIP-17 Token
-     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.&lt;p&gt;&lt;/p&gt;  Note that this API requires two KRNs, one for the deployer pool and one for the sender. &lt;p&gt;&lt;/p&gt;  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.&lt;p&gt;&lt;/p&gt;  
+     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.<p></p>  Note that this API requires two KRNs, one for the deployer pool and one for the sender. <p></p>  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
@@ -1759,7 +1759,7 @@ public class Kip17Api {
 
     /**
      * Transfer a KIP-17 Token (asynchronously)
-     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.&lt;p&gt;&lt;/p&gt;  Note that this API requires two KRNs, one for the deployer pool and one for the sender. &lt;p&gt;&lt;/p&gt;  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.&lt;p&gt;&lt;/p&gt;  
+     * Transfers a token. If &#x60;sender&#x60; and &#x60;owner&#x60; are not the same, then &#x60;sender&#x60; must have been approved for this token transfer.<p></p>  Note that this API requires two KRNs, one for the deployer pool and one for the sender. <p></p>  - The first KRN for the deployer pool, which must be formatted as &#x60;krn:*:kip17:*:account-pool:*&#x60; makes sure the API caller has the right to invoke transfer method on the requested contract. Although contracts in Klaytn are publicly available and anyone who knows the address can invoke the contract functions, if the contract owner does not reveal the address, it would be difficult to even find out the address as it requires indirect measures such as observing network communication. To this end, as we do not know whether the address has been publicly advertised or not, KIP-17 API assumes that only the contract owner invokes contract functions.  - The second KRN is for the &#x60;sender&#x60;, and must be formatted as &#x60;krn:*:wallet:*:account-pool:*&#x60;. Currently, KIP-17 API only allows transferring tokens among accounts populated in KAS Wallet account pools. - As all other APIs, leavning &#x60;x-krn&#x60; empty automatically fills the field with default values.<p></p>  
      * @param xChainId Klaytn network chain ID; one of [1001, 8217] (required)
      * @param contractAddressOrAlias Contract address (hexadecimal, starting with 0x) or alias (required)
      * @param tokenId Token ID (required)
