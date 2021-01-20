@@ -9,6 +9,7 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
     * [Use Node API](#use-node-api)
     * [Use Token History API](#use-token-history-api)
     * [Use Wallet API](#use-wallet-api)
+    * [User KIP-17 API](#use-kip-17-api)
     * [Use Anchor API](#use-anchor-api)
     * [Introduced KASWallet](#introduced-kaswallet)
   * [Test](#test)
@@ -79,7 +80,7 @@ caver-java-ext-kas requires at minimum Java 8+.
 
 ### Initialize API
 
-For now, you can use Node API, Token History API, Wallet API and Anchor API provided by KAS through this library. 
+For now, you can use Node API, Token History API, Wallet API, Anchor API and KIP-17 API provided by KAS through this library. 
 To use KAS API, the following items are required.
   - Access key, secret access key issued by KAS console.
   - Base URL to use the API provided by KAS.
@@ -102,10 +103,11 @@ caver.initNodeAPI(chain ID, accessKey, secretAccessKey);
 caver.initWalletAPI(chain ID, accessKey, secretAccessKey);
 caver.initTokenHistoryAPI(chain ID, accessKey, secretAccessKey);
 caver.initAnchorAPI(chain ID, accessKey, secretAccessKey);
+caver.initKIP17API(chain ID, accessKey, secretAccessKey);
 ```
 
 ### Use Node API
-You can now use Node API through `com.klaytn.caver.rpc.Klay` class in caver-java library. You can send a Node API request to the KAS as shown below and check the results.
+You can now use Node API through `com.klaytn.caver.rpc.Klay` class in caver-java library. You can send a Node API requests to the KAS as shown below and check the results.
 
 ```java
 public void getBlockNumber() {
@@ -117,7 +119,7 @@ public void getBlockNumber() {
 ```
 
 ### Use Token History API
-You can use Token History API through caver-java-ext-kas. You can send a Token History API request to the KAS as shwon below.
+You can use Token History API through caver-java-ext-kas. You can send a Token History API requests to the KAS as shown below.
 
 ```java 
 public void getFTContractList() {
@@ -150,7 +152,6 @@ public void getNFTContractList() {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setStatus("processing");
         PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
-        assertNotNull(details);
     } catch (ApiException e) {
         //handle error
     }
@@ -159,13 +160,12 @@ public void getNFTContractList() {
 
 ### Use Wallet API
 
-You can use Wallet API through caver-java-ext-kas. You can send a Wallet API request to the KAS as shwon below.
+You can use Wallet API through caver-java-ext-kas. You can send a Wallet API requests to the KAS as shown below.
 
 ```java
 public void createAccount() {
     try {
         Account account = caver.kas.wallet.createAccount();
-        assertNotNull(account);
     } catch (ApiException e) {
         //handle error
     }
@@ -186,13 +186,12 @@ options.setToTimesatamp();
 
 ### Use Anchor API
 
-You can use Anchor API through caver-java-ext-kas. You can send a Anchor API request to the KAS as shwon below.
+You can use Anchor API through caver-java-ext-kas. You can send a Anchor API request to the KAS as shown below.
 
 ```java
 public void getOperators() {
     try {
         Operators res = caver.kas.anchor.getOperators();
-        assertNotNull(res);
     } catch(ApiException e) {
         //handle error
     }
@@ -208,6 +207,29 @@ options.setSize();
 options.setCursor();
 options.setFromTimestamp();
 options.setToTimesatamp();
+```
+
+### Use KIP-17 API 
+
+You can use KIP-17 API through caver-java-ext-kas. You can send a KIP-17 API request to the KAS as shown below.
+
+```java
+public void getContractList() {
+    try {
+        Kip17ContractListResponse response = caver.kas.kip17.getContractList();
+    } catch(ApiException e) {
+        //handle error
+    }
+}
+```
+
+You can find query options required each KIP-17 API in KAS Docs.
+For defining query options, you can use `KIP17QueryOptions` class.
+
+```java
+KIP17QueryOptions options = new KIP17QueryOptions();
+options.setSize();
+options.setCursor();
 ```
 
 ### Introduced KASWallet
