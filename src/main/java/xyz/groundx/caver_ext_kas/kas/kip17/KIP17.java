@@ -54,7 +54,15 @@ public class KIP17 {
 
     /**
      * Deploys a new KIP-17 contract with user submitted parameters.<br>
-     * POST /v1/contract
+     * POST /v1/contract<br>
+     * <pre>Example :
+     * {@code
+     * String name = "testKIP-17"
+     * String symbol = "TKIP17"
+     * String alias = "kip-17test"
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.deploy(name, symbol, alias);
+     * }
+     * </pre>
      * @param name The KIP-17 contract name.
      * @param symbol The KIP-17 contract symbol.
      * @param alias The KIP-17 contract alias.
@@ -71,7 +79,19 @@ public class KIP17 {
 
     /**
      * Deploys a new KIP-17 contract with user submitted parameters asynchronously.<br>
-     * POST /v1/contract
+     * POST /v1/contract<br>
+     * <pre>Example :
+     *
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     * String name = "testKIP-17"
+     * String symbol = "TKIP17"
+     * String alias = "kip-17test"
+     * caver.kas.kip17.deployAsync(name, symbol, alias, callback);
+     * }
+     * </pre>
      * @param name The KIP-17 contract name.
      * @param symbol The KIP-17 contract symbol.
      * @param alias The KIP-17 contract alias.
@@ -91,7 +111,13 @@ public class KIP17 {
     /**
      * Get all deployed contract list in the requested deployer pool.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract
+     * GET /v1/contract<br>
+     *
+     * <pre>Example :
+     * {@code
+     * Kip17ContractListResponse response = caver.kas.kip17.getContractList();
+     * }
+     * </pre>
      * @return Kip17ContractListResponse
      * @throws ApiException
      */
@@ -102,7 +128,16 @@ public class KIP17 {
 
     /**
      * Get all deployed contract list in the requested deployer pool.<br>
-     * GET /v1/contract
+     * GET /v1/contract<br>
+     *
+     * <pre>Example :
+     * {@code
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     *
+     * Kip17ContractListResponse response = caver.kas.kip17.getContractList(options);
+     * }
+     * </pre>
      * @param options Filters required when retrieving data. `size`, `cursor`.
      * @return Kip17ContractListResponse
      * @throws ApiException
@@ -114,7 +149,17 @@ public class KIP17 {
     /**
      * Get all deployed contract list in the requested deployer pool asynchronously.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract
+     * GET /v1/contract<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17ContractListResponse> callback = new ApiCallback<Kip17ContractListResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * Kip17ContractListResponse response = caver.kas.kip17.getContractListAsync(callback);
+     * }
+     * </pre>
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -126,7 +171,18 @@ public class KIP17 {
 
     /**
      * Get all deployed contract list in the requested deployer pool asynchronously.<br>
-     * GET /v1/contract
+     * GET /v1/contract<br>
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17ContractListResponse> callback = new ApiCallback<Kip17ContractListResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * caver.kas.kip17.getContractListAsync(options, callback);
+     * }
+     * </pre>
      * @param options Filters required when retrieving data. `size`, `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -138,7 +194,13 @@ public class KIP17 {
 
     /**
      * Retrieves KIP-17 contract information by either contract address or alias.<br>
-     * GET /v1/contract/{contract-address-or-alias}
+     * GET /v1/contract/{contract-address-or-alias}<br>
+     * <pre>Example :
+     * {@code
+     * String address = "0x{address}";
+     * Kip17ContractInfoResponse response = caver.kas.kip17.getContract(address);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @return Kip17ContractInfoResponse
      * @throws ApiException
@@ -149,7 +211,17 @@ public class KIP17 {
 
     /**
      * Retrieves KIP-17 contract information by either contract address or alias asynchronously.<br>
-     * GET /v1/contract/{contract-address-or-alias}
+     * GET /v1/contract/{contract-address-or-alias}<br>
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17ContractInfoResponse> callback = new ApiCallback<Kip17ContractInfoResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * String address = "0x{address}";
+     * caver.kas.kip17.getContractAsync(address, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param callback The callback function to handle response.
      * @return Call
@@ -161,7 +233,17 @@ public class KIP17 {
 
     /**
      * Mint a new KIP-17 token.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token
+     * POST /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre> Example :
+     * {@code
+     * String address = "0x{contract_address}";
+     * String to = "0x{to_address}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String uri = "uri";
+     *
+     * Kip17TransactionStatusResponse response = caver.kas.kip17.mint(address, to, tokenId, uri, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param to The recipient EOA address for the newly minted token.
      * @param id The Token ID for the newly minted token.
@@ -175,7 +257,18 @@ public class KIP17 {
 
     /**
      * Mint a new KIP-17 token.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token
+     * POST /v1/contract/{contract-address-or-alias}/token<br>
+     *
+     * <pre> Example :
+     * {@code
+     * String address = "0x{contract_address}";
+     * String to = "0x{to_address}";
+     * String tokenId = "0x1"
+     * String uri = "uri";
+     *
+     * Kip17TransactionStatusResponse response = caver.kas.kip17.mint(address, to, tokenId, uri);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param to The recipient EOA address for the newly minted token.
      * @param id The Token ID for the newly minted token.
@@ -193,8 +286,22 @@ public class KIP17 {
     }
 
     /**
-     * Mint a new KIP-17 token asynchronously.
-     * POST /v1/contract/{contract-address-or-alias}/token
+     * Mint a new KIP-17 token asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre> Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *  ....implements callback method
+     * };
+     *
+     * String address = "0x{contract_address}";
+     * String to = "0x{to_address}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String uri = "uri";
+     *
+     * caver.kas.kip17.mintAsync(address, to, tokenId, uri, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param to The recipient EOA address for the newly minted token.
      * @param id The Token ID for the newly minted token.
@@ -210,6 +317,20 @@ public class KIP17 {
     /**
      * Mint a new KIP-17 token asynchronously.
      * POST /v1/contract/{contract-address-or-alias}/token
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * String address = "0x{contract_address}";
+     * String to = "0x{to_address}";
+     * String tokenId = "0x1"
+     * String uri = "uri";
+     *
+     * caver.kas.kip17.mintAsync(address, to, tokenId, uri, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param to The recipient EOA address for the newly minted token.
      * @param id The Token ID for the newly minted token.
@@ -230,7 +351,13 @@ public class KIP17 {
     /**
      * Get all token list minted from a specified KIP-17 contract.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token
+     * GET /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre>Example :
+     * {@code
+     *  String contractAddress = "0x{address}";
+     *  Kip17TokenListResponse res = caver.kas.kip17.getTokenList(contractAddress);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @return Kip17TokenListResponse
      * @throws ApiException
@@ -242,7 +369,16 @@ public class KIP17 {
 
     /**
      * Get all token list minted from a specified KIP-17 contract.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token
+     * GET /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre>Example :
+     * {@code
+     *  KIP17QueryOptions options = new KIP17QueryOptions();
+     *  options.setSize(1);
+     *  options.setCursor("cursor data");
+     *
+     *  Kip17TokenListResponse res = caver.kas.kip17.getTokenList(contractAddress, options);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param options Filters required when retrieving data. `size`, `cursor`.
      * @return Kip17TokenListResponse
@@ -255,7 +391,18 @@ public class KIP17 {
     /**
      * Get all token list minted from a specified KIP-17 contract asynchronously.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token
+     * GET /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TokenListResponse> callback = new ApiCallback<Kip17TokenListResponse>() {
+     *      ....implements callback method.
+     * };
+     *
+     * String contractAddress = "0x{address};
+     * caver.kas.kip17.getTokenListAsync(contractAddress, callback);
+     * }
+     *
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param callback The callback function to handle response.
      * @return Call
@@ -268,7 +415,21 @@ public class KIP17 {
 
     /**
      * Get all token list minted from a specified KIP-17 contract asynchronously.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token
+     * GET /v1/contract/{contract-address-or-alias}/token<br>
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TokenListResponse> callback = new ApiCallback<Kip17TokenListResponse>() {
+     *      ....implements callback method.
+     * };
+     *
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String contractAddress = "0x{address};
+     * caver.kas.kip17.getTokenListAsync(contractAddress, options, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param options Filters required when retrieving data. `size`, `cursor`.
      * @param callback The callback function to handle response.
@@ -281,7 +442,16 @@ public class KIP17 {
 
     /**
      * Retrieves a token information.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String contractAddress = "0x{address}";
+     *
+     * GetKip17TokenResponse = caver.kas.kip17.getToken(contractAddress, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id to retrieve.
      * @return GetKip17TokenResponse
@@ -293,7 +463,16 @@ public class KIP17 {
 
     /**
      * Retrieves a token information.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String tokenId = "0x1"
+     * String contractAddress = "0x{address}";
+     *
+     * GetKip17TokenResponse = caver.kas.kip17.getToken(contractAddress, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id to retrieve.
      * @return GetKip17TokenResponse
@@ -305,7 +484,20 @@ public class KIP17 {
 
     /**
      * Retrieves a token information asynchronously.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TokenListResponse> callback = ApiCallback<Kip17TokenListResponse>() {
+     *     ...implements callback method
+     * };
+     *
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String contractAddress = "0x{address}";
+     *
+     * caver.kas.kip17.getTokenAsync(contractAddress, tokenId, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id to retrieve.
      * @param callback The callback function to handle response.
@@ -318,7 +510,20 @@ public class KIP17 {
 
     /**
      * Retrieves a token information asynchronously.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TokenListResponse> callback = ApiCallback<Kip17TokenListResponse>() {
+     *     ...implements callback method
+     * };
+     *
+     * String tokenId = "0x1";
+     * String contractAddress = "0x{address}";
+     *
+     * caver.kas.kip17.getTokenAsync(contractAddress, tokenId, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id to retrieve.
      * @param callback The callback function to handle response.
@@ -332,7 +537,20 @@ public class KIP17 {
     /**
      * Transfer a token.<br>
      * If sender and owner are no the same, then sender must have been approved for this token transfer.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String sender = "0x{senderAddr}";
+     * String owner = "0x{ownerAddr}";
+     * String to = "0x{toAddr}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.transfer(contractAddress, sender, owner, to, tokenId);
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param sender The sender address.
      * @param owner The owner address.
@@ -348,7 +566,19 @@ public class KIP17 {
     /**
      * Transfer a token.<br>
      * If sender and owner are no the same, then sender must have been approved for this token transfer.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String sender = "0x{senderAddr}";
+     * String owner = "0x{ownerAddr}";
+     * String to = "0x{toAddr}";
+     * String tokenId = "0x1";
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.transfer(contractAddress, sender, owner, to, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param sender The sender address.
      * @param owner The owner address.
@@ -369,7 +599,22 @@ public class KIP17 {
     /**
      * Transfer a token asynchronously.<br>
      * If sender and owner are no the same, then sender must have been approved for this token transfer.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>();
+     *  ....implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String sender = "0x{senderAddr}";
+     * String owner = "0x{ownerAddr}";
+     * String to = "0x{toAddr}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip17.transferAsync(contractAddress, sender, owner, to, tokenId, callback);
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param sender The sender address.
      * @param owner The owner address.
@@ -386,7 +631,22 @@ public class KIP17 {
     /**
      * Transfer a token asynchronously.<br>
      * If sender and owner are no the same, then sender must have been approved for this token transfer.<br>
-     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>();
+     *  ....implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String sender = "0x{senderAddr}";
+     * String owner = "0x{ownerAddr}";
+     * String to = "0x{toAddr}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip17.transferAsync(contractAddress, sender, owner, to, tokenId, callback);
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param sender The sender address.
      * @param owner The owner address.
@@ -407,7 +667,17 @@ public class KIP17 {
 
     /**
      * Burn a token.<br>
-     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.burn(contractAddress, from, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param tokenId The token ID.
@@ -420,7 +690,17 @@ public class KIP17 {
 
     /**
      * Burn a token.<br>
-     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String tokenId = "0x1"
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.burn(contractAddress, from, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param tokenId The token ID.
@@ -435,7 +715,22 @@ public class KIP17 {
 
     /**
      * Burn a token asynchronously.<br>
-     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *    // implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * }
+     *
+     * caver.kas.kip17.burnAsync(contractAddress, from, tokenId, callback);
+     * </pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param tokenId The token ID.
@@ -449,7 +744,21 @@ public class KIP17 {
 
     /**
      * Burn a token asynchronously.<br>
-     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}
+     * DELETE /v1/contract/{contract-address-or-alias}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *    // implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String tokenId = "0x1";
+     * }
+     *
+     * caver.kas.kip17.burnAsync(contractAddress, from, tokenId, callback);
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param tokenId The token ID.
@@ -466,7 +775,18 @@ public class KIP17 {
     /**
      * Approves an EOA, to, to perform token operations on a particular token of a contract which from owns.<br>
      * If from is not the owner, then the transaction submitted from this API will be reverted.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String to = "0x{toAddr}"
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.approve(contractAddress, from, to, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -482,7 +802,18 @@ public class KIP17 {
     /**
      * Approves an EOA, to, to perform token operations on a particular token of a contract which from owns.<br>
      * If from is not the owner, then the transaction submitted from this API will be reverted.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String to = "0x{toAddr}"
+     * String tokenId = "0x1";
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.approve(contractAddress, from, to, tokenId);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -501,7 +832,22 @@ public class KIP17 {
     /**
      * Approves an EOA, to, to perform token operations on a particular token of a contract which from owns asynchronously.<br>
      * If from is not the owner, then the transaction submitted from this API will be reverted.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *     ...implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String to = "0x{toAddr}"
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip17.approveAsync(contractAddress, from, to, tokenId, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -517,7 +863,22 @@ public class KIP17 {
     /**
      * Approves an EOA, to, to perform token operations on a particular token of a contract which from owns asynchronously.<br>
      * If from is not the owner, then the transaction submitted from this API will be reverted.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}
+     * POST /v1/contract/{contract-address-or-alias}/approve/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *     ...implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddr}";
+     * String from = "0x{fromAddr}";
+     * String to = "0x{toAddr}"
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip17.approveAsync(contractAddress, from, to, tokenId, callback);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -536,7 +897,17 @@ public class KIP17 {
 
     /**
      * Approves an EOA, to, to perform token operations on all token of a contract which from owns.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approveall
+     * POST /v1/contract/{contract-address-or-alias}/approveall<br>
+     *
+     * <pre>
+     * {@code
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}";
+     * String to = "0x{toAddress}";
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.approveAll(contractAddress, from, to, true);
+     * }
+     * </pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -555,7 +926,22 @@ public class KIP17 {
 
     /**
      * Approves an EOA, to, to perform token operations on all token of a contract which from owns asynchronously.<br>
-     * POST /v1/contract/{contract-address-or-alias}/approveall
+     * POST /v1/contract/{contract-address-or-alias}/approveall<br>
+     *
+     * <pre>
+     * {@code
+     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     *     ...implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}";
+     * String to = "0x{toAddress}";
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.approveAllAsync(contractAddress, from, to, true, callback);
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param from The token owner address.
      * @param to The EOA address receiving the approval permission.
@@ -576,7 +962,15 @@ public class KIP17 {
     /**
      * Get list of tokens belonging to a particular token owner.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}
+     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
+     *
+     * <pre>
+     * {@code
+     * String contractAddress = "0x{contractAddress}";
+     * String owner = "0x{ownerAddress}";
+     *
+     * GetOwnerKip17TokensResponse res = getTokenListByOwner(contractAddress, owner);
+     * }</pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param owner The token owner address.
      * @return GetOwnerKip17TokensResponse
@@ -589,7 +983,20 @@ public class KIP17 {
 
     /**
      * Get list of tokens belonging to a particular token owner.<br>
-     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}
+     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
+     *
+     * <pre>
+     * {@code
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String owner = "0x{ownerAddress}";
+     *
+     * GetOwnerKip17TokensResponse res = getTokenListByOwner(contractAddress, owner, options);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param owner The token owner address.
      * @param options Filters required when retrieving data. `size`, `cursor`.
@@ -603,7 +1010,18 @@ public class KIP17 {
     /**
      * Get list of tokens belonging to a particular token owner asynchronously.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}
+     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
+     * <pre>
+     * {@code
+     * ApiCallback<GetOwnerKip17TokensResponse>() callback = new ApiCallback<GetOwnerKip17TokensResponse>() {
+     *     ...implements callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String owner = "0x{ownerAddress}";
+     *
+     * GetOwnerKip17TokensResponse res = getTokenListByOwnerAsync(contractAddress, owner, callback);
+     * }</pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param owner The token owner address.
      * @param callback The callback function to handle response.
@@ -617,7 +1035,21 @@ public class KIP17 {
 
     /**
      * Get list of tokens belonging to a particular token owner asynchronously.<br>
-     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}
+     * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
+     *
+     * <pre>{@code
+     * ApiCallback<GetOwnerKip17TokensResponse>() callback = new ApiCallback<GetOwnerKip17TokensResponse>() {
+     *     ...implements callback methods.
+     * }
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String owner = "0x{ownerAddress}";
+     *
+     * GetOwnerKip17TokensResponse res = getTokenListByOwnerAsync(contractAddress, owner, options, callback);
+     * }</pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param owner The token owner address.
      * @param options Filters required when retrieving data. `size`, `cursor`.
@@ -632,7 +1064,14 @@ public class KIP17 {
     /**
      * Get list of specified token transfer history.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * GetKip17TokenHistoryResponse response = caver.kas.kip17.getTransferHistory(contractAddress, tokenId);
+     * }</pre>
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @return GetKip17TokenHistoryResponse
@@ -645,7 +1084,19 @@ public class KIP17 {
 
     /**
      * Get list of specified token transfer history.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * GetKip17TokenHistoryResponse response = caver.kas.kip17.getTransferHistory(contractAddress, tokenId, options);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param options Filters required when retrieving data.`size`, `cursor`.
@@ -659,7 +1110,15 @@ public class KIP17 {
     /**
      * Get list of specified token transfer history.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * GetKip17TokenHistoryResponse response = caver.kas.kip17.getTransferHistory(contractAddress, tokenId);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @return GetKip17TokenHistoryResponse
@@ -672,7 +1131,19 @@ public class KIP17 {
 
     /**
      * Get list of specified token transfer history.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = BigInteger.valueOf(1);
+     *
+     * GetKip17TokenHistoryResponse response = caver.kas.kip17.getTransferHistory(contractAddress, tokenId, options);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param options Filters required when retrieving data.`size`, `cursor`.
@@ -686,7 +1157,19 @@ public class KIP17 {
     /**
      * Get list of specified token transfer history asynchronously.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
+     *     implement callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip17.getTransferHistoryAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param callback The callback function to handle response.
@@ -699,7 +1182,24 @@ public class KIP17 {
     }
 
     /**
-     * Get list of specified token transfer history asynchronously.
+     * Get list of specified token transfer history asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
+     *     implement callback methods.
+     * }
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip17.getTransferHistoryAsync(contractAddress, tokenId, options, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param options Filters required when retrieving data.`size`, `cursor`.
@@ -714,7 +1214,19 @@ public class KIP17 {
     /**
      * Get list of specified token transfer history asynchronously.<br>
      * It will send a request without filter options.<br>
-     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
+     *     implement callback methods.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip17.getTransferHistoryAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param callback The callback function to handle response.
@@ -728,6 +1240,23 @@ public class KIP17 {
 
     /**
      * Get list of specified token transfer history asynchronously.
+     * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
+     *
+     * <pre>{@code
+     * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
+     *     implement callback methods.
+     * }
+     *
+     * KIP17QueryOptions options = new KIP17QueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursorValue");
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip17.getTransferHistoryAsync(contractAddress, tokenId, options, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The KIP-17 contract address or alias.
      * @param tokenId The token id.
      * @param options Filters required when retrieving data.`size`, `cursor`.
