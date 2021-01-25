@@ -2739,4 +2739,310 @@ public class WalletAPITest {
             }
         }
     }
+
+    @Test
+    public void callContract() throws ApiException {
+        CallArgument argument = new CallArgument();
+        argument.setType("address");
+        argument.setValue(baseAccount);
+        ContractCallResponse response = caver.kas.wallet.callContract(ftContractAddress, "balanceOf", Collections.singletonList(argument));
+
+        assertNotNull(response);
+    }
+
+    @Test
+    public void callContractWithNoArgument() throws ApiException {
+        String contractAddress = "0x96961fcbf250211ec4cab63de8ed1a722dff89a6";
+        ContractCallResponse response = caver.kas.wallet.callContract(contractAddress, "totalSupply");
+
+        assertNotNull(response);
+    }
+
+    @Test
+    public void callContractWithMultiArgument() throws ApiException {
+        String contractAddress = ftContractAddress;
+        String toAccount = caver.kas.wallet.getAccountList().getItems().get(0).getAddress();
+
+        CallArgument argument1 = new CallArgument();
+        argument1.setType("address");
+        argument1.setValue(toAccount);
+
+        CallArgument argument2 = new CallArgument();
+        argument2.setType("uint256");
+        argument2.setValue(BigInteger.valueOf(1000000000));
+
+        SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
+
+        ContractCallResponse response = caver.kas.wallet.callContract(contractAddress, "transfer", Arrays.asList(argument1, argument2),  sendOptions);
+        assertNotNull(response);
+    }
+
+    @Test
+    public void callContractAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<ContractCallResponse> future = new CompletableFuture<ContractCallResponse>();
+
+        CallArgument argument = new CallArgument();
+        argument.setType("address");
+        argument.setValue(baseAccount);
+
+        Call result = caver.kas.wallet.callContractAsync(ftContractAddress, "balanceOf", Collections.singletonList(argument), new ApiCallback<ContractCallResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(ContractCallResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void createKeys() throws ApiException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(2);
+        assertNotNull(response);
+        assertEquals(2, response.getItems().size());
+    }
+
+    @Test
+    public void createKeysAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<KeyCreationResponse> future = new CompletableFuture<>();
+        Call result = caver.kas.wallet.createKeysAsync(2, new ApiCallback<KeyCreationResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(KeyCreationResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void getKey() throws ApiException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        Key key = caver.kas.wallet.getKey(response.getItems().get(0).getKeyId());
+        assertNotNull(key);
+    }
+
+    @Test
+    public void getKeyAsync() throws ApiException, ExecutionException, InterruptedException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        CompletableFuture<Key> future = new CompletableFuture<>();
+        Call result = caver.kas.wallet.getKeyAsync(response.getItems().get(0).getKeyId(), new ApiCallback<Key>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Key result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void signMessage() throws ApiException {
+        String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        KeySignDataResponse keySignDataResponse = caver.kas.wallet.signMessage(response.getItems().get(0).getKeyId(), data);
+        assertNotNull(keySignDataResponse);
+    }
+
+    @Test
+    public void signMessageWithKRN() throws ApiException {
+        String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
+
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+        KeySignDataResponse keySignDataResponse = caver.kas.wallet.signMessage(response.getItems().get(0).getKeyId(), data, response.getItems().get(0).getKrn());
+
+        assertNotNull(keySignDataResponse);
+    }
+
+    @Test
+    public void signMessageAsync() throws ApiException, ExecutionException, InterruptedException {
+        String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        CompletableFuture<KeySignDataResponse> future = new CompletableFuture<>();
+        Call call = caver.kas.wallet.signMessageAsync(response.getItems().get(0).getKeyId(), data, new ApiCallback<KeySignDataResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(KeySignDataResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    private FeeDelegatedAccountUpdate createAccountUpdateTx(SingleKeyring keyring, String newKey) throws IOException {
+        com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
+
+        FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+                .setKlaytnCall(caver.rpc.klay)
+                .setFrom(keyring.getAddress())
+                .setGas(BigInteger.valueOf(250000))
+                .setAccount(account)
+                .build();
+
+        tx.sign(keyring);
+
+        return tx;
+    }
+
+    @Test
+    public void registerAccounts() throws ApiException, IOException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        SingleKeyring keyring = KeyringFactory.generate();
+        com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+
+        AccountRegistration registration = new AccountRegistration();
+        registration.setAddress(account.getAddress());
+        registration.setKeyId(response.getItems().get(0).getKeyId());
+        registration.setRlp(createAccountUpdateTx(keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+
+        AccountRegistrationRequest request = new AccountRegistrationRequest();
+        request.add(registration);
+
+        RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(request);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void registerAccountsWithList() throws ApiException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        SingleKeyring keyring = KeyringFactory.generate();
+        com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+
+        AccountRegistration registration = new AccountRegistration();
+        registration.setAddress(account.getAddress());
+        registration.setKeyId(response.getItems().get(0).getKeyId());
+
+        RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(Collections.singletonList(registration));
+        assertNotNull(result);
+        assertEquals("ok", result.getStatus());
+    }
+
+    @Test
+    public void registerAccountsAsync() throws ApiException, ExecutionException, InterruptedException, IOException {
+        CompletableFuture<RegistrationStatusResponse> future = new CompletableFuture<>();
+
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+
+        SingleKeyring keyring = KeyringFactory.generate();
+        com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+
+        AccountRegistration registration = new AccountRegistration();
+        registration.setAddress(account.getAddress());
+        registration.setKeyId(response.getItems().get(0).getKeyId());
+        registration.setRlp(createAccountUpdateTx(keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+
+        AccountRegistrationRequest request = new AccountRegistrationRequest();
+        request.add(registration);
+
+        Call result = caver.kas.wallet.registerAccountsAsync(request, new ApiCallback<RegistrationStatusResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(RegistrationStatusResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+            assertEquals("ok", future.get().getStatus());
+        }
+    }
 }
