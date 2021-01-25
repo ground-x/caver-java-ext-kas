@@ -2746,7 +2746,7 @@ public class WalletAPITest {
         }
     }
 
-    @Ignore
+    @Test
     public void callContract() throws ApiException {
         CallArgument argument = new CallArgument();
         argument.setType("address");
@@ -2756,7 +2756,7 @@ public class WalletAPITest {
         assertNotNull(response);
     }
 
-    @Ignore
+    @Test
     public void callContractWithNoArgument() throws ApiException {
         String contractAddress = "0x96961fcbf250211ec4cab63de8ed1a722dff89a6";
         ContractCallResponse response = caver.kas.wallet.callContract(contractAddress, "totalSupply");
@@ -2764,7 +2764,7 @@ public class WalletAPITest {
         assertNotNull(response);
     }
 
-    @Ignore
+    @Test
     public void callContractWithMultiArgument() throws ApiException {
         String contractAddress = ftContractAddress;
         String toAccount = caver.kas.wallet.getAccountList().getItems().get(0).getAddress();
@@ -2783,7 +2783,7 @@ public class WalletAPITest {
         assertNotNull(response);
     }
 
-    @Ignore
+    @Test
     public void callContractAsync() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<ContractCallResponse> future = new CompletableFuture<ContractCallResponse>();
 
@@ -2820,14 +2820,14 @@ public class WalletAPITest {
         }
     }
 
-    @Ignore
+    @Test
     public void createKeys() throws ApiException {
         KeyCreationResponse response = caver.kas.wallet.createKeys(2);
         assertNotNull(response);
         assertEquals(2, response.getItems().size());
     }
 
-    @Ignore
+    @Test
     public void createKeysAsync() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<KeyCreationResponse> future = new CompletableFuture<>();
         Call result = caver.kas.wallet.createKeysAsync(2, new ApiCallback<KeyCreationResponse>() {
@@ -2859,7 +2859,7 @@ public class WalletAPITest {
         }
     }
 
-    @Ignore
+    @Test
     public void getKey() throws ApiException {
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
 
@@ -2867,7 +2867,7 @@ public class WalletAPITest {
         assertNotNull(key);
     }
 
-    @Ignore
+    @Test
     public void getKeyAsync() throws ApiException, ExecutionException, InterruptedException {
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
 
@@ -2901,7 +2901,7 @@ public class WalletAPITest {
         }
     }
 
-    @Ignore
+    @Test
     public void signMessage() throws ApiException {
         String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
@@ -2910,7 +2910,7 @@ public class WalletAPITest {
         assertNotNull(keySignDataResponse);
     }
 
-    @Ignore
+    @Test
     public void signMessageWithKRN() throws ApiException {
         String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
 
@@ -2920,7 +2920,7 @@ public class WalletAPITest {
         assertNotNull(keySignDataResponse);
     }
 
-    @Ignore
+    @Test
     public void signMessageAsync() throws ApiException, ExecutionException, InterruptedException {
         String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
         KeyCreationResponse response = caver.kas.wallet.createKeys(1);
