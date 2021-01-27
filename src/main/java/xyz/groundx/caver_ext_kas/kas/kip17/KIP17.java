@@ -899,7 +899,7 @@ public class KIP17 {
      * Approves an EOA, to, to perform token operations on all token of a contract which from owns.<br>
      * POST /v1/contract/{contract-address-or-alias}/approveall<br>
      *
-     * <pre>
+     * <pre>Example :
      * {@code
      * String contractAddress = "0x{contractAddress}";
      * String from = "0x{fromAddress}";
@@ -928,7 +928,7 @@ public class KIP17 {
      * Approves an EOA, to, to perform token operations on all token of a contract which from owns asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/approveall<br>
      *
-     * <pre>
+     * <pre>Example :
      * {@code
      * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
      *     ...implements callback methods.
@@ -964,7 +964,7 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
      *
-     * <pre>
+     * <pre>Example :
      * {@code
      * String contractAddress = "0x{contractAddress}";
      * String owner = "0x{ownerAddress}";
@@ -985,7 +985,7 @@ public class KIP17 {
      * Get list of tokens belonging to a particular token owner.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
      *
-     * <pre>
+     * <pre>Example :
      * {@code
      * KIP17QueryOptions options = new KIP17QueryOptions();
      * options.setSize(1);
@@ -1011,7 +1011,8 @@ public class KIP17 {
      * Get list of tokens belonging to a particular token owner asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
-     * <pre>
+     *
+     * <pre>Example :
      * {@code
      * ApiCallback<GetOwnerKip17TokensResponse>() callback = new ApiCallback<GetOwnerKip17TokensResponse>() {
      *     ...implements callback methods.
@@ -1037,7 +1038,8 @@ public class KIP17 {
      * Get list of tokens belonging to a particular token owner asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<GetOwnerKip17TokensResponse>() callback = new ApiCallback<GetOwnerKip17TokensResponse>() {
      *     ...implements callback methods.
      * }
@@ -1066,7 +1068,8 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String contractAddress = "0x{contractAddress}";
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
@@ -1086,7 +1089,8 @@ public class KIP17 {
      * Get list of specified token transfer history.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * KIP17QueryOptions options = new KIP17QueryOptions();
      * options.setSize(1);
      * options.setCursor("cursorValue");
@@ -1112,7 +1116,8 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String contractAddress = "0x{contractAddress}";
      * String tokenId = "0x1";
      *
@@ -1133,7 +1138,8 @@ public class KIP17 {
      * Get list of specified token transfer history.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example
+     * {@code
      * KIP17QueryOptions options = new KIP17QueryOptions();
      * options.setSize(1);
      * options.setCursor("cursorValue");
@@ -1159,7 +1165,8 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
      *     implement callback methods.
      * }
@@ -1186,7 +1193,8 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
      *     implement callback methods.
      * }
@@ -1216,7 +1224,8 @@ public class KIP17 {
      * It will send a request without filter options.<br>
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
      *     implement callback methods.
      * }
@@ -1242,7 +1251,8 @@ public class KIP17 {
      * Get list of specified token transfer history asynchronously.
      * GET /v1/contract/{contract-address-or-alias}/token/{token-id}/history<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<GetKip17TokenHistoryResponse> callback = new ApiCallback<GetKip17TokenHistoryResponse> callback() {
      *     implement callback methods.
      * }
