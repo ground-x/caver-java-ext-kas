@@ -1082,7 +1082,8 @@ public class Wallet {
      * Create keys in KAS. <br>
      * POST /v2/key <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * KeyCreationResponse response = caver.kas.wallet.createKeys(2);
      * }</pre>
      * @param numberOfKeys The number of keys to create
@@ -1099,7 +1100,8 @@ public class Wallet {
      * Creates keys in KAS asynchronously. <br>
      * POST /v2/key <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<KeyCreationResponse> callback = new ApiCallback<KeyCreationResponse> callback() {
      *    ....implements callback method
      * };
@@ -1120,7 +1122,8 @@ public class Wallet {
      * Find a key information from KAS. <br>
      * GET /v2/key/{key-id} <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String keyId = "keyId";
      * Key key = caver.kas.wallet.getKey(keyId);
      * }</pre>
@@ -1137,7 +1140,8 @@ public class Wallet {
      * Find a key information from KAS asynchronously. <br>
      * GET /v2/key/{key-id} <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<Key> callback = new ApiCallback<Key> callback() {
      *   ....implements callback method.
      * }
@@ -1160,7 +1164,8 @@ public class Wallet {
      * The default KRN will be used. <br>
      * POST /v2/key/{key-id}/sign <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String keyId = "key Id";
      * String data = "data";
      *
@@ -1183,7 +1188,8 @@ public class Wallet {
      * Sign a message using a key create by KAS. <br>
      * POST /v2/key/{key-id}/sign <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String keyId = "key Id";
      * String data = "data";
      * String krn = "krn";
@@ -1209,7 +1215,8 @@ public class Wallet {
      * The default KRN will be used. <br>
      * POST /v2/key/{key-id}/sign <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<KeySignDataResponse> callback = new ApiCallback<KeySignDataResponse> callback() {
      *     ....implements callback method.
      * }
@@ -1237,7 +1244,8 @@ public class Wallet {
      * The default KRN will be used. <br>
      * POST /v2/key/{key-id}/sign <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<KeySignDataResponse> callback = new ApiCallback<KeySignDataResponse> callback() {
      *     ....implements callback method.
      * }
@@ -1267,7 +1275,8 @@ public class Wallet {
      * Register accounts which used before. <br>
      * POST /v2/registration/account <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
      *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
@@ -1313,7 +1322,8 @@ public class Wallet {
      * Register accounts which used before. <br>
      * POST /v2/registration/account <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
      *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
@@ -1356,7 +1366,8 @@ public class Wallet {
      * Register accounts which used before asynchronously. <br>
      * POST /v2/registration/account <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
      *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
@@ -1407,7 +1418,8 @@ public class Wallet {
      * Register accounts which used before asynchronously. <br>
      * POST /v2/registration/account <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
      *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
@@ -1455,7 +1467,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
      * POST /v2/tx/contract/call
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String kip7ContractAddress = "address";
      * ContractCallResponse response = caver.kas.wallet.callContract(kip7ContractAddress, "totalSupply");
      * }</pre>
@@ -1473,7 +1486,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String ftContractAddress = "0x{contractAddress}";
      * String baseAccount = "0x{accountAddress}";
      *
@@ -1497,7 +1511,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String kip7ContractAddress = "address";
      * String baseAccount = "0x{accountAddress}";
      *
@@ -1519,7 +1534,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String contractAddress = "0x{contractAddress}";
      * String toAccount = "0x{toAccount}";
      *
@@ -1569,13 +1585,15 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre> {@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
      *   ....implement callback method.
      * };
      *
      * String kip7ContractAddress = "address";
      * caver.kas.wallet.callContractAsync(kip7ContractAddress, "totalSupply", callback);
+     * }
      * </pre>
      *
      * @param contractAddress The contract address.
@@ -1592,7 +1610,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
      *   ....implement callback method.
      * };
@@ -1621,7 +1640,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
      * POST /v2/tx/contract/call <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
      *   ....implement callback method.
      * };
@@ -1647,7 +1667,8 @@ public class Wallet {
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
      * POST /v2/tx/contract/call<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
      *   ....implement callback method.
      * };
