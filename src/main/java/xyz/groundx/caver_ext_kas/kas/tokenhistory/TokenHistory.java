@@ -613,7 +613,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
      * options.setSize(1);
      * options.setCursor("cursor data");
@@ -639,7 +640,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(size, cursor), use getMTListByOwnerAsync(String, TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokensWithBalance> callback = new ApiCallback<PageableMtTokensWithBalance>() {
      *     ....implement callback method.
      * };
@@ -666,7 +668,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokensWithBalance> callback = new ApiCallback<PageableMtTokensWithBalance>() {
      *     ....implement callback method.
      * };
@@ -696,7 +699,8 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String mtAddress = "0x{mtAddress}";
      * String account = "0x{accountAddress}";
      * BigInteger tokenId = BigInteger.valueOf(1);
@@ -719,7 +723,8 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String mtAddress = "0x{mtAddress}";
      * String account = "0x{accountAddress}";
      * String tokenId = "0x1";
@@ -741,7 +746,8 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<MtToken> callback = new ApiCallback<MtToken>() {
      *    ....implement callback method.
      * };
@@ -768,7 +774,8 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
      * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<MtToken> callback = new ApiCallback<MtToken>() {
      *    ....implement callback method.
      * };
@@ -797,7 +804,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id} <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String mtAddress = "0x{mtAddress}";
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
@@ -819,7 +827,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String mtAddress = "0x{mtAddress}";
      * String tokenId = "0x1";
      *
@@ -841,7 +850,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
      * options.setSize(1);
@@ -869,7 +879,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
      * options.setSize(1);
@@ -898,7 +909,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
      *    ....implements callback method.
      * }
@@ -925,7 +937,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
      *    ....implements callback method.
      * }
@@ -952,7 +965,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
      *    ....implements callback method.
      * }
@@ -983,7 +997,8 @@ public class TokenHistory {
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
      *    ....implements callback method.
      * }
@@ -1015,7 +1030,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList();
      * }</pre>
      *
@@ -1032,7 +1048,8 @@ public class TokenHistory {
      * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
      * options.setSize(1);
      *
@@ -1052,7 +1069,8 @@ public class TokenHistory {
      * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
      * GET /v2/contract/mt <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtContractDetails> callback = ApiCallback<PageableMtContractDetails>() {
      *    ....implements callback method.
      * };
@@ -1075,7 +1093,8 @@ public class TokenHistory {
      * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
      * GET /v2/contract/mt <br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<PageableMtContractDetails> callback = ApiCallback<PageableMtContractDetails>() {
      *    ....implements callback method.
      * };
@@ -1084,7 +1103,8 @@ public class TokenHistory {
      * options.setSize(1);
      *
      * caver.kas.tokenHistory.getMTContractListAsync(options, callback);
-     *
+     * }
+     * </pre>
      * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -1098,7 +1118,8 @@ public class TokenHistory {
      * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract.<br>
      * GET /v2/contract/mt/{mt-address}<br>
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * String mtAddress = 0x{mtAddress};
      * MtContractDetail detail = caver.kas.tokenHistory.getMTContract(mtAddress);
      * }</pre>
@@ -1115,7 +1136,8 @@ public class TokenHistory {
      * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract asynchronously.<br>
      * GET /v2/contract/mt/{mt-address}
      *
-     * <pre>{@code
+     * <pre>Example :
+     * {@code
      * ApiCallback<MtContractDetail> callback = new ApiCallback<MtContractDetail>() {
      *     ...implement callback method.
      * }
