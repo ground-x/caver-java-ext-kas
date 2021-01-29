@@ -77,7 +77,7 @@ public class TokenHistoryAPITest {
         Config.createTokenKIP37(mtAddress, account, BigInteger.valueOf(2));
         Config.mintBatchKIP37(mtAddress, account, accounts.getItems().get(0).getAddress());
 
-        Thread.sleep(5000);
+        Thread.sleep(10000);
     }
 
     @Test
