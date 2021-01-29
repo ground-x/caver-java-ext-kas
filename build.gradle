@@ -13,7 +13,7 @@ plugins {
 }
 
 allprojects {
-    version '1.1.0'
+    version '1.0.2'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
@@ -94,7 +94,7 @@ allprojects {
         user = bintrayUser
         key = bintrayKey
         publications = ['mavenJava']
-        publish = true
+        publish = false
         pkg {
             desc = project.description
             repo = 'maven'

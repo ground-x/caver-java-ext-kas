@@ -16,28 +16,37 @@
 
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
+import com.klaytn.caver.Caver;
+import com.klaytn.caver.contract.ContractDeployParams;
+import com.klaytn.caver.contract.SendOptions;
+import com.klaytn.caver.kct.kip17.KIP17;
+import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip7.KIP7;
+import com.klaytn.caver.kct.kip7.KIP7ConstantData;
+import com.klaytn.caver.kct.kip7.KIP7DeployParams;
 import com.squareup.okhttp.Call;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
+import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.JSON;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class TokenHistoryAPITest {
     public static CaverExtKAS caver;
@@ -47,7 +56,6 @@ public class TokenHistoryAPITest {
 
     public static String ftAddress = "";
     public static String nftAddress = "";
-    public static String mtAddress = "";
     public static String tokenId = "0x2";
 
 
@@ -59,20 +67,11 @@ public class TokenHistoryAPITest {
         preset = Config.getPresetID();
         account = Config.getKlayProviderKeyring().getAddress();
 
-        caver.kas.tokenHistory.getApiClient().setConnectTimeout(10000);
-        caver.kas.tokenHistory.getApiClient().setDebugging(true);
+        caver.kas.tokenHistory.tokenApi.getApiClient().setDebugging(true);
 
         ftAddress = Config.deployKIP7(caver, account);
         nftAddress = Config.deployKIP17(caver, account);
-        mtAddress = Config.deployKIP37(caver, account);
-
-        Accounts accounts = caver.kas.wallet.getAccountList();
-
         Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
-
-        Config.createTokenKIP37(mtAddress, account, BigInteger.ONE);
-        Config.createTokenKIP37(mtAddress, account, BigInteger.valueOf(2));
-        Config.mintBatchKIP37(mtAddress, account, accounts.getItems().get(0).getAddress());
     }
 
     @Test
@@ -162,8 +161,7 @@ public class TokenHistoryAPITest {
     public void getTransferHistoryWithRangeTest() {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-            new Date().getTime();
-            options.setRange("1584583000", "1584900000");
+            options.setRange("1584583000", "1584583388");
 
             PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
         } catch (ApiException e) {
@@ -913,285 +911,6 @@ public class TokenHistoryAPITest {
         } catch (Exception e) {
             e.printStackTrace();
             fail();
-        }
-    }
-
-    @Ignore
-    public void getMTListByOwner() throws ApiException {
-        PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account);
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTListByOwnerWithSize() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-
-        PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account, options);
-        assertEquals(1, result.getItems().size());
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTListByOwnerWithCursor() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-
-        PageableMtTokensWithBalance pageableMtTokensWithBalance = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account, options);
-        options.setCursor(pageableMtTokensWithBalance.getCursor());
-
-        PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account, options);
-        assertEquals(1, result.getItems().size());
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTListByOwnerAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<PageableMtTokensWithBalance> future = new CompletableFuture<>();
-
-        Call result = caver.kas.tokenHistory.getMTListByOwnerAsync(mtAddress, account, new ApiCallback<PageableMtTokensWithBalance>() {
-            @Override
-            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onSuccess(PageableMtTokensWithBalance result, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.complete(result);
-            }
-
-            @Override
-            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-            }
-
-            @Override
-            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-            }
-        });
-
-        if(future.isCompletedExceptionally()) {
-            fail();
-        } else {
-            assertNotNull(future.get());
-        }
-    }
-
-    @Ignore
-    public void getMT() throws ApiException {
-        MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, "0x1");
-        assertNotNull(token);
-    }
-
-    @Ignore
-    public void getMTAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<MtToken> future = new CompletableFuture<>();
-
-        Call result = caver.kas.tokenHistory.getMTAsync(mtAddress, account, "0x1", new ApiCallback<MtToken>() {
-            @Override
-            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onSuccess(MtToken result, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.complete(result);
-            }
-
-            @Override
-            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-            }
-
-            @Override
-            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-            }
-        });
-
-        if(future.isCompletedExceptionally()) {
-            fail();
-        } else {
-            assertNotNull(future.get());
-        }
-    }
-
-    @Ignore
-    public void getMTOwnerListByTokenId() throws ApiException {
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1");
-        assertNotNull(pageableMtTokens);
-    }
-
-    @Ignore
-    public void getMTOwnerListByTokenIdWithSize() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
-        assertEquals(1, pageableMtTokens.getItems().size());
-        assertNotNull(pageableMtTokens);
-    }
-
-    @Ignore
-    public void getMTOwnerListByTokenIdWithCursor() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
-        options.setCursor(pageableMtTokens.getCursor());
-
-        PageableMtTokens result = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTOwnerListByTokenIdAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<PageableMtTokens> future = new CompletableFuture<>();
-
-        Call result = caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, "0x1", new ApiCallback<PageableMtTokens>() {
-            @Override
-            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onSuccess(PageableMtTokens result, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.complete(result);
-            }
-
-            @Override
-            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-            }
-
-            @Override
-            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-            }
-        });
-
-        if(future.isCompletedExceptionally()) {
-            fail();
-        } else {
-            assertNotNull(future.get());
-        }
-    }
-
-    @Ignore
-    public void getMTContractList() throws ApiException {
-        PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList();
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTContractListWithSize() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-
-        PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
-        assertNotNull(result);
-        assertEquals(1, result.getItems().size());
-    }
-
-    @Ignore
-    public void getMTContractListWithCursor() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setSize(1L);
-
-        PageableMtContractDetails cursorResult = caver.kas.tokenHistory.getMTContractList(options);
-        options.setCursor(cursorResult.getCursor());
-
-        PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
-        assertNotNull(result);
-
-    }
-
-    @Ignore
-    public void getMTContractListWithType() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP37);
-
-        PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTContractListWithStatus() throws ApiException {
-        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.COMPLETED);
-
-        PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
-        assertNotNull(result);
-    }
-
-    @Ignore
-    public void getMTContractListAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<PageableMtContractDetails> future = new CompletableFuture<>();
-
-        Call call = caver.kas.tokenHistory.getMTContractListAsync(new ApiCallback<PageableMtContractDetails>() {
-            @Override
-            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onSuccess(PageableMtContractDetails result, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.complete(result);
-            }
-
-            @Override
-            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-            }
-
-            @Override
-            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-            }
-        });
-
-        if(future.isCompletedExceptionally()) {
-            fail();
-        } else {
-            assertNotNull(future.get());
-        }
-    }
-
-    @Ignore
-    public void getMTContract() throws ApiException {
-        MtContractDetail detail = caver.kas.tokenHistory.getMTContract(mtAddress);
-        assertNotNull(detail);
-    }
-
-    @Ignore
-    public void getMTContractAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<MtContractDetail> future = new CompletableFuture<>();
-
-        Call result = caver.kas.tokenHistory.getMTContractAsync(mtAddress, new ApiCallback<MtContractDetail>() {
-            @Override
-            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.completeExceptionally(e);
-            }
-
-            @Override
-            public void onSuccess(MtContractDetail result, int statusCode, Map<String, List<String>> responseHeaders) {
-                future.complete(result);
-            }
-
-            @Override
-            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-            }
-
-            @Override
-            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-            }
-        });
-
-        if(future.isCompletedExceptionally()) {
-            fail();
-        } else {
-            assertNotNull(future.get());
         }
     }
 }

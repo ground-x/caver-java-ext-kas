@@ -56,7 +56,7 @@ public class AnchorAPITest {
         txHash = txHash.equals("") ? txList.getItems().get(0).getTransactionHash() : txHash;
         payloadId = payloadId.equals("") ? txList.getItems().get(0).getPayloadId() : payloadId;
 
-        caver.kas.anchor.getApiClient().setDebugging(true);
+        caver.kas.anchor.getDataAnchoringTransactionApi().getApiClient().setDebugging(true);
     }
 
     @Test
