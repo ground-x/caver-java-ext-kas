@@ -72,6 +72,12 @@ public class TokenHistoryAPITest {
         ftAddress = Config.deployKIP7(caver, account);
         nftAddress = Config.deployKIP17(caver, account);
         Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
+
+        Config.createTokenKIP37(mtAddress, account, BigInteger.ONE);
+        Config.createTokenKIP37(mtAddress, account, BigInteger.valueOf(2));
+        Config.mintBatchKIP37(mtAddress, account, accounts.getItems().get(0).getAddress());
+
+        Thread.sleep(5000);
     }
 
     @Test
