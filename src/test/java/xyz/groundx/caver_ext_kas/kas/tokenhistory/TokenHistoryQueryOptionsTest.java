@@ -47,20 +47,26 @@ public class TokenHistoryQueryOptionsTest {
 
         options.setKind(Arrays.asList("ft", "nft", "klay"));
         assertEquals("ft,nft,klay", options.getKind());
+
+        options.setKind("mt");
+        assertEquals("mt", options.getKind());
+
+        options.setKind(Arrays.asList("ft", "nft", "klay", "mt"));
+        assertEquals("ft,nft,klay,mt", options.getKind());
     }
 
     @Test
     public void kindCountExceedException() {
         expectedException.expect(InvalidParameterException.class);
-        expectedException.expectMessage("The 'kind' option must have up to 3 items. ['klay', 'ft', 'nft']");
+        expectedException.expectMessage("The 'kind' option must have up to " + TokenHistoryQueryOptions.KIND.values().length + "items. [" + TokenHistoryQueryOptions.KIND.getAllKind() +"]");
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setKind(Arrays.asList("ft", "klay", "nft", "ft"));
+        options.setKind(Arrays.asList("ft", "klay", "nft", "ft", "ft"));
     }
 
     @Test
     public void invalidKindValueException() {
         expectedException.expect(InvalidParameterException.class);
-        expectedException.expectMessage("The kind option must have one of the following: ['klay', 'ft', 'nft']");
+        expectedException.expectMessage("The kind option must have one of the following: [" + TokenHistoryQueryOptions.KIND.getAllKind() +"]");
 
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setKind("invalid");
@@ -151,7 +157,7 @@ public class TokenHistoryQueryOptionsTest {
     @Test
     public void invalidStatusTest() {
         expectedException.expect(InvalidParameterException.class);
-        expectedException.expectMessage("The status parameter have one of the following: [completed, processing, failed, cancelled");
+        expectedException.expectMessage("The status parameter have one of the following: [" + TokenHistoryQueryOptions.LABEL_STATUS.getAllStatus() + "]");
 
         String status = "invalid";
 
@@ -163,7 +169,7 @@ public class TokenHistoryQueryOptionsTest {
 
     @Test
     public void setTypeTest() {
-        String[] types = new String[] {"KIP-7", "KIP-17", "ERC-20", "ERC-721"};
+        String[] types = new String[] {"KIP-7", "KIP-17", "KIP-37", "ERC-20", "ERC-721", "ERC-1155"};
 
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         for(int i=0; i<types.length; i++) {
@@ -175,10 +181,84 @@ public class TokenHistoryQueryOptionsTest {
     @Test
     public void invalidTypeTest() {
         expectedException.expect(InvalidParameterException.class);
-        expectedException.expectMessage("The type parameter have one of the following: ['KIP-7', 'ERC-20', empty string(or null)]");
+        expectedException.expectMessage("The type parameter have one of the following: [" + TokenHistoryQueryOptions.CONTRACT_TYPE.getAllType() + "]");
 
         String type = "invalid";
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setType(type);
+    }
+
+    @Test
+    public void kindTestWithEnum() {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setKind(TokenHistoryQueryOptions.KIND.MT);
+        assertEquals("mt", options.getKind());
+
+        options.setKind(TokenHistoryQueryOptions.KIND.FT);
+        assertEquals("ft", options.getKind());
+
+        options.setKind(TokenHistoryQueryOptions.KIND.NFT);
+        assertEquals("nft", options.getKind());
+
+        options.setKind(TokenHistoryQueryOptions.KIND.KLAY);
+        assertEquals("klay", options.getKind());
+    }
+
+    @Test
+    public void kindTestWithEnumArr() {
+        TokenHistoryQueryOptions.KIND[] optionArr = {TokenHistoryQueryOptions.KIND.NFT, TokenHistoryQueryOptions.KIND.FT, TokenHistoryQueryOptions.KIND.MT};
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setKind(optionArr);
+
+        assertEquals("nft,ft,mt", options.getKind());
+    }
+
+    @Test
+    public void kindTestWithEnum_throwException_countExceed() {
+        expectedException.expect(InvalidParameterException.class);
+        expectedException.expectMessage("The 'kind' option must have up to " + TokenHistoryQueryOptions.KIND.values().length + "items. [" + TokenHistoryQueryOptions.KIND.getAllKind() +"]");
+
+        TokenHistoryQueryOptions.KIND[] optionArr = {TokenHistoryQueryOptions.KIND.NFT, TokenHistoryQueryOptions.KIND.FT, TokenHistoryQueryOptions.KIND.MT, TokenHistoryQueryOptions.KIND.KLAY, TokenHistoryQueryOptions.KIND.MT};
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+
+        options.setKind(optionArr);
+    }
+
+    @Test
+    public void typeTestWithEnum() {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP7);
+        assertEquals("KIP-7", options.getType());
+
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.ERC20);
+        assertEquals("ERC-20", options.getType());
+
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP17);
+        assertEquals("KIP-17", options.getType());
+
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.ERC721);
+        assertEquals("ERC-721", options.getType());
+
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP37);
+        assertEquals("KIP-37", options.getType());
+
+        options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.ERC1155);
+        assertEquals("ERC-1155", options.getType());
+    }
+
+    @Test
+    public void statusTestWithEnum() {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.CANCELLED);
+        assertEquals("cancelled", options.getStatus());
+
+        options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.COMPLETED);
+        assertEquals("completed", options.getStatus());
+
+        options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.PROCESSING);
+        assertEquals("processing", options.getStatus());
+
+        options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.FAILED);
+        assertEquals("failed", options.getStatus());
     }
 }

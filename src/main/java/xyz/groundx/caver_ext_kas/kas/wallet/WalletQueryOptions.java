@@ -16,12 +16,66 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryQueryOptions;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
+
+import java.security.InvalidParameterException;
 
 /**
  * Representing a query parameters where using Wallet REST API.
  */
 public class WalletQueryOptions {
+
+    enum ACCOUNT_STATUS {
+        ALL("all"),
+        ENABLED("enabled"),
+        DISABLE("disable"),
+        CORRUPTED("corrupted");
+
+        String status;
+
+        ACCOUNT_STATUS(String status) {
+            this.status = status;
+        }
+
+        /**
+         * Check if there is an enum mapped to the given status string.
+         * @param status The status string to find enum defined in LABEL_STATUS
+         * @return boolean
+         */
+        public static boolean isExist(String status) {
+            for(ACCOUNT_STATUS labelStatus : ACCOUNT_STATUS.values()) {
+                if(labelStatus.getStatus().equals(status)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
+         * Gets all status options
+         * @return String.
+         */
+        public static String getAllStatus() {
+            String result = "";
+            for(int i = 0; i < ACCOUNT_STATUS.values().length; i++) {
+                ACCOUNT_STATUS status = ACCOUNT_STATUS.values()[i];
+                result += "'" +  status.getStatus() + "'";
+
+                if(i != (TokenHistoryQueryOptions.LABEL_STATUS.values().length-1)) {
+                    result += ", ";
+                }
+            }
+
+            return result;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+    }
+
+
     /**
      * Maximum number of data to query
      */
@@ -41,6 +95,11 @@ public class WalletQueryOptions {
      * The to-timestamp in seconds to query.
      */
     Long toTimestamp;
+
+    /**
+     * The account status to query
+     */
+    String status;
 
     /**
      * Creates an WalletQueryOptions instance.
@@ -94,6 +153,10 @@ public class WalletQueryOptions {
         return toTimestamp;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     /**
      * Setter function for size.
      * @param size Maximum number of data to query.
@@ -142,5 +205,25 @@ public class WalletQueryOptions {
      */
     public void setToTimestamp(Long toTimestamp) {
         this.toTimestamp = toTimestamp;
+    }
+
+
+    /**
+     * Setter function for status.
+     * @param status The status string(all, enabled, disable, corrupted)
+     */
+    public void setStatus(String status) {
+        if(!ACCOUNT_STATUS.isExist(status)) {
+            throw new InvalidParameterException("The status parameter have one of the following: [" + ACCOUNT_STATUS.getAllStatus() + "]");
+        }
+        this.status = status;
+    }
+
+    /**
+     * Setter function for status
+     * @param status The enum defined ACCOUNT_STATUS.
+     */
+    public void setStatus(ACCOUNT_STATUS status) {
+        this.status = status.getStatus();
     }
 }
