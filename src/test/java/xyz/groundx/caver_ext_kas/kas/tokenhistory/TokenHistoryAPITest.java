@@ -17,10 +17,7 @@
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
 import com.squareup.okhttp.Call;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
@@ -43,12 +40,12 @@ public class TokenHistoryAPITest {
     public static CaverExtKAS caver;
     public static int preset;
 
-    public static String account;
+    public static String account = "0x89a8e75d92ce84076d33f68e4909c4156847dc69";
 
-    public static String ftAddress = "";
-    public static String nftAddress = "";
-    public static String mtAddress = "";
-    public static String tokenId = "0x2";
+    public static String ftAddress = "0x4792f1e64d0f656e61516805b7d2cd99f9359043";
+    public static String nftAddress = "0x18d9add7bf4097cc57dd6962ece441e391146682";
+    public static String mtAddress = "0x6679A0006575989065832e17FE4F1e4eD4923390";
+    public static String tokenId = "0x0";
 
 
 
@@ -57,24 +54,22 @@ public class TokenHistoryAPITest {
         Config.init();
         caver = Config.getCaver();
         preset = Config.getPresetID();
-        account = Config.getKlayProviderKeyring().getAddress();
+//        account = Config.getKlayProviderKeyring().getAddress();
 
         caver.kas.tokenHistory.getApiClient().setConnectTimeout(10000);
         caver.kas.tokenHistory.getApiClient().setDebugging(true);
 
-        ftAddress = Config.deployKIP7(caver, account);
-        nftAddress = Config.deployKIP17(caver, account);
-        mtAddress = Config.deployKIP37(caver, account);
+//        ftAddress = Config.deployKIP7(caver, account);
+//        nftAddress = Config.deployKIP17(caver, account);
+//        mtAddress = Config.deployKIP37(caver, account);
 
         Accounts accounts = caver.kas.wallet.getAccountList();
 
-        Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
-
-        Config.createTokenKIP37(mtAddress, account, BigInteger.ONE);
-        Config.createTokenKIP37(mtAddress, account, BigInteger.valueOf(2));
-        Config.mintBatchKIP37(mtAddress, account, accounts.getItems().get(0).getAddress());
-
-        Thread.sleep(10000);
+//        Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
+//
+//        Config.createTokenKIP37(mtAddress, account, BigInteger.ONE);
+//        Config.createTokenKIP37(mtAddress, account, BigInteger.valueOf(2));
+//        Config.mintBatchKIP37(mtAddress, account, accounts.getItems().get(0).getAddress());
     }
 
     @Test
@@ -982,13 +977,13 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getMTWithNumber() throws ApiException {
-        MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, BigInteger.valueOf(1));
+        MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, BigInteger.ZERO);
         assertNotNull(token);
     }
 
     @Test
     public void getMT() throws ApiException {
-        MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, "0x1");
+        MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, tokenId);
         assertNotNull(token);
     }
 
@@ -996,7 +991,7 @@ public class TokenHistoryAPITest {
     public void getMTAsyncWithNumber() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<MtToken> future = new CompletableFuture<>();
 
-        Call result = caver.kas.tokenHistory.getMTAsync(mtAddress, account, BigInteger.valueOf(1), new ApiCallback<MtToken>() {
+        Call result = caver.kas.tokenHistory.getMTAsync(mtAddress, account, BigInteger.ZERO, new ApiCallback<MtToken>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.completeExceptionally(e);
@@ -1029,7 +1024,7 @@ public class TokenHistoryAPITest {
     public void getMTAsync() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<MtToken> future = new CompletableFuture<>();
 
-        Call result = caver.kas.tokenHistory.getMTAsync(mtAddress, account, "0x1", new ApiCallback<MtToken>() {
+        Call result = caver.kas.tokenHistory.getMTAsync(mtAddress, account, tokenId, new ApiCallback<MtToken>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.completeExceptionally(e);
@@ -1060,13 +1055,13 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getMTOwnerListByTokenId() throws ApiException {
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1");
+        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId);
         assertNotNull(pageableMtTokens);
     }
 
     @Test
     public void getMTOwnerListByTokenIdWithNumber() throws ApiException {
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, BigInteger.valueOf(1));
+        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, BigInteger.ZERO);
         assertNotNull(pageableMtTokens);
     }
 
@@ -1074,7 +1069,7 @@ public class TokenHistoryAPITest {
     public void getMTOwnerListByTokenIdWithSize() throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setSize(1L);
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
+        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
         assertEquals(1, pageableMtTokens.getItems().size());
         assertNotNull(pageableMtTokens);
     }
@@ -1083,10 +1078,10 @@ public class TokenHistoryAPITest {
     public void getMTOwnerListByTokenIdWithCursor() throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setSize(1L);
-        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
+        PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
         options.setCursor(pageableMtTokens.getCursor());
 
-        PageableMtTokens result = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, "0x1", options);
+        PageableMtTokens result = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
         assertNotNull(result);
     }
 
@@ -1094,7 +1089,7 @@ public class TokenHistoryAPITest {
     public void getMTOwnerListByTokenIdAsync() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<PageableMtTokens> future = new CompletableFuture<>();
 
-        Call result = caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, "0x1", new ApiCallback<PageableMtTokens>() {
+        Call result = caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, new ApiCallback<PageableMtTokens>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.completeExceptionally(e);
@@ -1127,7 +1122,7 @@ public class TokenHistoryAPITest {
     public void getMTOwnerListByTokenIdAsyncWithNumber() throws ApiException, ExecutionException, InterruptedException {
         CompletableFuture<PageableMtTokens> future = new CompletableFuture<>();
 
-        Call result = caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, BigInteger.valueOf(1), new ApiCallback<PageableMtTokens>() {
+        Call result = caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, BigInteger.ZERO, new ApiCallback<PageableMtTokens>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.completeExceptionally(e);
