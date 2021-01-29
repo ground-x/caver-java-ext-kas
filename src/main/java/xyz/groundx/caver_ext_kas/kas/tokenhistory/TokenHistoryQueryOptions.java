@@ -19,175 +19,13 @@ package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 
 import java.security.InvalidParameterException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Representing a query parameters where using Token history REST API.
  */
 public class TokenHistoryQueryOptions {
-
-    /**
-     * Enum for "type" query option
-     */
-    public enum CONTRACT_TYPE {
-        KIP7("KIP-7"), ERC20("ERC-20"),
-        KIP17("KIP-17"), ERC721("ERC-721"),
-        KIP37("KIP-37"), ERC1155("ERC-1155");
-
-        String type;
-
-        CONTRACT_TYPE(String type) {
-            this.type = type;
-        }
-
-        /**
-         * Check if there is an enum mapped to the given type string.
-         * @param type The type string to find enum defined in CONTRACT_TYPE
-         * @return boolean
-         */
-        public static boolean isExist(String type) {
-            for(CONTRACT_TYPE contractType : CONTRACT_TYPE.values()) {
-                if(contractType.getType().equals(type)) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /**
-         * Gets all type options
-         * @return String.
-         */
-        public static String getAllType() {
-            String result = "";
-            for(int i= 0; i < CONTRACT_TYPE.values().length; i++) {
-                CONTRACT_TYPE type = CONTRACT_TYPE.values()[i];
-                result += "'" +  type.getType() + "'";
-
-                if(i != (CONTRACT_TYPE.values().length-1)) {
-                    result += ", ";
-                }
-            }
-
-            return result;
-        }
-
-        /**
-         * Getter function for type.
-         * @return String
-         */
-        public String getType() {
-            return type;
-        }
-    }
-
-    /**
-     * Enum for "kind" query option.
-     */
-    public enum KIND {
-        KLAY("klay"),
-        FT("ft"),
-        NFT("nft"),
-        MT("mt");
-
-        String kind;
-
-        KIND(String kind) {
-            this.kind = kind;
-        }
-
-        /**
-         * Check if there is an enum mapped to the given kind string.
-         * @param kind The kind string to find enum defined in CONTRACT_KIND
-         * @return boolean
-         */
-        public static boolean isExist(String kind) {
-            for(KIND kindType : KIND.values()) {
-                if(kindType.getKind().equals(kind)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /**
-         * Gets all kind options
-         * @return String.
-         */
-        public static String getAllKind() {
-            String result = "";
-            for(int i= 0; i < KIND.values().length; i++) {
-                KIND kind = KIND.values()[i];
-                result += "'" +  kind.getKind() + "'";
-
-                if(i != (KIND.values().length-1)) {
-                    result += ", ";
-                }
-            }
-
-            return result;
-        }
-
-        public String getKind() {
-            return kind;
-        }
-    }
-
-    /**
-     * Enum for "status" query option
-     */
-    public enum LABEL_STATUS {
-        COMPLETED("completed"),
-        PROCESSING("processing"),
-        FAILED("failed"),
-        CANCELLED("cancelled");
-
-        String status;
-
-        LABEL_STATUS(String status) {
-            this.status = status;
-        }
-
-        /**
-         * Check if there is an enum mapped to the given status string.
-         * @param status The status string to find enum defined in LABEL_STATUS
-         * @return boolean
-         */
-        public static boolean isExist(String status) {
-            for(LABEL_STATUS labelStatus : LABEL_STATUS.values()) {
-                if(labelStatus.getStatus().equals(status)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /**
-         * Gets all status options
-         * @return String.
-         */
-        public static String getAllStatus() {
-            String result = "";
-            for(int i= 0; i < LABEL_STATUS.values().length; i++) {
-                LABEL_STATUS status = LABEL_STATUS.values()[i];
-                result += "'" +  status.getStatus() + "'";
-
-                if(i != (LABEL_STATUS.values().length-1)) {
-                    result += ", ";
-                }
-            }
-
-            return result;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-    }
-
-
     /**
      * The contract address to query.
      */
@@ -314,33 +152,11 @@ public class TokenHistoryQueryOptions {
     }
 
     /**
-     * Setter function for kind with KIND enum
-     * @param kind A enum defined in KIND.
-     */
-    public void setKind(KIND kind) {
-        setKind(kind.getKind());
-    }
-
-    /**
-     * Setter function for kind with KIND enum
-     * @param kindArr A array of enum defined in KIND.
-     */
-    public void setKind(KIND[] kindArr) {
-        List<String> kinds = Arrays.stream(kindArr).map(KIND::getKind)
-                .collect(Collectors.toList());
-
-        setKind(kinds);
-    }
-
-    /**
      * Setter function for kind.
      * @param kind The kind of token history to query.
      */
     public void setKind(String kind) {
-        if(!KIND.isExist(kind)) {
-            throw new InvalidParameterException("The kind option must have one of the following: [" + KIND.getAllKind() +"]");
-        }
-        this.kind = kind;
+        setKind(Arrays.asList(kind));
     }
 
     /**
@@ -348,13 +164,13 @@ public class TokenHistoryQueryOptions {
      * @param kinds The kind of token history to query.
      */
     public void setKind(List<String> kinds) {
-        if(kinds.size() > KIND.values().length) {
-            throw new InvalidParameterException("The 'kind' option must have up to " + KIND.values().length + "items. [" + KIND.getAllKind() +"]");
+        if(kinds.size() > 3) {
+            throw new InvalidParameterException("The 'kind' option must have up to 3 items. ['klay', 'ft', 'nft']");
         }
 
-        boolean isMatch = kinds.stream().anyMatch(item -> !KIND.isExist(item));
+        boolean isMatch = kinds.stream().anyMatch(item -> (!item.equals("klay") && !item.equals("ft") && !item.equals("nft")));
         if(isMatch) {
-            throw new InvalidParameterException("The kind option must have one of the following: [" + KIND.getAllKind() +"]");
+            throw new InvalidParameterException("The kind option must have one of the following: ['klay', 'ft', 'nft']");
         }
 
         this.kind = KASUtils.parameterToString(kinds);
@@ -404,38 +220,23 @@ public class TokenHistoryQueryOptions {
      * @param status The contract labelling status.
      */
     public void setStatus(String status) {
-        if(!LABEL_STATUS.isExist(status)) {
-            throw new InvalidParameterException("The status parameter have one of the following: [" + LABEL_STATUS.getAllStatus() + "]");
+        if(!status.equals("completed") && !status.equals("processing") && !status.equals("failed") && !status.equals("cancelled")) {
+            throw new InvalidParameterException("The status parameter have one of the following: [completed, processing, failed, cancelled");
         }
-
         this.status = status;
     }
 
     /**
-     * Setter function for status
-     * @param status The enum defined LABEL_STATUS.
-     */
-    public void setStatus(LABEL_STATUS status) {
-        this.status = status.getStatus();
-    }
-
-    /**
      * Setter function for type.
-     * @param type The type indicated either "KIP-7", "KIP-17", "KIP-37", "ERC-20", "ERC-721", "ERC-1155"
+     * @param type The type indicated either "KIP-7", "KIP-17", "ERC-20", "ERC-721"
      */
     public void setType(String type) {
-        if(!CONTRACT_TYPE.isExist(type)) {
-            throw new InvalidParameterException("The type parameter have one of the following: [" + CONTRACT_TYPE.getAllType() + "]");
+        if(type == null || type.isEmpty()) {
+            type = null;
+        } else if(!type.equals("KIP-7") && !type.equals("ERC-20") && !type.equals("KIP-17") && !type.equals("ERC-721")) {
+            throw new InvalidParameterException("The type parameter have one of the following: ['KIP-7', 'ERC-20', empty string(or null)]");
         }
         this.type = type;
-    }
-
-    /**
-     * Setter function for type
-     * @param type The enum defined in CONTRACT_TYPE
-     */
-    public void setType(CONTRACT_TYPE type) {
-        this.type = type.getType();
     }
 
     boolean checkRangeValid(String from, String to) {

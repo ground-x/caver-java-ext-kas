@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
 
 public class ApiClient {
 
-    private String basePath = "";
+    private String basePath = "https://wallet-api.klaytnapi.com";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;

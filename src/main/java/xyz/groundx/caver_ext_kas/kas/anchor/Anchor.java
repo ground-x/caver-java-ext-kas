@@ -49,18 +49,14 @@ public class Anchor {
     String chainId;
 
     /**
-     * The ApiClient for connecting with KAS.
-     */
-    ApiClient apiClient;
-
-    /**
      * Creates an AnchorAPI instance
      * @param chainId A Klaytn network chain id.
      * @param anchorApiClient The Api client for connecting with KAS.
      */
     public Anchor(String chainId, ApiClient anchorApiClient) {
         setChainId(chainId);
-        setApiClient(anchorApiClient);
+        setDataAnchoringTransactionApi(new DataAnchoringTransactionApi(anchorApiClient));
+        setOperatorApi(new OperatorApi(anchorApiClient));
     }
 
     /**
@@ -295,14 +291,6 @@ public class Anchor {
     }
 
     /**
-     * Getter function for apiClient
-     * @return
-     */
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    /**
      * Setter function for dataAnchoringTransactionApi
      * @param dataAnchoringTransactionApi An rest-client related Anchor API.
      */
@@ -324,16 +312,6 @@ public class Anchor {
      */
     public void setChainId(String chainId) {
         this.chainId = chainId;
-    }
-
-    /**
-     * Setter function for apiClient
-     * @param apiClient The ApiClient for connecting with KAS.
-     */
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-        setDataAnchoringTransactionApi(new DataAnchoringTransactionApi(apiClient));
-        setOperatorApi(new OperatorApi(apiClient));
     }
 
     private void checkPayload(Map payload) {
