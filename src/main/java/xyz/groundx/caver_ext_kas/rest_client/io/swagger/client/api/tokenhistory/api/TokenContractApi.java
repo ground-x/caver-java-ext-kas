@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -12,14 +12,28 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api;
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Configuration;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.Pair;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressRequestBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ProgressResponseBody;
+
 import com.google.gson.reflect.TypeToken;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.NftContractDetail;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableFtContractDetails;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableNftContractDetails;
 
 import java.io.IOException;
+
+
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.ErrorResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.NftContractDetail;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableFtContractDetails;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableMtContractDetails;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableNftContractDetails;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,7 +99,7 @@ public class TokenContractApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -181,6 +195,156 @@ public class TokenContractApi {
         return call;
     }
     /**
+     * Build call for getListOfMtContracts
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getListOfMtContractsCall(String xChainId, String status, String type, Long size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/contract/mt";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (status != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("status", status));
+        if (type != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("type", type));
+        if (size != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+        if (cursor != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getListOfMtContractsValidateBeforeCall(String xChainId, String status, String type, Long size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getListOfMtContracts(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getListOfMtContractsCall(xChainId, status, type, size, cursor, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Search List of All MT Contract Information
+     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @return PageableMtContractDetails
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PageableMtContractDetails getListOfMtContracts(String xChainId, String status, String type, Long size, String cursor) throws ApiException {
+        ApiResponse<PageableMtContractDetails> resp = getListOfMtContractsWithHttpInfo(xChainId, status, type, size, cursor);
+        return resp.getData();
+    }
+
+    /**
+     * Search List of All MT Contract Information
+     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @return ApiResponse&lt;PageableMtContractDetails&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<PageableMtContractDetails> getListOfMtContractsWithHttpInfo(String xChainId, String status, String type, Long size, String cursor) throws ApiException {
+        com.squareup.okhttp.Call call = getListOfMtContractsValidateBeforeCall(xChainId, status, type, size, cursor, null, null);
+        Type localVarReturnType = new TypeToken<PageableMtContractDetails>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Search List of All MT Contract Information (asynchronously)
+     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
+     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getListOfMtContractsAsync(String xChainId, String status, String type, Long size, String cursor, final ApiCallback<PageableMtContractDetails> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getListOfMtContractsValidateBeforeCall(xChainId, status, type, size, cursor, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<PageableMtContractDetails>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for getListOfNftContracts
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param status Labeling status [completed, processing, failed, cancelled] (optional)
@@ -230,7 +394,7 @@ public class TokenContractApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -380,7 +544,7 @@ public class TokenContractApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -481,6 +645,141 @@ public class TokenContractApi {
         return call;
     }
     /**
+     * Build call for getMtContractDetail
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param mtAddress  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getMtContractDetailCall(String xChainId, String mtAddress, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/contract/mt/{mt-address}"
+            .replaceAll("\\{" + "mt-address" + "\\}", apiClient.escapeString(mtAddress.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getMtContractDetailValidateBeforeCall(String xChainId, String mtAddress, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getMtContractDetail(Async)");
+        }
+        // verify the required parameter 'mtAddress' is set
+        if (mtAddress == null) {
+            throw new ApiException("Missing the required parameter 'mtAddress' when calling getMtContractDetail(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getMtContractDetailCall(xChainId, mtAddress, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Search Specific MT Contract Information
+     * Retrieves a labeled MT contract information.
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param mtAddress  (required)
+     * @return MtContractDetail
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MtContractDetail getMtContractDetail(String xChainId, String mtAddress) throws ApiException {
+        ApiResponse<MtContractDetail> resp = getMtContractDetailWithHttpInfo(xChainId, mtAddress);
+        return resp.getData();
+    }
+
+    /**
+     * Search Specific MT Contract Information
+     * Retrieves a labeled MT contract information.
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param mtAddress  (required)
+     * @return ApiResponse&lt;MtContractDetail&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<MtContractDetail> getMtContractDetailWithHttpInfo(String xChainId, String mtAddress) throws ApiException {
+        com.squareup.okhttp.Call call = getMtContractDetailValidateBeforeCall(xChainId, mtAddress, null, null);
+        Type localVarReturnType = new TypeToken<MtContractDetail>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Search Specific MT Contract Information (asynchronously)
+     * Retrieves a labeled MT contract information.
+     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param mtAddress  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getMtContractDetailAsync(String xChainId, String mtAddress, final ApiCallback<MtContractDetail> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getMtContractDetailValidateBeforeCall(xChainId, mtAddress, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<MtContractDetail>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for getNftContractDetail
      * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
      * @param nftAddress NFT contract address (required)
@@ -520,7 +819,7 @@ public class TokenContractApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))

@@ -17,7 +17,9 @@
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
+import com.klaytn.caver.contract.SendOptions;
 import com.squareup.okhttp.Call;
+import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypePublic;
@@ -67,9 +69,24 @@ public class Wallet {
     StatisticsApi statisticsApi;
 
     /**
+     * Key API rest client object.
+     */
+    KeyApi keyApi;
+
+    /**
+     * Registration API rest client object.
+     */
+    RegistrationApi registrationApi;
+
+    /**
      * Klaytn network id.
      */
     String chainId;
+
+    /**
+     * The ApiClient for connecting with KAS.
+     */
+    ApiClient apiClient;
 
     /**
      * Creates an WalletAPI instnace.
@@ -78,12 +95,7 @@ public class Wallet {
      */
     public Wallet(String chainId, ApiClient walletApiClient) {
         setChainId(chainId);
-        setAccountApi(new AccountApi(walletApiClient));
-        setBasicTransactionApi(new BasicTransactionApi(walletApiClient));
-        setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(walletApiClient));
-        setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(walletApiClient));
-        setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(walletApiClient));
-        setStatisticsApi(new StatisticsApi(walletApiClient));
+        setApiClient(walletApiClient);
     }
 
     /**
@@ -135,24 +147,24 @@ public class Wallet {
     /**
      * Get the list of accounts created previously.<br>
      * GET /v2/account
-     * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, and `cursor`.
+     * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, `status` and `cursor`.
      * @return Accounts
      * @throws ApiException
      */
     public Accounts getAccountList(WalletQueryOptions options) throws ApiException {
-        return getAccountApi().retrieveAccounts(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp());
+        return getAccountApi().retrieveAccounts(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), options.getStatus());
     }
 
     /**
      * Get the list of accounts created previously asynchronously.<br>
      * GET /v2/account
-     * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, and `cursor`.
+     * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, `status` and `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
      */
     public Call getAccountListAsync(WalletQueryOptions options, ApiCallback<Accounts> callback) throws ApiException {
-        return getAccountApi().retrieveAccountsAsync(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), callback);
+        return getAccountApi().retrieveAccountsAsync(chainId, options.getSize(), options.getCursor(), options.getToTimestamp(), options.getFromTimestamp(), options.getStatus(), callback);
     }
 
     /**
@@ -1078,6 +1090,645 @@ public class Wallet {
         return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), krn, callback);
     }
 
+    /**
+     * Create keys in KAS. <br>
+     * POST /v2/key <br>
+     *
+     * <pre>Example :
+     * {@code
+     * KeyCreationResponse response = caver.kas.wallet.createKeys(2);
+     * }</pre>
+     * @param numberOfKeys The number of keys to create
+     * @return KeyCreationResponse
+     * @throws ApiException
+     */
+    public KeyCreationResponse createKeys(int numberOfKeys) throws ApiException {
+        KeyCreationRequest request = new KeyCreationRequest();
+        request.setSize(Long.valueOf(numberOfKeys));
+        return getKeyApi().keyCreation(chainId, request);
+    }
+
+    /**
+     * Creates keys in KAS asynchronously. <br>
+     * POST /v2/key <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<KeyCreationResponse> callback = new ApiCallback<KeyCreationResponse> callback() {
+     *    ....implements callback method
+     * };
+     * caver.kas.wallet.createKeysAsync(2, callback);
+     * }</pre>
+     * @param numberOfKeys The number of keys to create
+     * @param callback The callback function to handle response.
+     * @return KeyCreationResponse
+     * @throws ApiException
+     */
+    public Call createKeysAsync(int numberOfKeys, ApiCallback<KeyCreationResponse> callback) throws ApiException {
+        KeyCreationRequest request = new KeyCreationRequest();
+        request.setSize(Long.valueOf(numberOfKeys));
+        return getKeyApi().keyCreationAsync(chainId, request, callback);
+    }
+
+    /**
+     * Find a key information from KAS. <br>
+     * GET /v2/key/{key-id} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String keyId = "keyId";
+     * Key key = caver.kas.wallet.getKey(keyId);
+     * }</pre>
+     *
+     * @param keyId The key id to find from KAS.
+     * @return Key
+     * @throws ApiException
+     */
+    public Key getKey(String keyId) throws ApiException {
+        return getKeyApi().getKey(chainId, keyId);
+    }
+
+    /**
+     * Find a key information from KAS asynchronously. <br>
+     * GET /v2/key/{key-id} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Key> callback = new ApiCallback<Key> callback() {
+     *   ....implements callback method.
+     * }
+     *
+     * String keyId = "keyId";
+     * caver.kas.wallet.getKeyAsync(keyId, callback);
+     *
+     * }</pre>
+     * @param keyId The key id to find from KAS.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getKeyAsync(String keyId, ApiCallback<Key> callback) throws ApiException {
+        return getKeyApi().getKeyAsync(chainId, keyId, callback);
+    }
+
+    /**
+     * Sign a message using a key create by KAS. <br>
+     * The default KRN will be used. <br>
+     * POST /v2/key/{key-id}/sign <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String keyId = "key Id";
+     * String data = "data";
+     *
+     * caver.kas.wallet.signMessage(keyId, data);
+     * }</pre>
+     *
+     * @param keyId The key id to use for signing.
+     * @param data The data to sign.
+     * @return KeySignDataResponse
+     * @throws ApiException
+     */
+    public KeySignDataResponse signMessage(String keyId, String data) throws ApiException {
+        KeySignDataRequest request = new KeySignDataRequest();
+        request.setData(data);
+
+        return signMessage(keyId, data, "");
+    }
+
+    /**
+     * Sign a message using a key create by KAS. <br>
+     * POST /v2/key/{key-id}/sign <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String keyId = "key Id";
+     * String data = "data";
+     * String krn = "krn";
+     *
+     * caver.kas.wallet.signMessage(keyId, data, krn);
+     * }</pre>
+     *
+     * @param keyId The key id to use for signing.
+     * @param data The data to sign.
+     * @param krn The krn string.
+     * @return KeySignDataResponse
+     * @throws ApiException
+     */
+    public KeySignDataResponse signMessage(String keyId, String data, String krn) throws ApiException {
+        KeySignDataRequest request = new KeySignDataRequest();
+        request.setData(data);
+
+        return getKeyApi().keySignData(chainId, keyId, request, krn);
+    }
+
+    /**
+     * Sign a message using a key create by KAS asynchronously. <br>
+     * The default KRN will be used. <br>
+     * POST /v2/key/{key-id}/sign <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<KeySignDataResponse> callback = new ApiCallback<KeySignDataResponse> callback() {
+     *     ....implements callback method.
+     * }
+     *
+     * String keyId = "key Id";
+     * String data = "data";
+     *
+     * caver.kas.wallet.signMessageAsync(keyId, data, callback);
+     * }</pre>
+     * @param keyId The key id to use for signing.
+     * @param data The data to sign.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call signMessageAsync(String keyId, String data, ApiCallback<KeySignDataResponse> callback) throws ApiException {
+        KeySignDataRequest request = new KeySignDataRequest();
+        request.setData(data);
+
+        return signMessageAsync(keyId, data, null, callback);
+    }
+
+    /**
+     * Sign a message using a key create by KAS asynchronously. <br>
+     * The default KRN will be used. <br>
+     * POST /v2/key/{key-id}/sign <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<KeySignDataResponse> callback = new ApiCallback<KeySignDataResponse> callback() {
+     *     ....implements callback method.
+     * }
+     *
+     * String keyId = "key Id";
+     * String data = "data";
+     * String krn = "krn"
+     *
+     * caver.kas.wallet.signMessageAsync(keyId, data, krn, callback);
+     * }</pre>
+     *
+     * @param keyId The key id to use for signing.
+     * @param data The data to sign.
+     * @param krn The krn string.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call signMessageAsync(String keyId, String data, String krn, ApiCallback<KeySignDataResponse> callback) throws ApiException {
+        KeySignDataRequest request = new KeySignDataRequest();
+        request.setData(data);
+
+        return getKeyApi().keySignDataAsync(chainId, keyId, request, krn, callback);
+    }
+
+    /**
+     * Register accounts which used before. <br>
+     * POST /v2/registration/account <br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
+     *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
+     *
+     *         FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+     *                 .setKlaytnCall(caver.rpc.klay)
+     *                 .setFrom(keyring.getAddress())
+     *                 .setGas(BigInteger.valueOf(250000))
+     *                 .setAccount(account)
+     *                 .build();
+     *
+     *         tx.sign(keyring);
+     *
+     *         return tx;
+     * }
+     *
+     * KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+     *
+     * SingleKeyring keyring = KeyringFactory.generate();
+     * com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+     *
+     * AccountRegistration registration = new AccountRegistration();
+     * registration.setAddress(account.getAddress());
+     * registration.setKeyId(response.getItems().get(0).getKeyId());
+     * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+     *
+     * AccountRegistrationRequest request = new AccountRegistrationRequest();
+     * request.add(registration);
+     *
+     * RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(request);
+     * }</pre>
+     *
+     * @param request The AccountRegistrationRequest instance contains account informations to be registered in KAS <br>
+     *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
+     * @return RegistrationStatusResponse
+     * @throws ApiException
+     */
+    public RegistrationStatusResponse registerAccounts(AccountRegistrationRequest request) throws ApiException {
+        return registerAccounts((List<AccountRegistration>)request);
+    }
+
+    /**
+     * Register accounts which used before. <br>
+     * POST /v2/registration/account <br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
+     *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
+     *
+     *         FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+     *                 .setKlaytnCall(caver.rpc.klay)
+     *                 .setFrom(keyring.getAddress())
+     *                 .setGas(BigInteger.valueOf(250000))
+     *                 .setAccount(account)
+     *                 .build();
+     *
+     *         tx.sign(keyring);
+     *
+     *         return tx;
+     * }
+     *
+     * KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+     *
+     * SingleKeyring keyring = KeyringFactory.generate();
+     * com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+     *
+     * AccountRegistration registration = new AccountRegistration();
+     * registration.setAddress(account.getAddress());
+     * registration.setKeyId(response.getItems().get(0).getKeyId());
+     * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+     *
+     * RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(Arrays.asList(request));
+     * }</pre>
+     *
+     * @param request The List of account information to be registered in KAS. <br>
+     *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
+     * @return RegistrationStatusResponse
+     * @throws ApiException
+     */
+    public RegistrationStatusResponse registerAccounts(List<AccountRegistration> request) throws ApiException {
+        return getRegistrationApi().registerAccount(chainId, request);
+    }
+
+    /**
+     * Register accounts which used before asynchronously. <br>
+     * POST /v2/registration/account <br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
+     *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
+     *
+     *         FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+     *                 .setKlaytnCall(caver.rpc.klay)
+     *                 .setFrom(keyring.getAddress())
+     *                 .setGas(BigInteger.valueOf(250000))
+     *                 .setAccount(account)
+     *                 .build();
+     *
+     *         tx.sign(keyring);
+     *
+     *         return tx;
+     * }
+     *
+     * ApiCallback<RegistrationStatusResponse> callback = new ApiCallback<RegistrationStatusResponse> callback() {
+     *    ....implement callback methods.
+     * };
+     *
+     * KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+     *
+     * SingleKeyring keyring = KeyringFactory.generate();
+     * com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+     *
+     * AccountRegistration registration = new AccountRegistration();
+     * registration.setAddress(account.getAddress());
+     * registration.setKeyId(response.getItems().get(0).getKeyId());
+     * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+     *
+     * AccountRegistrationRequest request = new AccountRegistrationRequest();
+     * request.add(registration);
+     *
+     * RegistrationStatusResponse result = caver.kas.wallet.registerAccountsAsync(request, callback);
+     * }</pre>
+     *
+     * @param request The AccountRegistrationRequest instance contains account informations to be registered in KAS. <br>
+     *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call registerAccountsAsync(AccountRegistrationRequest request, ApiCallback<RegistrationStatusResponse> callback) throws ApiException {
+        return registerAccountsAsync((List<AccountRegistration>)request, callback);
+    }
+
+    /**
+     * Register accounts which used before asynchronously. <br>
+     * POST /v2/registration/account <br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * FeeDelegatedAccountUpdate createAccountUpdateTx(Caver caver, SingleKeyring keyring, String newKey) throws IOException {
+     *         com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyPublic(keyring.getAddress(), newKey);
+     *
+     *         FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+     *                 .setKlaytnCall(caver.rpc.klay)
+     *                 .setFrom(keyring.getAddress())
+     *                 .setGas(BigInteger.valueOf(250000))
+     *                 .setAccount(account)
+     *                 .build();
+     *
+     *         tx.sign(keyring);
+     *
+     *         return tx;
+     * }
+     *
+     * ApiCallback<RegistrationStatusResponse> callback = new ApiCallback<RegistrationStatusResponse> callback() {
+     *    ....implement callback methods.
+     * };
+     *
+     * KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+     *
+     * SingleKeyring keyring = KeyringFactory.generate();
+     * com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
+     *
+     * AccountRegistration registration = new AccountRegistration();
+     * registration.setAddress(account.getAddress());
+     * registration.setKeyId(response.getItems().get(0).getKeyId());
+     * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
+     *
+     * RegistrationStatusResponse result = caver.kas.wallet.registerAccountsAsync(Arrays.asList(request), callback);
+     * }</pre>
+     *
+     * @param request The List of account information to be registered in KAS. <br>
+     *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call registerAccountsAsync(List<AccountRegistration> request, ApiCallback<RegistrationStatusResponse> callback) throws ApiException {
+        return getRegistrationApi().registerAccountAsync(chainId, request, callback);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
+     * POST /v2/tx/contract/call
+     *
+     * <pre>Example :
+     * {@code
+     * String kip7ContractAddress = "address";
+     * ContractCallResponse response = caver.kas.wallet.callContract(kip7ContractAddress, "totalSupply");
+     * }</pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @return ContractCallResponse
+     * @throws ApiException
+     */
+    public ContractCallResponse callContract(String contractAddress, String methodName) throws ApiException {
+        return callContract(contractAddress, methodName, null, new SendOptions());
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String ftContractAddress = "0x{contractAddress}";
+     * String baseAccount = "0x{accountAddress}";
+     *
+     * CallArgument argument = new CallArgument();
+     * argument.setType("address");
+     * argument.setValue(baseAccount);
+     * ContractCallResponse response = caver.kas.wallet.callContract(ftContractAddress, "balanceOf", Collections.singletonList(argument));
+     * }</pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param callArguments The argument required to call contract's function.
+     * @return ContractCallResponse
+     * @throws ApiException
+     */
+    public ContractCallResponse callContract(String contractAddress, String methodName, List<CallArgument> callArguments) throws ApiException {
+        return callContract(contractAddress, methodName, callArguments, new SendOptions());
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String kip7ContractAddress = "address";
+     * String baseAccount = "0x{accountAddress}";
+     *
+     * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
+     * ContractCallResponse response = caver.kas.wallet.callContract(kip7ContractAddress, "pause", sendOptions);
+     * }</pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param sendOptions The sendOptions(from, gas, value) instance.
+     * @return ContractCallResponse
+     * @throws ApiException
+     */
+    public ContractCallResponse callContract(String contractAddress, String methodName, SendOptions sendOptions) throws ApiException {
+        return callContract(contractAddress, methodName, null, sendOptions);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contractAddress}";
+     * String toAccount = "0x{toAccount}";
+     *
+     * CallArgument argument1 = new CallArgument();
+     * argument1.setType("address");
+     * argument1.setValue(toAccount);
+     *
+     * CallArgument argument2 = new CallArgument();
+     * argument2.setType("uint256");
+     * argument2.setValue(BigInteger.valueOf(1000000000));
+     *
+     * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
+     *
+     * ContractCallResponse response = caver.kas.wallet.callContract(contractAddress, "transfer", Arrays.asList(argument1, argument2),  sendOptions);
+     * }</pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param callArguments The argument required to call contract's function.
+     *                      `type` and `value` are defined. The ABI type can be `uint256`, `uint32`, `string`, `bool`, `address`, `uint64[2]` and `address[]`. The value can be `number`, `string`, `array` and `boolean`.
+     * @param sendOptions The sendOptions(from, gas, value) instance.
+     * @return ContractCallResponse
+     * @throws ApiException
+     */
+    public ContractCallResponse callContract(String contractAddress, String methodName, List<CallArgument> callArguments, SendOptions sendOptions) throws ApiException {
+        ContractCallRequest request = new ContractCallRequest();
+        request.setTo(contractAddress);
+
+        ContractCallData contractCallData = new ContractCallData();
+        contractCallData.setMethodName(methodName);
+        contractCallData.setArguments(callArguments);
+        request.setData(contractCallData);
+
+        if(sendOptions.getFrom() != null) {
+            request.setFrom(sendOptions.getFrom());
+        }
+
+        if(sendOptions.getGas() != null) {
+            request.setGas(Numeric.toBigInt(sendOptions.getGas()).longValue());
+        }
+
+        request.setValue(sendOptions.getValue());
+        return getBasicTransactionApi().contractCall(chainId, request);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String kip7ContractAddress = "address";
+     * caver.kas.wallet.callContractAsync(kip7ContractAddress, "totalSupply", callback);
+     * }
+     * </pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call callContractAsync(String contractAddress, String methodName, ApiCallback<ContractCallResponse> callback) throws ApiException {
+        return callContractAsync(contractAddress, methodName, null, new SendOptions(), callback);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String ftContractAddress = "0x{contractAddress}";
+     * String baseAccount = "0x{accountAddress}";
+     *
+     * CallArgument argument = new CallArgument();
+     * argument.setType("address");
+     * argument.setValue(baseAccount);
+     * caver.kas.wallet.callContractAsync(ftContractAddress, "balanceOf", Collections.singletonList(argument), callback);
+     *
+     * }</pre>
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param callArguments The argument required to call contract's function.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call callContractAsync(String contractAddress, String methodName, List<CallArgument> callArguments, ApiCallback<ContractCallResponse> callback) throws ApiException {
+        return callContractAsync(contractAddress, methodName, callArguments, new SendOptions(), callback);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
+     * POST /v2/tx/contract/call <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String kip7ContractAddress = "address";
+     * String baseAccount = "0x{accountAddress}";
+     *
+     * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
+     * caver.kas.wallet.callContractAsync(kip7ContractAddress, "pause", sendOptions, callback);
+     * }</pre>
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param sendOptions The sendOptions(from, gas, value) instance.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call callContractAsync(String contractAddress, String methodName, SendOptions sendOptions, ApiCallback<ContractCallResponse> callback) throws ApiException {
+        return callContractAsync(contractAddress, methodName, null, sendOptions, callback);
+    }
+
+    /**
+     * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
+     * POST /v2/tx/contract/call<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<ContractCallResponse> callback = new ApiCallback<ContractCallResponse> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String toAccount = "0x{toAccount}";
+     *
+     * CallArgument argument1 = new CallArgument();
+     * argument1.setType("address");
+     * argument1.setValue(toAccount);
+     *
+     * CallArgument argument2 = new CallArgument();
+     * argument2.setType("uint256");
+     * argument2.setValue(BigInteger.valueOf(1000000000));
+     *
+     * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
+     * caver.kas.wallet.callContractAsync(contractAddress, "transfer", Arrays.asList(argument1, argument2),  sendOptions, callback);
+     * }</pre>
+     *
+     * @param contractAddress The contract address.
+     * @param methodName The contract function name.
+     * @param callArguments The argument required to call contract's function.
+     * @param sendOptions The sendOptions(from, gas, value) instance.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call callContractAsync(String contractAddress, String methodName, List<CallArgument> callArguments, SendOptions sendOptions, ApiCallback<ContractCallResponse> callback) throws ApiException {
+        ContractCallRequest request = new ContractCallRequest();
+        request.setTo(contractAddress);
+
+        ContractCallData contractCallData = new ContractCallData();
+        contractCallData.setMethodName(methodName);
+        contractCallData.setArguments(callArguments);
+        request.setData(contractCallData);
+
+        if(sendOptions.getFrom() != null) {
+            request.setFrom(sendOptions.getFrom());
+        }
+
+        if(sendOptions.getGas() != null) {
+            request.setGas(Numeric.toBigInt(sendOptions.getGas()).longValue());
+        }
+
+        request.setValue(sendOptions.getValue());
+        return getBasicTransactionApi().contractCallAsync(chainId, request, callback);
+    }
+    
 
     /**
      * Getter function for accountApi.
@@ -1128,11 +1779,35 @@ public class Wallet {
     }
 
     /**
+     * Getter function for KeyApi
+     * @return KeyApi
+     */
+    public KeyApi getKeyApi() {
+        return keyApi;
+    }
+
+    /**
+     * Getter function for registrationApi
+     * @return
+     */
+    public RegistrationApi getRegistrationApi() {
+        return registrationApi;
+    }
+
+    /**
      * Getter function for chainId
      * @return String
      */
     public String getChainId() {
         return chainId;
+    }
+
+    /**
+     * Getter function for ApiClient
+     * @return ApiClient
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
     }
 
     /**
@@ -1184,11 +1859,43 @@ public class Wallet {
     }
 
     /**
+     * Setter function for keyApi
+     * @param keyApi Key API rest client object.
+     */
+    public void setKeyApi(KeyApi keyApi) {
+        this.keyApi = keyApi;
+    }
+
+    /**
+     * Setter function for registrationApi
+     * @param registrationApi account registration API rest client object.
+     */
+    public void setRegistrationApi(RegistrationApi registrationApi) {
+        this.registrationApi = registrationApi;
+    }
+
+    /**
      * Setter function for chainId
      * @param chainId Klaytn network id.
      */
     public void setChainId(String chainId) {
         this.chainId = chainId;
+    }
+
+    /**
+     * Setter function for ApiClient
+     * @param apiClient The ApiClient for connecting with KAS.
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        setAccountApi(new AccountApi(apiClient));
+        setBasicTransactionApi(new BasicTransactionApi(apiClient));
+        setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(apiClient));
+        setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(apiClient));
+        setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(apiClient));
+        setStatisticsApi(new StatisticsApi(apiClient));
+        setKeyApi(new KeyApi(apiClient));
+        setRegistrationApi(new RegistrationApi(apiClient));
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {

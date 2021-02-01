@@ -17,16 +17,15 @@
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
 import com.squareup.okhttp.Call;
+import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenContractApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenHistoryApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.TokenOwnershipApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.api.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,16 +59,18 @@ public class TokenHistory {
     String chainId;
 
     /**
+     * The ApiClient for connecting with KAS.
+     */
+    ApiClient apiClient;
+
+    /**
      * Creates an TokenHistoryAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param client The Api client for connection with KAS.
      */
     public TokenHistory(String chainId, ApiClient client) {
-        this.chainId = chainId;
-        tokenApi = new TokenApi(client);
-        tokenContractApi = new TokenContractApi(client);
-        tokenHistoryApi = new TokenHistoryApi(client);
-        tokenOwnershipApi = new TokenOwnershipApi(client);
+        setChainId(chainId);
+        setApiClient(client);
     }
 
     /**
@@ -583,5 +584,673 @@ public class TokenHistory {
      */
     public Call getNFTOwnershipHistoryAsync(String nftAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableNftOwnershipChanges> callback) throws ApiException {
         return tokenOwnershipApi.getListOfNftOwnershipChangesAsync(chainId, nftAddress, tokenId, options.getSize(), options.getCursor(), callback);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTListByOwner(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address} <br>
+     *
+     * <pre>{@code
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @return PageableMtTokensWithBalance
+     * @throws ApiException
+     */
+    public PageableMtTokensWithBalance getMTListByOwner(String mtAddress, String ownerAddress) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTListByOwner(mtAddress, ownerAddress, options);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account, options);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param options  Filters required when retrieving data. `size`, `cursor`.
+     * @return PageableMtTokensWithBalance
+     * @throws ApiException
+     */
+    public PageableMtTokensWithBalance getMTListByOwner(String mtAddress, String ownerAddress, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddress(chainId, mtAddress, ownerAddress, options.getCursor(), options.getSize());
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTListByOwnerAsync(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokensWithBalance> callback = new ApiCallback<PageableMtTokensWithBalance>() {
+     *     ....implement callback method.
+     * };
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     *
+     * caver.kas.tokenHistory.getMTListByOwnerAsync(mtAddress, account, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTListByOwnerAsync(String mtAddress, String ownerAddress, ApiCallback<PageableMtTokensWithBalance> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTListByOwnerAsync(mtAddress, ownerAddress, options, callback);
+    }
+
+    /**
+     * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokensWithBalance> callback = new ApiCallback<PageableMtTokensWithBalance>() {
+     *     ....implement callback method.
+     * };
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     *
+     * caver.kas.tokenHistory.getMTListByOwnerAsync(mtAddress, account, options, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address to retrieve MTs.
+     * @param options  Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTListByOwnerAsync(String mtAddress, String ownerAddress, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokensWithBalance> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAsync(chainId, mtAddress, ownerAddress, options.getCursor(), options.getSize(), callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, tokenId);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @return MtToken
+     * @throws ApiException
+     */
+    public MtToken getMT(String mtAddress, String ownerAddress, BigInteger tokenID) throws ApiException {
+        return getMT(mtAddress, ownerAddress, Numeric.toHexStringWithPrefix(tokenID));
+
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * String tokenId = "0x1";
+     *
+     * MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, tokenId);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @return MtToken
+     * @throws ApiException
+     */
+    public MtToken getMT(String mtAddress, String ownerAddress, String tokenID) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAndTokenId(chainId, mtAddress, ownerAddress, tokenID);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<MtToken> callback = new ApiCallback<MtToken>() {
+     *    ....implement callback method.
+     * };
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.tokenHistory.getMTAsync(mtAddress, account, tokenId, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTAsync(String mtAddress, String ownerAddress, BigInteger tokenID, ApiCallback<MtToken> callback) throws ApiException {
+        return getMTAsync(mtAddress, ownerAddress, Numeric.toHexStringWithPrefix(tokenID), callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<MtToken> callback = new ApiCallback<MtToken>() {
+     *    ....implement callback method.
+     * };
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String account = "0x{accountAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.tokenHistory.getMTAsync(mtAddress, account, tokenId, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param ownerAddress The owner address.
+     * @param tokenID The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTAsync(String mtAddress, String ownerAddress, String tokenID, ApiCallback<MtToken> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndOwnerAddressAndTokenIdAsync(chainId, mtAddress, ownerAddress, tokenID, callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String mtAddress = "0x{mtAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, BigInteger tokenId) throws ApiException {
+        return getMTOwnerListByTokenId(mtAddress, Numeric.toHexStringWithPrefix(tokenId));
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String mtAddress = "0x{mtAddress}";
+     * String tokenId = "0x1";
+     *
+     * PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTOwnerListByTokenId(mtAddress, tokenId, options);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * PageableMtTokens response = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
+     *
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, BigInteger tokenId, TokenHistoryQueryOptions options) throws ApiException {
+        return getMTOwnerListByTokenId(mtAddress, Numeric.toHexStringWithPrefix(tokenId), options);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String tokenId = "0x1";
+     *
+     * PageableMtTokens response = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
+     *
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @return PageableMtTokens
+     * @throws ApiException
+     */
+    public PageableMtTokens getMTOwnerListByTokenId(String mtAddress, String tokenId, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndTokenId(chainId, mtAddress, tokenId, options.getCursor(), options.getSize());
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
+     *    ....implements callback method.
+     * }
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, BigInteger tokenId, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        return getMTOwnerListByTokenIdAsync(mtAddress, Numeric.toHexStringWithPrefix(tokenId), callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
+     *    ....implements callback method.
+     * }
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
+     *    ....implements callback method.
+     * }
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, BigInteger tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        return getMTOwnerListByTokenIdAsync(mtAddress, Numeric.toHexStringWithPrefix(tokenId), options, callback);
+    }
+
+    /**
+     * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
+     * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtTokens> callback = new ApiCallback<PageableMtTokens> () {
+     *    ....implements callback method.
+     * }
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     * options.setCursor("cursor data");
+     *
+     * String mtAddress = "0x{mtAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @param tokenId The token id.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTOwnerListByTokenIdAsync(String mtAddress, String tokenId, TokenHistoryQueryOptions options, ApiCallback<PageableMtTokens> callback) throws ApiException {
+        return this.tokenApi.getMtTokensByContractAddressAndTokenIdAsync(chainId, mtAddress, tokenId, options.getCursor(), options.getSize(), callback);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt<br>
+     *
+     * <pre>Example :
+     * {@code
+     * PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList();
+     * }</pre>
+     *
+     * @return PageableMtContractDetails
+     * @throws ApiException
+     */
+    public PageableMtContractDetails getMTContractList() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTContractList(options);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
+     * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt <br>
+     *
+     * <pre>Example :
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     *
+     * PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
+     * }</pre>
+     * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
+     * @return PageableMtContractDetails
+     * @throws ApiException
+     */
+    public PageableMtContractDetails getMTContractList(TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenContractApi.getListOfMtContracts(chainId, options.getStatus(), options.getType(), options.getSize(), options.getCursor());
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
+     * It will send a request without filter options.<br>
+     * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
+     * GET /v2/contract/mt <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtContractDetails> callback = ApiCallback<PageableMtContractDetails>() {
+     *    ....implements callback method.
+     * };
+     *
+     * caver.kas.tokenHistory.getMTContractListAsync(callback);
+     *
+     * }</pre>
+     *
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractListAsync(ApiCallback<PageableMtContractDetails> callback) throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        return getMTContractListAsync(options, callback);
+    }
+
+    /**
+     * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
+     * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
+     * GET /v2/contract/mt <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<PageableMtContractDetails> callback = ApiCallback<PageableMtContractDetails>() {
+     *    ....implements callback method.
+     * };
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize(1);
+     *
+     * caver.kas.tokenHistory.getMTContractListAsync(options, callback);
+     * }
+     * </pre>
+     * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractListAsync(TokenHistoryQueryOptions options, ApiCallback<PageableMtContractDetails> callback) throws ApiException {
+        return this.tokenContractApi.getListOfMtContractsAsync(chainId, options.getStatus(), options.getType(), options.getSize(), options.getCursor(), callback);
+    }
+
+    /**
+     * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract.<br>
+     * GET /v2/contract/mt/{mt-address}<br>
+     *
+     * <pre>Example :
+     * {@code
+     * String mtAddress = 0x{mtAddress};
+     * MtContractDetail detail = caver.kas.tokenHistory.getMTContract(mtAddress);
+     * }</pre>
+     *
+     * @param mtAddress The MT contract address.
+     * @return MtContractDetail
+     * @throws ApiException
+     */
+    public MtContractDetail getMTContract(String mtAddress) throws ApiException {
+        return this.tokenContractApi.getMtContractDetail(chainId, mtAddress);
+    }
+
+    /**
+     * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract asynchronously.<br>
+     * GET /v2/contract/mt/{mt-address}
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<MtContractDetail> callback = new ApiCallback<MtContractDetail>() {
+     *     ...implement callback method.
+     * }
+     *
+     * String mtAddress = 0x{mtAddress};
+     * caver.kas.tokenHistory.getMTContractAsync(mtAddress, callback);
+     * }</pre>
+     * @param mtAddress The MT contract address.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getMTContractAsync(String mtAddress, ApiCallback<MtContractDetail> callback) throws ApiException {
+        return this.tokenContractApi.getMtContractDetailAsync(chainId, mtAddress, callback);
+    }
+
+    /**
+     * Getter function for tokenApi
+     * @return TokenApi
+     */
+    public TokenApi getTokenApi() {
+        return tokenApi;
+    }
+
+    /**
+     * Getter function TokenContractApi
+     * @return TokenContractApi
+     */
+    public TokenContractApi getTokenContractApi() {
+        return tokenContractApi;
+    }
+
+    /**
+     * Getter function for TokenHistoryApi
+     * @return TokenHistoryApi
+     */
+    public TokenHistoryApi getTokenHistoryApi() {
+        return tokenHistoryApi;
+    }
+
+    /**
+     * Getter function for TokenOwnershipApi
+     * @return TokenOwnershipApi
+     */
+    public TokenOwnershipApi getTokenOwnershipApi() {
+        return tokenOwnershipApi;
+    }
+
+    /**
+     * Getter function for chain id
+     * @return String
+     */
+    public String getChainId() {
+        return chainId;
+    }
+
+    /**
+     * Getter function for ApiClient
+     * @return ApiClient
+     */
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
+
+    /**
+     * Setter function for TokenApi
+     * @param tokenApi Token API rest-client object.
+     */
+    public void setTokenApi(TokenApi tokenApi) {
+        this.tokenApi = tokenApi;
+    }
+
+    /**
+     * Setter function for TokenContractApi
+     * @param tokenContractApi Token contract API rest-client object.
+     */
+    public void setTokenContractApi(TokenContractApi tokenContractApi) {
+        this.tokenContractApi = tokenContractApi;
+    }
+
+    /**
+     * Setter function for TokenHistoryApi
+     * @param tokenHistoryApi Token history API rest-client object.
+     */
+    public void setTokenHistoryApi(TokenHistoryApi tokenHistoryApi) {
+        this.tokenHistoryApi = tokenHistoryApi;
+    }
+
+    /**
+     * Setter function for TokenOwnershipApi
+     * @param tokenOwnershipApi Token owner API rest-client object.
+     */
+    public void setTokenOwnershipApi(TokenOwnershipApi tokenOwnershipApi) {
+        this.tokenOwnershipApi = tokenOwnershipApi;
+    }
+
+    /**
+     * Setter function for chain id
+     * @param chainId The klaytn network chain id.
+     */
+    public void setChainId(String chainId) {
+        this.chainId = chainId;
+    }
+
+    /**
+     * Setter function for apiClient
+     * @param apiClient The ApiClient for connecting with KAS.
+     */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        setTokenApi(new TokenApi(apiClient));
+        setTokenContractApi(new TokenContractApi(apiClient));
+        setTokenHistoryApi(new TokenHistoryApi(apiClient));
+        setTokenOwnershipApi(new TokenOwnershipApi(apiClient));
     }
 }
