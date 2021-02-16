@@ -288,7 +288,7 @@ public class KASWallet implements IWallet {
 
     private boolean isWeightedMultiSigType(AbstractTransaction transaction, String address) throws IOException {
         AccountKey res = transaction.getKlaytnCall().getAccountKey(address).send();
-        if(res == null) {
+        if(res == null || res.getResult() == null) {
             return false;
         }
 
