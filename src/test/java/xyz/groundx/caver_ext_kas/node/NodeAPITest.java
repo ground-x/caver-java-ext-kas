@@ -464,19 +464,19 @@ public class NodeAPITest {
     }
 
 
-    @Test
-    public void getFilterChangesTest() throws Exception {
-        KlayLogs response = caver.rpc.klay.getFilterChanges(
-                "").send();
-        assertNotNull(response);
-    }
+//    @Test
+//    public void getFilterChangesTest() throws Exception {
+//        KlayLogs response = caver.rpc.klay.getFilterChanges(
+//                "").send();
+//        assertNotNull(response);
+//    }
 
-    @Test
-    public void getFilterLogsTest() throws Exception {
-        KlayLogs response = caver.rpc.klay.getFilterLogs(
-                "0xf9081aeb4a0dc3109959748c659c8cd7").send();
-        assertNotNull(response);
-    }
+//    @Test
+//    public void getFilterLogsTest() throws Exception {
+//        KlayLogs response = caver.rpc.klay.getFilterLogs(
+//                "0xf9081aeb4a0dc3109959748c659c8cd7").send();
+//        assertNotNull(response);
+//    }
 
     @Test
     public void getLogsTest() throws Exception {
@@ -485,37 +485,37 @@ public class NodeAPITest {
         assertNotNull(response);
     }
 
-    @Test
-    public void newBlockFilterTest() throws Exception {
-        Response<String> response = caver.rpc.klay.newBlockFilter().send();
-        String result = response.getResult();
-        assertNotNull(result);
-    }
+//    @Test
+//    public void newBlockFilterTest() throws Exception {
+//        Response<String> response = caver.rpc.klay.newBlockFilter().send();
+//        String result = response.getResult();
+//        assertNotNull(result);
+//    }
 
-    @Test
-    public void newFilterTest() throws Exception {
-        KlayFilter filter = new KlayFilter(
-                DefaultBlockParameterName.EARLIEST,
-                DefaultBlockParameterName.LATEST,
-                account);
-        filter.addSingleTopic("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8");
-        Quantity response = caver.rpc.klay.newFilter(filter).send();
-        String result = response.getResult();
-        assertNotNull(result);
-    }
+//    @Test
+//    public void newFilterTest() throws Exception {
+//        KlayFilter filter = new KlayFilter(
+//                DefaultBlockParameterName.EARLIEST,
+//                DefaultBlockParameterName.LATEST,
+//                account);
+//        filter.addSingleTopic("0xd596fdad182d29130ce218f4c1590c4b5ede105bee36690727baa6592bd2bfc8");
+//        Quantity response = caver.rpc.klay.newFilter(filter).send();
+//        String result = response.getResult();
+//        assertNotNull(result);
+//    }
 
-    @Test
-    public void newPendingTransactionFilterTest() throws Exception {
-        Response<String> response = caver.rpc.klay.newPendingTransactionFilter().send();
-        String result = response.getResult();
-        assertNotNull(result);
-    }
+//    @Test
+//    public void newPendingTransactionFilterTest() throws Exception {
+//        Response<String> response = caver.rpc.klay.newPendingTransactionFilter().send();
+//        String result = response.getResult();
+//        assertNotNull(result);
+//    }
 
-    @Test
-    public void uninstallFilterTest() throws Exception {
-        Boolean response = caver.rpc.klay.uninstallFilter("0x0").send();
-        assertNotNull(response);
-    }
+//    @Test
+//    public void uninstallFilterTest() throws Exception {
+//        Boolean response = caver.rpc.klay.uninstallFilter("0x0").send();
+//        assertNotNull(response);
+//    }
 
     @Test
     public void getSha3Test() throws IOException {
