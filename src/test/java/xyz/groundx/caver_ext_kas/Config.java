@@ -45,6 +45,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.KIP37ConstantData;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryTestData;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -52,6 +53,8 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Config {
+    private static String ENV = "PROD";
+
     public static String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
     public static String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
     public static String URL_TH_API = "https://th-api.klaytnapi.com";
@@ -72,10 +75,11 @@ public class Config {
 
     public static CaverExtKAS caver;
     public static KeyringContainer keyringContainer;
-
     public static SingleKeyring klayProviderKeyring;
 
-    public static String loadEnvData(Dotenv env, String envName) {
+    public static TokenHistoryTestData tokenHistoryTestData;
+
+    private static String loadEnvData(Dotenv env, String envName) {
 
         String data = System.getenv(envName);
 
@@ -111,19 +115,33 @@ public class Config {
                 .ignoreIfMissing()
                 .load();
 
-        URL_NODE_API = env.get("URL_NODE_API", URL_NODE_API);
-        URL_WALLET_API = env.get("URL_WALLET_API", URL_WALLET_API);
-        URL_TH_API = env.get("URL_TH_API", URL_TH_API);
-        URL_ANCHOR_API = env.get("URL_ANCHOR_API", URL_ANCHOR_API);
-        URL_KIP17_API = env.get("URL_KIP17_API", URL_KIP17_API);
+        ENV = System.getProperty("TEST_ENV");
+        if(ENV == null) {
+            ENV = env.get("TEST_ENV", "PROD");
+        }
 
-        accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY") : accessKey;
-        secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY") : secretAccessKey;
-        feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR") : feePayerAddress;
-        operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR") : operatorAddress;
-        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY") : klayProviderPrivateKey;
+        if(!ENV.equals("PROD") && !ENV.equals("QA") && !ENV.equals("DEV")) {
+            throw new RuntimeException("Invalid Test ENV input data.");
+        }
 
-        presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET")) : presetID;
+        String identifier = "";
+        if(ENV.equals("QA") || ENV.equals("DEV")) {
+            identifier = "_" + ENV;
+
+            URL_NODE_API = loadEnvData(env, "URL_NODE_API" + identifier);
+            URL_WALLET_API = loadEnvData(env,"URL_WALLET_API" + identifier);
+            URL_TH_API = loadEnvData(env, "URL_TH_API" + identifier);
+            URL_ANCHOR_API = loadEnvData(env, "URL_ANCHOR_API" + identifier);
+            URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
+        }
+
+        accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
+        secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY" + identifier) : secretAccessKey;
+        feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR" + identifier) : feePayerAddress;
+        operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR" + identifier) : operatorAddress;
+        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY" + identifier) : klayProviderPrivateKey;
+
+        presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET" + identifier)) : presetID;
     }
 
     public static TransactionReceipt.TransactionReceiptData sendValue(String toAddress) throws IOException, TransactionException {
@@ -352,5 +370,15 @@ public class Config {
 
     public static Integer getPresetID() {
         return presetID;
+    }
+
+    public static TokenHistoryTestData getTokenHistoryTestData() {
+        if(ENV.equals("DEV")) {
+            return TokenHistoryTestData.loadDevData();
+        } else if(ENV.equals("QA")) {
+            return TokenHistoryTestData.loadQAData();
+        } else {
+            return TokenHistoryTestData.loadProdData();
+        }
     }
 }

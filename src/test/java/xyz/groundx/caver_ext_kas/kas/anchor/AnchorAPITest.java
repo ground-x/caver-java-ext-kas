@@ -29,6 +29,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.*;
 
 import java.security.InvalidParameterException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -51,12 +52,13 @@ public class AnchorAPITest {
         Config.init();
         caver = Config.getCaver();
         operatorID = Config.getOperatorAddress();
+        caver.kas.anchor.getApiClient().setDebugging(true);
 
         AnchorTransactions txList = caver.kas.anchor.getAnchoringTransactionList(operatorID);
         txHash = txHash.equals("") ? txList.getItems().get(0).getTransactionHash() : txHash;
         payloadId = payloadId.equals("") ? txList.getItems().get(0).getPayloadId() : payloadId;
 
-        caver.kas.anchor.getApiClient().setDebugging(true);
+
     }
 
     @Test
@@ -140,7 +142,7 @@ public class AnchorAPITest {
     @Test
     public void getOperatorsWithToDateTest() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToTimestamp("2020-11-30");
+        anchorQueryParams.setToDate(new Date().getTime() / 1000);
 
         Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
@@ -151,7 +153,7 @@ public class AnchorAPITest {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setSize(3l);
         anchorQueryParams.setFromTimestamp("2020-10-17");
-        anchorQueryParams.setToTimestamp("2020-10-30");
+        anchorQueryParams.setToDate(new Date().getTime() / 1000);
 
         Operators res = caver.kas.anchor.getOperatorList(anchorQueryParams);
         assertNotNull(res);
@@ -204,7 +206,7 @@ public class AnchorAPITest {
     @Test
     public void getAnchoringTransactionsWithToDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
-        anchorQueryParams.setToTimestamp("2020-11-30 15:00:00");
+        anchorQueryParams.setToDate(new Date().getTime() / 1000);
         AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
@@ -214,7 +216,7 @@ public class AnchorAPITest {
     public void getAnchoringTransactionsWithDate() throws ApiException {
         AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
         anchorQueryParams.setFromTimestamp("2020-10-26 15:00:00");
-        anchorQueryParams.setToTimestamp("2020-10-28 18:00:00");
+        anchorQueryParams.setToDate(new Date().getTime() / 1000);
         AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
 
         assertNotNull(res);
