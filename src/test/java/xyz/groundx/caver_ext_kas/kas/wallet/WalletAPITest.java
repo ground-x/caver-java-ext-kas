@@ -41,10 +41,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -66,12 +63,13 @@ public class WalletAPITest {
 
 
     static String txHash;
-    static String krn = "krn:1001:wallet:173db69c-f1b8-4dd5-9ac2-ed8a0badab29:account-pool:kas_sdk_account_pool";
+    static String krn;
 
     @BeforeClass
     public static void init() throws IOException, TransactionException, ApiException {
         Config.init();
         caver = Config.getCaver();
+        caver.kas.wallet.getApiClient().setDebugging(true);
         userFeePayer = Config.getFeePayerAddress();
 
         baseAccount = baseAccount.equals("") ? makeAccount().getAddress() : baseAccount;
@@ -79,8 +77,7 @@ public class WalletAPITest {
         multiSigAddress = multiSigAddress.equals("") ? createMultiSig().getAddress() : multiSigAddress;
         multiSigAccount = caver.kas.wallet.getAccount(multiSigAddress);
 
-        caver.kas.wallet.getApiClient().setDebugging(true);
-
+        krn = multiSigAccount.getKrn();
         //Send balance to baseAccount
         com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = Config.sendValue(baseAccount);
         txHash = receiptData.getTransactionHash();
@@ -388,8 +385,8 @@ public class WalletAPITest {
         try {
             WalletQueryOptions options = new WalletQueryOptions();
             options.setSize(5l);
-            options.setFromTimestamp("2020-01-01 00:00:00");
-            options.setToTimestamp("2020-12-31 00:00:00");
+            options.setFromTimestamp("2021-01-01 00:00:00");
+            options.setToTimestamp(new Date().getTime() / 1000);
             Accounts accounts = caver.kas.wallet.getAccountList(options);
             assertNotNull(accounts);
         } catch (ApiException e) {
