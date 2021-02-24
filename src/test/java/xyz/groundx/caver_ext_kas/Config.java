@@ -116,6 +116,9 @@ public class Config {
                 .load();
 
         ENV = env.get("ENV", "PROD");
+        if(!ENV.equals("PROD") && !ENV.equals("QA") && !ENV.equals("DEV")) {
+            throw new RuntimeException("Invalid Test ENV input data.");
+        }
 
         URL_NODE_API = env.get("URL_NODE_API", URL_NODE_API);
         URL_WALLET_API = env.get("URL_WALLET_API", URL_WALLET_API);
