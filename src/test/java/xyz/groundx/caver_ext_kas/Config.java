@@ -115,24 +115,33 @@ public class Config {
                 .ignoreIfMissing()
                 .load();
 
-        ENV = env.get("ENV", "PROD");
+        ENV = System.getProperty("TEST_ENV");
+        if(ENV == null) {
+            ENV = env.get("TEST_ENV", "PROD");
+        }
+
         if(!ENV.equals("PROD") && !ENV.equals("QA") && !ENV.equals("DEV")) {
             throw new RuntimeException("Invalid Test ENV input data.");
         }
 
-        URL_NODE_API = env.get("URL_NODE_API", URL_NODE_API);
-        URL_WALLET_API = env.get("URL_WALLET_API", URL_WALLET_API);
-        URL_TH_API = env.get("URL_TH_API", URL_TH_API);
-        URL_ANCHOR_API = env.get("URL_ANCHOR_API", URL_ANCHOR_API);
-        URL_KIP17_API = env.get("URL_KIP17_API", URL_KIP17_API);
+        String identifier = "";
+        if(ENV.equals("QA") || ENV.equals("DEV")) {
+            identifier = "_" + ENV;
 
-        accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY") : accessKey;
-        secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY") : secretAccessKey;
-        feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR") : feePayerAddress;
-        operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR") : operatorAddress;
-        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY") : klayProviderPrivateKey;
+            URL_NODE_API = loadEnvData(env, "URL_NODE_API" + identifier);
+            URL_WALLET_API = loadEnvData(env,"URL_WALLET_API" + identifier);
+            URL_TH_API = loadEnvData(env, "URL_TH_API" + identifier);
+            URL_ANCHOR_API = loadEnvData(env, "URL_ANCHOR_API" + identifier);
+            URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
+        }
 
-        presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET")) : presetID;
+        accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
+        secretAccessKey = secretAccessKey.equals("") ? loadEnvData(env, "SECRET_ACCESS_KEY" + identifier) : secretAccessKey;
+        feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR" + identifier) : feePayerAddress;
+        operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR" + identifier) : operatorAddress;
+        klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY" + identifier) : klayProviderPrivateKey;
+
+        presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET" + identifier)) : presetID;
     }
 
     public static TransactionReceipt.TransactionReceiptData sendValue(String toAddress) throws IOException, TransactionException {

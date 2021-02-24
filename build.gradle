@@ -46,6 +46,18 @@ allprojects {
         from sourceSets.main.allSource
     }
 
+    task testQA(type: Test) {
+        systemProperty "TEST_ENV", "QA"
+    }
+
+    task testDEV(type: Test) {
+        systemProperty "TEST_ENV", "DEV"
+    }
+
+    task testPROD(type: Test) {
+        systemProperty "TEST_ENV", "PROD"
+    }
+
     ext {
         bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
         bintrayKey = project.hasProperty('bintrayKey') ? project.property('bintrayKey') : System.getenv('BINTRAY_KEY')
