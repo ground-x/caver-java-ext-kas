@@ -45,6 +45,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.KIP37ConstantData;
+import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistoryTestData;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -52,6 +53,8 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Config {
+    private static String ENV = "PROD";
+
     public static String URL_NODE_API = "https://node-api.klaytnapi.com/v1/klaytn";
     public static String URL_ANCHOR_API = "https://anchor-api.klaytnapi.com";
     public static String URL_TH_API = "https://th-api.klaytnapi.com";
@@ -72,10 +75,11 @@ public class Config {
 
     public static CaverExtKAS caver;
     public static KeyringContainer keyringContainer;
-
     public static SingleKeyring klayProviderKeyring;
 
-    public static String loadEnvData(Dotenv env, String envName) {
+    public static TokenHistoryTestData tokenHistoryTestData;
+
+    private static String loadEnvData(Dotenv env, String envName) {
 
         String data = System.getenv(envName);
 
@@ -110,6 +114,8 @@ public class Config {
                 .ignoreIfMalformed()
                 .ignoreIfMissing()
                 .load();
+
+        ENV = env.get("ENV", "PROD");
 
         URL_NODE_API = env.get("URL_NODE_API", URL_NODE_API);
         URL_WALLET_API = env.get("URL_WALLET_API", URL_WALLET_API);
@@ -352,5 +358,15 @@ public class Config {
 
     public static Integer getPresetID() {
         return presetID;
+    }
+
+    public static TokenHistoryTestData getTokenHistoryTestData() {
+        if(ENV.equals("DEV")) {
+            return TokenHistoryTestData.loadDevData();
+        } else if(ENV.equals("QA")) {
+            return TokenHistoryTestData.loadQAData();
+        } else {
+            return TokenHistoryTestData.loadProdData();
+        }
     }
 }
