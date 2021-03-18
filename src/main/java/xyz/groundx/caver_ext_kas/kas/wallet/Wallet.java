@@ -1308,10 +1308,9 @@ public class Wallet {
      * KeyCreationResponse response = caver.kas.wallet.createKeys(1);
      *
      * SingleKeyring keyring = KeyringFactory.generate();
-     * com.klaytn.caver.account.Account account = com.klaytn.caver.account.Account.createWithAccountKeyLegacy(keyring.getAddress());
      *
      * AccountRegistration registration = new AccountRegistration();
-     * registration.setAddress(account.getAddress());
+     * registration.setAddress(keyring.getAddress());
      * registration.setKeyId(response.getItems().get(0).getKeyId());
      * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
      *
