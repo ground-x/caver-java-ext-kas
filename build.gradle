@@ -9,11 +9,14 @@ plugins {
     id 'signing'
     id 'idea'
 
-    id "com.jfrog.bintray" version "1.8.5"
+    id 'io.codearte.nexus-staging' version '0.30.0'
 }
 
+//It should only be applied on the ROOT project in a build.
+apply plugin: 'io.codearte.nexus-staging'
+
 allprojects {
-    version '1.1.1'
+    version '1.1.1-rc.3'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
@@ -23,7 +26,6 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.bintray'
 
 
     repositories {
@@ -59,10 +61,8 @@ allprojects {
     }
 
     ext {
-        bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-        bintrayKey = project.hasProperty('bintrayKey') ? project.property('bintrayKey') : System.getenv('BINTRAY_KEY')
-        bintrayGpgPassphrase = project.hasProperty('bintrayGpgPassphrase') ? project.property('bintrayGpgPassphrase') : System.getenv('BINTRAY_GPG_PASSPHRASE')
-
+        ossrhUsername = project.hasProperty('ossrhUsername') ? project.property('ossrhUsername') : System.getenv('OSSRH_USERNAME')
+        ossrhPassword = project.hasProperty('ossrhPassword') ? project.property('ossrhPassword') : System.getenv('OSSRH_PASSWORD')
         isAndroidBuild = project.version.endsWith("-android")
     }
 
@@ -100,52 +100,22 @@ allprojects {
                 }
             }
         }
-    }
-
-    bintray {
-        user = bintrayUser
-        key = bintrayKey
-        publications = ['mavenJava']
-        publish = true
-        pkg {
-            desc = project.description
-            repo = 'maven'
-            name = 'caver-java-ext-kas'
-            licenses = ['Apache-2.0']
-            issueTrackerUrl = 'https://github.com/ground-x/caver-java-ext-kas/issues'
-            vcsUrl = 'https://github.com/ground-x/caver-java-ext-kas.git'
-            websiteUrl = 'https://www.klaytnapi.com'
-            publicDownloadNumbers = true
-
-            version {
-                name = project.version
-                desc = project.description
-                gpg {
-                    sign = true
-                    passphrase = bintrayGpgPassphrase
-                }
-                mavenCentralSync {
-                    sync = false
+        repositories {
+            maven {
+                url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
                 }
             }
         }
     }
 
-    task release {
-        dependsOn 'build'
-        dependsOn 'bintrayUpload'
-
-        doLast {
-            if (!bintrayUser || !bintrayKey || !bintrayGpgPassphrase) {
-                throw new InvalidUserDataException("Required parameters missing:  'bintrayUser', 'bintrayKey', 'bintrayGpgPassphrase'")
-            }
-
-            logger.lifecycle(" - bintrayUser={}", bintrayUser)
-            logger.lifecycle(" - bintrayKey={}", bintrayKey ? "provided" : "not_provided")
-            logger.lifecycle(" - bintrayGpgPassphrase={}", bintrayGpgPassphrase ? "provided" : "not_provided")
-        }
-
-        tasks.findByName('bintrayUpload').mustRunAfter 'build'
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.mavenJava
     }
 
 
