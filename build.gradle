@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'io.codearte.nexus-staging'
 
 allprojects {
-    version '1.1.1-rc.3'
+    version '1.1.1'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
