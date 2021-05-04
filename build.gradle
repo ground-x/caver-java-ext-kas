@@ -9,7 +9,7 @@ plugins {
     id 'signing'
     id 'idea'
 
-    id 'io.codearte.nexus-staging' version '0.30.0'
+    id 'io.codearte.nexus-staging' version "0.30.0"
 }
 
 //It should only be applied on the ROOT project in a build.
