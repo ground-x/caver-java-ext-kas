@@ -16,13 +16,14 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
+import com.klaytn.caver.Caver;
 import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
 import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
-import org.junit.Ignore;
+import org.junit.Before;
 import xyz.groundx.caver_ext_kas.Config;
 import com.klaytn.caver.abi.ABI;
 import com.klaytn.caver.kct.kip7.KIP7;
@@ -66,7 +67,7 @@ public class WalletAPITest {
     static String krn;
 
     @BeforeClass
-    public static void init() throws IOException, TransactionException, ApiException {
+    public static void init() throws IOException, TransactionException, ApiException, InterruptedException {
         Config.init();
         caver = Config.getCaver();
         caver.kas.wallet.getApiClient().setDebugging(true);
@@ -74,8 +75,13 @@ public class WalletAPITest {
 
         baseAccount = baseAccount.equals("") ? makeAccount().getAddress() : baseAccount;
         toAccount = toAccount.equals("") ? makeAccount().getAddress() : toAccount;
-        multiSigAddress = multiSigAddress.equals("") ? createMultiSig().getAddress() : multiSigAddress;
+//        multiSigAddress = multiSigAddress.equals("") ? createMultiSig().getAddress() : multiSigAddress;
+        multiSigAddress = createMultiSig().getAddress();
         multiSigAccount = caver.kas.wallet.getAccount(multiSigAddress);
+        while(multiSigAccount.getMultiSigKeys() == null) {
+            multiSigAccount = caver.kas.wallet.getAccount(multiSigAddress);
+            Thread.sleep(1000);
+        }
 
         krn = multiSigAccount.getKrn();
         //Send balance to baseAccount
@@ -93,6 +99,11 @@ public class WalletAPITest {
         }
 
         ftContractAddress = ftContractAddress.equals("") ? deployKIP7() : ftContractAddress;
+    }
+
+    @Before
+    public void waitTx() throws InterruptedException {
+        Thread.sleep(3000);
     }
 
     public static Account makeAccount() throws ApiException{
@@ -121,8 +132,10 @@ public class WalletAPITest {
             request.setWeightedKeys(multiSigKeys);
 
             MultisigAccount account = caver.kas.wallet.updateToMultiSigAccount(baseAccount.getAddress(), request);
+            Thread.sleep(10000);
+            checkReceipt(caver, account.getTransactionHash());
             return baseAccount;
-        } catch (ApiException | TransactionException | IOException e) {
+        } catch (ApiException | TransactionException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -169,14 +182,43 @@ public class WalletAPITest {
         return input;
     }
 
-    private static void sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException {
+    private static void sendValueTransferForMultiSig(String fromAddress, String toAddress) throws ApiException, TransactionException, IOException {
         ValueTransferTransactionRequest request = new ValueTransferTransactionRequest();
         request.setFrom(fromAddress);
         request.setTo(toAddress);
         request.setValue("0x1");
         request.setSubmit(true);
 
-        caver.kas.wallet.requestValueTransfer(request);
+        TransactionResult result = caver.kas.wallet.requestValueTransfer(request);
+//        checkReceipt(caver, result.getTransactionHash());
+    }
+
+    private static void checkReceipt(CaverExtKAS caver, String txHash) {
+//        TransactionReceiptProcessor receiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
+//        com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = null;
+//        try {
+//            receiptData = receiptProcessor.waitForTransactionReceipt(txHash);
+//
+//            if(!receiptData.getStatus().equals("0x1")) {
+//                fail();
+//            }
+//        } catch (IOException | TransactionException e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+        try {
+            Thread.sleep(3000);
+
+            TransactionReceipt result = caver.kas.wallet.getTransaction(txHash);
+            while(!result.getStatus().equals("Committed")) {
+                result = caver.kas.wallet.getTransaction(txHash);
+                Thread.sleep(1000);
+            }
+        } catch (ApiException | InterruptedException e) {
+            e.printStackTrace();
+            fail();
+        }
+
     }
 
     private static KeyTypeLegacy createLegacyKeyType() {
@@ -784,6 +826,26 @@ public class WalletAPITest {
     public void requestLegacyTransaction() {
         CompletableFuture<TransactionResult> future = new CompletableFuture<>();
 
+        LegacyTransactionRequest request = new LegacyTransactionRequest();
+        request.setFrom(baseAccount);
+        request.setTo(toAccount);
+        request.setValue("0x1");
+        request.setSubmit(true);
+
+        try {
+            TransactionResult result = caver.kas.wallet.requestLegacyTransaction(request);
+            checkReceipt(caver, result.getTransactionHash());
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Test
+    public void requestLegacyTransactionAsync() {
+        CompletableFuture<TransactionResult> future = new CompletableFuture<>();
+
         try {
             LegacyTransactionRequest request = new LegacyTransactionRequest();
             request.setFrom(baseAccount);
@@ -816,7 +878,9 @@ public class WalletAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertNotNull(future.get());
+                TransactionResult result = future.get();
+                assertNotNull(result);
+                checkReceipt(caver, result.getTransactionHash());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -835,6 +899,7 @@ public class WalletAPITest {
 
             TransactionResult transactionResult = caver.kas.wallet.requestValueTransfer(request);
             assertNotNull(transactionResult);
+            checkReceipt(caver, transactionResult.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -873,6 +938,7 @@ public class WalletAPITest {
 
             TransactionResult transactionResult = caver.kas.wallet.requestValueTransfer(request);
             assertNotNull(transactionResult);
+            checkReceipt(caver, transactionResult.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -913,6 +979,7 @@ public class WalletAPITest {
 
             TransactionResult transactionResult = caver.kas.wallet.requestSmartContractDeploy(request);
             assertNotNull(transactionResult);
+            checkReceipt(caver, transactionResult.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -929,7 +996,7 @@ public class WalletAPITest {
 
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(input));
-            request.setGas(1500000L);
+            request.setGas(15000000L);
             request.submit(true);
 
             caver.kas.wallet.requestSmartContractDeployAsync(request, callBack);
@@ -953,6 +1020,7 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestSmartContractExecution(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -998,7 +1066,7 @@ public class WalletAPITest {
 
     @Test
     public void requestCancelAsync() {
-        BasicTxCallBack callBack = new BasicTxCallBack();
+        BasicTxCallBack callBack = new BasicTxCallBack(false);
 
         try {
             CancelTransactionRequest request = new CancelTransactionRequest();
@@ -1024,6 +1092,7 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestChainDataAnchoring(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1061,7 +1130,8 @@ public class WalletAPITest {
             requestRLP.setRlp(transactionResult.getRlp());
             requestRLP.setSubmit(true);
 
-            caver.kas.wallet.requestRawTransaction(requestRLP);
+            TransactionResult result = caver.kas.wallet.requestRawTransaction(requestRLP);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1138,8 +1208,11 @@ public class WalletAPITest {
     @Test
     public void requestAccountUpdateToAccountKeyLegacy() {
         try {
+            //make an account and fill a klay to update account key
             Account account = makeAccount();
             Config.sendValue(account.getAddress());
+
+            //AccountKeyLegacy -> AccountKeyPublic
             KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
             AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
@@ -1149,7 +1222,11 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
 
+            Thread.sleep(10000);
+
+            // AccountKeyPublic -> AccountKeyLegacy
             AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
             requestLegacy.setAccountKey(new KeyTypeLegacy());
@@ -1157,6 +1234,7 @@ public class WalletAPITest {
 
             TransactionResult result1 = caver.kas.wallet.requestAccountUpdate(requestLegacy);
             assertNotNull(result1);
+            checkReceipt(caver, result1.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1179,6 +1257,8 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
             assertNotNull(result);
+
+            Thread.sleep(10000);
 
             AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
@@ -1229,6 +1309,7 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1259,8 +1340,6 @@ public class WalletAPITest {
 
     @Test
     public void requestAccountUpdateToAccountKeyRoleBased() {
-        BasicTxCallBack callBack = new BasicTxCallBack();
-
         try {
             Account account = makeAccount();
             Config.sendValue(account.getAddress());
@@ -1275,6 +1354,7 @@ public class WalletAPITest {
 
             TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1365,6 +1445,7 @@ public class WalletAPITest {
         try {
             FDTransactionResult result = caver.kas.wallet.requestFDValueTransferPaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1396,11 +1477,12 @@ public class WalletAPITest {
             FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
-            request.setGas(1500000L);
+            request.setGas(15000000L);
             request.setSubmit(true);
 
             FDTransactionResult result = caver.kas.wallet.requestFDSmartContractDeployPaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1415,7 +1497,7 @@ public class WalletAPITest {
             FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
             request.setFrom(baseAccount);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
-            request.setGas(1500000L);
+            request.setGas(15000000L);
             request.setSubmit(true);
 
             caver.kas.wallet.requestFDSmartContractDeployPaidByGlobalFeePayerAsync(request, callBack);
@@ -1437,6 +1519,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDSmartContractExecutionPaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1464,7 +1547,7 @@ public class WalletAPITest {
 
     @Test
     public void requestFDCancelPaidByGlobalFeePayer() {
-        FDTxCallBack callBack = new FDTxCallBack();
+        FDTxCallBack callBack = new FDTxCallBack(false);
         try {
             FDCancelTransactionRequest request = new FDCancelTransactionRequest();
             request.setFrom(baseAccount);
@@ -1488,6 +1571,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDChainDataAnchoringPaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1528,6 +1612,7 @@ public class WalletAPITest {
 
             FDTransactionResult result1 = caver.kas.wallet.requestFDRawTransactionPaidByGlobalFeePayer(requestRLP);
             assertNotNull(result1);
+            checkReceipt(caver, result1.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1572,6 +1657,9 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
+
+            Thread.sleep(10000);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
@@ -1580,6 +1668,7 @@ public class WalletAPITest {
 
             FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
             assertNotNull(result1);
+            checkReceipt(caver, result1.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1602,6 +1691,9 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
+
+            Thread.sleep(10000);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
@@ -1630,6 +1722,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1672,6 +1765,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1714,6 +1808,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1757,6 +1852,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1797,6 +1893,7 @@ public class WalletAPITest {
 
         try {
             FDTransactionResult result = caver.kas.wallet.requestFDValueTransferPaidByUser(request);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1830,10 +1927,11 @@ public class WalletAPITest {
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
             request.setInput(Utils.addHexPrefix(encodeContractDeploy()));
-            request.setGas(1500000L);
+            request.setGas(9000000L);
             request.setSubmit(true);
 
             FDTransactionResult result = caver.kas.wallet.requestFDSmartContractDeployPaidByUser(request);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1871,6 +1969,7 @@ public class WalletAPITest {
             request.setSubmit(true);
 
             FDTransactionResult result = caver.kas.wallet.requestFDSmartContractExecutionPaidByUser(request);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -1907,6 +2006,7 @@ public class WalletAPITest {
 
 
             FDTransactionResult result = caver.kas.wallet.requestFDCancelPaidByUser(request);
+            assertNotNull(result);
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1915,14 +2015,13 @@ public class WalletAPITest {
 
     @Test
     public void requestFDCancelPaidByUserAsync() {
-        FDTxCallBack callBack = new FDTxCallBack();
+        FDTxCallBack callBack = new FDTxCallBack(false);
 
         try {
             FDUserCancelTransactionRequest request = new FDUserCancelTransactionRequest();
             request.setFrom(baseAccount);
             request.setFeePayer(userFeePayer);
             request.setNonce((long)1);
-
 
             caver.kas.wallet.requestFDCancelPaidByUserAsync(request, callBack);
             callBack.checkResponse();
@@ -1943,6 +2042,7 @@ public class WalletAPITest {
         try {
             FDTransactionResult result = caver.kas.wallet.requestFDChainDataAnchoringPaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (ApiException e) {
             e.printStackTrace();
             fail();
@@ -1985,6 +2085,7 @@ public class WalletAPITest {
             processRLPRequest.setSubmit(true);
             FDTransactionResult resultRLP = caver.kas.wallet.requestFDRawTransactionPaidByUser(processRLPRequest);
             assertNotNull(resultRLP);
+            checkReceipt(caver, resultRLP.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2034,6 +2135,9 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
+
+            Thread.sleep(10000);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
@@ -2043,6 +2147,7 @@ public class WalletAPITest {
 
             FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
             assertNotNull(result1);
+            checkReceipt(caver, result1.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2066,6 +2171,9 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
+
+            Thread.sleep(10000);
 
             FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
             requestLegacy.setFrom(account.getAddress());
@@ -2096,6 +2204,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2139,6 +2248,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2183,6 +2293,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2228,6 +2339,7 @@ public class WalletAPITest {
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
             assertNotNull(result);
+            checkReceipt(caver, result.getTransactionHash());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -2272,6 +2384,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAccount.getAddress());
@@ -2290,6 +2403,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
             caver.kas.wallet.getMultiSigTransactionListAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
@@ -2331,12 +2445,13 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             MultisigTransactionStatus status = caver.kas.wallet.signMultiSigTransaction(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(status);
-        } catch (ApiException e) {
+        } catch (ApiException | TransactionException | IOException | InterruptedException e) {
             e.printStackTrace();
             fail();
         }
@@ -2349,6 +2464,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
@@ -2390,6 +2506,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             Signature signature = caver.kas.wallet.signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId());
@@ -2407,7 +2524,9 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
+
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             caver.kas.wallet.signTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<Signature>() {
                 @Override
@@ -2447,6 +2566,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
 
@@ -2473,6 +2593,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(15000);
             }
 
 
@@ -2665,6 +2786,16 @@ public class WalletAPITest {
 
     public static class BasicTxCallBack implements ApiCallback<TransactionResult> {
         CompletableFuture<TransactionResult> future = new CompletableFuture<>();
+        boolean checkReceipt;
+
+
+        public BasicTxCallBack() {
+            this(false);
+        }
+
+        public BasicTxCallBack(boolean checkReceipt) {
+            this.checkReceipt = checkReceipt;
+        }
 
         @Override
         public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
@@ -2698,13 +2829,26 @@ public class WalletAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertNotNull(future.get());
+                TransactionResult result = future.get();
+                assertNotNull(result);
+                if(this.checkReceipt) {
+                    checkReceipt(caver, result.getTransactionHash());
+                }
             }
         }
     }
 
     public static class FDTxCallBack implements ApiCallback<FDTransactionResult> {
         CompletableFuture<FDTransactionResult> future = new CompletableFuture<>();
+        boolean checkReceipt;
+
+        public FDTxCallBack() {
+            this(false);
+        }
+
+        public FDTxCallBack(boolean checkReceipt) {
+            this.checkReceipt = checkReceipt;
+        }
 
         @Override
         public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
@@ -2738,7 +2882,12 @@ public class WalletAPITest {
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
-                assertNotNull(future.get());
+                FDTransactionResult result = future.get();
+                assertNotNull(result);
+                if(this.checkReceipt) {
+                    checkReceipt(caver, result.getTransactionHash());
+                }
+
             }
         }
     }
