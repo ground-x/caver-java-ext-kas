@@ -17,6 +17,9 @@
 package xyz.groundx.caver_ext_kas.wallet;
 
 import com.klaytn.caver.Caver;
+import com.klaytn.caver.abi.datatypes.Type;
+import com.klaytn.caver.abi.datatypes.Utf8String;
+import com.klaytn.caver.abi.datatypes.generated.Uint256;
 import com.klaytn.caver.contract.Contract;
 import com.klaytn.caver.contract.ContractDeployParams;
 import com.klaytn.caver.contract.SendOptions;
@@ -30,9 +33,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.web3j.abi.datatypes.Type;
-import org.web3j.abi.datatypes.Utf8String;
-import org.web3j.abi.datatypes.generated.Uint256;
+
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
@@ -55,7 +56,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init() {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -77,7 +78,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init() {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -109,7 +110,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init() {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -128,7 +129,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init() {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -157,7 +158,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init() {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
@@ -193,7 +194,7 @@ public class KASWalletIntegrationTest {
         static CaverExtKAS caver;
 
         @BeforeClass
-        public static void init() throws IOException, TransactionException {
+        public static void init()  {
             Config.init();
             caver = Config.getCaver();
             caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
