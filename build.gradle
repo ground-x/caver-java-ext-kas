@@ -9,11 +9,14 @@ plugins {
     id 'signing'
     id 'idea'
 
-    id "com.jfrog.bintray" version "1.8.5"
+    id 'io.codearte.nexus-staging' version "0.30.0"
 }
 
+//It should only be applied on the ROOT project in a build.
+apply plugin: 'io.codearte.nexus-staging'
+
 allprojects {
-    version '1.1.0'
+    version '1.1.1'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
@@ -23,11 +26,10 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.bintray'
 
 
     repositories {
-        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 
@@ -46,10 +48,23 @@ allprojects {
         from sourceSets.main.allSource
     }
 
+    task testQA(type: Test) {
+        systemProperty "TEST_ENV", "QA"
+    }
+
+    task testDEV(type: Test) {
+        systemProperty "TEST_ENV", "DEV"
+    }
+
+    task testPROD(type: Test) {
+        systemProperty "TEST_ENV", "PROD"
+    }
+
     ext {
-        bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-        bintrayKey = project.hasProperty('bintrayKey') ? project.property('bintrayKey') : System.getenv('BINTRAY_KEY')
-        bintrayGpgPassphrase = project.hasProperty('bintrayGpgPassphrase') ? project.property('bintrayGpgPassphrase') : System.getenv('BINTRAY_GPG_PASSPHRASE')
+        ossrhUsername = project.hasProperty('ossrhUsername') ? project.property('ossrhUsername') : System.getenv('OSSRH_USERNAME')
+        ossrhPassword = project.hasProperty('ossrhPassword') ? project.property('ossrhPassword') : System.getenv('OSSRH_PASSWORD')
+        ossrhSigningKey_base64 = project.hasProperty('signingKey')? project.property('signingKey') : System.getenv('ORG_GRADLE_PROJECT_signingKey')
+        ossrhSigningPassword = project.hasProperty('signingKey')? project.property('signingPassword') : System.getenv('ORG_GRADLE_PROJECT_signingPassword')
 
         isAndroidBuild = project.version.endsWith("-android")
     }
@@ -88,55 +103,32 @@ allprojects {
                 }
             }
         }
-    }
-
-    bintray {
-        user = bintrayUser
-        key = bintrayKey
-        publications = ['mavenJava']
-        publish = true
-        pkg {
-            desc = project.description
-            repo = 'maven'
-            name = 'caver-java-ext-kas'
-            licenses = ['Apache-2.0']
-            issueTrackerUrl = 'https://github.com/ground-x/caver-java-ext-kas/issues'
-            vcsUrl = 'https://github.com/ground-x/caver-java-ext-kas.git'
-            websiteUrl = 'https://www.klaytnapi.com'
-            publicDownloadNumbers = true
-
-            version {
-                name = project.version
-                desc = project.description
-                gpg {
-                    sign = true
-                    passphrase = bintrayGpgPassphrase
-                }
-                mavenCentralSync {
-                    sync = false
+        repositories {
+            maven {
+                url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
                 }
             }
         }
     }
 
-    task release {
-        dependsOn 'build'
-        dependsOn 'bintrayUpload'
+    signing {
+        def signingPassword = ossrhSigningPassword
 
-        doLast {
-            if (!bintrayUser || !bintrayKey || !bintrayGpgPassphrase) {
-                throw new InvalidUserDataException("Required parameters missing:  'bintrayUser', 'bintrayKey', 'bintrayGpgPassphrase'")
-            }
+        def signingKey_base64 = ossrhSigningKey_base64
+        def signingKey = (signingKey_base64 == null? null:
+                new String(Base64.getMimeDecoder().decode(signingKey_base64.toString()), "utf-8"))
 
-            logger.lifecycle(" - bintrayUser={}", bintrayUser)
-            logger.lifecycle(" - bintrayKey={}", bintrayKey ? "provided" : "not_provided")
-            logger.lifecycle(" - bintrayGpgPassphrase={}", bintrayGpgPassphrase ? "provided" : "not_provided")
-        }
-
-        tasks.findByName('bintrayUpload').mustRunAfter 'build'
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.mavenJava
     }
 
-
+    nexusStaging {
+        username= ossrhUsername
+        password= ossrhPassword
+    }
 
     dependencies {
         if(isAndroidBuild) {

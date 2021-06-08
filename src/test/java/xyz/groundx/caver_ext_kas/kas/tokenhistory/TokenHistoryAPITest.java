@@ -40,12 +40,16 @@ public class TokenHistoryAPITest {
     public static CaverExtKAS caver;
     public static int preset;
 
-    public static String account = "0x89a8e75d92ce84076d33f68e4909c4156847dc69";
+    public static String account;
+    public static String ftAddress = "";
+    public static String nftAddress = "";
+    public static String mtAddress = "";
+    public static String tokenId = "";
+    public static String fromRange = "";
+    public static String toRange = "";
+    public static String transactionHash = "";
 
-    public static String ftAddress = "0x4792f1e64d0f656e61516805b7d2cd99f9359043";
-    public static String nftAddress = "0x18d9add7bf4097cc57dd6962ece441e391146682";
-    public static String mtAddress = "0x6679A0006575989065832e17FE4F1e4eD4923390";
-    public static String tokenId = "0x0";
+    static TokenHistoryTestData tokenHistoryTestData;
 
 
 
@@ -53,17 +57,25 @@ public class TokenHistoryAPITest {
     public static void init() throws Exception {
         Config.init();
         caver = Config.getCaver();
-        preset = Config.getPresetID();
-//        account = Config.getKlayProviderKeyring().getAddress();
-
         caver.kas.tokenHistory.getApiClient().setConnectTimeout(10000);
         caver.kas.tokenHistory.getApiClient().setDebugging(true);
+
+        tokenHistoryTestData = Config.getTokenHistoryTestData();
+
+        preset = Config.getPresetID();
+        account = tokenHistoryTestData.getAccount();
+        ftAddress = tokenHistoryTestData.getFtAddress();
+        nftAddress = tokenHistoryTestData.getNftAddress();
+        mtAddress = tokenHistoryTestData.getMtAddress();
+        fromRange = tokenHistoryTestData.getFromRange();
+        toRange = tokenHistoryTestData.getToRange();
+        tokenId = tokenHistoryTestData.getTokenId();
+        transactionHash = tokenHistoryTestData.getTransactionHash();
+
 
 //        ftAddress = Config.deployKIP7(caver, account);
 //        nftAddress = Config.deployKIP17(caver, account);
 //        mtAddress = Config.deployKIP37(caver, account);
-
-        Accounts accounts = caver.kas.wallet.getAccountList();
 
 //        Config.mintKIP17Token(caver, nftAddress, account, BigInteger.valueOf(2));
 //
@@ -160,7 +172,7 @@ public class TokenHistoryAPITest {
         try {
             TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
             new Date().getTime();
-            options.setRange("1584583000", "1584900000");
+            options.setRange(fromRange, toRange);
 
             PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
         } catch (ApiException e) {
@@ -181,10 +193,9 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByTxHash() {
-        String txHash = "0x617a56786f97c76f6d0573d36a624610f1bfb0029e8e8f7afc02c7262e9224fb";
 
         try {
-            Transfers transfers = caver.kas.tokenHistory.getTransferHistoryByTxHash(txHash);
+            Transfers transfers = caver.kas.tokenHistory.getTransferHistoryByTxHash(transactionHash);
             assertNotNull(transfers);
         } catch (ApiException e) {
             e.printStackTrace();
@@ -235,7 +246,7 @@ public class TokenHistoryAPITest {
     @Test
     public void getTransferHistoryByAccountWithRange() {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-        options.setRange("1584573000", "1584583388");
+        options.setRange(fromRange, toRange);
 
         try {
             PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
@@ -577,11 +588,10 @@ public class TokenHistoryAPITest {
 
     @Test
     public void getTransferHistoryByHashAsync() {
-        String txHash = "0x617a56786f97c76f6d0573d36a624610f1bfb0029e8e8f7afc02c7262e9224fb";
         CompletableFuture<Transfers> future = new CompletableFuture<>();
 
         try {
-            Call res = caver.kas.tokenHistory.getTransferHistoryByTxHashAsync(txHash, new ApiCallback<Transfers>() {
+            Call res = caver.kas.tokenHistory.getTransferHistoryByTxHashAsync(transactionHash, new ApiCallback<Transfers>() {
                 @Override
                 public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                     future.completeExceptionally(e);

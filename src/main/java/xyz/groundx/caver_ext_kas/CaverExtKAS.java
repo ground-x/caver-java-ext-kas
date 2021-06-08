@@ -293,7 +293,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initKIP17API(int chainId, String accessKeyId, String secretAccessKey) {
-        initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_KIP17_API);
+        initKIP17API(chainId, accessKeyId, secretAccessKey, URL_KIP17_API);
     }
 
     /**
@@ -304,7 +304,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initKIP17API(String chainId, String accessKeyId, String secretAccessKey) {
-        initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey, URL_KIP17_API);
+        initKIP17API(chainId, accessKeyId, secretAccessKey, URL_KIP17_API);
     }
 
     /**
@@ -315,7 +315,7 @@ public class CaverExtKAS extends Caver {
      * @param url An URL to request KIP17 API.
      */
     public void initKIP17API(int chainId, String accessKeyId, String secretAccessKey, String url) {
-        initTokenHistoryAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+        initKIP17API(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
     }
 
     /**
