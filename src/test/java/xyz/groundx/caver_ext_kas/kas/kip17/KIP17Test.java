@@ -522,7 +522,7 @@ public class KIP17Test {
     }
 
     @Test
-    public void approveAll() throws ApiException, IOException, TransactionException {
+    public void approveAll() throws ApiException, InterruptedException {
         String from = caver.kas.wallet.createAccount().getAddress();
         String to = caver.kas.wallet.createAccount().getAddress();
 
