@@ -18,6 +18,7 @@ package xyz.groundx.caver_ext_kas.kas;
 
 import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
 import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
+import xyz.groundx.caver_ext_kas.kas.kip7.KIP7;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
@@ -45,6 +46,11 @@ public class KAS {
      * The KIP17 API instance.
      */
     public KIP17 kip17;
+
+    /**
+     * The KIP7 API instance.
+     */
+    public KIP7 kip7;
 
     /**
      * Creates a KAS instance.
@@ -123,6 +129,24 @@ public class KAS {
     }
 
     /**
+     * Initialize KIP7 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP7 API.
+     */
+    public KAS initKIP7API(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
+
+        setKip7(new KIP7(chainId, apiClient));
+
+        return this;
+    }
+
+    /**
      * Getter function for anchor.
      * @return Anchor API
      */
@@ -139,8 +163,8 @@ public class KAS {
     }
 
     /**
-     * Getter function for Token History
-     * @return TokenHistoryAPI.
+     * Getter function for Token History.
+     * @return TokenHistoryAPI
      */
     public TokenHistory getTokenHistory() {
         return tokenHistory;
@@ -148,14 +172,14 @@ public class KAS {
 
     /**
      * Setter function for Token History.
-     * @param tokenHistory The Token History API Instance
+     * @param tokenHistory The Token History API Instance.
      */
     public void setTokenHistory(TokenHistory tokenHistory) {
         this.tokenHistory = tokenHistory;
     }
 
     /**
-     * Getter function for wallet
+     * Getter function for wallet.
      * @return WalletAPI
      */
     public Wallet getWallet() {
@@ -163,7 +187,7 @@ public class KAS {
     }
 
     /**
-     * Setter function for Wallet
+     * Setter function for Wallet.
      * @param wallet The WalletAPI instance.
      */
     public void setWallet(Wallet wallet) {
@@ -171,7 +195,7 @@ public class KAS {
     }
 
     /**
-     * Getter function for kip17
+     * Getter function for kip17.
      * @return KIP17
      */
     public KIP17 getKip17() {
@@ -179,10 +203,26 @@ public class KAS {
     }
 
     /**
-     * Setter function for KIP17
-     * @param kip17 The KIP17 API instance
+     * Setter function for KIP17.
+     * @param kip17 The KIP17 API instance.
      */
     public void setKip17(KIP17 kip17) {
         this.kip17 = kip17;
+    }
+
+    /**
+     * Getter function for kip7.
+     * @return KIP7
+     */
+    public KIP7 getKip7() {
+        return kip7;
+    }
+
+    /**
+     * Setter function for KIP7.
+     * @param kip7 The KIP7 API instance.
+     */
+    public void setKip7(KIP7 kip7) {
+        this.kip7 = kip7;
     }
 }

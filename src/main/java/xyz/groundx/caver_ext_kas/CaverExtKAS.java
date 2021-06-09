@@ -33,6 +33,7 @@ public class CaverExtKAS extends Caver {
     private static final String URL_TH_API = "https://th-api.klaytnapi.com";
     private static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
     private static final String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
+    private static final String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
 
     /**
      * The KAS instance.
@@ -327,6 +328,50 @@ public class CaverExtKAS extends Caver {
      */
     public void initKIP17API(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initKIP17API(chainId, accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize KIP7 API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKIP7API(int chainId, String accessKeyId, String secretAccessKey) {
+        initKIP7API(chainId, accessKeyId, secretAccessKey, URL_KIP7_API);
+    }
+
+    /**
+     * Initialize KIP7 API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKIP7API(String chainId, String accessKeyId, String secretAccessKey) {
+        initKIP7API(chainId, accessKeyId, secretAccessKey, URL_KIP7_API);
+    }
+
+    /**
+     * Initialize KIP7 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP17 API.
+     */
+    public void initKIP7API(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initKIP7API(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize KIP7 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP17 API.
+     */
+    public void initKIP7API(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initKIP7API(chainId, accessKeyId, secretAccessKey, url);
     }
 
 
