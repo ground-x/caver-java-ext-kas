@@ -22,15 +22,14 @@ import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
-import org.junit.Ignore;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 import xyz.groundx.caver_ext_kas.Config;
 import com.klaytn.caver.abi.ABI;
 import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.utils.Utils;
 import com.squareup.okhttp.Call;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.*;
@@ -49,6 +48,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class WalletAPITest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     public static CaverExtKAS caver;
     static String userFeePayer;
 
@@ -121,8 +123,9 @@ public class WalletAPITest {
             request.setWeightedKeys(multiSigKeys);
 
             MultisigAccount account = caver.kas.wallet.updateToMultiSigAccount(baseAccount.getAddress(), request);
+            Thread.sleep(3000);
             return baseAccount;
-        } catch (ApiException | TransactionException | IOException e) {
+        } catch (ApiException | TransactionException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -230,6 +233,11 @@ public class WalletAPITest {
         KeyTypeRoleBased roleBasedUpdateKeyType = new KeyTypeRoleBased(Arrays.asList(keys));
 
         return roleBasedUpdateKeyType;
+    }
+
+    @Before
+    public void beforeSleep() throws InterruptedException {
+        Thread.sleep(5000);
     }
 
     @Test
@@ -781,7 +789,19 @@ public class WalletAPITest {
     }
 
     @Test
-    public void requestLegacyTransaction() {
+    public void requestLegacyTransaction() throws ApiException {
+        LegacyTransactionRequest request = new LegacyTransactionRequest();
+        request.setFrom(baseAccount);
+        request.setTo(toAccount);
+        request.setValue("0x1");
+        request.setSubmit(true);
+
+        TransactionResult result = caver.kas.wallet.requestLegacyTransaction(request);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void requestLegacyTransactionAsync() {
         CompletableFuture<TransactionResult> future = new CompletableFuture<>();
 
         try {
@@ -1136,61 +1156,59 @@ public class WalletAPITest {
     }
 
     @Test
-    public void requestAccountUpdateToAccountKeyLegacy() {
-        try {
-            Account account = makeAccount();
-            Config.sendValue(account.getAddress());
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+    public void requestAccountUpdateToAccountKeyLegacy() throws TransactionException, IOException, ApiException, InterruptedException {
+        expectedException.expect(ApiException.class);
 
-            AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setSubmit(true);
+        Account account = makeAccount();
+        Config.sendValue(account.getAddress());
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
-            assertNotNull(result);
+        AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setSubmit(true);
 
-            AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            requestLegacy.setSubmit(true);
+        TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
+        assertNotNull(result);
 
-            TransactionResult result1 = caver.kas.wallet.requestAccountUpdate(requestLegacy);
-            assertNotNull(result1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        Thread.sleep(5000);
+
+        AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        requestLegacy.setSubmit(true);
+
+        TransactionResult result1 = caver.kas.wallet.requestAccountUpdate(requestLegacy);
+
     }
 
     @Test
-    public void requestAccountUpdateToAccountKeyLegacyAsync() {
+    public void requestAccountUpdateToAccountKeyLegacyAsync() throws ApiException, ExecutionException, InterruptedException, TransactionException, IOException {
+        expectedException.expect(ExecutionException.class);
+
         BasicTxCallBack callBack = new BasicTxCallBack();
 
-        try {
-            Account account = makeAccount();
-            Config.sendValue(account.getAddress());
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+        Account account = makeAccount();
+        Config.sendValue(account.getAddress());
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setSubmit(true);
+        AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setSubmit(true);
 
-            TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
-            assertNotNull(result);
+        TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
+        assertNotNull(result);
 
-            AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            requestLegacy.setSubmit(true);
+        Thread.sleep(5000);
 
-            caver.kas.wallet.requestAccountUpdateAsync(requestLegacy, callBack);
-            callBack.checkResponse();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        AccountUpdateTransactionRequest requestLegacy = new AccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        requestLegacy.setSubmit(true);
+
+        caver.kas.wallet.requestAccountUpdateAsync(requestLegacy, callBack);
+        callBack.checkResponse();
     }
 
     @Test
@@ -1559,61 +1577,59 @@ public class WalletAPITest {
     }
 
     @Test
-    public void requestFDAccountUpdatePaidByGlobalFeePayerToLegacyType() {
-        try {
-            Account account = makeAccount();
+    public void requestFDAccountUpdatePaidByGlobalFeePayerToLegacyType() throws ApiException, InterruptedException {
+        expectedException.expect(ApiException.class);
 
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+        Account account = makeAccount();
 
-            FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setSubmit(true);
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
-            assertNotNull(result);
+        FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setSubmit(true);
 
-            FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            requestLegacy.setSubmit(true);
+        FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
+        assertNotNull(result);
 
-            FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
-            assertNotNull(result1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        Thread.sleep(5000);
+
+        FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        requestLegacy.setSubmit(true);
+
+        FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
+        assertNotNull(result1);
     }
 
     @Test
-    public void requestFDAccountUpdatePaidByGlobalFeePayerToLegacyTypeAsync() {
+    public void requestFDAccountUpdatePaidByGlobalFeePayerToLegacyTypeAsync() throws ApiException, InterruptedException, ExecutionException {
+        expectedException.expect(ExecutionException.class);
+
         FDTxCallBack callBack = new FDTxCallBack();
 
-        try {
-            Account account = makeAccount();
+        Account account = makeAccount();
 
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setSubmit(true);
+        FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setSubmit(true);
 
-            FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
-            assertNotNull(result);
+        FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
+        assertNotNull(result);
 
-            FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            requestLegacy.setSubmit(true);
+        Thread.sleep(5000);
 
-            caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
-            callBack.checkResponse();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        requestLegacy.setSubmit(true);
+
+        caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
+        callBack.checkResponse();
     }
 
     @Test
@@ -1989,7 +2005,6 @@ public class WalletAPITest {
             e.printStackTrace();
             fail();
         }
-
     }
 
     @Test
@@ -2020,65 +2035,63 @@ public class WalletAPITest {
     }
 
     @Test
-    public void requestFDAccountUpdatePaidByUserToLegacyType() {
-        try {
-            Account account = makeAccount();
+    public void requestFDAccountUpdatePaidByUserToLegacyType() throws ApiException, InterruptedException {
+        expectedException.expect(ApiException.class);
 
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+        Account account = makeAccount();
 
-            FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setFeePayer(userFeePayer);
-            request.setSubmit(true);
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
-            assertNotNull(result);
+        FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setFeePayer(userFeePayer);
+        request.setSubmit(true);
 
-            FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            request.setFeePayer(userFeePayer);
-            requestLegacy.setSubmit(true);
+        FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
+        assertNotNull(result);
 
-            FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
-            assertNotNull(result1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        Thread.sleep(5000);
+
+        FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        request.setFeePayer(userFeePayer);
+        requestLegacy.setSubmit(true);
+
+        FDTransactionResult result1 = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(requestLegacy);
+        assertNotNull(result1);
     }
 
     @Test
-    public void requestFDAccountUpdatePaidByUserToLegacyTypeAsync() {
+    public void requestFDAccountUpdatePaidByUserToLegacyTypeAsync() throws ApiException, ExecutionException, InterruptedException {
+        expectedException.expect(ExecutionException.class);
+
         FDTxCallBack callBack = new FDTxCallBack();
 
-        try {
-            Account account = makeAccount();
+        Account account = makeAccount();
 
-            KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+        KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
 
-            FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
-            request.setFrom(account.getAddress());
-            request.setAccountKey(updateKeyType);
-            request.setFeePayer(userFeePayer);
-            request.setSubmit(true);
+        FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
+        request.setFrom(account.getAddress());
+        request.setAccountKey(updateKeyType);
+        request.setFeePayer(userFeePayer);
+        request.setSubmit(true);
 
-            FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
-            assertNotNull(result);
+        FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
+        assertNotNull(result);
 
-            FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
-            requestLegacy.setFrom(account.getAddress());
-            requestLegacy.setAccountKey(new KeyTypeLegacy());
-            request.setFeePayer(userFeePayer);
-            requestLegacy.setSubmit(true);
+        Thread.sleep(5000);
 
-            caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
-            callBack.checkResponse();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        FDAccountUpdateTransactionRequest requestLegacy = new FDAccountUpdateTransactionRequest();
+        requestLegacy.setFrom(account.getAddress());
+        requestLegacy.setAccountKey(new KeyTypeLegacy());
+        request.setFeePayer(userFeePayer);
+        requestLegacy.setSubmit(true);
+
+        caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayerAsync(requestLegacy, callBack);
+        callBack.checkResponse();
     }
 
     @Test
@@ -2272,6 +2285,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAccount.getAddress());
@@ -2290,6 +2304,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
 
             caver.kas.wallet.getMultiSigTransactionListAsync(multiSigAccount.getAddress(), new ApiCallback<MultisigTransactions>() {
@@ -2331,12 +2346,13 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             MultisigTransactionStatus status = caver.kas.wallet.signMultiSigTransaction(transactions.getItems().get(0).getMultiSigKeys().get(1).getAddress(), transactions.getItems().get(0).getTransactionId());
             assertNotNull(status);
-        } catch (ApiException e) {
+        } catch (ApiException | InterruptedException e) {
             e.printStackTrace();
             fail();
         }
@@ -2349,6 +2365,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
 
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
@@ -2390,6 +2407,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             Signature signature = caver.kas.wallet.signTransaction(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId());
@@ -2407,6 +2425,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
             MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
             caver.kas.wallet.signTransactionAsync(transactions.getItems().get(0).getMultiSigKeys().get(2).getAddress(), transactions.getItems().get(0).getTransactionId(), new ApiCallback<Signature>() {
@@ -2473,6 +2492,7 @@ public class WalletAPITest {
         try {
             if(!hasMultiSigTx(multiSigAddress)) {
                 sendValueTransferForMultiSig(multiSigAddress, toAccount);
+                Thread.sleep(3000);
             }
 
 
