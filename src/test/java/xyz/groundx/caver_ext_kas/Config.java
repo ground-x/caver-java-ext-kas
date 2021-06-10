@@ -63,8 +63,8 @@ public class Config {
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
-    static String accessKey = "";
-    static String secretAccessKey = "";
+    public static String accessKey = "";
+    public static String secretAccessKey = "";
 
     public static String feePayerAddress = "";
     public static String operatorAddress = "";

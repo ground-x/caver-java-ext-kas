@@ -25,7 +25,7 @@ import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.methods.response.TransactionReceipt;
 import com.klaytn.caver.transaction.type.*;
 import com.klaytn.caver.utils.Utils;
-import com.klaytn.caver.wallet.keyring.SignatureData;
+import com.klaytn.caver.wallet.keyring.*;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,13 +38,16 @@ import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.exception.KASAPIException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Account;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountSummary;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RegistrationStatusResponse;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -72,6 +75,109 @@ public class KASWalletIntegrationTest {
         }
     }
 
+    public static class accountMigrationTest {
+        static CaverExtKAS caver;
+
+        @BeforeClass
+        public static void init() {
+            Config.init();
+            caver = Config.getCaver();
+            caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
+            caver.kas.wallet.getKeyApi().getApiClient().setDebugging(true);
+        }
+
+        @Test
+        public void migrateSingleKeyAccount() throws ApiException, IOException {
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            SingleKeyring accountToBeMigrated = KeyringFactory.generate();
+            accountsToBeMigrated.add(accountToBeMigrated);
+
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+            assertEquals("Migrating a account having single key should be succeeded.", "ok", response.getStatus());
+        }
+
+        @Test
+        public void migrateSingleKeyAccount_ThrowException_AllFailed() throws ApiException, IOException {
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+
+            // Newly created account have a AccountKeyLegacy which means coupled-key in default.
+            // Below will be failed to be migrated because it does not use coupled-key.
+            SingleKeyring accountNotYetDecoupled = KeyringFactory.create(
+                    KeyringFactory.generate().getAddress(),
+                    PrivateKey.generate().getPrivateKey()
+            );
+            accountsToBeMigrated.add(accountNotYetDecoupled);
+
+            try {
+                caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+            } catch (KASAPIException e) {
+                assertEquals("Account with wrong private key should be failed to be migrated.", "all failed", e.getMessage());
+            }
+        }
+
+        @Test
+        public void migrateMultipleSingleKeyAccounts() throws ApiException, IOException {
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            accountsToBeMigrated.add(KeyringFactory.generate());
+            accountsToBeMigrated.add(KeyringFactory.generate());
+            accountsToBeMigrated.add(KeyringFactory.generate());
+
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+            assertEquals("Migrating multiple accounts having single key should be succeeded.", "ok", response.getStatus());
+        }
+
+        @Test
+        public void migrateMultipleSingleKeyAccounts_ThrowException_PartiallyFailed() throws ApiException, IOException {
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+
+            accountsToBeMigrated.add(KeyringFactory.generate());
+            accountsToBeMigrated.add(KeyringFactory.generate());
+            accountsToBeMigrated.add(KeyringFactory.generate());
+
+            // Newly created account have a AccountKeyLegacy which means coupled-key in default.
+            // Below will be failed to be migrated because it does not use coupled-key.
+            SingleKeyring accountNotYetDecoupled = KeyringFactory.create(
+                    KeyringFactory.generate().getAddress(),
+                    PrivateKey.generate().getPrivateKey()
+            );
+            accountsToBeMigrated.add(accountNotYetDecoupled);
+
+            try {
+                caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+            } catch (KASAPIException e) {
+                assertEquals("Account with wrong private key should be failed to be migrated.", "partially failed", e.getMessage());
+            }
+        }
+
+        @Test
+        public void migrate_throwException_withoutInitializingNodeAPI() throws ApiException {
+            CaverExtKAS caverExtKAS = new CaverExtKAS();
+            caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.accessKey, Config.secretAccessKey, Config.URL_WALLET_API);
+
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            accountsToBeMigrated.add(KeyringFactory.generate());
+
+            try {
+                // Without initializing Node API, endpoint url of caverExtKAS.rpc is Caver.DEFAULT_URL which is "localhost".
+                caverExtKAS.wallet.walletAPI.migrateAccounts(caverExtKAS.rpc, accountsToBeMigrated);
+            } catch (IOException e) {
+                assertEquals("Using account migration without init node api should be failed.", "Connection refused (Connection refused)", e.getCause().getMessage());
+            }
+        }
+
+        @Test
+        public void migrateWithInitializingAPIsManually() throws ApiException, IOException {
+            CaverExtKAS caverExtKAS = new CaverExtKAS();
+            caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.accessKey, Config.secretAccessKey, Config.URL_WALLET_API);
+            caverExtKAS.initNodeAPI(Config.CHAIN_ID_BAOBOB, Config.accessKey, Config.secretAccessKey, Config.URL_NODE_API);
+
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            accountsToBeMigrated.add(KeyringFactory.generate());
+
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caverExtKAS.rpc, accountsToBeMigrated);
+            assertEquals("Migrating multiple accounts having single key should be succeeded.", "ok", response.getStatus());
+        }
+    }
 
     public static class getAccountTest {
         static CaverExtKAS caver;

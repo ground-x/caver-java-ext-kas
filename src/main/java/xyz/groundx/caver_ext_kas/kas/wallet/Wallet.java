@@ -18,7 +18,12 @@ package xyz.groundx.caver_ext_kas.kas.wallet;
 
 import com.klaytn.caver.account.AccountKeyWeightedMultiSig;
 import com.klaytn.caver.contract.SendOptions;
+import com.klaytn.caver.rpc.RPC;
+import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
+import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.squareup.okhttp.Call;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
@@ -30,6 +35,8 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.api.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
+import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,13 +96,81 @@ public class Wallet {
     ApiClient apiClient;
 
     /**
-     * Creates an WalletAPI instnace.
+     * Creates an WalletAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
      */
     public Wallet(String chainId, ApiClient walletApiClient) {
         setChainId(chainId);
         setApiClient(walletApiClient);
+    }
+
+    /**
+     * Migrates Klaytn accounts to KAS Wallet API. <br>
+     * This method needs a RPC instance directing endpoint url of Node API. <br>
+     * Therefore, it is essential to have initialized node api and pass a RPC instance (caver.rpc) to this function. <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+     * accountsToBeMigrated.add(KeyringFactory.generate());
+     * accountsToBeMigrated.add(KeyringFactory.generate());
+     * accountsToBeMigrated.add(KeyringFactory.generate());
+     *
+     * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+     * }</pre>
+     *
+     * @param rpc A RPC instance which is used to fetch nonce of accounts and a gas price of connected network.
+     * @param accounts A list of accounts to be migrated to KAS Wallet Service.
+     * @return RegistrationStatusResponse
+     * @throws ApiException
+     * @throws IOException
+     */
+    public RegistrationStatusResponse migrateAccounts(RPC rpc, List<AbstractKeyring> accounts) throws ApiException, IOException {
+        if (rpc.getWeb3jService() instanceof HttpService) {
+            String url = ((HttpService) rpc.getWeb3jService()).getUrl();
+            if (!url.contains("klaytnapi")) {
+                System.out.println("Endpoint URL of Node API is " + url + " which is not klaytnapi.");
+                System.out.println("You should initialize Node API with working endpoint url before calling migrateAccounts.");
+            }
+        }
+
+        AccountRegistrationRequest request = new AccountRegistrationRequest();
+
+        KeyCreationResponse keyCreationResponse = this.createKeys(accounts.size());
+        List<Key> createdKeys = keyCreationResponse.getItems();
+
+        String gasPrice = rpc.klay.getGasPrice().send().getResult();
+        for (int i = 0; i < createdKeys.size(); i++) {
+            AbstractKeyring keyring = accounts.get(i);
+            Key key = createdKeys.get(i);
+
+            String nonce = rpc.klay.getTransactionCount(keyring.getAddress(), DefaultBlockParameterName.PENDING).send().getResult();
+
+            FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
+                    .setChainId(BigInteger.valueOf(Integer.parseInt(chainId)))
+                    .setFrom(keyring.getAddress())
+                    .setNonce(nonce)
+                    .setAccount(
+                            com.klaytn.caver.account.Account.createWithAccountKeyPublic(
+                                    keyring.getAddress(),
+                                    key.getPublicKey()
+                            )
+                    )
+                    .setGas(BigInteger.valueOf(1000000))
+                    .setGasPrice(gasPrice)
+                    .build();
+
+            tx.sign(keyring);
+
+            AccountRegistration accountRegistration = new AccountRegistration();
+            accountRegistration.setKeyId(key.getKeyId());
+            accountRegistration.setAddress(keyring.getAddress());
+            accountRegistration.setRlp(tx.getRLPEncoding());
+            request.add(accountRegistration);
+        }
+
+        return this.registerAccounts(request);
     }
 
     /**

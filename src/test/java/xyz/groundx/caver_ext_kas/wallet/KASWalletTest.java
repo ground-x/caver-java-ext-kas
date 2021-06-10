@@ -26,7 +26,7 @@ import com.klaytn.caver.transaction.type.AccountUpdate;
 import com.klaytn.caver.transaction.type.FeeDelegatedValueTransfer;
 import com.klaytn.caver.transaction.type.LegacyTransaction;
 import com.klaytn.caver.transaction.type.ValueTransfer;
-import com.klaytn.caver.wallet.keyring.SignatureData;
+import com.klaytn.caver.wallet.keyring.*;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,6 +40,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,6 +62,68 @@ public class KASWalletTest {
                 verify(wallet, times(3)).createAccount();
                 assertEquals(3, addressList.size());
             } catch (KASAPIException | ApiException e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+    }
+
+    public static class accountMigrationTest {
+        static CaverExtKAS caver;
+        static RegistrationStatusResponse response;
+
+        @BeforeClass
+        public static void init() {
+            Config.init();
+            caver = Config.getCaver();
+            caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
+            caver.kas.wallet.getKeyApi().getApiClient().setDebugging(true);
+
+            response = new RegistrationStatusResponse();
+            response.setStatus("ok");
+        }
+
+        @Test
+        public void migrateMultipleKeyAccount() {
+            Wallet wallet = mock(Wallet.class);
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+
+            String address = KeyringFactory.generate().getAddress();
+            String[] multipleKey = KeyringFactory.generateMultipleKeys(3);
+            MultipleKeyring accountWithMultipleKey = KeyringFactory.createWithMultipleKey(address, multipleKey);
+
+            accountsToBeMigrated.add(accountWithMultipleKey);
+
+            try {
+                when(wallet.migrateAccounts(caver.rpc, accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+
+                verify(wallet, times(1)).migrateAccounts(caver.rpc, accountsToBeMigrated);
+                assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            } catch (KASAPIException | IOException | ApiException e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+
+        @Test
+        public void migrateRoleBasedKeyAccount() {
+            Wallet wallet = mock(Wallet.class);
+            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+
+            String address = KeyringFactory.generate().getAddress();
+            List<String[]> roleBasedKey = KeyringFactory.generateRoleBasedKeys(new int[]{4, 5, 6}, "entropy");
+            RoleBasedKeyring accountWithRoleBasedKey = KeyringFactory.createWithRoleBasedKey(address, roleBasedKey);
+
+            accountsToBeMigrated.add(accountWithRoleBasedKey);
+
+            try {
+                when(wallet.migrateAccounts(caver.rpc, accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+
+                verify(wallet, times(1)).migrateAccounts(caver.rpc, accountsToBeMigrated);
+                assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            } catch (KASAPIException | IOException | ApiException e) {
                 e.printStackTrace();
                 fail();
             }
