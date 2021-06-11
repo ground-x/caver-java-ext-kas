@@ -16,6 +16,7 @@
 
 package xyz.groundx.caver_ext_kas.kas;
 
+import com.klaytn.caver.rpc.RPC;
 import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
 import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
@@ -75,14 +76,15 @@ public class KAS {
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Wallet API.
+     * @param rpc The RPC for using Node API.
      */
-    public KAS initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+    public KAS initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url, RPC rpc) {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath(url);
         apiClient.setUsername(accessKeyId);
         apiClient.setPassword(secretAccessKey);
 
-        setWallet(new Wallet(chainId, apiClient));
+        setWallet(new Wallet(chainId, apiClient, rpc));
         return this;
     }
 

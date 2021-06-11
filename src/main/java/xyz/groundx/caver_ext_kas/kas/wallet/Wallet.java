@@ -96,19 +96,26 @@ public class Wallet {
     ApiClient apiClient;
 
     /**
+     * The RPC for using Node API.
+     */
+    RPC rpc;
+
+    /**
      * Creates an WalletAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
+     * @param rpc The RPC for using Node API.
      */
-    public Wallet(String chainId, ApiClient walletApiClient) {
+    public Wallet(String chainId, ApiClient walletApiClient, RPC rpc) {
         setChainId(chainId);
         setApiClient(walletApiClient);
+        setRPC(rpc);
     }
 
     /**
      * Migrates Klaytn accounts to KAS Wallet API. <br>
      * This method needs a RPC instance directing endpoint url of Node API. <br>
-     * Therefore, it is essential to have initialized node api and pass a RPC instance (caver.rpc) to this function. <br>
+     * Therefore, you must initialize the node api before using this function. <br>
      *
      * <pre>Example :
      * {@code
@@ -120,15 +127,14 @@ public class Wallet {
      * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
      * }</pre>
      *
-     * @param rpc A RPC instance which is used to fetch nonce of accounts and a gas price of connected network.
      * @param accounts A list of accounts to be migrated to KAS Wallet Service.
      * @return RegistrationStatusResponse
      * @throws ApiException
      * @throws IOException
      */
-    public RegistrationStatusResponse migrateAccounts(RPC rpc, List<AbstractKeyring> accounts) throws ApiException, IOException {
-        if (rpc.getWeb3jService() instanceof HttpService) {
-            String url = ((HttpService) rpc.getWeb3jService()).getUrl();
+    public RegistrationStatusResponse migrateAccounts(List<AbstractKeyring> accounts) throws ApiException, IOException {
+        if (this.rpc.getWeb3jService() instanceof HttpService) {
+            String url = ((HttpService) this.rpc.getWeb3jService()).getUrl();
             if (!url.contains("klaytnapi")) {
                 System.out.println("Endpoint URL of Node API is " + url + " which is not klaytnapi.");
                 System.out.println("You should initialize Node API with working endpoint url before calling migrateAccounts.");
@@ -140,12 +146,15 @@ public class Wallet {
         KeyCreationResponse keyCreationResponse = this.createKeys(accounts.size());
         List<Key> createdKeys = keyCreationResponse.getItems();
 
-        String gasPrice = rpc.klay.getGasPrice().send().getResult();
+        String gasPrice = this.rpc.klay.getGasPrice().send().getResult();
         for (int i = 0; i < createdKeys.size(); i++) {
             AbstractKeyring keyring = accounts.get(i);
             Key key = createdKeys.get(i);
 
-            String nonce = rpc.klay.getTransactionCount(keyring.getAddress(), DefaultBlockParameterName.PENDING).send().getResult();
+            String nonce = this.rpc.klay.getTransactionCount(
+                    keyring.getAddress(),
+                    DefaultBlockParameterName.PENDING
+            ).send().getResult();
 
             FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
                     .setChainId(BigInteger.valueOf(Integer.parseInt(chainId)))
@@ -1970,6 +1979,15 @@ public class Wallet {
         setStatisticsApi(new StatisticsApi(apiClient));
         setKeyApi(new KeyApi(apiClient));
         setRegistrationApi(new RegistrationApi(apiClient));
+    }
+
+
+    /**
+     * Setter function for RPC
+     * @param rpc The RPC for using Node API.
+     */
+    public void setRPC(RPC rpc) {
+        this.rpc = rpc;
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {

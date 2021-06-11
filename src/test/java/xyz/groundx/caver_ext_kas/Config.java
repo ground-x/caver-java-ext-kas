@@ -63,8 +63,8 @@ public class Config {
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
-    public static String accessKey = "";
-    public static String secretAccessKey = "";
+    static String accessKey = "";
+    static String secretAccessKey = "";
 
     public static String feePayerAddress = "";
     public static String operatorAddress = "";
@@ -380,5 +380,13 @@ public class Config {
         } else {
             return TokenHistoryTestData.loadProdData();
         }
+    }
+
+    public static String getAccessKey() {
+        return accessKey;
+    }
+
+    public static String getSecretAccessKey() {
+        return secretAccessKey;
     }
 }

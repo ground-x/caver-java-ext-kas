@@ -24,6 +24,8 @@ import org.web3j.protocol.http.HttpService;
 import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.wallet.KASWallet;
 
+import java.util.Objects;
+
 /**
  * Representing wrapping class that can use Klaytn API Service
  */
@@ -150,6 +152,9 @@ public class CaverExtKAS extends Caver {
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
         httpService.addHeader("x-chain-id", chainId);
         this.rpc = new RPC(httpService);
+        if (!Objects.isNull(this.kas.wallet)) {
+            this.kas.wallet.setRPC(this.rpc);
+        }
     }
 
     /**
@@ -237,7 +242,7 @@ public class CaverExtKAS extends Caver {
      * @param url An URL to request Wallet API.
      */
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
-        kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
+        kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url, this.rpc);
         setWallet(new KASWallet(this.kas.wallet));
     }
 

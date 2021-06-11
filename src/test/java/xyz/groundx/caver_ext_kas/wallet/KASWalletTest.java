@@ -95,10 +95,10 @@ public class KASWalletTest {
             accountsToBeMigrated.add(accountWithMultipleKey);
 
             try {
-                when(wallet.migrateAccounts(caver.rpc, accountsToBeMigrated)).thenReturn(response);
-                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+                when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
 
-                verify(wallet, times(1)).migrateAccounts(caver.rpc, accountsToBeMigrated);
+                verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
                 assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
             } catch (KASAPIException | IOException | ApiException e) {
                 e.printStackTrace();
@@ -118,10 +118,10 @@ public class KASWalletTest {
             accountsToBeMigrated.add(accountWithRoleBasedKey);
 
             try {
-                when(wallet.migrateAccounts(caver.rpc, accountsToBeMigrated)).thenReturn(response);
-                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+                when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
 
-                verify(wallet, times(1)).migrateAccounts(caver.rpc, accountsToBeMigrated);
+                verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
                 assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
             } catch (KASAPIException | IOException | ApiException e) {
                 e.printStackTrace();
