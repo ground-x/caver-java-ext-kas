@@ -35,6 +35,7 @@ import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.exception.KASAPIException;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
+import xyz.groundx.caver_ext_kas.kas.wallet.migration.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
@@ -84,13 +85,17 @@ public class KASWalletTest {
         }
 
         @Test
-        public void migrateMultipleKeyAccount() {
+        public void migrateMultipleKeyAccount() throws NoSuchFieldException {
             Wallet wallet = mock(Wallet.class);
-            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             String address = KeyringFactory.generate().getAddress();
             String[] multipleKey = KeyringFactory.generateMultipleKeys(3);
-            MultipleKeyring accountWithMultipleKey = KeyringFactory.createWithMultipleKey(address, multipleKey);
+
+            MigrationAccount accountWithMultipleKey = new MigrationAccount.Builder()
+                    .setAddress(address)
+                    .setMigrationAccountKey(new MultisigPrivateKeys(multipleKey))
+                    .build();
 
             accountsToBeMigrated.add(accountWithMultipleKey);
 
@@ -107,13 +112,17 @@ public class KASWalletTest {
         }
 
         @Test
-        public void migrateRoleBasedKeyAccount() {
+        public void migrateRoleBasedKeyAccount() throws NoSuchFieldException {
             Wallet wallet = mock(Wallet.class);
-            ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             String address = KeyringFactory.generate().getAddress();
             List<String[]> roleBasedKey = KeyringFactory.generateRoleBasedKeys(new int[]{4, 5, 6}, "entropy");
-            RoleBasedKeyring accountWithRoleBasedKey = KeyringFactory.createWithRoleBasedKey(address, roleBasedKey);
+
+            MigrationAccount accountWithRoleBasedKey = new MigrationAccount.Builder()
+                    .setAddress(address)
+                    .setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedKey))
+                    .build();
 
             accountsToBeMigrated.add(accountWithRoleBasedKey);
 

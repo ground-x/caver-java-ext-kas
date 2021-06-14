@@ -21,6 +21,7 @@ import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.rpc.RPC;
 import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
+import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.http.HttpService;
@@ -29,6 +30,7 @@ import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypePublic;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeRoleBased;
+import xyz.groundx.caver_ext_kas.kas.wallet.migration.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
@@ -104,12 +106,10 @@ public class Wallet {
      * Creates an WalletAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
-     * @param rpc The RPC for using Node API.
      */
-    public Wallet(String chainId, ApiClient walletApiClient, RPC rpc) {
+    public Wallet(String chainId, ApiClient walletApiClient) {
         setChainId(chainId);
         setApiClient(walletApiClient);
-        setRPC(rpc);
     }
 
     /**
@@ -119,26 +119,45 @@ public class Wallet {
      *
      * <pre>Example :
      * {@code
-     * ArrayList<AbstractKeyring> accountsToBeMigrated = new ArrayList<>();
-     * accountsToBeMigrated.add(KeyringFactory.generate());
-     * accountsToBeMigrated.add(KeyringFactory.generate());
-     * accountsToBeMigrated.add(KeyringFactory.generate());
+     * ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+     * accountsToBeMigrated.add(new MigrationAccount.Builder()
+     *         .setAddress("0x{address}")
+     *         .setMigrationAccountKey(new SinglePrivateKey("0x{privateKey}"))
+     *         .build()
+     * );
+     * accountsToBeMigrated.add(new MigrationAccount.Builder()
+     *         .setAddress("0x{address}")
+     *         .setMigrationAccountKey(new SinglePrivateKey("0x{privateKey}"))
+     *         .build()
+     * );
      *
-     * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(caver.rpc, accountsToBeMigrated);
+     * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
      * }</pre>
      *
      * @param accounts A list of accounts to be migrated to KAS Wallet Service.
      * @return RegistrationStatusResponse
      * @throws ApiException
      * @throws IOException
+     * @throws NoSuchFieldException
      */
-    public RegistrationStatusResponse migrateAccounts(List<AbstractKeyring> accounts) throws ApiException, IOException {
+    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accounts) throws ApiException, IOException, IllegalArgumentException, NoSuchFieldException {
+        if (this.rpc == null) {
+            throw new NoSuchFieldException("Before using migrateAccounts, initNodeAPI must  be called first.");
+        }
+
         if (this.rpc.getWeb3jService() instanceof HttpService) {
             String url = ((HttpService) this.rpc.getWeb3jService()).getUrl();
             if (!url.contains("klaytnapi")) {
-                System.out.println("Endpoint URL of Node API is " + url + " which is not klaytnapi.");
-                System.out.println("You should initialize Node API with working endpoint url before calling migrateAccounts.");
+                System.out.println("WARN: Endpoint URL of Node API is " + url + " which is not klaytnapi.");
+                System.out.println("WARN: You should initialize Node API with working endpoint url before calling migrateAccounts.");
             }
+        }
+
+        // Need to validate whether given list of migration accounts is valid or not.
+        for (int i=0; i<accounts.size(); i++) {
+            if (validateMigrationAccount(accounts.get(i)) == false) {
+                throw new IllegalArgumentException("Given MigrationAccount is not valid.");
+            };
         }
 
         AccountRegistrationRequest request = new AccountRegistrationRequest();
@@ -148,21 +167,24 @@ public class Wallet {
 
         String gasPrice = this.rpc.klay.getGasPrice().send().getResult();
         for (int i = 0; i < createdKeys.size(); i++) {
-            AbstractKeyring keyring = accounts.get(i);
+            MigrationAccount migrationAccount = accounts.get(i);
             Key key = createdKeys.get(i);
 
-            String nonce = this.rpc.klay.getTransactionCount(
-                    keyring.getAddress(),
-                    DefaultBlockParameterName.PENDING
-            ).send().getResult();
+            if (migrationAccount.getNonce() == "0x") {
+                String nonce = this.rpc.klay.getTransactionCount(
+                        migrationAccount.getAddress(),
+                        DefaultBlockParameterName.PENDING
+                ).send().getResult();
+                migrationAccount.setNonce(nonce);
+            }
 
             FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
                     .setChainId(BigInteger.valueOf(Integer.parseInt(chainId)))
-                    .setFrom(keyring.getAddress())
-                    .setNonce(nonce)
+                    .setFrom(migrationAccount.getAddress())
+                    .setNonce(migrationAccount.getNonce())
                     .setAccount(
                             com.klaytn.caver.account.Account.createWithAccountKeyPublic(
-                                    keyring.getAddress(),
+                                    migrationAccount.getAddress(),
                                     key.getPublicKey()
                             )
                     )
@@ -170,6 +192,7 @@ public class Wallet {
                     .setGasPrice(gasPrice)
                     .build();
 
+            AbstractKeyring keyring = createKeyringFromMigrationAccount(migrationAccount);
             tx.sign(keyring);
 
             AccountRegistration accountRegistration = new AccountRegistration();
@@ -2021,5 +2044,68 @@ public class Wallet {
         }
 
         return updateKey;
+    }
+
+    /**
+     * Validate whether given migrationAccount is valid or not.
+     * @param migrationAccount An account to be migrated to KAS Wallet
+     * @return boolean
+     */
+    private boolean validateMigrationAccount(MigrationAccount migrationAccount) {
+        if(migrationAccount.getAddress() == "") {
+            System.out.println("ERROR: Address of migrationAccount must not be empty.");
+            return false;
+        }
+
+        MigrationAccountKey<?> migrationAccountKey = migrationAccount.getMigrationAccountKey();
+        if(migrationAccountKey == null) {
+            System.out.println("ERROR: MigrationAccountKey of migrationAccount must not be empty.");
+            return false;
+        }
+
+        String keyClassName = migrationAccountKey.getClass().getSimpleName();
+
+        if(
+                keyClassName.equals(SinglePrivateKey.class.getSimpleName()) == false
+                        && keyClassName.equals(MultisigPrivateKeys.class.getSimpleName()) == false
+                        && keyClassName.equals(RoleBasedPrivateKeys.class.getSimpleName()) == false
+        ) {
+            System.out.println(
+                    "MigrationAccountKey of Migration Account must be one of following class " +
+                    "[SinglePrivateKey, MultisigPrivateKeys, RoleBasedPrivateKeys]."
+            );
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Create an AbstractKeyring from a given migrationAccount
+     * @param migrationAccount
+     * @return AbstractKeyring
+     * @throws IllegalArgumentException
+     */
+    private AbstractKeyring createKeyringFromMigrationAccount(MigrationAccount migrationAccount) throws IllegalArgumentException {
+        MigrationAccountKey<?> migrationAccountKey = migrationAccount.getMigrationAccountKey();
+        String keyClassName = migrationAccountKey.getClass().getSimpleName();
+
+        if(SinglePrivateKey.class.getSimpleName().equals(keyClassName)) {
+            return KeyringFactory.create(
+                    migrationAccount.getAddress(),
+                    ((SinglePrivateKey) migrationAccountKey).getKey()
+            );
+        } else if(MultisigPrivateKeys.class.getSimpleName().equals(keyClassName)) {
+            return KeyringFactory.create(
+                    migrationAccount.getAddress(),
+                    ((MultisigPrivateKeys) migrationAccountKey).getKey()
+            );
+        } else if(RoleBasedPrivateKeys.class.getSimpleName().equals(keyClassName)) {
+            return KeyringFactory.create(
+                    migrationAccount.getAddress(),
+                    ((RoleBasedPrivateKeys) migrationAccountKey).getKey()
+            );
+        } else {
+            throw new IllegalArgumentException("MigrationAccountKey must be one of the following class instance [SinglePrivateKey, MultisigPrivateKeys, RoleBasedPrivateKeys].");
+        }
     }
 }
