@@ -180,6 +180,8 @@ workflows:
           <<: *test_steps
           name: publish_rc
       - publish_android:
+          requires:
+            - publish_rc
           <<: *stage_rc
           <<: *test_steps
           name: publish_android_rc
@@ -195,6 +197,8 @@ workflows:
           <<: *test_steps
           name: publish_prod
       - publish_android:
+          requires:
+            - publish_prod
           <<: *stage_prod
           <<: *test_steps
           name: publish_android_prod

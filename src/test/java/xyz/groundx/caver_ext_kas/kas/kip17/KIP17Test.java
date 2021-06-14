@@ -20,6 +20,7 @@ import com.klaytn.caver.methods.response.TransactionReceipt;
 import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
 import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.squareup.okhttp.Call;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -80,14 +81,14 @@ public class KIP17Test {
 
         caver.kas.kip17.getApiClient().setDebugging(true);
         prepareKIP17Contract();
-
-
     }
 
+
     @Test
-    public void deploy() throws ApiException {
+    public void deploy() throws ApiException, InterruptedException {
         Kip17TransactionStatusResponse response = caver.kas.kip17.deploy("KIP17", "KCT17", "kk-" + new Date().getTime());
         assertNotNull(response);
+        Thread.sleep(5000);
     }
 
     @Test
@@ -119,6 +120,8 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(future.get());
+            Thread.sleep(5000);
+
         }
     }
 
@@ -225,14 +228,15 @@ public class KIP17Test {
     }
 
     @Test
-    public void mint() throws ApiException {
+    public void mint() throws ApiException, InterruptedException {
         String to = account;
         String id = Numeric.toHexStringWithPrefix(BigInteger.valueOf(new Date().getTime()));
         String uri = "https://test.com";
 
         Kip17TransactionStatusResponse response = caver.kas.kip17.mint(testContractAlias, to, id, uri);
-
         assertNotNull(response);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -268,6 +272,7 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(future.get());
+            Thread.sleep(5000);
         }
     }
 
@@ -372,13 +377,14 @@ public class KIP17Test {
     }
 
     @Test
-    public void transfer() throws ApiException, IOException, TransactionException {
+    public void transfer() throws ApiException, IOException, TransactionException, InterruptedException {
         BigInteger tokenId = BigInteger.valueOf(new Date().getTime());
         mintToken(testContractAlias, account, tokenId);
         String to = caver.kas.wallet.createAccount().getAddress();
 
         Kip17TransactionStatusResponse response = caver.kas.kip17.transfer(testContractAlias, account, account, to, tokenId);
         assertNotNull(response);
+        Thread.sleep(5000);
     }
 
     @Test
@@ -415,16 +421,18 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(future.get());
+            Thread.sleep(5000);
         }
     }
 
     @Test
-    public void burn() throws ApiException, IOException, TransactionException {
+    public void burn() throws ApiException, IOException, TransactionException, InterruptedException {
         BigInteger id = BigInteger.valueOf(new Date().getTime());
         mintToken(testContractAlias, account, id);
 
         Kip17TransactionStatusResponse burnResponse = caver.kas.kip17.burn(testContractAlias, account, id);
         assertNotNull(burnResponse);
+        Thread.sleep(5000);
     }
 
     @Test
@@ -460,16 +468,19 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(future.get());
+            Thread.sleep(5000);
         }
     }
 
     @Test
-    public void approve() throws ApiException {
+    public void approve() throws ApiException, InterruptedException {
         String from = account;
         String to = caver.kas.wallet.createAccount().getAddress();
 
         Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
         Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, res.getItems().get(0).getTokenId());
+        assertNotNull(response);
+        Thread.sleep(5000);
     }
 
     @Test
@@ -506,16 +517,18 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(completableFuture.get());
+            Thread.sleep(5000);
         }
     }
 
     @Test
-    public void approveAll() throws ApiException, IOException, TransactionException {
+    public void approveAll() throws ApiException, InterruptedException {
         String from = caver.kas.wallet.createAccount().getAddress();
         String to = caver.kas.wallet.createAccount().getAddress();
 
         Kip17TransactionStatusResponse response = caver.kas.kip17.approveAll(testContractAlias, from, to, true);
         assertNotNull(response);
+        Thread.sleep(5000);
     }
 
     @Test
@@ -551,6 +564,7 @@ public class KIP17Test {
             fail();
         } else {
             assertNotNull(future.get());
+            Thread.sleep(5000);
         }
     }
 
