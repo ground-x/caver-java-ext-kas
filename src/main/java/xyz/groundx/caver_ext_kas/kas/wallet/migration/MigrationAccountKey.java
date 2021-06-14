@@ -18,7 +18,7 @@ package xyz.groundx.caver_ext_kas.kas.wallet.migration;
 
 /**
  * MigrationAccountKey represents a type of private key.
- * @param <T> The object type extending MigrationAccountKey
+ * @param <T> Basic data types that make up the various types of Migration Account Key types, e.g. String, String[], List<String[]>
  */
 public abstract class MigrationAccountKey<T> {
     abstract public T getKey();

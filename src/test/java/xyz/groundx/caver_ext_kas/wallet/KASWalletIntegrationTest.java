@@ -39,8 +39,6 @@ import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.exception.KASAPIException;
 import xyz.groundx.caver_ext_kas.kas.wallet.migration.MigrationAccount;
-import xyz.groundx.caver_ext_kas.kas.wallet.migration.MultisigPrivateKeys;
-import xyz.groundx.caver_ext_kas.kas.wallet.migration.SinglePrivateKey;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Account;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountSummary;
@@ -94,11 +92,10 @@ public class KASWalletIntegrationTest {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
             SingleKeyring singleKeyring = KeyringFactory.generate();
 
-            MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                    .setAddress(singleKeyring.getAddress())
-                    .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                    .build();
-
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    singleKeyring.getAddress(),
+                    singleKeyring.getKey().getPrivateKey()
+            );
             accountsToBeMigrated.add(migrationAccount);
 
             RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
@@ -110,11 +107,11 @@ public class KASWalletIntegrationTest {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
             SingleKeyring singleKeyring = KeyringFactory.generate();
 
-            MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                    .setAddress(singleKeyring.getAddress())
-                    .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                    .setNonce(BigInteger.valueOf(0)) // nonce of newly created account is always 0
-                    .build();
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    singleKeyring.getAddress(),
+                    "0x0",
+                    singleKeyring.getKey().getPrivateKey()
+            );
 
             accountsToBeMigrated.add(migrationAccount);
 
@@ -126,11 +123,10 @@ public class KASWalletIntegrationTest {
         public void migrateSingleKeyAccount_ThrowException_AllFailed() throws ApiException, IOException, NoSuchFieldException {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
-            MigrationAccount accountNotYetDecoupled = new MigrationAccount.Builder()
-                    .setAddress(KeyringFactory.generate().getAddress())
-                    .setMigrationAccountKey(new SinglePrivateKey(PrivateKey.generate().getPrivateKey()))
-                    .build();
-
+            MigrationAccount accountNotYetDecoupled = new MigrationAccount(
+                    KeyringFactory.generate().getAddress(),
+                    PrivateKey.generate().getPrivateKey()
+            );
             accountsToBeMigrated.add(accountNotYetDecoupled);
 
             try {
@@ -151,11 +147,10 @@ public class KASWalletIntegrationTest {
             for (int i=0; i<3; i++) {
                 SingleKeyring singleKeyring = KeyringFactory.generate();
 
-                MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                        .setAddress(singleKeyring.getAddress())
-                        .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                        .build();
-
+                MigrationAccount migrationAccount = new MigrationAccount(
+                        singleKeyring.getAddress(),
+                        singleKeyring.getKey().getPrivateKey()
+                );
                 accountsToBeMigrated.add(migrationAccount);
             }
 
@@ -170,20 +165,20 @@ public class KASWalletIntegrationTest {
             for (int i=0; i<3; i++) {
                 SingleKeyring singleKeyring = KeyringFactory.generate();
 
-                MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                        .setAddress(singleKeyring.getAddress())
-                        .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                        .build();
+                MigrationAccount migrationAccount = new MigrationAccount(
+                        singleKeyring.getAddress(),
+                        singleKeyring.getKey().getPrivateKey()
+                );
 
                 accountsToBeMigrated.add(0, migrationAccount);
             }
 
             // Newly created account have a AccountKeyLegacy which means coupled-key in default.
             // Below will be failed to be migrated because it does not use coupled-key.
-            MigrationAccount accountNotYetDecoupled = new MigrationAccount.Builder()
-                    .setAddress(KeyringFactory.generate().getAddress())
-                    .setMigrationAccountKey(new SinglePrivateKey(PrivateKey.generate().getPrivateKey()))
-                    .build();
+            MigrationAccount accountNotYetDecoupled = new MigrationAccount(
+                    KeyringFactory.generate().getAddress(),
+                    PrivateKey.generate().getPrivateKey()
+            );
             accountsToBeMigrated.add(accountNotYetDecoupled);
 
             try {
@@ -205,10 +200,11 @@ public class KASWalletIntegrationTest {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             SingleKeyring singleKeyring = KeyringFactory.generate();
-            MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                    .setAddress(singleKeyring.getAddress())
-                    .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                    .build();
+
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    singleKeyring.getAddress(),
+                    singleKeyring.getKey().getPrivateKey()
+            );
 
             accountsToBeMigrated.add(migrationAccount);
 
@@ -234,11 +230,10 @@ public class KASWalletIntegrationTest {
             for (int i=0; i<2; i++) {
                 SingleKeyring singleKeyring = KeyringFactory.generate();
 
-                MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                        .setAddress(singleKeyring.getAddress())
-                        .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                        .build();
-
+                MigrationAccount migrationAccount = new MigrationAccount(
+                        singleKeyring.getAddress(),
+                        singleKeyring.getKey().getPrivateKey()
+                );
                 accountsToBeMigrated.add(migrationAccount);
             }
 
@@ -260,11 +255,10 @@ public class KASWalletIntegrationTest {
             for (int i=0; i<2; i++) {
                 SingleKeyring singleKeyring = KeyringFactory.generate();
 
-                MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                        .setAddress(singleKeyring.getAddress())
-                        .setMigrationAccountKey(new SinglePrivateKey(singleKeyring.getKey().getPrivateKey()))
-                        .build();
-
+                MigrationAccount migrationAccount = new MigrationAccount(
+                        singleKeyring.getAddress(),
+                        singleKeyring.getKey().getPrivateKey()
+                );
                 accountsToBeMigrated.add(migrationAccount);
             }
 

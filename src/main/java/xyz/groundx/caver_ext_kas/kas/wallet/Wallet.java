@@ -120,16 +120,8 @@ public class Wallet {
      * <pre>Example :
      * {@code
      * ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
-     * accountsToBeMigrated.add(new MigrationAccount.Builder()
-     *         .setAddress("0x{address}")
-     *         .setMigrationAccountKey(new SinglePrivateKey("0x{privateKey}"))
-     *         .build()
-     * );
-     * accountsToBeMigrated.add(new MigrationAccount.Builder()
-     *         .setAddress("0x{address}")
-     *         .setMigrationAccountKey(new SinglePrivateKey("0x{privateKey}"))
-     *         .build()
-     * );
+     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKey}"));
+     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x1" "0x{privateKey}"));
      *
      * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
      * }</pre>
@@ -170,14 +162,6 @@ public class Wallet {
             MigrationAccount migrationAccount = accounts.get(i);
             Key key = createdKeys.get(i);
 
-            if (migrationAccount.getNonce() == "0x") {
-                String nonce = this.rpc.klay.getTransactionCount(
-                        migrationAccount.getAddress(),
-                        DefaultBlockParameterName.PENDING
-                ).send().getResult();
-                migrationAccount.setNonce(nonce);
-            }
-
             FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
                     .setChainId(BigInteger.valueOf(Integer.parseInt(chainId)))
                     .setFrom(migrationAccount.getAddress())
@@ -190,6 +174,7 @@ public class Wallet {
                     )
                     .setGas(BigInteger.valueOf(1000000))
                     .setGasPrice(gasPrice)
+                    .setKlaytnCall(this.rpc.getKlay())
                     .build();
 
             AbstractKeyring keyring = createKeyringFromMigrationAccount(migrationAccount);

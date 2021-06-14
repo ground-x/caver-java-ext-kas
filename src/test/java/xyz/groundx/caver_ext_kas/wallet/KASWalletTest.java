@@ -90,14 +90,14 @@ public class KASWalletTest {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             String address = KeyringFactory.generate().getAddress();
-            String[] multipleKey = KeyringFactory.generateMultipleKeys(3);
+            String[] multisigPrivateKeys = KeyringFactory.generateMultipleKeys(3);
 
-            MigrationAccount accountWithMultipleKey = new MigrationAccount.Builder()
-                    .setAddress(address)
-                    .setMigrationAccountKey(new MultisigPrivateKeys(multipleKey))
-                    .build();
+            MigrationAccount accountWithMultisigPrivateKeys = new MigrationAccount(
+                    address,
+                    multisigPrivateKeys
+            );
 
-            accountsToBeMigrated.add(accountWithMultipleKey);
+            accountsToBeMigrated.add(accountWithMultisigPrivateKeys);
 
             try {
                 when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
@@ -117,14 +117,13 @@ public class KASWalletTest {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             String address = KeyringFactory.generate().getAddress();
-            List<String[]> roleBasedKey = KeyringFactory.generateRoleBasedKeys(new int[]{4, 5, 6}, "entropy");
+            List<String[]> roleBasedPrivateKeys = KeyringFactory.generateRoleBasedKeys(new int[]{4, 5, 6}, "entropy");
 
-            MigrationAccount accountWithRoleBasedKey = new MigrationAccount.Builder()
-                    .setAddress(address)
-                    .setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedKey))
-                    .build();
-
-            accountsToBeMigrated.add(accountWithRoleBasedKey);
+            MigrationAccount accountWithRoleBasedPrivateKeys = new MigrationAccount(
+                    address,
+                    roleBasedPrivateKeys
+            );
+            accountsToBeMigrated.add(accountWithRoleBasedPrivateKeys);
 
             try {
                 when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);

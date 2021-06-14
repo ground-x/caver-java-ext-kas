@@ -16,62 +16,55 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.migration;
 
-import org.web3j.utils.Numeric;
-
-import java.math.BigInteger;
+import java.util.List;
 
 /**
  * Representing a MigrationAccount which is used migrate external Klaytn account to KAS Wallet.
  */
 public class MigrationAccount {
+    /**
+     * An address of the account to be migrated.
+     */
     private String address;
-    private String nonce = "0x";
-    private MigrationAccountKey<?> migrationAccountKey = null;
-
-    public MigrationAccount(MigrationAccount.Builder builder) {
-        this(builder.address,
-                builder.nonce,
-                builder.migrationAccountKey
-        );
-    }
-
-    public MigrationAccount(String address, String nonce, MigrationAccountKey<?> migrationAccountKey) {
-        setAddress(address);
-        setNonce(nonce);
-        setMigrationAccountKey(migrationAccountKey);
-    }
 
     /**
-     * Represents a MigrationAccount class builder.
+     * The nonce value of the account to be migrated in hexadecimal format.
      */
-    public static class Builder {
-        private String address;
-        private String nonce = "0x";
-        private MigrationAccountKey<?> migrationAccountKey = null;
+    private String nonce = "0x";
 
-        public MigrationAccount.Builder setAddress(String address) {
-            this.address = address;
-            return this;
-        }
+    /**
+     * A instance of MigrationAccountKey representing various type of private key.
+     */
+    private MigrationAccountKey<?> migrationAccountKey = null;
 
-        public MigrationAccount.Builder setNonce(String nonce) {
-            this.nonce = nonce;
-            return this;
-        }
+    public MigrationAccount(String address, String singlePrivateKey) {
+        this(address, "0x", singlePrivateKey);
+    }
 
-        public MigrationAccount.Builder setNonce(BigInteger nonce) {
-            this.nonce = Numeric.toHexStringWithPrefix(nonce);
-            return this;
-        }
+    public MigrationAccount(String address, String[] multisigPrivateKeys) {
+        this(address, "0x", multisigPrivateKeys);
+    }
 
-        public MigrationAccount.Builder setMigrationAccountKey(MigrationAccountKey<?> migrationAccountKey) {
-            this.migrationAccountKey = migrationAccountKey;
-            return this;
-        }
+    public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys) {
+        this(address, "0x", roleBasedPrivateKeys);
+    }
 
-        public MigrationAccount build() {
-            return new MigrationAccount(this);
-        }
+    public MigrationAccount(String address, String nonce, String singlePrivateKey) {
+        setAddress(address);
+        setNonce(nonce);
+        setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
+    }
+
+    public MigrationAccount(String address, String nonce, String[] multisigPrivateKeys) {
+        setAddress(address);
+        setNonce(nonce);
+        setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
+    }
+
+    public MigrationAccount(String address, String nonce, List<String[]> roleBasedPrivateKeys) {
+        setAddress(address);
+        setNonce(nonce);
+        setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedPrivateKeys));
     }
 
     public String getAddress() {
