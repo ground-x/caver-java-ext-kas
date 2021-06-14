@@ -275,28 +275,6 @@ public class KASWalletIntegrationTest {
                     response.getStatus()
             );
         }
-
-        @Test
-        public void migrateMultipleKeyAccount() throws IOException, ApiException, NoSuchFieldException {
-            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
-
-            String address = "0xB8276c915a67BCA98AF8b6b358012E787641Effa";
-            String[] multipleKey = {
-                    "0xb0b488beaccafb159412dce66eb7a5081c10dae05ac81a9e0888fabf963537bf",
-                    "0x4c19be4ce36a222e17978dbf041c6e8359b3f4ce6fc37ae3aae4a7cc14feb1f9",
-                    "0xa6b432c07360bfbff8db0e4c8f5a19ea1168981e72b54d060d345dc652408f4b"
-            };
-
-            MigrationAccount migrationAccount = new MigrationAccount.Builder()
-                    .setAddress(address)
-                    .setMigrationAccountKey(new MultisigPrivateKeys(multipleKey))
-                    .build();
-
-            accountsToBeMigrated.add(migrationAccount);
-
-            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-            assertEquals("Migrating multiple accounts having single key should be succeeded.", "ok", response.getStatus());
-        }
     }
 
     public static class getAccountTest {
