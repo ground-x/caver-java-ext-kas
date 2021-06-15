@@ -159,6 +159,31 @@ public class KASWalletIntegrationTest {
         }
 
         @Test
+        public void migrateMultipleSingleKeyAccountsUsingValidNonce() throws ApiException, IOException, NoSuchFieldException {
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+            SingleKeyring keyring1 = KeyringFactory.generate();
+            SingleKeyring keyring2 = KeyringFactory.generate();
+
+            // You can set the nonce value to either a hexadecimal string or a BigInteger.
+            accountsToBeMigrated.add(
+                    new MigrationAccount(
+                            keyring1.getAddress(),
+                            keyring1.getKey().getPrivateKey(),
+                            "0x0")
+            );
+            accountsToBeMigrated.add(
+                    new MigrationAccount(
+                            keyring2.getAddress(),
+                            keyring2.getKey().getPrivateKey(),
+                            BigInteger.valueOf(0)
+                    )
+            );
+
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        }
+
+        @Test
         public void migrateMultipleSingleKeyAccounts_ThrowException_PartiallyFailed() throws ApiException, IOException, NoSuchFieldException {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 

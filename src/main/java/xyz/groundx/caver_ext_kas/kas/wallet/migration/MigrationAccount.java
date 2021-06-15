@@ -16,6 +16,9 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet.migration;
 
+import org.web3j.utils.Numeric;
+
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -29,6 +32,8 @@ public class MigrationAccount {
 
     /**
      * The nonce value of the account to be migrated in hexadecimal format.
+     * Notice: Even if you set the nonce value much higher than the original account has, the API response will be Ok.
+     * Therefore, it is recommended not to directly specify the nonce value.
      */
     private String nonce = "0x";
 
@@ -54,8 +59,19 @@ public class MigrationAccount {
         setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
         setNonce(nonce);
     }
+    public MigrationAccount(String address, String singlePrivateKey, BigInteger nonce) {
+        setAddress(address);
+        setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
+        setNonce(nonce);
+    }
 
     public MigrationAccount(String address, String[] multisigPrivateKeys, String nonce) {
+        setAddress(address);
+        setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
+        setNonce(nonce);
+    }
+
+    public MigrationAccount(String address, String[] multisigPrivateKeys, BigInteger nonce) {
         setAddress(address);
         setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
         setNonce(nonce);
@@ -67,6 +83,13 @@ public class MigrationAccount {
         setNonce(nonce);
     }
 
+    public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys, BigInteger nonce) {
+        setAddress(address);
+        setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedPrivateKeys));
+        setNonce(nonce);
+    }
+
+
     public String getAddress() {
         return this.address;
     }
@@ -77,6 +100,10 @@ public class MigrationAccount {
 
     public String getNonce() {
         return this.nonce;
+    }
+
+    public void setNonce(BigInteger nonce) {
+        setNonce(Numeric.toHexStringWithPrefix(nonce));
     }
 
     public void setNonce(String nonce) {
