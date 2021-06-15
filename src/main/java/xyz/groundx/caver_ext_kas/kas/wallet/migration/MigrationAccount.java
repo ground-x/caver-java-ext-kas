@@ -38,33 +38,33 @@ public class MigrationAccount {
     private MigrationAccountKey<?> migrationAccountKey = null;
 
     public MigrationAccount(String address, String singlePrivateKey) {
-        this(address, "0x", singlePrivateKey);
+        this(address, singlePrivateKey, "0x");
     }
 
     public MigrationAccount(String address, String[] multisigPrivateKeys) {
-        this(address, "0x", multisigPrivateKeys);
+        this(address, multisigPrivateKeys, "0x");
     }
 
     public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys) {
-        this(address, "0x", roleBasedPrivateKeys);
+        this(address, roleBasedPrivateKeys, "0x");
     }
 
-    public MigrationAccount(String address, String nonce, String singlePrivateKey) {
+    public MigrationAccount(String address, String singlePrivateKey, String nonce) {
         setAddress(address);
-        setNonce(nonce);
         setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
+        setNonce(nonce);
     }
 
-    public MigrationAccount(String address, String nonce, String[] multisigPrivateKeys) {
+    public MigrationAccount(String address, String[] multisigPrivateKeys, String nonce) {
         setAddress(address);
-        setNonce(nonce);
         setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
+        setNonce(nonce);
     }
 
-    public MigrationAccount(String address, String nonce, List<String[]> roleBasedPrivateKeys) {
+    public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys, String nonce) {
         setAddress(address);
-        setNonce(nonce);
         setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedPrivateKeys));
+        setNonce(nonce);
     }
 
     public String getAddress() {

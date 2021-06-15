@@ -121,7 +121,7 @@ public class Wallet {
      * {@code
      * ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
      * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKey}"));
-     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x1" "0x{privateKey}"));
+     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKey}", "0x{nonce}"));
      *
      * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
      * }</pre>

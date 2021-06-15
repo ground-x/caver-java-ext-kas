@@ -109,8 +109,8 @@ public class KASWalletIntegrationTest {
 
             MigrationAccount migrationAccount = new MigrationAccount(
                     singleKeyring.getAddress(),
-                    "0x0",
-                    singleKeyring.getKey().getPrivateKey()
+                    singleKeyring.getKey().getPrivateKey(),
+                    "0x0"
             );
 
             accountsToBeMigrated.add(migrationAccount);
