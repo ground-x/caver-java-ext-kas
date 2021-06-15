@@ -25,7 +25,10 @@ import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.methods.response.TransactionReceipt;
 import com.klaytn.caver.transaction.type.*;
 import com.klaytn.caver.utils.Utils;
-import com.klaytn.caver.wallet.keyring.*;
+import com.klaytn.caver.wallet.keyring.KeyringFactory;
+import com.klaytn.caver.wallet.keyring.PrivateKey;
+import com.klaytn.caver.wallet.keyring.SignatureData;
+import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -184,7 +187,7 @@ public class KASWalletIntegrationTest {
         }
 
         @Test
-        public void migrateMultipleSingleKeyAccounts_ThrowException_PartiallyFailed() throws ApiException, IOException, NoSuchFieldException {
+        public void migrateMultipleSingleKeyAccounts_throwException_PartiallyFailed() throws ApiException, IOException, NoSuchFieldException {
             ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
             for (int i=0; i<3; i++) {
@@ -293,6 +296,55 @@ public class KASWalletIntegrationTest {
                     "ok",
                     response.getStatus()
             );
+        }
+
+        @Test
+        public void migrateAccount_throwException_emptyAddress() throws IOException, NoSuchFieldException, ApiException {
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+
+            SingleKeyring singleKeyring = KeyringFactory.generate();
+
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    "",
+                    singleKeyring.getKey().getPrivateKey()
+            );
+
+            accountsToBeMigrated.add(0, migrationAccount);
+
+            try {
+                caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            } catch (IllegalArgumentException e) {
+                assertEquals(
+                        "migrating account with empty address should throws exception",
+                        "Given MigrationAccount is not valid.",
+                        e.getMessage()
+                );
+            }
+        }
+
+        @Test
+        public void migrateAccount_throwException_nullKey() throws IOException, NoSuchFieldException, ApiException {
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+
+            SingleKeyring singleKeyring = KeyringFactory.generate();
+
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    singleKeyring.getAddress(),
+                    singleKeyring.getKey().getPrivateKey()
+            );
+            migrationAccount.setMigrationAccountKey(null);
+
+            accountsToBeMigrated.add(0, migrationAccount);
+
+            try {
+                caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            } catch (IllegalArgumentException e) {
+                assertEquals(
+                        "migrating account with null key should throws exception",
+                        "Given MigrationAccount is not valid.",
+                        e.getMessage()
+                );
+            }
         }
     }
 

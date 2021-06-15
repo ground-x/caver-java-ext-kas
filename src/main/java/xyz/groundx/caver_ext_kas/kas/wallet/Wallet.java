@@ -2037,7 +2037,7 @@ public class Wallet {
      * @return boolean
      */
     private boolean validateMigrationAccount(MigrationAccount migrationAccount) {
-        if(migrationAccount.getAddress() == "") {
+        if(migrationAccount.getAddress().isEmpty()) {
             System.out.println("ERROR: Address of migrationAccount must not be empty.");
             return false;
         }
@@ -2048,12 +2048,10 @@ public class Wallet {
             return false;
         }
 
-        String keyClassName = migrationAccountKey.getClass().getSimpleName();
-
         if(
-                keyClassName.equals(SinglePrivateKey.class.getSimpleName()) == false
-                        && keyClassName.equals(MultisigPrivateKeys.class.getSimpleName()) == false
-                        && keyClassName.equals(RoleBasedPrivateKeys.class.getSimpleName()) == false
+                migrationAccountKey instanceof SinglePrivateKey == false
+                        && migrationAccountKey instanceof MultisigPrivateKeys == false
+                        && migrationAccountKey instanceof RoleBasedPrivateKeys == false
         ) {
             System.out.println(
                     "MigrationAccountKey of Migration Account must be one of following class " +
@@ -2066,25 +2064,24 @@ public class Wallet {
 
     /**
      * Create an AbstractKeyring from a given migrationAccount
-     * @param migrationAccount
+     * @param migrationAccount account to be migrated to KAS Wallet
      * @return AbstractKeyring
      * @throws IllegalArgumentException
      */
     private AbstractKeyring createKeyringFromMigrationAccount(MigrationAccount migrationAccount) throws IllegalArgumentException {
         MigrationAccountKey<?> migrationAccountKey = migrationAccount.getMigrationAccountKey();
-        String keyClassName = migrationAccountKey.getClass().getSimpleName();
 
-        if(SinglePrivateKey.class.getSimpleName().equals(keyClassName)) {
+        if(migrationAccountKey instanceof SinglePrivateKey) {
             return KeyringFactory.create(
                     migrationAccount.getAddress(),
                     ((SinglePrivateKey) migrationAccountKey).getKey()
             );
-        } else if(MultisigPrivateKeys.class.getSimpleName().equals(keyClassName)) {
+        } else if(migrationAccountKey instanceof MultisigPrivateKeys) {
             return KeyringFactory.create(
                     migrationAccount.getAddress(),
                     ((MultisigPrivateKeys) migrationAccountKey).getKey()
             );
-        } else if(RoleBasedPrivateKeys.class.getSimpleName().equals(keyClassName)) {
+        } else if(migrationAccountKey instanceof RoleBasedPrivateKeys) {
             return KeyringFactory.create(
                     migrationAccount.getAddress(),
                     ((RoleBasedPrivateKeys) migrationAccountKey).getKey()
