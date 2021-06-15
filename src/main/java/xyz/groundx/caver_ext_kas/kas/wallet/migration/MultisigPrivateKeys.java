@@ -33,6 +33,10 @@ public class MultisigPrivateKeys extends MigrationAccountKey<String[]> {
         this.key = multipleKey;
     }
 
+    /**
+     * Get multiple private keys of account to be migrated to KAS Wallet.
+     * @return String[] Multiple private key.
+     */
     @Override
     public String[] getKey() {
         return this.key;

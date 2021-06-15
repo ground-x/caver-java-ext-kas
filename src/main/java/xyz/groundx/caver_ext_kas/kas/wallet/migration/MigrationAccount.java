@@ -31,8 +31,8 @@ public class MigrationAccount {
     private String address;
 
     /**
-     * The nonce value of the account to be migrated in hexadecimal format.
-     * Notice: Even if you set the nonce value much higher than the original account has, the API response will be Ok.
+     * The nonce value of the account to be migrated in hexadecimal format. <br>
+     * Notice: Even if you set the nonce value much higher than the original account has, the API response will be Ok. <br>
      * Therefore, it is recommended not to directly specify the nonce value.
      */
     private String nonce = "0x";
@@ -141,30 +141,58 @@ public class MigrationAccount {
         setNonce(nonce);
     }
 
+    /**
+     * Get an address of account to be migrated.
+     * @return String An address of account to be migrated.
+     */
     public String getAddress() {
         return this.address;
     }
 
+    /**
+     * Set an address of account to be migrated.
+     * @param address An address of account to be migrated.
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Get a nonce value in hexadecimal format.
+     * @return String A nonce value of account to be migrated
+     */
     public String getNonce() {
         return this.nonce;
     }
 
+    /**
+     * Set a nonce value.
+     * @param nonce A nonce value of account to be migrated
+     */
     public void setNonce(BigInteger nonce) {
         setNonce(Numeric.toHexStringWithPrefix(nonce));
     }
 
+    /**
+     * Set a nonce value in hexadecimal format.
+     * @param nonce A nonce value in hexadecimal format of account to be migrated.
+     */
     public void setNonce(String nonce) {
         this.nonce = nonce;
     }
 
+    /**
+     * Get a MigrationKey of account to be migrated.
+     * @return {@code MigrationAccountKey<?>} The migrationAccountKey of account to be migrated.
+     */
     public MigrationAccountKey<?> getMigrationAccountKey() {
         return this.migrationAccountKey;
     }
 
+    /**
+     * Set a MigrationKey of account to be migrated.
+     * @param key The migrationAccountKey of account to be migrated.
+     */
     public void setMigrationAccountKey(MigrationAccountKey<?> key) {
         this.migrationAccountKey = key;
     }

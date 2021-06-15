@@ -2031,9 +2031,8 @@ public class Wallet {
     /**
      * Validate whether given migrationAccount is valid or not.
      * @param migrationAccount An account to be migrated to KAS Wallet
-     * @throws IllegalArgumentException
      */
-    private void validateMigrationAccount(MigrationAccount migrationAccount) throws IllegalArgumentException {
+    private void validateMigrationAccount(MigrationAccount migrationAccount) {
         if(migrationAccount.getAddress().isEmpty()) {
             throw new IllegalArgumentException("Address of migrationAccount must not be empty.");
         }
@@ -2059,9 +2058,8 @@ public class Wallet {
      * Create an AbstractKeyring from a given migrationAccount
      * @param migrationAccount account to be migrated to KAS Wallet
      * @return AbstractKeyring
-     * @throws IllegalArgumentException
      */
-    private AbstractKeyring createKeyringFromMigrationAccount(MigrationAccount migrationAccount) throws IllegalArgumentException {
+    private AbstractKeyring createKeyringFromMigrationAccount(MigrationAccount migrationAccount) {
         MigrationAccountKey<?> migrationAccountKey = migrationAccount.getMigrationAccountKey();
 
         if(migrationAccountKey instanceof SinglePrivateKey) {

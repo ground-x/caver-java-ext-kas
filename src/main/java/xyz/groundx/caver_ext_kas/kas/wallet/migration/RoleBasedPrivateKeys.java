@@ -35,6 +35,10 @@ public class RoleBasedPrivateKeys extends MigrationAccountKey<List<String[]>> {
         this.key = roleBasedKey;
     }
 
+    /**
+     * Get a list of multiple private keys of account to be migrated to KAS Wallet.
+     * @return {@code List<String[]>} A list of multiple private key.
+     */
     @Override
     public List<String[]> getKey() {
         return this.key;

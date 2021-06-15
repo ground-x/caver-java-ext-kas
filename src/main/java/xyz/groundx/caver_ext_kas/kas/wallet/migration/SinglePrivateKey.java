@@ -33,6 +33,10 @@ public class SinglePrivateKey extends MigrationAccountKey<String> {
         this.key = key;
     }
 
+    /**
+     * Get a list of multiple private keys of account to be migrated to KAS Wallet.
+     * @return String A private key.
+     */
     @Override
     public String getKey() {
         return this.key;
