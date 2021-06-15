@@ -20,8 +20,15 @@ package xyz.groundx.caver_ext_kas.kas.wallet.migration;
  * SinglePrivateKey presents a single private key such as account types of a legacy key or public key.
  */
 public class SinglePrivateKey extends MigrationAccountKey<String> {
+    /**
+     * A private key of external Klaytn account to be migrated to KAS Wallet.
+     */
     String key;
 
+    /**
+     * Create a SinglePrivateKey instance which will be used as member variable of MigrationAccount.
+     * @param key A private key of external Klaytn account to be migrated to KAS Wallet.
+     */
     public SinglePrivateKey(String key) {
         this.key = key;
     }

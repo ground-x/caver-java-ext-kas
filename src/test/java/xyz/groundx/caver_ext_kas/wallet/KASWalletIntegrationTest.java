@@ -221,7 +221,7 @@ public class KASWalletIntegrationTest {
         }
 
         @Test
-        public void migrate_throwException_withoutInitializingNodeAPI() throws ApiException, NoSuchFieldException {
+        public void migrate_throwException_withoutInitializingNodeAPI() throws ApiException, NoSuchFieldException, IOException {
             CaverExtKAS caverExtKAS = new CaverExtKAS();
             caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
 
@@ -239,11 +239,11 @@ public class KASWalletIntegrationTest {
             try {
                 // Without initializing Node API, endpoint url of caverExtKAS.rpc is Caver.DEFAULT_URL which is "localhost".
                 caverExtKAS.wallet.walletAPI.migrateAccounts(accountsToBeMigrated);
-            } catch (IOException e) {
+            } catch (RuntimeException e) {
                 assertEquals(
                         "Using account migration feature without init node api should be failed.",
-                        "Connection refused (Connection refused)",
-                        e.getCause().getMessage()
+                        "You should initialize Node API with working endpoint url before calling migrateAccounts.",
+                        e.getMessage()
                 );
             }
         }
@@ -316,7 +316,7 @@ public class KASWalletIntegrationTest {
             } catch (IllegalArgumentException e) {
                 assertEquals(
                         "migrating account with empty address should throws exception",
-                        "Given MigrationAccount is not valid.",
+                        "Address of migrationAccount must not be empty.",
                         e.getMessage()
                 );
             }
@@ -335,13 +335,12 @@ public class KASWalletIntegrationTest {
             migrationAccount.setMigrationAccountKey(null);
 
             accountsToBeMigrated.add(0, migrationAccount);
-
             try {
                 caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
             } catch (IllegalArgumentException e) {
                 assertEquals(
                         "migrating account with null key should throws exception",
-                        "Given MigrationAccount is not valid.",
+                        "MigrationAccountKey of migrationAccount must not be empty.",
                         e.getMessage()
                 );
             }

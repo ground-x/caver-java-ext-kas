@@ -19,11 +19,18 @@ package xyz.groundx.caver_ext_kas.kas.wallet.migration;
 import java.util.List;
 
 /**
- * RoleBasedPrivateKeys presents a set of private keys of role based account type.
+ * RoleBasedPrivateKeys presents a list of multiple private keys for role based account type.
  */
 public class RoleBasedPrivateKeys extends MigrationAccountKey<List<String[]>> {
+    /**
+     * A list of multiple private keys of external Klaytn account to be migrated to KAS Wallet.
+     */
     List<String[]> key;
 
+    /**
+     * Create a RoleBasedPrivateKeys instance which will be used as member variable of MigrationAccount.
+     * @param roleBasedKey A list of multiple private keys of external Klaytn account to be migrated to KAS Wallet.
+     */
     public RoleBasedPrivateKeys(List<String[]> roleBasedKey) {
         this.key = roleBasedKey;
     }

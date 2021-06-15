@@ -17,11 +17,18 @@
 package xyz.groundx.caver_ext_kas.kas.wallet.migration;
 
 /**
- * MutisigPrivateKeys presents a set of private keys of weighted multisig key account type.
+ * MutisigPrivateKeys presents multiple private keys of weighted multisig key account type.
  */
 public class MultisigPrivateKeys extends MigrationAccountKey<String[]> {
+    /**
+     * Multiple private keys of external Klaytn account to be migrated to KAS Wallet.
+     */
     String[] key;
 
+    /**
+     * Create a MultisigPrivateKeys instance which will be used as member variable of MigrationAccount.
+     * @param multipleKey Multiple private keys of external Klaytn account to be migrated to KAS Wallet.
+     */
     public MultisigPrivateKeys(String[] multipleKey) {
         this.key = multipleKey;
     }

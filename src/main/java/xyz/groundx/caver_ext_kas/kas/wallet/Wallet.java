@@ -132,7 +132,7 @@ public class Wallet {
      * @throws IOException
      * @throws NoSuchFieldException
      */
-    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accounts) throws ApiException, IOException, IllegalArgumentException, NoSuchFieldException {
+    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accounts) throws ApiException, IOException, NoSuchFieldException {
         if (this.rpc == null) {
             throw new NoSuchFieldException("Before using migrateAccounts, initNodeAPI must  be called first.");
         }
@@ -140,16 +140,13 @@ public class Wallet {
         if (this.rpc.getWeb3jService() instanceof HttpService) {
             String url = ((HttpService) this.rpc.getWeb3jService()).getUrl();
             if (!url.contains("klaytnapi")) {
-                System.out.println("WARN: Endpoint URL of Node API is " + url + " which is not klaytnapi.");
-                System.out.println("WARN: You should initialize Node API with working endpoint url before calling migrateAccounts.");
+                throw new RuntimeException("You should initialize Node API with working endpoint url before calling migrateAccounts.");
             }
         }
 
         // Need to validate whether given list of migration accounts is valid or not.
         for (int i=0; i<accounts.size(); i++) {
-            if (validateMigrationAccount(accounts.get(i)) == false) {
-                throw new IllegalArgumentException("Given MigrationAccount is not valid.");
-            };
+            validateMigrationAccount(accounts.get(i));
         }
 
         AccountRegistrationRequest request = new AccountRegistrationRequest();
@@ -2034,18 +2031,16 @@ public class Wallet {
     /**
      * Validate whether given migrationAccount is valid or not.
      * @param migrationAccount An account to be migrated to KAS Wallet
-     * @return boolean
+     * @throws IllegalArgumentException
      */
-    private boolean validateMigrationAccount(MigrationAccount migrationAccount) {
+    private void validateMigrationAccount(MigrationAccount migrationAccount) throws IllegalArgumentException {
         if(migrationAccount.getAddress().isEmpty()) {
-            System.out.println("ERROR: Address of migrationAccount must not be empty.");
-            return false;
+            throw new IllegalArgumentException("Address of migrationAccount must not be empty.");
         }
 
         MigrationAccountKey<?> migrationAccountKey = migrationAccount.getMigrationAccountKey();
         if(migrationAccountKey == null) {
-            System.out.println("ERROR: MigrationAccountKey of migrationAccount must not be empty.");
-            return false;
+            throw new IllegalArgumentException("MigrationAccountKey of migrationAccount must not be empty.");
         }
 
         if(
@@ -2053,13 +2048,11 @@ public class Wallet {
                         && migrationAccountKey instanceof MultisigPrivateKeys == false
                         && migrationAccountKey instanceof RoleBasedPrivateKeys == false
         ) {
-            System.out.println(
+            throw new IllegalArgumentException(
                     "MigrationAccountKey of Migration Account must be one of following class " +
                     "[SinglePrivateKey, MultisigPrivateKeys, RoleBasedPrivateKeys]."
             );
-            return false;
         }
-        return true;
     }
 
     /**

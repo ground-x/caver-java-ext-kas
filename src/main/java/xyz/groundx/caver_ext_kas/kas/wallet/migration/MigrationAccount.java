@@ -42,53 +42,104 @@ public class MigrationAccount {
      */
     private MigrationAccountKey<?> migrationAccountKey = null;
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param singlePrivateKey A private of account to be migrated.
+     */
     public MigrationAccount(String address, String singlePrivateKey) {
         this(address, singlePrivateKey, "0x");
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param multisigPrivateKeys Multiple private keys of account to be migrated.
+     */
     public MigrationAccount(String address, String[] multisigPrivateKeys) {
         this(address, multisigPrivateKeys, "0x");
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param roleBasedPrivateKeys A list of multiple private keys of account to be migrated.
+     */
     public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys) {
         this(address, roleBasedPrivateKeys, "0x");
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param singlePrivateKey A private of account to be migrated.
+     * @param nonce A nonce value in hexadecimal format of account to be migrated.
+     */
     public MigrationAccount(String address, String singlePrivateKey, String nonce) {
         setAddress(address);
         setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
         setNonce(nonce);
     }
+
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param singlePrivateKey A private of account to be migrated.
+     * @param nonce A nonce value of the BigInteger type of account to be migrated
+     */
     public MigrationAccount(String address, String singlePrivateKey, BigInteger nonce) {
         setAddress(address);
         setMigrationAccountKey(new SinglePrivateKey(singlePrivateKey));
         setNonce(nonce);
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param multisigPrivateKeys Multiple private keys of account to be migrated.
+     * @param nonce A nonce value in hexadecimal format of account to be migrated.
+     */
     public MigrationAccount(String address, String[] multisigPrivateKeys, String nonce) {
         setAddress(address);
         setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
         setNonce(nonce);
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param multisigPrivateKeys Multiple private keys of account to be migrated.
+     * @param nonce A nonce value of the BigInteger type of account to be migrated
+     */
     public MigrationAccount(String address, String[] multisigPrivateKeys, BigInteger nonce) {
         setAddress(address);
         setMigrationAccountKey(new MultisigPrivateKeys(multisigPrivateKeys));
         setNonce(nonce);
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param roleBasedPrivateKeys A list of multiple private keys of account to be migrated.
+     * @param nonce A nonce value in hexadecimal format of account to be migrated.
+     */
     public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys, String nonce) {
         setAddress(address);
         setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedPrivateKeys));
         setNonce(nonce);
     }
 
+    /**
+     * Create a MigrationAccount instance.
+     * @param address An address of account to be migrated.
+     * @param roleBasedPrivateKeys A list of multiple private keys of account to be migrated.
+     * @param nonce A nonce value of the BigInteger type of account to be migrated
+     */
     public MigrationAccount(String address, List<String[]> roleBasedPrivateKeys, BigInteger nonce) {
         setAddress(address);
         setMigrationAccountKey(new RoleBasedPrivateKeys(roleBasedPrivateKeys));
         setNonce(nonce);
     }
-
 
     public String getAddress() {
         return this.address;
