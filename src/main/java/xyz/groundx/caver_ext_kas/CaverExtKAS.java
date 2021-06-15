@@ -150,6 +150,9 @@ public class CaverExtKAS extends Caver {
         httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
         httpService.addHeader("x-chain-id", chainId);
         this.rpc = new RPC(httpService);
+        if (this.kas.wallet != null) {
+            this.kas.wallet.setRPC(this.rpc);
+        }
     }
 
     /**
@@ -238,6 +241,7 @@ public class CaverExtKAS extends Caver {
      */
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
+        kas.wallet.setRPC(this.rpc);
         setWallet(new KASWallet(this.kas.wallet));
     }
 

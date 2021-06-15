@@ -16,6 +16,7 @@
 
 package xyz.groundx.caver_ext_kas.kas;
 
+import com.klaytn.caver.rpc.RPC;
 import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
 import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;

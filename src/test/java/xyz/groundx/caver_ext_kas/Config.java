@@ -381,4 +381,12 @@ public class Config {
             return TokenHistoryTestData.loadProdData();
         }
     }
+
+    public static String getAccessKey() {
+        return accessKey;
+    }
+
+    public static String getSecretAccessKey() {
+        return secretAccessKey;
+    }
 }

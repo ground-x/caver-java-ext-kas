@@ -26,7 +26,7 @@ import com.klaytn.caver.transaction.type.AccountUpdate;
 import com.klaytn.caver.transaction.type.FeeDelegatedValueTransfer;
 import com.klaytn.caver.transaction.type.LegacyTransaction;
 import com.klaytn.caver.transaction.type.ValueTransfer;
-import com.klaytn.caver.wallet.keyring.SignatureData;
+import com.klaytn.caver.wallet.keyring.*;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,11 +35,13 @@ import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.exception.KASAPIException;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
+import xyz.groundx.caver_ext_kas.kas.wallet.migration.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.*;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,6 +63,75 @@ public class KASWalletTest {
                 verify(wallet, times(3)).createAccount();
                 assertEquals(3, addressList.size());
             } catch (KASAPIException | ApiException e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+    }
+
+    public static class accountMigrationTest {
+        static CaverExtKAS caver;
+        static RegistrationStatusResponse response;
+
+        @BeforeClass
+        public static void init() {
+            Config.init();
+            caver = Config.getCaver();
+            caver.kas.wallet.getAccountApi().getApiClient().setDebugging(true);
+            caver.kas.wallet.getKeyApi().getApiClient().setDebugging(true);
+
+            response = new RegistrationStatusResponse();
+            response.setStatus("ok");
+        }
+
+        @Test
+        public void migrateMultipleKeyAccount() throws NoSuchFieldException {
+            Wallet wallet = mock(Wallet.class);
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+
+            String address = KeyringFactory.generate().getAddress();
+            String[] multisigPrivateKeys = KeyringFactory.generateMultipleKeys(3);
+
+            MigrationAccount accountWithMultisigPrivateKeys = new MigrationAccount(
+                    address,
+                    multisigPrivateKeys
+            );
+
+            accountsToBeMigrated.add(accountWithMultisigPrivateKeys);
+
+            try {
+                when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
+
+                verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
+                assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            } catch (KASAPIException | IOException | ApiException e) {
+                e.printStackTrace();
+                fail();
+            }
+        }
+
+        @Test
+        public void migrateRoleBasedKeyAccount() throws NoSuchFieldException {
+            Wallet wallet = mock(Wallet.class);
+            ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+
+            String address = KeyringFactory.generate().getAddress();
+            List<String[]> roleBasedPrivateKeys = KeyringFactory.generateRoleBasedKeys(new int[]{4, 5, 6}, "entropy");
+
+            MigrationAccount accountWithRoleBasedPrivateKeys = new MigrationAccount(
+                    address,
+                    roleBasedPrivateKeys
+            );
+            accountsToBeMigrated.add(accountWithRoleBasedPrivateKeys);
+
+            try {
+                when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+                RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
+
+                verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
+                assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            } catch (KASAPIException | IOException | ApiException e) {
                 e.printStackTrace();
                 fail();
             }
