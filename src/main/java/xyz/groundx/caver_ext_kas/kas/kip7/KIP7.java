@@ -1262,7 +1262,7 @@ public class KIP7 {
      * <pre>Example :
      * {@code
      * String contractAlias = "{Contract alias}";
-     * String from = "";
+     * String from = "{from address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, from, amount);
@@ -1290,7 +1290,7 @@ public class KIP7 {
      * }
      *
      * String contractAlias = "{Contract alias}";
-     * String from = "";
+     * String from = "{from address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.burnAsync(contractAlias, from, amount, callback);
@@ -1315,7 +1315,7 @@ public class KIP7 {
      * <pre>Example :
      * {@code
      * String contractAlias = "{Contract alias}";
-     * String from = "";
+     * String from = "{from address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, from, amount);
@@ -1348,7 +1348,7 @@ public class KIP7 {
      * }
      *
      * String contractAlias = "{Contract alias}";
-     * String from = "";
+     * String from = "{from address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.burnAsync(contractAlias, from, amount, callback);
@@ -1506,7 +1506,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAddress = "";
+     * String contractAddress = "{Contract address}";
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(contractAddress);
      * }
@@ -1549,7 +1549,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAddress = "";
+     * String contractAddress = "{Contract address}";
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(contractAddress);
      * }
