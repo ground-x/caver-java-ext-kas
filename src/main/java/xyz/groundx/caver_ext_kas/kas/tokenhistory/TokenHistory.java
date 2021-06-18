@@ -77,6 +77,14 @@ public class TokenHistory {
      * Gets transfer history list.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * int preset = 1;
+     * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset);
+     * }
+     * </pre>
+     *
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @return PageableTransfers
      * @throws ApiException
@@ -90,6 +98,14 @@ public class TokenHistory {
      * Gets transfer history list.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * List presets = Arrays.asList(151, 153);
+     * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(presets);
+     * }
+     * </pre>
+     *
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @return PageableTransfers
      * @throws ApiException
@@ -102,6 +118,18 @@ public class TokenHistory {
     /**
      * Gets transfer history list.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * int preset = 1;
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("ft");
+     *
+     * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
+     * }
+     * </pre>
+     *
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
      * @return PageableTransfers
@@ -114,6 +142,18 @@ public class TokenHistory {
     /**
      * Gets transfer history list.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * List presets = Arrays.asList(151, 153);
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("ft");
+     *
+     * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(presets, options);
+     * }
+     * </pre>
+     *
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
      * @return PageableTransfers
@@ -127,6 +167,19 @@ public class TokenHistory {
      * Gets transfer history list asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * int preset = 1;
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAsync(preset, callback);
+     * }
+     * </pre>
+     *
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param callback The callback function to handle response.
      * @return Call
@@ -141,6 +194,19 @@ public class TokenHistory {
      * Gets transfer history list asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * List presets = Arrays.asList(151, 153);
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAsync(presets, callback);
+     * }
+     * </pre>
+     *
      * @param presets Preset IDs to be used for search. Preset ID can be checked in KAS console.
      * @param callback The callback function to handle response.
      * @return Call
@@ -154,6 +220,22 @@ public class TokenHistory {
     /**
      * Gets transfer history list asynchronously.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * int preset = 1;
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("ft");
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAsync(preset, options, callback);
+     * }
+     * </pre>
+     *
      * @param preset Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -167,6 +249,22 @@ public class TokenHistory {
     /**
      * Gets transfer history list asynchronously.<br>
      * GET /v2/transfer
+     *
+     * <pre>Example:
+     * {@code
+     * List presets = Arrays.asList(151, 153);
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("ft");
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAsync(presets, options, callback);
+     * }
+     * </pre>
+     *
      * @param presets Preset ID to be used for search. Preset ID can be checked in KAS console.
      * @param options Filters required when retrieving data. `kind`, `range`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -180,6 +278,14 @@ public class TokenHistory {
     /**
      * Gets token history list with a specific transaction hash.<br>
      * GET /v2/transfer/tx/{transaction-hash}
+     *
+     * <pre>Example:
+     * {@code
+     * String txHash = "0x{txHash}";
+     * Transfers transfers = caver.kas.tokenHistory.getTransferHistoryByTxHash(txHash);
+     * }
+     * </pre>
+     *
      * @param txHash A transaction hash to get token history
      * @return Transfers
      * @throws ApiException
@@ -191,6 +297,19 @@ public class TokenHistory {
     /**
      * Gets token history list with a specific transaction hash asynchronously.<br>
      * GET /v2/transfer/tx/{transaction-hash}
+     *
+     * <pre>Example:
+     * {@code
+     * String txHash = "0x{txHash}";
+     *
+     * ApiCallback<Transfers> callback = new ApiCallback<Transfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryByTxHashAsync(txHash, callback);
+     * }
+     * </pre>
+     *
      * @param txHash A transaction hash to get token history
      * @param callback The callback function to handle response.
      * @return Call
@@ -204,6 +323,14 @@ public class TokenHistory {
      * Gets token history list with a specific EOA.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(address);
+     * }
+     * </pre>
+     *
      * @param address The EOA address used to search for token transfer history.
      * @return PageableTransfers
      * @throws ApiException
@@ -216,6 +343,22 @@ public class TokenHistory {
     /**
      * Gets token history list with a specific EOA.<br>
      * GET /v2/transfer/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("ft");
+     * options.setCaFilter(contractAddress);
+     * options.setSize((long)3);
+     * options.setRange("1584573000", "1584583388");
+     *
+     * PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(address, options);
+     * }
+     * </pre>
+     *
      * @param address The EOA address used to search for token transfer history.
      * @param options Filters required when retrieving data. `kind`, `caFilter`, `range`, `size`, and `cursor`.
      * @return PageableTransfers
@@ -229,6 +372,19 @@ public class TokenHistory {
      * Gets token history list with a specific EOA asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/transfer/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAccountAsync(address, callback);
+     * }
+     * </pre>
+     *
      * @param address The EOA address used to search for token transfer history.
      * @param callback The callback function to handle response.
      * @return Call
@@ -242,6 +398,22 @@ public class TokenHistory {
     /**
      * Gets token history list with a specific EOA asynchronously.<br>
      * GET /v2/transfer/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind("klay");
+     *
+     * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getTransferHistoryAccountAsync(address, options, callback);
+     * }
+     * </pre>
+     *
      * @param address The EOA address used to search for token transfer history.
      * @param options Filters required when retrieving data. `kind`, `caFilter`, `range`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -256,6 +428,13 @@ public class TokenHistory {
      * Retrieve information of all labeled FT contracts.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/ft
+     *
+     * <pre>Example:
+     * {@code
+     * PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList();
+     * }
+     * </pre>
+     *
      * @return PageableFtContractDetails
      * @throws ApiException
      */
@@ -267,6 +446,17 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled FT contracts.<br>
      * GET /v2/contract/ft
+     *
+     * <pre>Example:
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setStatus("completed");
+     * options.setType("KIP-7");
+     *
+     * PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList(options);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @return PageableFtContractDetails
      * @throws ApiException
@@ -279,6 +469,17 @@ public class TokenHistory {
      * Retrieve information of all labeled FT contracts asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/ft
+     *
+     * <pre>Example:
+     * {@code
+     * ApiCallback<PageableFtContractDetails> callback = new ApiCallback<PageableFtContractDetails>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getFTContractListAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -291,6 +492,21 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled FT contracts asynchronously.<br>
      * GET /v2/contract/ft
+     *
+     * <pre>Example:
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setStatus("completed");
+     * options.setType("KIP-7");
+     *
+     * ApiCallback<PageableFtContractDetails> callback = new ApiCallback<PageableFtContractDetails>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getFTContractListAsync(options, callback);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -303,6 +519,14 @@ public class TokenHistory {
     /**
      * Retrieves the information of the FT contract labeled with the address of the FT contract.<br>
      * GET /v2/contract/ft/{ft-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String ftAddress = "0x{ftAddress}";
+     * FtContractDetail contract = caver.kas.tokenHistory.getFTContract(ftAddress);
+     * }
+     * </pre>
+     *
      * @param ftAddress The FT contract address to retrieve contract information.
      * @return FtContractDetail
      * @throws ApiException
@@ -314,6 +538,19 @@ public class TokenHistory {
     /**
      * Retrieves the information of the FT contract labeled with the address of the FT contract asynchronously.<br>
      * GET /v2/contract/ft/{ft-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String ftAddress = "0x{ftAddress}";
+     *
+     * ApiCallback<FtContractDetail> callback = new ApiCallback<FtContractDetail>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getFTContract(ftAddress, callback);
+     * }
+     * </pre>
+     *
      * @param ftAddress The FT contract address to retrieve contract information.
      * @param callback The callback function to handle response.
      * @return Call
@@ -327,6 +564,13 @@ public class TokenHistory {
      * Retrieve information of all labeled NFT contracts.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft
+     *
+     * <pre>Example:
+     * {@code
+     * PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList();
+     * }
+     * </pre>
+     *
      * @return PageableNftContractDetails
      * @throws ApiException
      */
@@ -338,6 +582,17 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled NFT contracts.<br>
      * GET /v2/contract/nft
+     *
+     * <pre>Example:
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setStatus("processing");
+     * options.setType("KIP-17");
+     *
+     * PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @return PageableNftContractDetails
      * @throws ApiException
@@ -350,6 +605,17 @@ public class TokenHistory {
      * Retrieve information of all labeled NFT contracts asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft
+     *
+     * <pre>Example:
+     * {@code
+     * ApiCallback<PageableNftContractDetails> callback = new ApiCallback<PageableNftContractDetails>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTContractListAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -362,6 +628,21 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled NFT contracts asynchronously.<br>
      * GET /v2/contract/nft
+     *
+     * <pre>Example:
+     * {@code
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setStatus("processing");
+     * options.setType("KIP-17");
+     *
+     * ApiCallback<PageableNftContractDetails> callback = new ApiCallback<PageableNftContractDetails>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTContractListAsync(options, callback);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, and `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -374,6 +655,14 @@ public class TokenHistory {
     /**
      * Retrieves the information of the NFT contract labeled with the address of the NFT contract.<br>
      * GET /v2/contract/nft/{nftAddress}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * NftContractDetail detail = caver.kas.tokenHistory.getNFTContract(nftAddress);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to retrieve contract information.
      * @return NftContractDetail
      * @throws ApiException
@@ -385,6 +674,19 @@ public class TokenHistory {
     /**
      * Retrieves the information of the NFT contract labeled with the address of the NFT contract asynchronously.<br>
      * GET /v2/contract/nft/{nftAddress}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     *
+     * ApiCallback<NftContractDetail> callback = new ApiCallback<NftContractDetail>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTContractAsync(nftAddress, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to retrieve contract information.
      * @param callback The callback function to handle response.
      * @return Call
@@ -398,6 +700,14 @@ public class TokenHistory {
      * Retrieves information of all NFTs issued by a specific NFT contract.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @return PageableNfts
      * @throws ApiException
@@ -409,6 +719,19 @@ public class TokenHistory {
 
     /**
      * Retrieves information of all NFTs issued by a specific NFT contract.<br>
+     * GET /v2/contract/nft/{nft-address}/token
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)3);
+     *
+     * PageableNfts nfts = caver.kas.tokenHistory.getNFTList(nftAddress, options);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
      * @return PageableNfts
@@ -422,6 +745,19 @@ public class TokenHistory {
      * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     *
+     * ApiCallback<PageableNfts> callback = new ApiCallback<PageableNfts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTListAsync(nftAddress, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param callback The callback function to handle response.
      * @return Call
@@ -435,6 +771,22 @@ public class TokenHistory {
     /**
      * Retrieves information of all NFTs issued by a specific NFT contract asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)3);
+     *
+     * ApiCallback<PageableNfts> callback = new ApiCallback<PageableNfts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTListAsync(nftAddress, options, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to search issued NFTs.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
      * @param callback The callback function to handle response.
@@ -450,6 +802,16 @@ public class TokenHistory {
      * the information of the NFT owned by the EOA address received as a parameter is retrieved.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * PageableNfts nfts = caver.kas.tokenHistory.getNFTListByOwner(nftAddress, ownerAddress);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
      * @return PageableNfts
@@ -464,6 +826,19 @@ public class TokenHistory {
      * Among the NFTs issued from the NFT contract address,<br>
      * the information of the NFT owned by the EOA address received as a parameter is retrieved.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)3);
+     *
+     * PageableNfts nfts = caver.kas.tokenHistory.getNFTListByOwner(nftAddress, ownerAddress);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
      * @param options Filters required when retrieving data. `size`, and `cursor`.
@@ -479,6 +854,20 @@ public class TokenHistory {
      * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * ApiCallback<PageableNfts> callback = new ApiCallback<PageableNfts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTListByOwnerAsync(nftAddress, ownerAddress, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
      * @param callback The callback function to handle response.
@@ -494,6 +883,23 @@ public class TokenHistory {
      * Among the NFTs issued from the NFT contract address,<br>
      * the information of the NFT owned by the EOA address received as a parameter is retrieved asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/owner/{owner-address}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)3);
+     *
+     * ApiCallback<PageableNfts> callback = new ApiCallback<PageableNfts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTListByOwnerAsync(nftAddress, ownerAddress, options, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched issued NFTs
      * @param ownerAddress The EOA address to be searched NFTs
      * @param options Filters required when retrieving data. `size`, and `cursor`.
@@ -508,6 +914,16 @@ public class TokenHistory {
     /**
      * Retrieve information of a specific NFT.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * Nft nft = caver.kas.tokenHistory.getNFT(nftAddress, tokenId);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @return Nft
@@ -520,6 +936,20 @@ public class TokenHistory {
     /**
      * Retrieve information of a specific NFT asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * ApiCallback<Nft> callback = new ApiCallback<Nft>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTAsync(nftAddress, tokenId, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @param callback The callback function to handle response.
@@ -534,6 +964,16 @@ public class TokenHistory {
      * Retrieve the record of ownership changes for a specific NFT.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * PageableNftOwnershipChanges ownershipChanges = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @return PageableNftOwnershipChanges
@@ -547,6 +987,19 @@ public class TokenHistory {
     /**
      * Retrieve the record of ownership changes for a specific NFT.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)1);
+     *
+     * PageableNftOwnershipChanges ownershipChanges = caver.kas.tokenHistory.getNFTOwnershipHistory(nftAddress, tokenId, options);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
@@ -561,6 +1014,20 @@ public class TokenHistory {
      * Retrieve the record of ownership changes for a specific NFT asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * ApiCallback<PageableNftOwnershipChanges> callback = new ApiCallback<PageableNftOwnershipChanges>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTOwnershipHistoryAsync(nftAddress, tokenId, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @param callback The callback function to handle response.
@@ -575,6 +1042,23 @@ public class TokenHistory {
     /**
      * Retrieve the record of ownership changes for a specific NFT asynchronously.<br>
      * GET /v2/contract/nft/{nft-address}/token/{token-id}/history
+     *
+     * <pre>Example:
+     * {@code
+     * String nftAddress = "0x{nftAddress}";
+     * String tokenId = "0x{tokenId}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setSize((long)1);
+     *
+     * ApiCallback<PageableNftOwnershipChanges> callback = new ApiCallback<PageableNftOwnershipChanges>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.tokenHistory.getNFTOwnershipHistoryAsync(nftAddress, tokenId, options, callback);
+     * }
+     * </pre>
+     *
      * @param nftAddress The NFT contract address to be searched.
      * @param tokenId The NFT id to be searched.
      * @param options Filters required when retrieving data. `size`, and `cursor`.
@@ -590,13 +1074,15 @@ public class TokenHistory {
      * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTListByOwner(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address} <br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
      *
-     * <pre>{@code
+     * <pre>Example:
+     * {@code
      * String mtAddress = "0x{mtAddress}";
      * String account = "0x{accountAddress}";
      * PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address to retrieve MTs.
@@ -611,7 +1097,7 @@ public class TokenHistory {
     /**
      * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
      *
      * <pre>Example :
      * {@code
@@ -622,7 +1108,8 @@ public class TokenHistory {
      * String mtAddress = "0x{mtAddress}";
      * String account = "0x{accountAddress}";
      * PageableMtTokensWithBalance result = caver.kas.tokenHistory.getMTListByOwner(mtAddress, account, options);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address to retrieve MTs.
@@ -638,7 +1125,7 @@ public class TokenHistory {
      * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTListByOwnerAsync(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
      *
      * <pre>Example :
      * {@code
@@ -650,7 +1137,8 @@ public class TokenHistory {
      * String account = "0x{accountAddress}";
      *
      * caver.kas.tokenHistory.getMTListByOwnerAsync(mtAddress, account, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address to retrieve MTs.
@@ -666,7 +1154,7 @@ public class TokenHistory {
     /**
      * Retrieve MTs(Multiple Token) that are owned by the passed as ownerAddress asynchronously.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}
      *
      * <pre>Example :
      * {@code
@@ -682,7 +1170,8 @@ public class TokenHistory {
      * String account = "0x{accountAddress}";
      *
      * caver.kas.tokenHistory.getMTListByOwnerAsync(mtAddress, account, options, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address to retrieve MTs.
@@ -697,7 +1186,7 @@ public class TokenHistory {
 
     /**
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -706,7 +1195,8 @@ public class TokenHistory {
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
      * MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, tokenId);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address.
@@ -721,7 +1211,7 @@ public class TokenHistory {
 
     /**
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -730,7 +1220,8 @@ public class TokenHistory {
      * String tokenId = "0x1";
      *
      * MtToken token = caver.kas.tokenHistory.getMT(mtAddress, account, tokenId);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address.
@@ -744,7 +1235,7 @@ public class TokenHistory {
 
     /**
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -757,7 +1248,8 @@ public class TokenHistory {
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
      * caver.kas.tokenHistory.getMTAsync(mtAddress, account, tokenId, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address.
@@ -772,7 +1264,7 @@ public class TokenHistory {
 
     /**
      * Retrieve a specific MT(Multiple Token) corresponding to the given address and tokenID asynchronously.<br>
-     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id} <br>
+     * GET /v2/contract/mt/{mt-address}/owner/{owner-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -785,7 +1277,8 @@ public class TokenHistory {
      * String tokenId = "0x1";
      *
      * caver.kas.tokenHistory.getMTAsync(mtAddress, account, tokenId, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param ownerAddress The owner address.
@@ -802,7 +1295,7 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id} <br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -810,7 +1303,8 @@ public class TokenHistory {
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
      * PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -825,7 +1319,7 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -833,7 +1327,8 @@ public class TokenHistory {
      * String tokenId = "0x1";
      *
      * PageableMtTokens pageableMtTokens = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -848,7 +1343,7 @@ public class TokenHistory {
     /**
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -862,7 +1357,8 @@ public class TokenHistory {
      *
      * PageableMtTokens response = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
      *
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -877,7 +1373,7 @@ public class TokenHistory {
     /**
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -891,7 +1387,8 @@ public class TokenHistory {
      *
      * PageableMtTokens response = caver.kas.tokenHistory.getMTOwnerListByTokenId(mtAddress, tokenId, options);
      *
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -907,7 +1404,7 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -919,7 +1416,8 @@ public class TokenHistory {
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
      * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -935,7 +1433,7 @@ public class TokenHistory {
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(size, cursor), use getMTOwnerByTokenId(String, TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -947,7 +1445,8 @@ public class TokenHistory {
      * String tokenId = "0x1";
      *
      * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -963,7 +1462,7 @@ public class TokenHistory {
     /**
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -979,7 +1478,8 @@ public class TokenHistory {
      * BigInteger tokenId = BigInteger.valueOf(1);
      *
      * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -995,7 +1495,7 @@ public class TokenHistory {
     /**
      * Retrieve a specific MT(Multiple Token) owner corresponding to the given tokenID asynchronously.<br>
      * You can set a search options(size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt/{mt-address}/token/{token-id}<br>
+     * GET /v2/contract/mt/{mt-address}/token/{token-id}
      *
      * <pre>Example :
      * {@code
@@ -1011,7 +1511,8 @@ public class TokenHistory {
      * String tokenId = "0x1";
      *
      * caver.kas.tokenHistory.getMTOwnerListByTokenIdAsync(mtAddress, tokenId, options, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param mtAddress The MT contract address.
      * @param tokenId The token id.
@@ -1028,12 +1529,13 @@ public class TokenHistory {
      * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt<br>
+     * GET /v2/contract/mt
      *
      * <pre>Example :
      * {@code
      * PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList();
-     * }</pre>
+     * }
+     * </pre>
      *
      * @return PageableMtContractDetails
      * @throws ApiException
@@ -1046,7 +1548,7 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled MT(Multiple Token) contracts.<br>
      * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt <br>
+     * GET /v2/contract/mt
      *
      * <pre>Example :
      * {@code
@@ -1054,7 +1556,9 @@ public class TokenHistory {
      * options.setSize(1);
      *
      * PageableMtContractDetails result = caver.kas.tokenHistory.getMTContractList(options);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
      * @return PageableMtContractDetails
      * @throws ApiException
@@ -1067,7 +1571,7 @@ public class TokenHistory {
      * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
      * It will send a request without filter options.<br>
      * If you want to execute this function with search options(status, type, size, cursor), use getMTContractList(TokenHistoryQueryOptions).<br>
-     * GET /v2/contract/mt <br>
+     * GET /v2/contract/mt
      *
      * <pre>Example :
      * {@code
@@ -1077,7 +1581,8 @@ public class TokenHistory {
      *
      * caver.kas.tokenHistory.getMTContractListAsync(callback);
      *
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param callback The callback function to handle response.
      * @return Call
@@ -1091,7 +1596,7 @@ public class TokenHistory {
     /**
      * Retrieve information of all labeled MT(Multiple Token) contracts asynchronously.<br>
      * You can set a search options(status, type, size, cursor) by using TokenHistoryQueryOptions.<br>
-     * GET /v2/contract/mt <br>
+     * GET /v2/contract/mt
      *
      * <pre>Example :
      * {@code
@@ -1105,6 +1610,7 @@ public class TokenHistory {
      * caver.kas.tokenHistory.getMTContractListAsync(options, callback);
      * }
      * </pre>
+     *
      * @param options Filters required when retrieving data. `status`, `type`, `size`, `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -1116,7 +1622,7 @@ public class TokenHistory {
 
     /**
      * Retrieves the information of the FT contract labeled with the address of the MT(Multiple Token) contract.<br>
-     * GET /v2/contract/mt/{mt-address}<br>
+     * GET /v2/contract/mt/{mt-address}
      *
      * <pre>Example :
      * {@code
@@ -1144,7 +1650,9 @@ public class TokenHistory {
      *
      * String mtAddress = 0x{mtAddress};
      * caver.kas.tokenHistory.getMTContractAsync(mtAddress, callback);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param mtAddress The MT contract address.
      * @param callback The callback function to handle response.
      * @return Call

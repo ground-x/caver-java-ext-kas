@@ -191,6 +191,13 @@ public class Wallet {
      * Creates a Klaytn account.<br>
      * It generates Klaytn address and private key, public key pair.<br>
      * POST /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.createAccount();
+     * }
+     * </pre>
+     *
      * @return Account
      * @throws ApiException
      */
@@ -202,6 +209,17 @@ public class Wallet {
      * Creates a Klaytn account asynchronously.<br>
      * It generates Klaytn address and private key, public key pair.<br>
      * POST /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * ApiCallback<Account> callback = new ApiCallback<Account>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.createAccountAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -214,6 +232,13 @@ public class Wallet {
      * Get the list of accounts created previously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * Accounts accounts = caver.kas.wallet.getAccountList();
+     * }
+     * </pre>
+     *
      * @return Accounts
      * @throws ApiException
      */
@@ -225,6 +250,17 @@ public class Wallet {
      * Get the list of accounts created previously asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * ApiCallback<Accounts> callback = new ApiCallback<Accounts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountListAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -236,6 +272,18 @@ public class Wallet {
     /**
      * Get the list of accounts created previously.<br>
      * GET /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(5l);
+     * options.setFromTimestamp("2021-01-01 00:00:00");
+     * options.setToTimestamp(new Date().getTime() / 1000);
+     *
+     * Accounts accounts = caver.kas.wallet.getAccountList(options);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, `status` and `cursor`.
      * @return Accounts
      * @throws ApiException
@@ -247,6 +295,22 @@ public class Wallet {
     /**
      * Get the list of accounts created previously asynchronously.<br>
      * GET /v2/account
+     *
+     * <pre>Example:
+     * {@code
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(5l);
+     * options.setFromTimestamp("2021-01-01 00:00:00");
+     * options.setToTimestamp(new Date().getTime() / 1000);
+     *
+     * ApiCallback<Accounts> callback = new ApiCallback<Accounts>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountListAsync(options, callback);
+     * }
+     * </pre>
+     *
      * @param options Filters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, `status` and `cursor`.
      * @param callback The callback function to handle response.
      * @return Call
@@ -259,6 +323,14 @@ public class Wallet {
     /**
      * Get the account information passed as a parameter.<br>
      * GET /v2/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * Account account = caver.kas.wallet.getAccount(address);
+     * }
+     * </pre>
+     *
      * @param address The address to get account information.
      * @return Account
      * @throws ApiException
@@ -270,6 +342,20 @@ public class Wallet {
     /**
      * Get the account information passed as a parameter asynchronously.<br>
      * GET /v2/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     *
+     * ApiCallback<Account> callback = new ApiCallback<Account>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountAsync(address, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to get account information.
      * @param callback The callback function to handle response.
      * @return Call
@@ -282,6 +368,14 @@ public class Wallet {
     /**
      * Delete an account.<br>
      * DELETE /v2/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * AccountStatus accountStatus = caver.kas.wallet.deleteAccount(address);
+     * }
+     * </pre>
+     *
      * @param address The address to delete.
      * @return AccountStatus
      * @throws ApiException
@@ -293,6 +387,20 @@ public class Wallet {
     /**
      * Delete an account asynchronously.<br>
      * DELETE /v2/account/{address}
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     *
+     * ApiCallback<AccountStatus> callback = new ApiCallback<AccountStatus>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.deleteAccountAsync(address, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to delete.
      * @param callback The callback function to handle response.
      * @return Call
@@ -306,6 +414,14 @@ public class Wallet {
      * Disable an account.<br>
      * The disabled account will not be retrieved account information.<br>
      * PUT /v2/account/{address}/disable
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * AccountSummary status = caver.kas.wallet.disableAccount(address);
+     * }
+     * </pre>
+     *
      * @param address The address to disable
      * @return AccountStatus
      * @throws ApiException
@@ -318,6 +434,20 @@ public class Wallet {
      * Disable an account asynchronously.<br>
      * The disabled account will not be retrieved account information.<br>
      * PUT /v2/account/{address}/disable
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     *
+     * ApiCallback<AccountSummary> callback = new ApiCallback<AccountSummary>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.disableAccountAsync(address, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to disable
      * @param callback The callback function to handle response.
      * @return Call
@@ -330,6 +460,14 @@ public class Wallet {
     /**
      * Enable an account.<br>
      * PUT /v2/account/{address}/enable
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * AccountSummary status = caver.kas.wallet.enableAccount(address);
+     * }
+     * </pre>
+     *
      * @param address The address to enable.
      * @return AccountStatus
      * @throws ApiException
@@ -341,6 +479,19 @@ public class Wallet {
     /**
      * Enable an account asynchronously.<br>
      * PUT /v2/account/{address}/enable
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * ApiCallback<AccountSummary> callback = new ApiCallback<AccountSummary>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.enableAccountAsync(address, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to enable.
      * @param callback The callback function to handle response.
      * @return Call
@@ -353,6 +504,16 @@ public class Wallet {
     /**
      * Signs the transaction corresponding to the passed TransactionID with the key of the passed address.<br>
      * POST /v2/account/{address}/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String transactionId = "0x{txId}";
+     *
+     * Signature signature = caver.kas.wallet.signTransaction(address, transactionId);
+     * }
+     * </pre>
+     *
      * @param address The address to sign transaction.
      * @param transactionId The transaction id to get transaction for sign.
      * @return Signature
@@ -365,6 +526,19 @@ public class Wallet {
     /**
      * Signs the transaction corresponding to the passed TransactionID with the key of the passed address asynchronously.<br>
      * POST /v2/account/{address}/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String transactionId = "0x{txId}";
+     *
+     * ApiCallback<Signature> callback = new ApiCallback<Signature>() {
+     *     ....implements callback method
+     * };
+     * caver.kas.wallet.signTransactionAsync(address, transactionId, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to sign transaction.
      * @param transactionId The transaction id to get transaction for sign.
      * @param callback The callback function to handle response.
@@ -378,6 +552,31 @@ public class Wallet {
     /**
      * Updates an account to MultiSig Account.<br>
      * PUT /v2/account/{address}/multisig
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * Account account1 = caver.kas.wallet.createAccount();
+     * Account account2 = caver.kas.wallet.createAccount();
+     * Account account3 = caver.kas.wallet.createAccount();
+     * List<Account> accountList = Arrays.asList(account1, account2, account3);
+     * List<MultisigKey> multisigKeys = accountList.stream().map(account -> {
+     *         MultisigKey multisigKey = new MultisigKey();
+     *         multisigKey.setWeight((long)2);
+     *         multisigKey.setPublicKey(account.getPublicKey());
+     *
+     *         return multisigKey;
+     * }).collect(Collectors.toList());
+     *
+     * MultisigAccountUpdateRequest request = new MultisigAccountUpdateRequest();
+     * request.setThreshold((long)3);
+     * request.setWeightedKeys(multiSigKeys);
+     *
+     * MultisigAccount account = caver.kas.wallet.updateToMultiSigAccount(address, request);
+     * }
+     * </pre>
+     *
      * @param address The address to update multisig account.
      * @param request The MultisigAccountUpdateRequest instance required for updating account.
      * @return MultisigAccount
@@ -390,6 +589,35 @@ public class Wallet {
     /**
      * Updates an account to MultiSig Account asynchronously.<br>
      * PUT /v2/account/{address}/multisig
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * Account account1 = caver.kas.wallet.createAccount();
+     * Account account2 = caver.kas.wallet.createAccount();
+     * Account account3 = caver.kas.wallet.createAccount();
+     * List<Account> accountList = Arrays.asList(account1, account2, account3);
+     * List<MultisigKey> multisigKeys = accountList.stream().map(account -> {
+     *         MultisigKey multisigKey = new MultisigKey();
+     *         multisigKey.setWeight((long)2);
+     *         multisigKey.setPublicKey(account.getPublicKey());
+     *
+     *         return multisigKey;
+     * }).collect(Collectors.toList());
+     *
+     * MultisigAccountUpdateRequest request = new MultisigAccountUpdateRequest();
+     * request.setThreshold((long)3);
+     * request.setWeightedKeys(multiSigKeys);
+     *
+     * ApiCallback<MultisigAccount> callback = new ApiCallback<MultisigAccount>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.updateToMultiSigAccountAsync(address, request, callback);
+     * }
+     * </pre>
+     *
      * @param address The address to update multisig account.
      * @param request The MultisigAccountUpdateRequest instance required for updating account.
      * @param callback The callback function to handle response.
@@ -403,6 +631,14 @@ public class Wallet {
     /**
      * Get list of accounts that has a public key passed as a parameter.<br>
      * GET /v2/pubkey/{public-key}/account
+     *
+     * <pre>Example:
+     * {@code
+     * String publicKey = "0x{publicKey}";
+     * AccountsByPubkey accounts = caver.kas.wallet.getAccountListByPublicKey(publicKey);
+     * }
+     * </pre>
+     *
      * @param publicKey A public key to get list of accounts.
      * @return AccountsByPubkey
      * @throws ApiException
@@ -414,6 +650,19 @@ public class Wallet {
     /**
      * Get list of accounts that has a public key passed as a parameter asynchronously.<br>
      * GET /v2/pubkey/{public-key}/account
+     *
+     * <pre>Example:
+     * {@code
+     * String publicKey = "0x{publicKey}";
+     *
+     * ApiCallback<AccountsByPubkey> callback = new ApiCallback<AccountsByPubkey>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountListByPublicKeyAsync(publicKey, callback);
+     * }
+     * </pre>
+     *
      * @param publicKey A public key to get list of accounts.
      * @param callback The callback function to handle response.
      * @return Call
@@ -426,6 +675,22 @@ public class Wallet {
     /**
      * Send a Legacy transaction.<br>
      * POST /v2/tx/legacy
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * LegacyTransactionRequest request = new LegacyTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * TransactionResult result = caver.kas.wallet.requestLegacyTransaction(request);
+     * }
+     * </pre>
+     *
      * @param request The LegacyTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -437,6 +702,26 @@ public class Wallet {
     /**
      * Send a Legacy transaction asynchronously.<br>
      * POST /v2/tx/legacy
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * LegacyTransactionRequest request = new LegacyTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestLegacyTransactionAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The LegacyTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -449,6 +734,22 @@ public class Wallet {
     /**
      * Send a ValueTransfer transaction.<br>
      * POST /v2/tx/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * ValueTransferTransactionRequest request = new ValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * TransactionResult transactionResult = caver.kas.wallet.requestValueTransfer(request);
+     * }
+     * </pre>
+     *
      * @param request The ValueTransferTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -460,6 +761,26 @@ public class Wallet {
     /**
      * Send a ValueTransfer transaction asynchronously.<br>
      * POST /v2/tx/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * ValueTransferTransactionRequest request = new ValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestValueTransferAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The ValueTransferTransactionRequest instance to send a transaction.
      * @param callback THe callback function to handle response.
      * @return Call
@@ -472,6 +793,25 @@ public class Wallet {
     /**
      * Send a SmartContractDeploy transaction.<br>
      * POST /v2/tx/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
+     * String deployerAddress = "0x{fromAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * request.setFrom(deployerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(5500000L);
+     * request.submit(true);
+     *
+     * TransactionResult transactionResult = caver.kas.wallet.requestSmartContractDeploy(request);
+     * }
+     * </pre>
+     *
      * @param request The ContractDeployTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -483,6 +823,29 @@ public class Wallet {
     /**
      * Send a SmartContractDeploy transaction asynchronously.<br>
      * POST /v2/tx/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
+     * String deployerAddress = "0x{fromAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * request.setFrom(deployerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(5500000L);
+     * request.submit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestSmartContractDeployAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The ContractDeployTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -495,6 +858,27 @@ public class Wallet {
     /**
      * Send a SmartContractExecution transaction.<br>
      * POST /v2/tx/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * ContractExecutionTransactionRequest request = new ContractExecutionTransactionRequest();
+     * String deployerAddress = "0x{deployerAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * request.setFrom(deployerAddress);
+     * request.setTo(contractAddress);
+     * request.setInput(input);
+     * request.setSubmit(true);
+     *
+     * TransactionResult result = caver.kas.wallet.requestSmartContractExecution(request);
+     * }
+     * </pre>
+     *
      * @param request The ContractExecutionTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -506,6 +890,31 @@ public class Wallet {
     /**
      * Send a SmartContractExecution transaction asynchronously.<br>
      * POST /v2/tx/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * ContractExecutionTransactionRequest request = new ContractExecutionTransactionRequest();
+     * String deployerAddress = "0x{deployerAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * request.setFrom(deployerAddress);
+     * request.setTo(contractAddress);
+     * request.setInput(input);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestSmartContractExecutionAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The ContractExecutionTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -518,6 +927,19 @@ public class Wallet {
     /**
      * Send a Cancel transaction.<br>
      * DELETE /v2/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * CancelTransactionRequest request = new CancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setNonce(1l);
+     *
+     * TransactionResult result = caver.kas.wallet.requestCancel(request);
+     * }
+     * </pre>
+     *
      * @param request The CancelTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -529,6 +951,23 @@ public class Wallet {
     /**
      * Send a Cancel transaction asynchronously.<br>
      * DELETE /v2/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * CancelTransactionRequest request = new CancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setNonce(1l);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestCancelAsync(request);
+     * }
+     * </pre>
+     *
      * @param request The CancelTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -541,6 +980,20 @@ public class Wallet {
     /**
      * Send a ChainDataAnchoring transaction.<br>
      * POST /v2/tx/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * AnchorTransactionRequest request = new AnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setInput("0x0111");
+     * request.setSubmit(true);
+     *
+     * TransactionResult result = caver.kas.wallet.requestChainDataAnchoring(request);
+     * }
+     * </pre>
+     *
      * @param request The AnchorTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -552,6 +1005,24 @@ public class Wallet {
     /**
      * Send a ChainDataAnchoring transaction asynchronously.<br>
      * POST /v2/tx/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * AnchorTransactionRequest request = new AnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setInput("0x0111");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestChainDataAnchoringAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The AnchorTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -564,6 +1035,19 @@ public class Wallet {
     /**
      * Send a raw transaction.<br>
      * POST /v2/tx/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String rlp = "0x{rlp}";
+     *
+     * ProcessRLPRequest requestRLP = new ProcessRLPRequest();
+     * requestRLP.setRlp(rlp);
+     * requestRLP.setSubmit(true);
+     *
+     * TransactionResult transactionResult = caver.kas.wallet.requestRawTransaction(requestRLP);
+     * }
+     * </pre>
+     *
      * @param request The ProcessRLPRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -575,6 +1059,23 @@ public class Wallet {
     /**
      * Send a raw transaction asynchronously.<br>
      * POST /v2/tx/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String rlp = "0x{rlp}";
+     *
+     * ProcessRLPRequest requestRLP = new ProcessRLPRequest();
+     * requestRLP.setRlp(rlp);
+     * requestRLP.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestRawTransactionAsync(requestRLP, callback);
+     * }
+     * </pre>
+     *
      * @param request The ProcessRLPRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -587,6 +1088,21 @@ public class Wallet {
     /**
      * Send a AccountUpdate transaction.<br>
      * POST /v2/tx/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.getAccountList().getItems().get(0).getAddress();
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setSubmit(true);
+     *
+     * TransactionResult result = caver.kas.wallet.requestAccountUpdate(request);
+     * }
+     * </pre>
+     *
      * @param request The AccountUpdateTransactionRequest instance to send a transaction.
      * @return TransactionResult
      * @throws ApiException
@@ -599,6 +1115,25 @@ public class Wallet {
     /**
      * Send a AccountUpdate transaction asynchronously.<br>
      * POST /v2/tx/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.getAccountList().getItems().get(0).getAddress();
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestAccountUpdateAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The AccountUpdateTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -612,6 +1147,14 @@ public class Wallet {
     /**
      * Get a transaction receipt.<br>
      * GET /v2/tx/{transaction-hash}
+     *
+     * <pre>Example:
+     * {@code
+     * String txHash = "0x{txHash}";
+     * TransactionReceipt receipt = caver.kas.wallet.getTransaction(txHash);
+     * }
+     * </pre>
+     *
      * @param transactionHash A transaction hash to get a transaction receipt.
      * @return TransactionReceipt
      * @throws ApiException
@@ -623,6 +1166,19 @@ public class Wallet {
     /**
      * Get a transaction receipt asynchronously.<br>
      * GET /v2/tx/{transaction-hash}
+     *
+     * <pre>Example:
+     * {@code
+     * String txHash = "0x{txHash}";
+     *
+     * ApiCallback<TransactionReceipt> callback = new ApiCallback<TransactionReceipt>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getTransactionAsync(txHash);
+     * }
+     * </pre>
+     *
      * @param transactionHash A transaction hash to get a transaction receipt.
      * @param callback The callback function to handle response.
      * @return Call
@@ -637,6 +1193,22 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * FDValueTransferTransactionRequest request = new FDValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDValueTransferPaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDValueTransferTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -650,6 +1222,26 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * FDValueTransferTransactionRequest request = new FDValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDValueTransferPaidByGlobalFeePayerAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDValueTransferTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -664,6 +1256,25 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * String deployerAddress = "0x{deployerAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
+     * request.setFrom(deployerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(1500000L);
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDSmartContractDeployPaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDContractDeployTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -677,6 +1288,29 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * String deployerAddress = "0x{deployerAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
+     * request.setFrom(deployerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(1500000L);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDSmartContractDeployPaidByGlobalFeePayerAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDContractDeployTransactionRequest instance to send a transaction.
      * @return Call
      * @throws ApiException
@@ -690,6 +1324,27 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * FDContractExecutionTransactionRequest request = new FDContractExecutionTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(contractAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDSmartContractExecutionPaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDContractExecutionTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -703,6 +1358,31 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * FDContractExecutionTransactionRequest request = new FDContractExecutionTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(contractAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDSmartContractExecutionPaidByGlobalFeePayerAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDContractExecutionTransactionRequest instance to send a transaction.
      * @return Call
      * @throws ApiException
@@ -716,6 +1396,19 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * DELETE /v2/tx/fd
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * FDCancelTransactionRequest request = new FDCancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setNonce(1l);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDCancelPaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDCancelTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -729,6 +1422,23 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * DELETE /v2/tx/fd
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * FDCancelTransactionRequest request = new FDCancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setNonce(1l);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDCancelPaidByGlobalFeePayerAsync(request, callBack);
+     * }
+     * </pre>
+     *
      * @param request The FDCancelTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -743,6 +1453,20 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * FDAnchorTransactionRequest request = new FDAnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setInput("0x1111");
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDChainDataAnchoringPaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDAnchorTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -756,6 +1480,24 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     *
+     * FDAnchorTransactionRequest request = new FDAnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setInput("0x1111");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDChainDataAnchoringPaidByGlobalFeePayerAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDAnchorTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -770,6 +1512,19 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String feeDelegatedRlp = "0x{feeDelegatedRlp}";
+     *
+     * FDProcessRLPRequest requestRLP = new FDProcessRLPRequest();
+     * requestRLP.setRlp(feeDelegatedRlp);
+     * requestRLP.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDRawTransactionPaidByGlobalFeePayer(requestRLP);
+     * }
+     * </pre>
+     *
      * @param request The FDProcessRLPRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -783,12 +1538,29 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String feeDelegatedRlp = "0x{feeDelegatedRlp}";
+     *
+     * FDProcessRLPRequest requestRLP = new FDProcessRLPRequest();
+     * requestRLP.setRlp(feeDelegatedRlp);
+     * requestRLP.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDRawTransactionPaidByGlobalFeePayerAsync(requestRLP, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDProcessRLPRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
      */
-    public Call requestFDRawTransactionPaidByGlobalFeePayerAsync(FDProcessRLPRequest request, ApiCallback callback) throws ApiException {
+    public Call requestFDRawTransactionPaidByGlobalFeePayerAsync(FDProcessRLPRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
         return getFeeDelegatedTransactionPaidByKasApi().fDProcessRLPAsync(chainId, request, callback);
     }
 
@@ -797,6 +1569,21 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * PUT /v2/tx/fd/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.createAccount();
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayer(request);
+     * }
+     * </pre>
+     *
      * @param request The FDAccountUpdateTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -811,6 +1598,25 @@ public class Wallet {
      * KAS pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * PUT /v2/tx/fd/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.createAccount();
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * FDAccountUpdateTransactionRequest request = new FDAccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDAccountUpdatePaidByGlobalFeePayerAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDAccountUpdateTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -826,6 +1632,24 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserValueTransferTransactionRequest request = new FDUserValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDValueTransferPaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserValueTransferTransactionRequest instance to send a transaction.
      * @return FDTransactionResult
      * @throws ApiException
@@ -839,6 +1663,28 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/value
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserValueTransferTransactionRequest request = new FDUserValueTransferTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(toAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setValue("0x1");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDValueTransferPaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserValueTransferTransactionRequest instance to send a transaction.
      * @param callback The callback function to handle response.
      * @return Call
@@ -853,6 +1699,27 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * String deployerAddress = "0x{deployerAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * FDUserContractDeployTransactionRequest request = new FDUserContractDeployTransactionRequest();
+     * request.setFrom(deployerAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(1500000L);
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDSmartContractDeployPaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserContractDeployTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -866,6 +1733,31 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/contract/deploy
+     *
+     * <pre>Example:
+     * {@code
+     * String deployerAddress = "0x{deployerAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver);
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     *
+     * FDUserContractDeployTransactionRequest request = new FDUserContractDeployTransactionRequest();
+     * request.setFrom(deployerAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(1500000L);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDSmartContractDeployPaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserContractDeployTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -880,6 +1772,29 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * FDUserContractExecutionTransactionRequest request = new FDUserContractExecutionTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(contractAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDSmartContractExecutionPaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserContractExecutionTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -893,6 +1808,33 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/contract/execute
+     *
+     * <pre>Example:
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * KIP7 kip7 = new KIP7(caver, contractAddress);
+     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     *
+     * FDUserContractExecutionTransactionRequest request = new FDUserContractExecutionTransactionRequest();
+     * request.setFrom(fromAddress);
+     * request.setTo(contractAddress);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDSmartContractExecutionPaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserContractExecutionTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -907,6 +1849,21 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * DELETE /v2/tx/fd-user
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserCancelTransactionRequest request = new FDUserCancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setFeePayer(feePayerAddress);
+     * request.setNonce((long)1);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDCancelPaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserCancelTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -920,12 +1877,31 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * DELETE /v2/tx/fd-user
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserCancelTransactionRequest request = new FDUserCancelTransactionRequest();
+     * request.setFrom(address);
+     * request.setFeePayer(feePayerAddress);
+     * request.setNonce((long)1);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDCancelPaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserCancelTransactionRequest instance to send a request.
      * @param callback The callback function to handle response
      * @return Call
      * @throws ApiException
      */
-    public Call requestFDCancelPaidByUserAsync(FDUserCancelTransactionRequest request, ApiCallback callback) throws ApiException {
+    public Call requestFDCancelPaidByUserAsync(FDUserCancelTransactionRequest request, ApiCallback<FDTransactionResult> callback) throws ApiException {
         return getFeeDelegatedTransactionPaidByUserApi().uFDUserCancelTransactionAsync(chainId, request, callback);
     }
 
@@ -934,6 +1910,22 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserAnchorTransactionRequest request = new FDUserAnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput("0x123456");
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDChainDataAnchoringPaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserAnchorTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -947,6 +1939,26 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/anchor
+     *
+     * <pre>Example:
+     * {@code
+     * String address = "0x{address}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserAnchorTransactionRequest request = new FDUserAnchorTransactionRequest();
+     * request.setFrom(address);
+     * request.setFeePayer(feePayerAddress);
+     * request.setInput("0x123456");
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDChainDataAnchoringPaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserAnchorTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -961,6 +1973,20 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String = feeDelegatedRlp = "0x{feeDelegatedRlp}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserProcessRLPRequest processRLPRequest = new FDUserProcessRLPRequest();
+     * processRLPRequest.setRlp(feeDelegatedRlp);
+     * processRLPRequest.setFeePayer(feePayerAddress);
+     * processRLPRequest.setSubmit(true);
+     * FDTransactionResult resultRLP = caver.kas.wallet.requestFDRawTransactionPaidByUser(processRLPRequest);
+     * }
+     * </pre>
+     *
      * @param request The FDUserProcessRLPRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -974,6 +2000,25 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * POST /v2/tx/fd-user/rlp
+     *
+     * <pre>Example:
+     * {@code
+     * String = feeDelegatedRlp = "0x{feeDelegatedRlp}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FDUserProcessRLPRequest processRLPRequest = new FDUserProcessRLPRequest();
+     * processRLPRequest.setRlp(feeDelegatedRlp);
+     * processRLPRequest.setFeePayer(feePayerAddress);
+     * processRLPRequest.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDRawTransactionPaidByUserAsync(processRLPRequest, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserProcessRLPRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -988,6 +2033,23 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * PUT /v2/tx/fd-user/account
+     *
+     * <pre>Example:
+     * {@code
+     * String feePayerAddress = "0x{feePayerAddress}";
+     * Account account = caver.kas.wallet.createAccount();
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setFeePayer(feePayerAddress);
+     * request.setSubmit(true);
+     *
+     * FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
+     * }
+     * </pre>
+     *
      * @param request The FDUserAccountUpdateTransactionRequest instance to send a request.
      * @return FDTransactionResult
      * @throws ApiException
@@ -1002,6 +2064,27 @@ public class Wallet {
      * The feePayer defined by the user pays the fee for this transaction.<br>
      * If you want to send withRatio Transaction, you can set feeRatio field in request.<br>
      * PUT /v2/tx/fd-user/account
+     *
+     * <pre>Example:
+     * {@code
+     * Account account = caver.kas.wallet.createAccount();
+     * String feePayerAddress = "0x{feePayerAddress}";
+     * KeyTypePublic updateKeyType = new KeyTypePublic(account.getPublicKey());
+     *
+     * FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
+     * request.setFrom(account.getAddress());
+     * request.setAccountKey(updateKeyType);
+     * request.setFeePayer(feePayerAddress);
+     * request.setSubmit(true);
+     *
+     * ApiCallback<FDTransactionResult> callback = new ApiCallback<FDTransactionResult>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.requestFDAccountUpdatePaidByUserAsync(request, callback);
+     * }
+     * </pre>
+     *
      * @param request The FDUserAccountUpdateTransactionRequest instance to send a request.
      * @param callback The callback function to handle response.
      * @return Call
@@ -1016,6 +2099,14 @@ public class Wallet {
      * Get pending transaction list.<br>
      * It will send a request without filter options.<br>
      * GET /v2/multisig/account/{address}/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     * MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress);
+     * }
+     * </pre>
+     *
      * @param address The sender address to get pending transaction list.
      * @return MultisigTransactions
      * @throws ApiException
@@ -1028,6 +2119,19 @@ public class Wallet {
      * Get pending transaction list asynchronously.<br>
      * It will send a request without filter options.<br>
      * GET /v2/multisig/account/{address}/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     *
+     * ApiCallback<MultisigTransactions> callback = new ApiCallback<MultisigTransactions>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getMultiSigTransactionListAsync(multiSigAddress, callback);
+     * }
+     * </pre>
+     *
      * @param address The sender address to get pending transaction list.
      * @param callback The callback function to handle response.
      * @return Call
@@ -1040,6 +2144,18 @@ public class Wallet {
     /**
      * Get pending transaction list.<br>
      * GET /v2/multisig/account/{address}/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     *
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(3l);
+     *
+     * MultisigTransactions transactions = caver.kas.wallet.getMultiSigTransactionList(multiSigAddress, options);
+     * }
+     * </pre>
+     *
      * @param address The sender address to retrieve pending transaction list.
      * @param options Filter required when retrieving data. `cursor`, `to-timestamp`, `from-timestamp`
      * @return MultisigTransactions
@@ -1052,6 +2168,22 @@ public class Wallet {
     /**
      * Get pending transaction list asynchronously.<br>
      * GET /v2/multisig/account/{address}/tx
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     *
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(3l);
+     *
+     * ApiCallback<MultisigTransactions> callback = new ApiCallback<MultisigTransactions>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getMultiSigTransactionListAsync(multiSigAddress, options, callback);
+     * }
+     * </pre>
+     *
      * @param address The sender address to retrieve pending transaction list.
      * @param options Filter required when retrieving data. `cursor`, `to-timestamp`, `from-timestamp`
      * @param callback The callback function to handle response.
@@ -1065,6 +2197,16 @@ public class Wallet {
     /**
      * Sign a pending transaction.<br>
      * POST /v2/multisig/account/{address}/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     * String transactionId = "0x{transactionId}";
+     *
+     * MultisigTransactionStatus status = caver.kas.wallet.signMultiSigTransaction(multiSigAddress, transactionId);
+     * }
+     * </pre>
+     *
      * @param address The singer address to sign.
      * @param transactionId The pending transaction id.
      * @return MultisigTransactionStatus
@@ -1077,6 +2219,19 @@ public class Wallet {
     /**
      * Sign a pending transaction asynchronously.<br>
      * POST /v2/multisig/account/{address}/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String multiSigAddress = "0x{multiSigAddress}";
+     *
+     * ApiCallback<MultisigTransactionStatus> callback = new ApiCallback<MultisigTransactionStatus>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.signMultiSigTransactionAsync(multiSigAddress, transactionId, callback);
+     * }
+     * </pre>
+     *
      * @param address The singer address to sign.
      * @param transactionId The pending transaction id.
      * @param callback The callback function to handle response.
@@ -1090,6 +2245,21 @@ public class Wallet {
     /**
      * Append a signature to pending transaction.<br>
      * POST /v2/multisig/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String signerAddress = "0x{signerAddress}";
+     * String transactionId = "0x{transactionId}";
+     *
+     * Signature signature = caver.kas.wallet.signTransaction(singerAddress, transactionId);
+     *
+     * SignPendingTransactionBySigRequest request = new SignPendingTransactionBySigRequest();
+     * request.setSignatures(Arrays.asList(signature));
+     *
+     * MultisigTransactionStatus transactionStatus = caver.kas.wallet.appendSignatures(transactionId, request);
+     * }
+     * </pre>
+     *
      * @param transactionId The transaction id to append signature.
      * @param request The SignPendingTransactionBySigRequest instance to send a request.
      * @return MultisigTransactionStatus
@@ -1102,6 +2272,25 @@ public class Wallet {
     /**
      * Append a signature to pending transaction asynchronously.<br>
      * POST /v2/multisig/tx/{transaction-id}/sign
+     *
+     * <pre>Example:
+     * {@code
+     * String signerAddress = "0x{signerAddress}";
+     * String transactionId = "0x{transactionId}";
+     *
+     * Signature signature = caver.kas.wallet.signTransaction(singerAddress, transactionId);
+     *
+     * SignPendingTransactionBySigRequest request = new SignPendingTransactionBySigRequest();
+     * request.setSignatures(Arrays.asList(signature));
+     *
+     * ApiCallback<MultisigTransactionStatus> callback = new ApiCallback<MultisigTransactionStatus>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.appendSignaturesAsync(transactionId, request, callback);
+     * }
+     * </pre>
+     *
      * @param transactionId The transaction id to append signature.
      * @param request The SignPendingTransactionBySigRequest instance to send a request.
      * @param callback The callback function to handle response.
@@ -1115,6 +2304,13 @@ public class Wallet {
     /**
      * Return the number of accounts in KAS.<br>
      * GET /v2/stat/count
+     *
+     * <pre>Example:
+     * {@code
+     * AccountCountByAccountID countByAccountID = caver.kas.wallet.getAccountCount();
+     * }
+     * </pre>
+     *
      * @return AccountCountByAccountID
      * @throws ApiException
      */
@@ -1125,6 +2321,18 @@ public class Wallet {
     /**
      * Return the number of accounts in KAS asynchronously.<br>
      * GET /v2/stat/count
+     *
+     * <pre>Example:
+     * {@code
+     *
+     * ApiCallback<AccountCountByAccountID> callback = new ApiCallback<AccountCountByAccountID>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountCountAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
@@ -1137,6 +2345,13 @@ public class Wallet {
      * Return the number of accounts by passed as KRN in KAS.<br>
      * It use default krn.<br>
      * GET /v2/stat/count/krn
+     *
+     * <pre>Example:
+     * {@code
+     * AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN();
+     * }
+     * </pre>
+     *
      * @return AccountCountByKRN
      * @throws ApiException
      */
@@ -1148,6 +2363,18 @@ public class Wallet {
      * Return the number of accounts by passed as KRN in KAS asynchronously.<br>
      * It use default krn.<br>
      * GET /v2/stat/count/krn
+     *
+     * <pre>Example:
+     * {@code
+     *
+     * ApiCallback<AccountCountByKRN> callback = new ApiCallback<AccountCountByKRN>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountCountByKRNAsync(callback);
+     * }
+     * </pre>
+     *
      * @param callback The callback function to handle response.
      * @return AccountCountByKRN
      * @throws ApiException
@@ -1159,6 +2386,14 @@ public class Wallet {
     /**
      * Return the number of accounts by passed as KRN in KAS.<br>
      * GET /v2/stat/count/krn
+     *
+     * <pre>Example:
+     * {@code
+     * String krn = "{krn}";
+     * AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN(krn);
+     * }
+     * </pre>
+     *
      * @param krn The krn string to search
      * @return AccountCountByKRN
      * @throws ApiException
@@ -1170,6 +2405,19 @@ public class Wallet {
     /**
      * Return the number of accounts by passed as KRN in KAS asynchronously.<br>
      * GET /v2/stat/count/krn
+     *
+     * <pre>Example:
+     * {@code
+     * String krn = "{krn}";
+     *
+     * ApiCallback<AccountCountByKRN> callback = new ApiCallback<AccountCountByKRN>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.wallet.getAccountCountByKRNAsync(krn, callback);
+     * }
+     * </pre>
+     *
      * @param krn The krn string to search
      * @param callback The callback function to handle response.
      * @return AccountCountByKRN
@@ -1181,12 +2429,14 @@ public class Wallet {
 
     /**
      * Create keys in KAS. <br>
-     * POST /v2/key <br>
+     * POST /v2/key
      *
      * <pre>Example :
      * {@code
      * KeyCreationResponse response = caver.kas.wallet.createKeys(2);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param numberOfKeys The number of keys to create
      * @return KeyCreationResponse
      * @throws ApiException
@@ -1199,7 +2449,7 @@ public class Wallet {
 
     /**
      * Creates keys in KAS asynchronously. <br>
-     * POST /v2/key <br>
+     * POST /v2/key
      *
      * <pre>Example :
      * {@code
@@ -1207,7 +2457,9 @@ public class Wallet {
      *    ....implements callback method
      * };
      * caver.kas.wallet.createKeysAsync(2, callback);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param numberOfKeys The number of keys to create
      * @param callback The callback function to handle response.
      * @return KeyCreationResponse
@@ -1221,13 +2473,14 @@ public class Wallet {
 
     /**
      * Find a key information from KAS. <br>
-     * GET /v2/key/{key-id} <br>
+     * GET /v2/key/{key-id}
      *
      * <pre>Example :
      * {@code
      * String keyId = "keyId";
      * Key key = caver.kas.wallet.getKey(keyId);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param keyId The key id to find from KAS.
      * @return Key
@@ -1239,7 +2492,7 @@ public class Wallet {
 
     /**
      * Find a key information from KAS asynchronously. <br>
-     * GET /v2/key/{key-id} <br>
+     * GET /v2/key/{key-id}
      *
      * <pre>Example :
      * {@code
@@ -1250,7 +2503,9 @@ public class Wallet {
      * String keyId = "keyId";
      * caver.kas.wallet.getKeyAsync(keyId, callback);
      *
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param keyId The key id to find from KAS.
      * @param callback The callback function to handle response.
      * @return Call
@@ -1263,7 +2518,7 @@ public class Wallet {
     /**
      * Sign a message using a key create by KAS. <br>
      * The default KRN will be used. <br>
-     * POST /v2/key/{key-id}/sign <br>
+     * POST /v2/key/{key-id}/sign
      *
      * <pre>Example :
      * {@code
@@ -1271,7 +2526,8 @@ public class Wallet {
      * String data = "data";
      *
      * caver.kas.wallet.signMessage(keyId, data);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param keyId The key id to use for signing.
      * @param data The data to sign.
@@ -1287,7 +2543,7 @@ public class Wallet {
 
     /**
      * Sign a message using a key create by KAS. <br>
-     * POST /v2/key/{key-id}/sign <br>
+     * POST /v2/key/{key-id}/sign
      *
      * <pre>Example :
      * {@code
@@ -1296,7 +2552,8 @@ public class Wallet {
      * String krn = "krn";
      *
      * caver.kas.wallet.signMessage(keyId, data, krn);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param keyId The key id to use for signing.
      * @param data The data to sign.
@@ -1314,7 +2571,7 @@ public class Wallet {
     /**
      * Sign a message using a key create by KAS asynchronously. <br>
      * The default KRN will be used. <br>
-     * POST /v2/key/{key-id}/sign <br>
+     * POST /v2/key/{key-id}/sign
      *
      * <pre>Example :
      * {@code
@@ -1326,7 +2583,9 @@ public class Wallet {
      * String data = "data";
      *
      * caver.kas.wallet.signMessageAsync(keyId, data, callback);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param keyId The key id to use for signing.
      * @param data The data to sign.
      * @param callback The callback function to handle response.
@@ -1343,7 +2602,7 @@ public class Wallet {
     /**
      * Sign a message using a key create by KAS asynchronously. <br>
      * The default KRN will be used. <br>
-     * POST /v2/key/{key-id}/sign <br>
+     * POST /v2/key/{key-id}/sign
      *
      * <pre>Example :
      * {@code
@@ -1356,7 +2615,8 @@ public class Wallet {
      * String krn = "krn"
      *
      * caver.kas.wallet.signMessageAsync(keyId, data, krn, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param keyId The key id to use for signing.
      * @param data The data to sign.
@@ -1374,7 +2634,7 @@ public class Wallet {
 
     /**
      * Register accounts which used before. <br>
-     * POST /v2/registration/account <br>
+     * POST /v2/registration/account
      *
      * <pre>Example :
      * {@code
@@ -1407,7 +2667,8 @@ public class Wallet {
      * request.add(registration);
      *
      * RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(request);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param request The AccountRegistrationRequest instance contains account informations to be registered in KAS <br>
      *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
@@ -1420,7 +2681,7 @@ public class Wallet {
 
     /**
      * Register accounts which used before. <br>
-     * POST /v2/registration/account <br>
+     * POST /v2/registration/account
      *
      * <pre>Example :
      * {@code
@@ -1451,7 +2712,8 @@ public class Wallet {
      * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
      *
      * RegistrationStatusResponse result = caver.kas.wallet.registerAccounts(Arrays.asList(request));
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param request The List of account information to be registered in KAS. <br>
      *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
@@ -1464,7 +2726,7 @@ public class Wallet {
 
     /**
      * Register accounts which used before asynchronously. <br>
-     * POST /v2/registration/account <br>
+     * POST /v2/registration/account
      *
      * <pre>Example :
      * {@code
@@ -1502,7 +2764,8 @@ public class Wallet {
      * request.add(registration);
      *
      * RegistrationStatusResponse result = caver.kas.wallet.registerAccountsAsync(request, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param request The AccountRegistrationRequest instance contains account informations to be registered in KAS. <br>
      *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
@@ -1516,7 +2779,7 @@ public class Wallet {
 
     /**
      * Register accounts which used before asynchronously. <br>
-     * POST /v2/registration/account <br>
+     * POST /v2/registration/account
      *
      * <pre>Example :
      * {@code
@@ -1551,7 +2814,8 @@ public class Wallet {
      * registration.setRlp(createAccountUpdateTx(caver, keyring, response.getItems().get(0).getPublicKey()).getRLPEncoding());
      *
      * RegistrationStatusResponse result = caver.kas.wallet.registerAccountsAsync(Arrays.asList(request), callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param request The List of account information to be registered in KAS. <br>
      *                The rlp field of AccountRegistration should be set as an encoded FeeDelegatedAccountUpdate(without set a fee payer and fee payer signature) using the key and the address to be registered in KAS. <br>
@@ -1571,7 +2835,8 @@ public class Wallet {
      * {@code
      * String kip7ContractAddress = "address";
      * ContractCallResponse response = caver.kas.wallet.callContract(kip7ContractAddress, "totalSupply");
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
@@ -1584,7 +2849,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1595,7 +2860,8 @@ public class Wallet {
      * argument.setType("address");
      * argument.setValue(baseAccount);
      * ContractCallResponse response = caver.kas.wallet.callContract(ftContractAddress, "balanceOf", Collections.singletonList(argument));
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
@@ -1609,7 +2875,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1618,7 +2884,8 @@ public class Wallet {
      *
      * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
      * ContractCallResponse response = caver.kas.wallet.callContract(kip7ContractAddress, "pause", sendOptions);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
@@ -1632,7 +2899,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1650,7 +2917,8 @@ public class Wallet {
      * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
      *
      * ContractCallResponse response = caver.kas.wallet.callContract(contractAddress, "transfer", Arrays.asList(argument1, argument2),  sendOptions);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
@@ -1683,7 +2951,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1708,7 +2976,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1724,7 +2992,9 @@ public class Wallet {
      * argument.setValue(baseAccount);
      * caver.kas.wallet.callContractAsync(ftContractAddress, "balanceOf", Collections.singletonList(argument), callback);
      *
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
      * @param callArguments The argument required to call contract's function.
@@ -1738,7 +3008,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
-     * POST /v2/tx/contract/call <br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1751,7 +3021,9 @@ public class Wallet {
      *
      * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
      * caver.kas.wallet.callContractAsync(kip7ContractAddress, "pause", sendOptions, callback);
-     * }</pre>
+     * }
+     * </pre>
+     *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
      * @param sendOptions The sendOptions(from, gas, value) instance.
@@ -1765,7 +3037,7 @@ public class Wallet {
 
     /**
      * Call the contract. You can view certain value in the contract and validate that you can submit executable transaction asynchronously. <br>
-     * POST /v2/tx/contract/call<br>
+     * POST /v2/tx/contract/call
      *
      * <pre>Example :
      * {@code
@@ -1786,7 +3058,8 @@ public class Wallet {
      *
      * SendOptions sendOptions = new SendOptions(baseAccount, BigInteger.valueOf(200000));
      * caver.kas.wallet.callContractAsync(contractAddress, "transfer", Arrays.asList(argument1, argument2),  sendOptions, callback);
-     * }</pre>
+     * }
+     * </pre>
      *
      * @param contractAddress The contract address.
      * @param methodName The contract function name.
