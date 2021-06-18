@@ -180,14 +180,14 @@ public class KAS {
 
     /**
      * Getter function for wallet.
-     * @return WalletAPI
+     * @return Wallet
      */
     public Wallet getWallet() {
         return wallet;
     }
 
     /**
-     * Setter function for Wallet.
+     * Setter function for Wallet API instance.
      * @param wallet The WalletAPI instance.
      */
     public void setWallet(Wallet wallet) {
