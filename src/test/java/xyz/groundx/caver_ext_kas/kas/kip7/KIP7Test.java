@@ -419,6 +419,50 @@ public class KIP7Test {
     }
 
     @Test
+    public void approveWithOutOwner() throws ApiException {
+        String contractAlias = testContractAlias;
+        String spender = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+    }
+
+    @Test
+    public void approveWithOutOwnerAsync() throws ApiException, ExecutionException, InterruptedException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+        String contractAlias = testContractAlias;
+        String spender = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
+        callback.checkResponse();
+    }
+
+    @Test
+    public void approveWithOutOwner_withHexStringAmount() throws ApiException {
+        String contractAlias = testContractAlias;
+        String spender = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+    }
+
+    @Test
+    public void approveWithOutOwnerAsync_withHexStringAmount() throws ApiException, ExecutionException, InterruptedException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+        String contractAlias = testContractAlias;
+        String spender = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
+        callback.checkResponse();
+    }
+
+    @Test
     public void transfer() throws ApiException, TransactionException, IOException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;

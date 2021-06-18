@@ -456,6 +456,113 @@ public class KIP7 {
      * <pre>Example :
      * {@code
      * String addressOrAlias = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param spender Klaytn account address to approve delegated token transfer.
+     * @param amount Approved token amount
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse approve(String addressOrAlias, String spender, BigInteger amount) throws ApiException {
+        return approve(addressOrAlias, null, spender, amount);
+    }
+
+    /**
+     * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
+     *
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param spender Klaytn account address to approve delegated token transfer.
+     * @param amount Approved token amount.
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call approveAsync(String addressOrAlias, String spender, BigInteger amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return approveAsync(addressOrAlias, null, spender, amount, callback);
+    }
+
+    /**
+     * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param spender Klaytn account address to approve delegated token transfer.
+     * @param amount Approved token amount. (in hexadecimal with the 0x prefix)
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse approve(String addressOrAlias, String spender, String amount) throws ApiException {
+        return approve(addressOrAlias, null, spender, amount);
+    }
+
+    /**
+     * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param spender Klaytn account address to approve delegated token transfer.
+     * @param amount Approved token amount. (in hexadecimal with the 0x prefix)
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call approveAsync(String addressOrAlias, String spender, String amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return approveAsync(addressOrAlias, null, spender, amount, callback);
+    }
+
+    /**
+     * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     *
+     * <pre>Example :
+     * {@code
+     * String addressOrAlias = "";
      * String owner = "";
      * String spender = "";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -587,7 +694,6 @@ public class KIP7 {
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens.
      * @param amount The amount of tokens to transfer.
      * @return Kip7TransactionStatusResponse
@@ -610,7 +716,6 @@ public class KIP7 {
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens.
      * @param amount The amount of tokens to transfer.
      * @param callback The callback to handle response.
@@ -635,7 +740,6 @@ public class KIP7 {
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
      * @param amount The amount of tokens to transfer
      * @return Kip7TransactionStatusResponse
@@ -659,7 +763,6 @@ public class KIP7 {
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
      * @param amount The amount of tokens to transfer
      * @return Kip7TransactionStatusResponse
