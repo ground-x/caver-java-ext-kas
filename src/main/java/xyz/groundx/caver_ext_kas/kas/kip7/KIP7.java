@@ -203,23 +203,6 @@ public class KIP7 {
     }
 
     /**
-     * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
-     * GET /v1/contract/{contract-address-or-alias} <br>
-     *
-     * <pre>Example :
-     * {@code
-     * Kip7ContractListResponse response = caver.kas.kip7.getContractList();
-     * }
-     * </pre>
-     *
-     * @return Kip7ContractListResponse
-     * @throws ApiException
-     */
-    public Kip7ContractListResponse getContractList() throws ApiException {
-        return getContractList(new KIP7QueryOptions());
-    }
-
-    /**
      * Retrieves KIP-7 contract information by either contract address or alias. <br>
      * GET /v1/contract/{contract-address-or-alias}
      *
@@ -263,6 +246,24 @@ public class KIP7 {
     public Call getContractAsync(String addressOrAlias, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
         return kip7Api.getContractAsync(chainId, addressOrAlias, callback);
     }
+
+    /**
+     * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
+     * GET /v1/contract/{contract-address-or-alias} <br>
+     *
+     * <pre>Example :
+     * {@code
+     * Kip7ContractListResponse response = caver.kas.kip7.getContractList();
+     * }
+     * </pre>
+     *
+     * @return Kip7ContractListResponse
+     * @throws ApiException
+     */
+    public Kip7ContractListResponse getContractList() throws ApiException {
+        return getContractList(new KIP7QueryOptions());
+    }
+
 
     /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
