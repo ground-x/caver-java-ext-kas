@@ -406,7 +406,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAddress = "";
+     * String contractAddress = "{contract address}";
      * String owner = "{owner address}";
      *
      * Kip7TokenBalanceResponse response = caver.kas.kip7.balance(testContractAlias, deployerAddress);
