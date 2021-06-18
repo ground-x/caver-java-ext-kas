@@ -580,6 +580,101 @@ public class KIP7 {
      * <pre>Example :
      * {@code
      * String contractAlias = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, spender, amount);
+     * }
+     * </pre>
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param from Klaytn account address to send tokens.
+     * @param to Klaytn account addree to receive tokens.
+     * @param amount The amount of tokens to transfer.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse transfer(String addressOrAlias, String to, BigInteger amount) throws ApiException {
+        return transfer(addressOrAlias, null, to, Numeric.toHexStringWithPrefix(amount));
+    }
+
+    /**
+     * Sends tokens of the contract asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, spender, amount);
+     * }
+     * </pre>
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param from Klaytn account address to send tokens.
+     * @param to Klaytn account addree to receive tokens.
+     * @param amount The amount of tokens to transfer.
+     * @param callback The callback to handle response.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call transferAsync(String addressOrAlias, String to, BigInteger amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return transferAsync(addressOrAlias, null, to, Numeric.toHexStringWithPrefix(amount), callback);
+    }
+
+    /**
+     * Sends tokens of the contract. <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
+     * }
+     * </pre>
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param from Klaytn account address to send tokens.
+     * @param to Klaytn account addree to receive tokens
+     * @param amount The amount of tokens to transfer
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse transfer(String addressOrAlias, String to, String amount) throws ApiException {
+        return transfer(addressOrAlias, null, to, amount);
+    }
+
+    /**
+     * Sends tokens of the contract asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
+     * }
+     * </pre>
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param from Klaytn account address to send tokens.
+     * @param to Klaytn account addree to receive tokens
+     * @param amount The amount of tokens to transfer
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call transferAsync(String addressOrAlias, String to, String amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return transferAsync(addressOrAlias, null, to, amount, callback);
+    }
+
+    /**
+     * Sends tokens of the contract. <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
      * String owner = "";
      * String to = "";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18

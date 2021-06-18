@@ -479,6 +479,62 @@ public class KIP7Test {
     }
 
     @Test
+    public void transferWithOutOwner() throws ApiException, TransactionException, IOException {
+        String contractAlias = testContractAlias;
+        String to = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, to, amount);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+
+        TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
+        assertNotNull(receiptData);
+    }
+
+    @Test
+    public void transferWithOutOwnerAsync() throws ApiException, ExecutionException, InterruptedException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String to = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        caver.kas.kip7.transferAsync(contractAlias, to, amount, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void transferWithOutOwner_WithHexStringAmount() throws ApiException, TransactionException, IOException {
+        String contractAlias = testContractAlias;
+        String spender = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, spender, amount);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+
+        TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
+        assertNotNull(receiptData);
+    }
+
+    @Test
+    public void transferWithOutOwnerAsync_WithHexStringAmount() throws ApiException, ExecutionException, InterruptedException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String to = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        caver.kas.kip7.transferAsync(contractAlias, to, amount, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
     public void transferFrom() throws TransactionException, IOException, ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
