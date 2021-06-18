@@ -67,7 +67,7 @@ public class KIP7 {
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
-     * POST /v1/contract <br>
+     * POST /v1/contract
      *
      * <pre>Example :
      * {@code
@@ -95,7 +95,7 @@ public class KIP7 {
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
-     * POST /v1/contract <br>
+     * POST /v1/contract
      *
      * <pre>Example :
      * {@code
@@ -128,7 +128,7 @@ public class KIP7 {
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
-     * POST /v1/contract <br>
+     * POST /v1/contract
      *
      * <pre>Example :
      * {@code
@@ -163,7 +163,7 @@ public class KIP7 {
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
-     * POST /v1/contract <br>
+     * POST /v1/contract
      *
      * <pre>Example :
      * {@code
@@ -208,7 +208,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
+     * String contractAlias = "{contract alias}";
      *
      * Kip7ContractMetadataResponse response = caver.kas.kip7.getContract(contractAlias);
      * }
@@ -232,14 +232,14 @@ public class KIP7 {
      *       ....implements callback method.
      * }
      *
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * caver.kas.kip7.getContractAsync(contractAlias, callback);
      * }
      * </pre>
      *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param callback
-     * @return
+     * @param callback The callback to handle response
+     * @return Call
      * @throws ApiException
      */
     public Call getContractAsync(String addressOrAlias, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
@@ -248,7 +248,7 @@ public class KIP7 {
 
     /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
-     * GET /v1/contract/{contract-address-or-alias} <br>
+     * GET /v1/contract/{contract-address-or-alias}
      *
      * <pre>Example :
      * {@code
@@ -266,7 +266,7 @@ public class KIP7 {
 
     /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
-     * GET /v1/contract/{contract-address-or-alias} <br>
+     * GET /v1/contract/{contract-address-or-alias}
      *
      * <pre>Example :
      * {@code
@@ -288,7 +288,7 @@ public class KIP7 {
 
     /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
-     * GET /v1/contract/{contract-address-or-alias} <br>
+     * GET /v1/contract/{contract-address-or-alias}
      *
      * <pre>Example :
      * {@code
@@ -316,7 +316,7 @@ public class KIP7 {
 
     /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS asynchronously. <br>
-     * GET /v1/contract/{contract-address-or-alias} <br>
+     * GET /v1/contract/{contract-address-or-alias}
      *
      * <pre>Example :
      * {@code
@@ -349,13 +349,13 @@ public class KIP7 {
 
     /**
      * Shows the amount of tokens approved to the `spender` by the `owner`. <br>
-     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/allowance/{spender} <br>
+     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/allowance/{spender}
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      *
      * Kip7TokenBalanceResponse response = caver.kas.kip7.allowance(contractAlias, owner, spender);
      * }
@@ -373,7 +373,7 @@ public class KIP7 {
 
     /**
      * Shows the amount of tokens approved to the `spender` by the `owner` asynchronously. <br>
-     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/allowance/{spender} <br>
+     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/allowance/{spender}
      *
      * <pre>Example :
      * {@code
@@ -381,9 +381,9 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      *
      * caver.kas.kip7.allowance(contractAlias, owner, spender, callback);
      * }
@@ -402,12 +402,12 @@ public class KIP7 {
 
     /**
      * Shows the `{owner}`'s balance for the given KIP-7 contract. <br>
-     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/balance <br>
+     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/balance
      *
      * <pre>Example :
      * {@code
      * String contractAddress = "";
-     * String owner = "";
+     * String owner = "{owner address}";
      *
      * Kip7TokenBalanceResponse response = caver.kas.kip7.balance(testContractAlias, deployerAddress);
      * }
@@ -424,7 +424,7 @@ public class KIP7 {
 
     /**
      * Shows the `{owner}`'s balance for the given KIP-7 contract asynchronously. <br>
-     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/balance <br>
+     * GET /v1/contract/{contract-address-or-alias}/account/{owner}/balance
      *
      * <pre>Example :
      * {@code
@@ -432,8 +432,8 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
      *
      * caver.kas.kip7.balanceAsync(contractAlias, owner, callback);
      }
@@ -451,12 +451,12 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
-     * String addressOrAlias = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
@@ -475,7 +475,7 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
@@ -483,8 +483,8 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
@@ -505,12 +505,12 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
@@ -529,7 +529,7 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
@@ -537,8 +537,8 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
@@ -558,13 +558,13 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
-     * String addressOrAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
@@ -584,7 +584,7 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
@@ -592,9 +592,9 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
@@ -616,13 +616,13 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner`. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
@@ -647,7 +647,7 @@ public class KIP7 {
 
     /**
      * Authorizes the `spender` to send a certain amount of tokens on behalf of the `owner` asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/approve <br>
+     * POST /v1/contract/{contract-address-or-alias}/approve
      *
      * <pre>Example :
      * {@code
@@ -655,9 +655,9 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
@@ -683,16 +683,18 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param to Klaytn account addree to receive tokens.
      * @param amount The amount of tokens to transfer.
@@ -705,16 +707,18 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param to Klaytn account addree to receive tokens.
      * @param amount The amount of tokens to transfer.
@@ -728,17 +732,19 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param to Klaytn account addree to receive tokens
      * @param amount The amount of tokens to transfer
@@ -751,17 +757,19 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param to Klaytn account addree to receive tokens
      * @param amount The amount of tokens to transfer
@@ -774,17 +782,19 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
@@ -798,21 +808,23 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
      * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.transferAsync(contractAlias, owner, to, amount, callback);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
@@ -827,17 +839,19 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
@@ -856,21 +870,23 @@ public class KIP7 {
 
     /**
      * Sends tokens of the contract asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer
+     *
      * <pre>Example :
      * {@code
      * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.transferAsync(contractAlias, owner, to, amount, callback);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param from Klaytn account address to send tokens.
      * @param to Klaytn account addree to receive tokens
@@ -890,20 +906,22 @@ public class KIP7 {
 
     /**
      * Sends tokens on behalf of the owner. <br>
-     * It need to approve token transfer in advance {@link #approve(String, String, String, String)} approve} method.
+     * It need to approve token transfer in advance {@link #approve(String, String, String, String)} approve} method.<br>
      * POST /v1/contract/{contract-address-or-alias}/transfer-from
+     *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse transferRes = caver.kas.kip7.transferFrom(contractAlias, spender, owner, to, amount);
 
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param spender Klaytn account address to send tokens by delegated token.
      * @param owner Klaytn account address of the owner delegating the token transfer.
@@ -919,7 +937,7 @@ public class KIP7 {
     /**
      * Sends tokens on behalf of the owner asynchronously. <br>
      * It need to approve token transfer in advance {@link #approve(String, String, String, String)} approve} method. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer-from <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer-from
      *
      * <pre>Example :
      * {@code
@@ -927,10 +945,10 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.transferFromAsync(contractAlias, spender, owner, to, amount, callback);
@@ -953,14 +971,14 @@ public class KIP7 {
     /**
      * Sends tokens on behalf of the owner. <br>
      * It need to approve token transfer in advance {@link #approve(String, String, String, String)} approve} method. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer-from <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer-from
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse transferRes = caver.kas.kip7.transferFrom(contractAlias, spender, owner, to, amount);
@@ -989,7 +1007,7 @@ public class KIP7 {
     /**
      * Sends tokens on behalf of the owner asynchronously. <br>
      * It need to approve token transfer in advance {@link #approve(String, String, String, String)} approve} method. <br>
-     * POST /v1/contract/{contract-address-or-alias}/transfer-from <br>
+     * POST /v1/contract/{contract-address-or-alias}/transfer-from
      *
      * <pre>Example :
      * {@code
@@ -997,10 +1015,10 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.transferFromAsync(contractAlias, spender, owner, to, amount, callback);
@@ -1028,12 +1046,12 @@ public class KIP7 {
 
     /**
      * Mints a new token for a given user. <br>
-     * POST /v1/contract/{contract-address-or-alias}/mint <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount);
@@ -1052,7 +1070,7 @@ public class KIP7 {
 
     /**
      * Mints a new token for a given user asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/mint <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
      *
      * <pre>Example :
      * {@code
@@ -1060,8 +1078,8 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.mintAsync(contractAlias, to, amount, callback);
@@ -1080,12 +1098,12 @@ public class KIP7 {
 
     /**
      * Mints a new token for a given user. <br>
-     * POST /v1/contract/{contract-address-or-alias}/mint <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount);
@@ -1108,7 +1126,7 @@ public class KIP7 {
 
     /**
      * Mints a new token for a given user asynchronously. <br>
-     * POST /v1/contract/{contract-address-or-alias}/mint <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
      *
      * <pre>Example :
      * {@code
@@ -1116,8 +1134,8 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String to = "";
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.mintAsync(contractAlias, to, amount, callback);
@@ -1145,7 +1163,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, amount);
@@ -1171,7 +1189,7 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.burnAsync(contractAlias, amount, callback);
@@ -1194,7 +1212,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, amount);
@@ -1220,7 +1238,7 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.burnAsync(contractAlias, amount, callback);
@@ -1243,7 +1261,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String from = "";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
@@ -1271,7 +1289,7 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String from = "";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
@@ -1296,7 +1314,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String from = "";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
@@ -1329,7 +1347,7 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
+     * String contractAlias = "{Contract alias}";
      * String from = "";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
@@ -1361,9 +1379,9 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burnFrom(contractAlias, spender, owner, amount);
@@ -1392,9 +1410,9 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
      * caver.kas.kip7.burnFromAsync(contractAlias, spender, owner, amount, callback);
@@ -1420,9 +1438,9 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * Kip7TransactionStatusResponse response = caver.kas.kip7.burnFrom(contractAlias, spender, owner, amount);
@@ -1456,9 +1474,9 @@ public class KIP7 {
      *     ....implements callback method.
      * }
      *
-     * String contractAlias = "";
-     * String owner = "";
-     * String spender = "";
+     * String contractAlias = "{Contract alias}";
+     * String owner = "{owner address}";
+     * String spender = "{spender address}";
      * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
      * caver.kas.kip7.burnFromAsync(contractAlias, spender, owner, amount, callback);
@@ -1558,6 +1576,7 @@ public class KIP7 {
      * caver.kas.kip7.unpauseAsync(testContractAlias, callback);
      * }
      * </pre>
+     *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
      * @param callback The callback function to handle response.
      * @return Call
