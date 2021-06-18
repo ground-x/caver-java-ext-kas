@@ -238,7 +238,6 @@ public class KIP7 {
      * </pre>
      *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
-     * @param addressOrAlias
      * @param callback
      * @return
      * @throws ApiException
