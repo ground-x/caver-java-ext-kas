@@ -12,7 +12,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.*;
 import java.math.BigInteger;
 
 /**
- * Representing an wrapping class that connects KIP-7 APi.
+ * Representing a wrapping class that connects KIP-7 API.
  */
 public class KIP7 {
 
@@ -59,9 +59,9 @@ public class KIP7 {
      * String name = "TEST_KIP7";
      * String symbol = "TKIP7";
      * int decimals = 18;
-     * BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
      *
-     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initialSupply, testAlias);
      * }
      * </pre>
      *
@@ -91,9 +91,9 @@ public class KIP7 {
      * String name = "TEST_KIP7";
      * String symbol = "TKIP7";
      * int decimals = 18;
-     * BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
      *
-     * caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
+     * caver.kas.kip7.deployAsync(name, symbol, decimals, initialSupply, testAlias, callback);
      * }
      * </pre>
      *
@@ -120,9 +120,9 @@ public class KIP7 {
      * String name = "TEST_KIP7";
      * String symbol = "TKIP7";
      * int decimals = 18;
-     * String initial_supply = "0x152d02c7e14af6800000";
+     * String initialSupply = "0x152d02c7e14af6800000";
      *
-     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initialSupply, testAlias);
      * }
      * </pre>
      *
