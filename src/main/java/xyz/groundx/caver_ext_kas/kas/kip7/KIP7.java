@@ -55,7 +55,13 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
      * }
      * </pre>
      *
@@ -77,7 +83,17 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *      ....implements callback method.
+     * }
      *
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     *
+     * caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
      * }
      * </pre>
      *
@@ -100,7 +116,13 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * String initial_supply = "0x152d02c7e14af6800000";
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
      * }
      * </pre>
      *
@@ -129,6 +151,17 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *      ....implements callback method.
+     * }
+     *
+     * String testAlias = "test-contract" + new Date().getTime();
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * String initial_supply = "0x152d02c7e14af6800000";
+     *
+     * caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
      *
      * }
      * </pre>
@@ -159,7 +192,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     *
+     * Kip7ContractListResponse response = caver.kas.kip7.getContractList();
      * }
      * </pre>
      *
@@ -171,14 +204,63 @@ public class KIP7 {
     }
 
     /**
+     * Retrieves KIP-7 contract information by either contract address or alias. <br>
+     * GET /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     *
+     * Kip7ContractMetadataResponse response = caver.kas.kip7.getContract(contractAlias);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @return Kip7ContractMetadataResponse
+     * @throws ApiException
+     */
+    public Kip7ContractMetadataResponse getContract(String addressOrAlias) throws ApiException {
+        return kip7Api.getContract(chainId, addressOrAlias);
+    }
+
+    /**
+     * Retrieves KIP-7 contract information by either contract address or alias. <br>
+     * GET /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7ContractMetadataResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *       ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * caver.kas.kip7.getContractAsync(contractAlias, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param addressOrAlias
+     * @param callback
+     * @return
+     * @throws ApiException
+     */
+    public Call getContractAsync(String addressOrAlias, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
+        return kip7Api.getContractAsync(chainId, addressOrAlias, callback);
+    }
+
+    /**
      * Search the list of deployed KIP-7 contracts using the Klaytn account in KAS. <br>
      * GET /v1/contract/{contract-address-or-alias} <br>
      *
      * <pre>Example :
      * {@code
-     *
+     * ApiCallback<Kip7ContractListResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *       ....implements callback method.
      * }
-     * </pre>
+     *
+     * caver.kas.kip7.getContractListAsync(callback);
+     *
+     * }</pre>
      *
      * @param callback The callback to handle response.
      * @return Call
@@ -194,7 +276,12 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * KIP7QueryOptions options = new KIP7QueryOptions();
+     * options.setSize(1);
+     * options.setStatus(KIP7QueryOptions.STATUS_TYPE.DEPLOYED);
+     * options.setCursor("cursor value");
      *
+     * Kip7ContractListResponse response = caver.kas.kip7.getContractList(options);
      * }
      * </pre>
      *
@@ -203,7 +290,12 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7ContractListResponse getContractList(KIP7QueryOptions options) throws ApiException {
-        return kip7Api.listContractsInDeployerPool(chainId, Integer.toString(options.getSize()), options.getCursor(), options.getStatus());
+        String size = null;
+        if(options.getSize() != null) {
+            size = Integer.toString(options.getSize());
+        }
+
+        return kip7Api.listContractsInDeployerPool(chainId, size, options.getCursor(), options.getStatus());
     }
 
     /**
@@ -212,9 +304,18 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     *
+     * ApiCallback<Kip7ContractListResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *       ....implements callback method.
      * }
-     * </pre>
+     *
+     * KIP7QueryOptions options = new KIP7QueryOptions();
+     * options.setSize(1);
+     * options.setStatus(KIP7QueryOptions.STATUS_TYPE.DEPLOYED);
+     * options.setCursor("cursor value");
+     *
+     * caver.kas.kip7.getContractListAsync(options, callback);
+     *
+     * }</pre>
      *
      * @param options Filters required when retrieving data. `size`, `cursor` and `status`.
      * @param callback The callback to handle response.
@@ -222,7 +323,12 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call getContractListAsync(KIP7QueryOptions options, ApiCallback<Kip7ContractListResponse> callback) throws ApiException {
-        return kip7Api.listContractsInDeployerPoolAsync(chainId, Integer.toString(options.getSize()), options.getCursor(), options.getStatus(), callback);
+        String size = null;
+        if(options.getSize() != null) {
+            size = Integer.toString(options.getSize());
+        }
+
+        return kip7Api.listContractsInDeployerPoolAsync(chainId, size, options.getCursor(), options.getStatus(), callback);
     }
 
     /**
@@ -231,7 +337,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
      *
+     * Kip7TokenBalanceResponse response = caver.kas.kip7.allowance(contractAlias, owner, spender);
      * }
      * </pre>
      *
@@ -251,7 +361,15 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TokenBalanceResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     *
+     * caver.kas.kip7.allowance(contractAlias, owner, spender, callback);
      * }
      * </pre>
      *
@@ -272,7 +390,10 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAddress = "";
+     * String owner = "";
      *
+     * Kip7TokenBalanceResponse response = caver.kas.kip7.balance(testContractAlias, deployerAddress);
      * }
      * </pre>
      *
@@ -291,8 +412,14 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     *
+     * ApiCallback<Kip7TokenBalanceResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
      * }
+     *
+     * String contractAlias = "";
+     * String owner = "";
+     *
+     * caver.kas.kip7.balanceAsync(contractAlias, owner, callback);
      * </pre>
      *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -311,7 +438,12 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String addressOrAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
      * }
      * </pre>
      *
@@ -332,6 +464,16 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
      *
      * }
      * </pre>
@@ -354,7 +496,12 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
      * }
      * </pre>
      *
@@ -380,7 +527,16 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
      * }
      * </pre>
      *
@@ -406,7 +562,12 @@ public class KIP7 {
      * POST /v1/contract/{contract-address-or-alias}/transfer <br>
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -425,7 +586,16 @@ public class KIP7 {
      * POST /v1/contract/{contract-address-or-alias}/transfer <br>
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.transferAsync(contractAlias, owner, to, amount, callback);
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -445,7 +615,12 @@ public class KIP7 {
      * POST /v1/contract/{contract-address-or-alias}/transfer <br>
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -469,7 +644,16 @@ public class KIP7 {
      * POST /v1/contract/{contract-address-or-alias}/transfer <br>
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.transferAsync(contractAlias, owner, to, amount, callback);
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -495,7 +679,14 @@ public class KIP7 {
      * POST /v1/contract/{contract-address-or-alias}/transfer-from
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse transferRes = caver.kas.kip7.transferFrom(contractAlias, spender, owner, to, amount);
+
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -517,7 +708,17 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.transferFromAsync(contractAlias, spender, owner, to, amount, callback);
      * }
      * </pre>
      *
@@ -541,7 +742,13 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse transferRes = caver.kas.kip7.transferFrom(contractAlias, spender, owner, to, amount);
      * }
      * </pre>
      *
@@ -571,7 +778,17 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.transferFromAsync(contractAlias, spender, owner, to, amount, callback);
      * }
      * </pre>
      *
@@ -600,7 +817,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount);
      * }
      * </pre>
      *
@@ -620,7 +841,15 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String to = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, callback);
      * }
      * </pre>
      *
@@ -640,7 +869,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount);
      * }
      * </pre>
      *
@@ -664,7 +897,15 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String to = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, callback);
      * }
      * </pre>
      *
@@ -689,7 +930,109 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, amount);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param amount The amount of tokens to burn.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse burn(String addressOrAlias, BigInteger amount) throws ApiException {
+        return burn(addressOrAlias, null, Numeric.toHexStringWithPrefix(amount));
+    }
+
+    /**
+     * Burns tokens asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/burn
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.burnAsync(contractAlias, amount, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param amount The amount of tokens to burn.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, BigInteger amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, null, amount, callback);
+    }
+
+    /**
+     * Burns tokens. <br>
+     * POST /v1/contract/{contract-address-or-alias}/burn
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, amount);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param amount The amount of tokens to burn.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse burn(String addressOrAlias, String amount) throws ApiException {
+        return burn(addressOrAlias, null, amount);
+    }
+
+    /**
+     * Burns tokens asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/burn
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.burnAsync(contractAlias, amount, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param amount The amount of tokens to burn.
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, String amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, null, amount, callback);
+    }
+
+    /**
+     * Burns tokens. <br>
+     * POST /v1/contract/{contract-address-or-alias}/burn
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "";
+     * String from = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, from, amount);
      * }
      * </pre>
      *
@@ -709,7 +1052,15 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String from = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.burnAsync(contractAlias, from, amount, callback);
      * }
      * </pre>
      *
@@ -730,7 +1081,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String from = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burn(contractAlias, from, amount);
      * }
      * </pre>
      *
@@ -755,6 +1110,15 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "";
+     * String from = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.burnAsync(contractAlias, from, amount, callback);
      *
      * }
      * </pre>
@@ -782,7 +1146,12 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burnFrom(contractAlias, spender, owner, amount);
      * }
      * </pre>
      *
@@ -804,7 +1173,16 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     *
+     * caver.kas.kip7.burnFromAsync(contractAlias, spender, owner, amount, callback);
      * }
      * </pre>
      *
@@ -827,7 +1205,12 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.burnFrom(contractAlias, spender, owner, amount);
      * }
      * </pre>
      *
@@ -854,7 +1237,16 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * String contractAlias = "";
+     * String owner = "";
+     * String spender = "";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     *
+     * caver.kas.kip7.burnFromAsync(contractAlias, spender, owner, amount, callback);
      * }
      * </pre>
      *
@@ -881,7 +1273,9 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAddress = "";
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(contractAddress);
      * }
      * </pre>
      *
@@ -899,7 +1293,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * caver.kas.kip7.pauseAsync(testContractAlias, callback);
      * }
      * </pre>
      *
@@ -918,7 +1316,9 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * String contractAddress = "";
      *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(contractAddress);
      * }
      * </pre>
      *
@@ -936,7 +1336,11 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
      *
+     * caver.kas.kip7.unpauseAsync(testContractAlias, callback);
      * }
      * </pre>
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
@@ -954,7 +1358,7 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
-     *
+     * Kip7DeployerResponse deployerResponse = caver.kas.kip7.getDeployer();
      * }
      * </pre>
      *
@@ -971,8 +1375,13 @@ public class KIP7 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip7DeployerResponse> callback = new ApiCallback<Kip7DeployerResponse>() {
+     *      ....implements callback method.
+     * };
      *
+     * caver.kas.kip7.getDeployerAsync(callback);
      * }
+     * </pre>
      *
      * @param callback The callback function to handle response.
      * @return Call
