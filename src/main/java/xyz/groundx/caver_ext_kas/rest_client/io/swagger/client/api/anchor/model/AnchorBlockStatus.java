@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -22,9 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Anchoring state response
+ * Response with the anchoring state
  */
-@Schema(description = "Anchoring state response")
+@Schema(description = "Response with the anchoring state")
 
 public class AnchorBlockStatus {
   @SerializedName("status")
@@ -36,10 +36,10 @@ public class AnchorBlockStatus {
   }
 
    /**
-   * Anchoring success/failure
+   * Whether anchoring succeeded or not
    * @return status
   **/
-  @Schema(example = "succeed", required = true, description = "Anchoring success/failure")
+  @Schema(example = "succeed", required = true, description = "Whether anchoring succeeded or not")
   public String getStatus() {
     return status;
   }
