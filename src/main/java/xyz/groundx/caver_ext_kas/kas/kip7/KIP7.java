@@ -436,6 +436,7 @@ public class KIP7 {
      * String owner = "";
      *
      * caver.kas.kip7.balanceAsync(contractAlias, owner, callback);
+     }
      * </pre>
      *
      * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
