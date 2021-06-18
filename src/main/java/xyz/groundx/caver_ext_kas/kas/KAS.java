@@ -163,8 +163,8 @@ public class KAS {
     }
 
     /**
-     * Getter function for Token History.
-     * @return TokenHistoryAPI
+     * Getter function for tokenHistory.
+     * @return TokenHistory
      */
     public TokenHistory getTokenHistory() {
         return tokenHistory;
@@ -172,7 +172,7 @@ public class KAS {
 
     /**
      * Setter function for Token History.
-     * @param tokenHistory The Token History API Instance.
+     * @param tokenHistory The TokenHistory API instance.
      */
     public void setTokenHistory(TokenHistory tokenHistory) {
         this.tokenHistory = tokenHistory;
