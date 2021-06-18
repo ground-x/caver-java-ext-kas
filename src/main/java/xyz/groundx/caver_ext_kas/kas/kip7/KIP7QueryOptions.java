@@ -129,7 +129,7 @@ public class KIP7QueryOptions {
      */
     public void setStatus(String status) {
         if(!STATUS_TYPE.isExist(status)) {
-            throw new InvalidParameterException("The type parameter have one of the following: [" + STATUS_TYPE.getAllStatus() + "]");
+            throw new InvalidParameterException("The status parameter have one of the following: [" + STATUS_TYPE.getAllStatus() + "]");
         }
 
         this.status = status;
