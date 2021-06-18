@@ -99,6 +99,7 @@ public class CaverExtKAS extends Caver {
         initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey);
         initWalletAPI(chainId, accessKeyId, secretAccessKey);
         initKIP17API(chainId, accessKeyId, secretAccessKey);
+        initKIP7API(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
