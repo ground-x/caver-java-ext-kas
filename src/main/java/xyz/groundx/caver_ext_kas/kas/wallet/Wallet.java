@@ -796,13 +796,18 @@ public class Wallet {
      *
      * <pre>Example:
      * {@code
-     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
      * String deployerAddress = "0x{fromAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
      *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
+     *
+     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
      * request.setInput(Utils.addHexPrefix(input));
      * request.setGas(5500000L);
@@ -826,13 +831,18 @@ public class Wallet {
      *
      * <pre>Example:
      * {@code
-     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
      * String deployerAddress = "0x{fromAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
      *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
+     *
+     * ContractDeployTransactionRequest request = new ContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
      * request.setInput(Utils.addHexPrefix(input));
      * request.setGas(5500000L);
@@ -861,19 +871,22 @@ public class Wallet {
      *
      * <pre>Example:
      * {@code
-     * ContractExecutionTransactionRequest request = new ContractExecutionTransactionRequest();
      * String deployerAddress = "0x{deployerAddress}";
      * String contractAddress = "0x{contractAddress}";
-     * String toAddress = "0x{toAddress}";
+     * String contractAbi = "{abi}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
      *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = contract.encodeABI("method", param1, param2, ...);
+     *
+     * ContractExecutionTransactionRequest request = new ContractExecutionTransactionRequest();
      * request.setFrom(deployerAddress);
      * request.setTo(contractAddress);
-     * request.setInput(input);
-     * request.setSubmit(true);
+     * request.setInput(Utils.addHexPrefix(input));
+     * request.setGas(5500000L);
+     * request.submit(true);
      *
      * TransactionResult result = caver.kas.wallet.requestSmartContractExecution(request);
      * }
@@ -896,11 +909,13 @@ public class Wallet {
      * ContractExecutionTransactionRequest request = new ContractExecutionTransactionRequest();
      * String deployerAddress = "0x{deployerAddress}";
      * String contractAddress = "0x{contractAddress}";
-     * String toAddress = "0x{toAddress}";
+     * String contractAbi = "{abi}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = contract.encodeABI("method", param1, param2, ...);
      *
      * request.setFrom(deployerAddress);
      * request.setTo(contractAddress);
@@ -1261,9 +1276,14 @@ public class Wallet {
      * {@code
      * String deployerAddress = "0x{deployerAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
+     *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
      *
      * FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
@@ -1293,9 +1313,14 @@ public class Wallet {
      * {@code
      * String deployerAddress = "0x{deployerAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
+     *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
      *
      * FDContractDeployTransactionRequest request = new FDContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
@@ -1328,12 +1353,14 @@ public class Wallet {
      * <pre>Example:
      * {@code
      * String fromAddress = "0x{fromAddress}";
-     * String toAddress = "0x{toAddress}";
      * String contractAddress = "0x{contractAddress}";
+     * String contractAbi = "{abi}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = contract.encodeABI("method", param1, param2, ...);
      *
      * FDContractExecutionTransactionRequest request = new FDContractExecutionTransactionRequest();
      * request.setFrom(fromAddress);
@@ -1362,12 +1389,15 @@ public class Wallet {
      * <pre>Example:
      * {@code
      * String fromAddress = "0x{fromAddress}";
-     * String toAddress = "0x{toAddress}";
      * String contractAddress = "0x{contractAddress}";
+     * String contractAbi = "{abi}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = contract.encodeABI("method", param1, param2, ...);
+     *
      *
      * FDContractExecutionTransactionRequest request = new FDContractExecutionTransactionRequest();
      * request.setFrom(fromAddress);
@@ -1705,9 +1735,14 @@ public class Wallet {
      * String deployerAddress = "0x{deployerAddress}";
      * String feePayerAddress = "0x{feePayerAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
+     *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
      *
      * FDUserContractDeployTransactionRequest request = new FDUserContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
@@ -1739,9 +1774,14 @@ public class Wallet {
      * String deployerAddress = "0x{deployerAddress}";
      * String feePayerAddress = "0x{feePayerAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver);
-     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
-     * String input = ABI.encodeContractDeploy(kip7.getConstructor(), KIP7ConstantData.BINARY, Arrays.asList("TEST", "TES", 18, initialSupply));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     * String bytecode = "{bytecode}";
+     *
+     * Contract contract = caver.contract.create(contractAbi);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("constructor", bytecode, param1, param2, ...);
      *
      * FDUserContractDeployTransactionRequest request = new FDUserContractDeployTransactionRequest();
      * request.setFrom(deployerAddress);
@@ -1776,13 +1816,16 @@ public class Wallet {
      * <pre>Example:
      * {@code
      * String fromAddress = "0x{fromAddress}";
-     * String toAddress = "0x{toAddress}";
      * String feePayerAddress = "0x{feePayerAddress}";
      * String contractAddress = "0x{contractAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     *
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("method", param1, param2, ...);
      *
      * FDUserContractExecutionTransactionRequest request = new FDUserContractExecutionTransactionRequest();
      * request.setFrom(fromAddress);
@@ -1812,13 +1855,16 @@ public class Wallet {
      * <pre>Example:
      * {@code
      * String fromAddress = "0x{fromAddress}";
-     * String toAddress = "0x{toAddress}";
      * String feePayerAddress = "0x{feePayerAddress}";
      * String contractAddress = "0x{contractAddress}";
      *
-     * KIP7 kip7 = new KIP7(caver, contractAddress);
-     * BigInteger transferAmount = BigInteger.TEN.multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
-     * String input = kip7.getMethod("transfer").encodeABI(Arrays.asList(toAddress, transferAmount));
+     * // You can get abi and bytecode of smart contract by compiling the contract.
+     * String contractAbi = "{abi}";
+     *
+     * Contract contract = caver.contract.create(contractAbi, contractAddress);
+     *
+     * // The number of params is based on your contract abi and bytecode...
+     * String input = String input = contract.encodeABI("method", param1, param2, ...);
      *
      * FDUserContractExecutionTransactionRequest request = new FDUserContractExecutionTransactionRequest();
      * request.setFrom(fromAddress);
