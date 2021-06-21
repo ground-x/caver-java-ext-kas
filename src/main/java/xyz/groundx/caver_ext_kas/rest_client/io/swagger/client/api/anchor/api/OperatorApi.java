@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -57,7 +57,7 @@ public class OperatorApi {
 
     /**
      * Build call for getOperator
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -129,9 +129,9 @@ public class OperatorApi {
     }
 
     /**
-     * Search Specific Operator
-     * Search for the settings of a specific operator.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve the specific operator
+     * Retrieve the operator settings and a balance of the operator account.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @return Operator
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -142,9 +142,9 @@ public class OperatorApi {
     }
 
     /**
-     * Search Specific Operator
-     * Search for the settings of a specific operator.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve the specific operator
+     * Retrieve the operator settings and a balance of the operator account.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @return ApiResponse&lt;Operator&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -156,9 +156,9 @@ public class OperatorApi {
     }
 
     /**
-     * Search Specific Operator (asynchronously)
-     * Search for the settings of a specific operator.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve the specific operator (asynchronously)
+     * Retrieve the operator settings and a balance of the operator account.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -192,11 +192,11 @@ public class OperatorApi {
     }
     /**
      * Build call for retrieveOperators
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -270,13 +270,13 @@ public class OperatorApi {
     }
 
     /**
-     * Search List of All Operators
-     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * Retrieve a list of all operators
+     * Retrieve the list of operators created and the setting values of each operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @return Operators
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -286,13 +286,13 @@ public class OperatorApi {
     }
 
     /**
-     * Search List of All Operators
-     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * Retrieve a list of all operators
+     * Retrieve the list of operators created and the setting values of each operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @return ApiResponse&lt;Operators&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -303,13 +303,13 @@ public class OperatorApi {
     }
 
     /**
-     * Search List of All Operators (asynchronously)
-     * Search for a list of created operators and the settings of each of them.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * Retrieve a list of all operators (asynchronously)
+     * Retrieve the list of operators created and the setting values of each operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

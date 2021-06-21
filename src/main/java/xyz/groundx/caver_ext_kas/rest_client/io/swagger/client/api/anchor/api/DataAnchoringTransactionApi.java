@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -59,7 +59,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Build call for anchorBlock
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -126,9 +126,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Create Anchoring Transaction
-     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Create an anchoring transaction
+     * Use for anchoring blockchain data. It creates and manages anchoring transactions by the operator set on the KAS console. For successful anchoring through operator or user&#x27;s feepayer, a balance of 10 times more than the fee needed is required.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return AnchorBlockStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -139,9 +139,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Create Anchoring Transaction
-     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Create an anchoring transaction
+     * Use for anchoring blockchain data. It creates and manages anchoring transactions by the operator set on the KAS console. For successful anchoring through operator or user&#x27;s feepayer, a balance of 10 times more than the fee needed is required.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;AnchorBlockStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -153,9 +153,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Create Anchoring Transaction (asynchronously)
-     * It is used to anchor blockchain data. A preconfigured operator is used to create and manage anchoring transactions.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Create an anchoring transaction (asynchronously)
+     * Use for anchoring blockchain data. It creates and manages anchoring transactions by the operator set on the KAS console. For successful anchoring through operator or user&#x27;s feepayer, a balance of 10 times more than the fee needed is required.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -189,7 +189,7 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for getAnchorBlockByPayloadID
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param payloadId Payload ID (required)
      * @param progressListener Progress listener
@@ -267,9 +267,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Payload
-     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with payload
+     * Specify a Payload ID and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param payloadId Payload ID (required)
      * @return AnchorTransactionDetail
@@ -281,9 +281,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Payload
-     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with payload
+     * Specify a Payload ID and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param payloadId Payload ID (required)
      * @return ApiResponse&lt;AnchorTransactionDetail&gt;
@@ -296,9 +296,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Payload (asynchronously)
-     * Specify a payload ID and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with payload (asynchronously)
+     * Specify a Payload ID and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param payloadId Payload ID (required)
      * @param callback The callback to be executed when the API call finishes
@@ -333,7 +333,7 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for getAnchorBlockByTx
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param transactionHash Transaction hash (required)
      * @param progressListener Progress listener
@@ -411,9 +411,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Transaction Hash
-     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with transaction hash value
+     * Specify a transaction hash value and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param transactionHash Transaction hash (required)
      * @return AnchorTransactionDetail
@@ -425,9 +425,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Transaction Hash
-     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with transaction hash value
+     * Specify a transaction hash value and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param transactionHash Transaction hash (required)
      * @return ApiResponse&lt;AnchorTransactionDetail&gt;
@@ -440,9 +440,9 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search Anchoring Transactions with Transaction Hash (asynchronously)
-     * Specify a transaction hash value and operator ID to search for a list of transactions that were created by the operator. When creating a transaction, you may check the payload that is added to a transaction.
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve anchoring transactions with transaction hash value (asynchronously)
+     * Specify a transaction hash value and an operator ID to retrieve a list of transactions created by the operator. When creating a transaction, you may check the payload added to the transaction.
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param transactionHash Transaction hash (required)
      * @param callback The callback to be executed when the API call finishes
@@ -477,12 +477,12 @@ public class DataAnchoringTransactionApi {
     }
     /**
      * Build call for retrieveAnchorBlock
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -561,14 +561,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search List of Anchoring Transactions with Operator
-     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve a list of transactions by the operator
+     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @return AnchorTransactions
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -578,14 +578,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search List of Anchoring Transactions with Operator
-     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve a list of transactions by the operator
+     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @return ApiResponse&lt;AnchorTransactions&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -596,14 +596,14 @@ public class DataAnchoringTransactionApi {
     }
 
     /**
-     * Search List of Anchoring Transactions with Operator (asynchronously)
-     * Specify an operator ID to search for a list of transactions that were created by the operator.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br>
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
+     * Retrieve a list of transactions by the operator (asynchronously)
+     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
-     * @param size Maximum size of account to search (optional, default to 100)
-     * @param cursor Information on last searched cursor (optional)
-     * @param fromTimestamp Timestamp of the start time to be searched (in seconds) (optional)
-     * @param toTimestamp Timestamp of the end time to be searched (in seconds) (optional)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

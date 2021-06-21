@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -22,16 +22,37 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Operator payment information
+ * Operator pay information
  */
-@Schema(description = "Operator payment information")
+@Schema(description = "Operator pay information")
 
 public class OperatorSetting {
+  @SerializedName("feePayer")
+  private String feePayer = null;
+
   @SerializedName("useGlobalFeePayer")
   private Boolean useGlobalFeePayer = null;
 
   @SerializedName("useOperator")
   private Boolean useOperator = null;
+
+  public OperatorSetting feePayer(String feePayer) {
+    this.feePayer = feePayer;
+    return this;
+  }
+
+   /**
+   * Get feePayer
+   * @return feePayer
+  **/
+  @Schema(example = "0x75C5884230e93B81c9320eC56a00369a27dEd4Db", description = "")
+  public String getFeePayer() {
+    return feePayer;
+  }
+
+  public void setFeePayer(String feePayer) {
+    this.feePayer = feePayer;
+  }
 
   public OperatorSetting useGlobalFeePayer(Boolean useGlobalFeePayer) {
     this.useGlobalFeePayer = useGlobalFeePayer;
@@ -39,10 +60,10 @@ public class OperatorSetting {
   }
 
    /**
-   * Global fee delegation account enabled/disabled
+   * Whether to use global fee delegation account
    * @return useGlobalFeePayer
   **/
-  @Schema(example = "true", required = true, description = "Global fee delegation account enabled/disabled")
+  @Schema(example = "false", required = true, description = "Whether to use global fee delegation account")
   public Boolean isUseGlobalFeePayer() {
     return useGlobalFeePayer;
   }
@@ -57,10 +78,10 @@ public class OperatorSetting {
   }
 
    /**
-   * Operator payment enabled/disabled
+   * Whether to pay by operator
    * @return useOperator
   **/
-  @Schema(example = "true", required = true, description = "Operator payment enabled/disabled")
+  @Schema(example = "true", required = true, description = "Whether to pay by operator")
   public Boolean isUseOperator() {
     return useOperator;
   }
@@ -79,13 +100,14 @@ public class OperatorSetting {
       return false;
     }
     OperatorSetting operatorSetting = (OperatorSetting) o;
-    return Objects.equals(this.useGlobalFeePayer, operatorSetting.useGlobalFeePayer) &&
+    return Objects.equals(this.feePayer, operatorSetting.feePayer) &&
+        Objects.equals(this.useGlobalFeePayer, operatorSetting.useGlobalFeePayer) &&
         Objects.equals(this.useOperator, operatorSetting.useOperator);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(useGlobalFeePayer, useOperator);
+    return Objects.hash(feePayer, useGlobalFeePayer, useOperator);
   }
 
 
@@ -94,6 +116,7 @@ public class OperatorSetting {
     StringBuilder sb = new StringBuilder();
     sb.append("class OperatorSetting {\n");
     
+    sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
     sb.append("    useGlobalFeePayer: ").append(toIndentedString(useGlobalFeePayer)).append("\n");
     sb.append("    useOperator: ").append(toIndentedString(useOperator)).append("\n");
     sb.append("}");

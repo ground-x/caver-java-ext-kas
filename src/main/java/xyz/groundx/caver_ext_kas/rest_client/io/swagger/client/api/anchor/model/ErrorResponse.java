@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -22,9 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * This response contains error description.
+ * Response with the error description
  */
-@Schema(description = "This response contains error description.")
+@Schema(description = "Response with the error description")
 
 public class ErrorResponse {
   @SerializedName("code")
@@ -33,16 +33,19 @@ public class ErrorResponse {
   @SerializedName("message")
   private String message = null;
 
+  @SerializedName("requestId")
+  private String requestId = null;
+
   public ErrorResponse code(Long code) {
     this.code = code;
     return this;
   }
 
    /**
-   * Service code (first 3 digits) and error code (last 4 digits)
+   * Service code (First 3 digits) and error code (Last 4 digits)
    * @return code
   **/
-  @Schema(example = "1072101", required = true, description = "Service code (first 3 digits) and error code (last 4 digits)")
+  @Schema(example = "1072101", required = true, description = "Service code (First 3 digits) and error code (Last 4 digits)")
   public Long getCode() {
     return code;
   }
@@ -69,6 +72,24 @@ public class ErrorResponse {
     this.message = message;
   }
 
+  public ErrorResponse requestId(String requestId) {
+    this.requestId = requestId;
+    return this;
+  }
+
+   /**
+   * Get requestId
+   * @return requestId
+  **/
+  @Schema(example = "b3a660fa-6227-9a08-ad61-1b10d2bb71f9", description = "")
+  public String getRequestId() {
+    return requestId;
+  }
+
+  public void setRequestId(String requestId) {
+    this.requestId = requestId;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -80,12 +101,13 @@ public class ErrorResponse {
     }
     ErrorResponse errorResponse = (ErrorResponse) o;
     return Objects.equals(this.code, errorResponse.code) &&
-        Objects.equals(this.message, errorResponse.message);
+        Objects.equals(this.message, errorResponse.message) &&
+        Objects.equals(this.requestId, errorResponse.requestId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(code, message, requestId);
   }
 
 
@@ -96,6 +118,7 @@ public class ErrorResponse {
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

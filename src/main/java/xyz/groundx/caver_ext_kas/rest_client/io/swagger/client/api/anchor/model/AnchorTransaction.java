@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -42,10 +42,10 @@ public class AnchorTransaction {
   }
 
    /**
-   * Anchoring transaction creation time
+   * The time at which anchoring transaction was created
    * @return createdAt
   **/
-  @Schema(example = "1599142860", required = true, description = "Anchoring transaction creation time")
+  @Schema(example = "1616141940", required = true, description = "The time at which anchoring transaction was created")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -63,7 +63,7 @@ public class AnchorTransaction {
    * Payload ID
    * @return payloadId
   **/
-  @Schema(example = "c61cc0d0-5878-450e-bec8-bf73d6184798", required = true, description = "Payload ID")
+  @Schema(example = "abc-abc-abc", required = true, description = "Payload ID")
   public String getPayloadId() {
     return payloadId;
   }
@@ -78,10 +78,10 @@ public class AnchorTransaction {
   }
 
    /**
-   * Transaction hash of anchoring transaction
+   * Transaction hash of anchoring transactions
    * @return transactionHash
   **/
-  @Schema(example = "0x5aeb4ddc5d77b9ce977a87461573da00c0aed0ac59962892ecf58ec09296e79d", required = true, description = "Transaction hash of anchoring transaction")
+  @Schema(example = "0x9cfb36bda81d84d4b508a0f591835c2e2f0adc9b461ad49e27a32f6078726c41", required = true, description = "Transaction hash of anchoring transactions")
   public String getTransactionHash() {
     return transactionHash;
   }
