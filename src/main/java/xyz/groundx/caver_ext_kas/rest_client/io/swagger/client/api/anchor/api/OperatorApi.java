@@ -202,7 +202,7 @@ public class OperatorApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call retrieveOperatorsCall(String xChainId, String size, String cursor, String fromTimestamp, String toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call retrieveOperatorsCall(String xChainId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -254,7 +254,7 @@ public class OperatorApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call retrieveOperatorsValidateBeforeCall(String xChainId, String size, String cursor, String fromTimestamp, String toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call retrieveOperatorsValidateBeforeCall(String xChainId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveOperators(Async)");
@@ -280,7 +280,7 @@ public class OperatorApi {
      * @return Operators
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Operators retrieveOperators(String xChainId, String size, String cursor, String fromTimestamp, String toTimestamp) throws ApiException {
+    public Operators retrieveOperators(String xChainId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
         ApiResponse<Operators> resp = retrieveOperatorsWithHttpInfo(xChainId, size, cursor, fromTimestamp, toTimestamp);
         return resp.getData();
     }
@@ -296,7 +296,7 @@ public class OperatorApi {
      * @return ApiResponse&lt;Operators&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Operators> retrieveOperatorsWithHttpInfo(String xChainId, String size, String cursor, String fromTimestamp, String toTimestamp) throws ApiException {
+    public ApiResponse<Operators> retrieveOperatorsWithHttpInfo(String xChainId, Long size, String cursor, Long fromTimestamp, Long toTimestamp) throws ApiException {
         com.squareup.okhttp.Call call = retrieveOperatorsValidateBeforeCall(xChainId, size, cursor, fromTimestamp, toTimestamp, null, null);
         Type localVarReturnType = new TypeToken<Operators>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -314,7 +314,7 @@ public class OperatorApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retrieveOperatorsAsync(String xChainId, String size, String cursor, String fromTimestamp, String toTimestamp, final ApiCallback<Operators> callback) throws ApiException {
+    public com.squareup.okhttp.Call retrieveOperatorsAsync(String xChainId, Long size, String cursor, Long fromTimestamp, Long toTimestamp, final ApiCallback<Operators> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
