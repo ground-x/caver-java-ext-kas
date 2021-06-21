@@ -919,7 +919,7 @@ public class Wallet {
      *
      * request.setFrom(deployerAddress);
      * request.setTo(contractAddress);
-     * request.setInput(input);
+     * request.setInput(Utils.addHexPrefix(input));
      * request.setSubmit(true);
      *
      * ApiCallback<TransactionResult> callback = new ApiCallback<TransactionResult>() {
