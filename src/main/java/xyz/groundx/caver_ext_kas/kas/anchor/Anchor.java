@@ -69,7 +69,7 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * Random random = new Random();
      * AnchorBlockPayload payload = new AnchorBlockPayload();
@@ -77,7 +77,7 @@ public class Anchor {
      * payload.put("field", "1");
      * payload.put("filed2", 4);
      *
-     * AnchorBlockStatus res = caver.kas.anchor.sendAnchoringData(operatorID, payload);
+     * AnchorBlockStatus res = caver.kas.anchor.sendAnchoringData(operatorAddress, payload);
      * }
      * </pre>
      *
@@ -103,7 +103,7 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * Random random = new Random();
      * AnchorBlockPayload payload = new AnchorBlockPayload();
@@ -115,7 +115,7 @@ public class Anchor {
      *     ....implements callback method
      * };
      *
-     * caver.kas.anchor.sendAnchoringDataAsync(operatorID, payload, callback);
+     * caver.kas.anchor.sendAnchoringDataAsync(operatorAddress, payload, callback);
      * }
      * </pre>
      *
@@ -141,8 +141,8 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
-     * AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID);
+     * String operatorAddress = "0x{operatorAddress}";
+     * AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorAddress);
      * }
      * </pre>
      *
@@ -161,14 +161,14 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
      * anchorQueryParams.setSize((long)3);
      * anchorQueryParams.setFromTimestamp("2020-10-26 15:00:00");
      * anchorQueryParams.setToDate(new Date().getTime() / 1000);
      *
-     * AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorID, anchorQueryParams);
+     * AnchorTransactions res = caver.kas.anchor.getAnchoringTransactionList(operatorAddress, anchorQueryParams);
      * }
      * </pre>
      *
@@ -187,12 +187,12 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * ApiCallback<AnchorTransactions> callback = new ApiCallback<AnchorTransactions>() {
      *     ....implements callback method
      * };
-     * caver.kas.anchor.getAnchoringTransactionListAsync(operatorID, callback);
+     * caver.kas.anchor.getAnchoringTransactionListAsync(operatorAddress, callback);
      * }
      * </pre>
      *
@@ -212,7 +212,7 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * AnchorQueryOptions anchorQueryParams = new AnchorQueryOptions();
      * anchorQueryParams.setSize((long)3);
@@ -223,7 +223,7 @@ public class Anchor {
      *     ....implements callback method
      * };
      *
-     * caver.kas.anchor.getAnchoringTransactionListAsync(operatorID, anchorQueryParams, callback);
+     * caver.kas.anchor.getAnchoringTransactionListAsync(operatorAddress, anchorQueryParams, callback);
      * }
      * </pre>
      *
@@ -243,10 +243,10 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      * String txHash = "0x{txHash}";
      *
-     * AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByTxHash(operatorID, txHash);
+     * AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByTxHash(operatorAddress, txHash);
      * }
      * </pre>
      *
@@ -265,14 +265,14 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      * String txHash = "0x{txHash}";
      *
      * ApiCallback<AnchorTransactionDetail> callback = new ApiCallback<AnchorTransactionDetail>() {
      *     ....implements callback method
      * };
      *
-     * caver.kas.anchor.getAnchoringTransactionByTxHashAsync(operatorID, txHash, callback);
+     * caver.kas.anchor.getAnchoringTransactionByTxHashAsync(operatorAddress, txHash, callback);
      * }
      * </pre>
      *
@@ -292,10 +292,10 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      * String payloadId = "0x{payloadId}";
      *
-     * AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByPayloadId(operatorID, payloadId);
+     * AnchorTransactionDetail res = caver.kas.anchor.getAnchoringTransactionByPayloadId(operatorAddress, payloadId);
      * }
      * </pre>
      *
@@ -314,14 +314,14 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      * String payloadId = "0x{payloadId}";
      *
      * ApiCallback<AnchorTransactionDetail> callback = new ApiCallback<AnchorTransactionDetail>() {
      *     ....implements callback method
      * };
      *
-     * caver.kas.anchor.getAnchoringTransactionByPayloadIdAsync(operatorID, payloadId, callback);
+     * caver.kas.anchor.getAnchoringTransactionByPayloadIdAsync(operatorAddress, payloadId, callback);
      * }
      * </pre>
      *
@@ -429,9 +429,9 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
-     * Operator res = caver.kas.anchor.getOperator(operatorID);
+     * Operator res = caver.kas.anchor.getOperator(operatorAddress);
      * }
      * </pre>
      *
@@ -449,13 +449,13 @@ public class Anchor {
      *
      * <pre>Example:
      * {@code
-     * String operatorID = "0x{operatorID}";
+     * String operatorAddress = "0x{operatorAddress}";
      *
      * ApiCallback<Operator> callback = new ApiCallback<Operator>() {
      *     ....implements callback method
      * };
      *
-     * caver.kas.anchor.getOperatorAsync(operatorID, callback);
+     * caver.kas.anchor.getOperatorAsync(operatorAddress, callback);
      * }
      * </pre>
      *
