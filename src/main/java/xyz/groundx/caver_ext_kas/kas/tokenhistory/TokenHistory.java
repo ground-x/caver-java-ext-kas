@@ -124,7 +124,7 @@ public class TokenHistory {
      * int preset = 1;
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("ft");
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
      *
      * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset, options);
      * }
@@ -148,7 +148,7 @@ public class TokenHistory {
      * List presets = Arrays.asList(151, 153);
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("ft");
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
      *
      * PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(presets, options);
      * }
@@ -226,7 +226,7 @@ public class TokenHistory {
      * int preset = 1;
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("ft");
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
      *
      * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
      *     ....implements callback method
@@ -255,7 +255,7 @@ public class TokenHistory {
      * List presets = Arrays.asList(151, 153);
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("ft");
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
      *
      * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
      *     ....implements callback method
@@ -350,7 +350,7 @@ public class TokenHistory {
      * String contractAddress = "0x{contractAddress}";
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("ft");
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
      * options.setCaFilter(contractAddress);
      * options.setSize((long)3);
      * options.setRange("1584573000", "1584583388");
@@ -404,7 +404,7 @@ public class TokenHistory {
      * String address = "0x{address}";
      *
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setKind("klay");
+     * options.setKind(TokenHistoryQueryOptions.KIND.KLAY);
      *
      * ApiCallback<PageableTransfers> callback = new ApiCallback<PageableTransfers>() {
      *     ....implements callback method
@@ -450,8 +450,8 @@ public class TokenHistory {
      * <pre>Example:
      * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setStatus("completed");
-     * options.setType("KIP-7");
+     * options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.COMPLETED);
+     * options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP7);
      *
      * PageableFtContractDetails details = caver.kas.tokenHistory.getFTContractList(options);
      * }
@@ -496,8 +496,8 @@ public class TokenHistory {
      * <pre>Example:
      * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setStatus("completed");
-     * options.setType("KIP-7");
+     * options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.COMPLETED);
+     * options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP7);
      *
      * ApiCallback<PageableFtContractDetails> callback = new ApiCallback<PageableFtContractDetails>() {
      *     ....implements callback method
@@ -586,8 +586,8 @@ public class TokenHistory {
      * <pre>Example:
      * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setStatus("processing");
-     * options.setType("KIP-17");
+     * options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.PROCESSING);
+     * options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP17);
      *
      * PageableNftContractDetails details = caver.kas.tokenHistory.getNFTContractList(options);
      * }
@@ -632,8 +632,8 @@ public class TokenHistory {
      * <pre>Example:
      * {@code
      * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
-     * options.setStatus("processing");
-     * options.setType("KIP-17");
+     * options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.PROCESSING);
+     * options.setType(TokenHistoryQueryOptions.CONTRACT_TYPE.KIP17;
      *
      * ApiCallback<PageableNftContractDetails> callback = new ApiCallback<PageableNftContractDetails>() {
      *     ....implements callback method
