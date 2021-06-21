@@ -160,7 +160,7 @@ public class KASWallet implements IWallet {
      *
      * <pre>Example
      * {@code
-     * String disabledAccountAddress = "0x{disabledAccountAddress}"
+     * String disabledAccountAddress = "0x{disabledAccountAddress}";
      * AccountSummary summary = caver.wallet.enableAccount(disabledAccountAddress);
      * }
      * </pre>
@@ -183,7 +183,7 @@ public class KASWallet implements IWallet {
      *
      * <pre>Example
      * {@code
-     * String enabledAccountAddress = "0x{enabledAccountAddress}"
+     * String enabledAccountAddress = "0x{enabledAccountAddress}";
      * AccountSummary summary = caver.wallet.disableAccount(enabledAccountAddress);
      * }
      * </pre>
