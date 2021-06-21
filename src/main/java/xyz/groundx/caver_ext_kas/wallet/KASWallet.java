@@ -208,14 +208,13 @@ public class KASWallet implements IWallet {
      * String fromAddress = "0x{fromAddress}";
      * String toAddress = "0x{toAddress}";
      *
-     * ValueTransfer tx = new ValueTransfer.Builder()
-     *         .setKlaytnCall(caver.rpc.klay)
-     *         .setFrom(fromAddress)
-     *         .setTo(toAddress)
-     *         .setValue("0x1")
-     *         .setGas(BigInteger.valueOf(50000))
-     *         .build();
-     *
+     * ValueTransfer tx = caver.transaction.ValueTransfer.create(
+     *         TxPropertyBuilder.valueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
      * caver.wallet.sign(fromAddress, tx);
      * }
      * </pre>
@@ -254,14 +253,13 @@ public class KASWallet implements IWallet {
      * String fromAddress = "0x{fromAddress}";
      * String toAddress = "0x{toAddress}";
      *
-     * FeeDelegatedValueTransfer tx = new FeeDelegatedValueTransfer.Builder()
-     *         .setKlaytnCall(caver.rpc.klay)
-     *         .setFrom(fromAddress)
-     *         .setTo(toAddress)
-     *         .setValue("0x1")
-     *         .setGas(BigInteger.valueOf(50000))
-     *         .build();
-     *
+     * FeeDelegatedValueTransfer tx = caver.transaction.feeDelegatedValueTransfer.create(
+     *         TxPropertyBuilder.feeDelegatedValueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
      * caver.wallet.signAsGlobalFeePayer(tx);
      * }
      * </pre>
@@ -311,14 +309,13 @@ public class KASWallet implements IWallet {
      * String toAddress = "0x{toAddress}";
      * String feePayerAddress = "0x{feePayerAddress}";
      *
-     * FeeDelegatedValueTransfer tx = new FeeDelegatedValueTransfer.Builder()
-     *         .setKlaytnCall(caver.rpc.klay)
-     *         .setFrom(fromAddress)
-     *         .setTo(toAddress)
-     *         .setValue("0x1")
-     *         .setGas(BigInteger.valueOf(50000))
-     *         .build();
-     *
+     * FeeDelegatedValueTransfer tx = caver.transaction.feeDelegatedValueTransfer.create(
+     *         TxPropertyBuilder.feeDelegatedValueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
      * caver.wallet.signAsFeePayer(feePayerAddress, tx);
      * }
      * </pre>
