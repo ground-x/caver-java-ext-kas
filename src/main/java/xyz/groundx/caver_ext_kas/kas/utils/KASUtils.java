@@ -34,6 +34,20 @@ public class KASUtils {
 
     /**
      * convert date string to timestamp in seconds
+     *
+     * <pre>Example
+     * {@code
+     * String timeFormat1 = "2020-08-01 00:00:00";
+     * String timeFormat2 = "2020-08-01";
+     * String timeFormat3 = "2020-08-01 00:00:00:111";
+     *
+     * String timestamp;
+     * timestamp = KASUtils.convertDateToTimestamp(timeFormat1); // timestamp: "1596207600"
+     * timestamp = KASUtils.convertDateToTimestamp(timeFormat2); // timestamp: "1596207600"
+     * timestamp = KASUtils.convertDateToTimestamp(timeFormat3); // timestamp: "1596207600"
+     * }
+     * </pre>
+     *
      * @param date The date to convert timestamp.
      * @return String
      */
@@ -58,6 +72,14 @@ public class KASUtils {
 
     /**
      * make query string using passed as a param.
+     *
+     * <pre>Example
+     * {@code
+     * String result = KASUtils.parameterToString(Arrays.asList("param1", "param2", "param3");
+     * // result: "param1,param2,param3"
+     * }
+     * </pre>
+     *
      * @param param a query parameter data.
      * @return String
      */
@@ -80,6 +102,15 @@ public class KASUtils {
 
     /**
      * Check whether passed string data is unix time stamp format.
+     *
+     * <pre>Example
+     * {@code
+     * boolean isTimestamp
+     * isTimestamp = KASUtils.isTimeStamp("1596207600"); // isTimestamp: true
+     * isTimestamp = KASUtils.isTimeStamp("0x3401"); // isTimestamp: false
+     * }
+     * </pre>
+     *
      * @param data The string data to check.
      * @return boolean
      */
@@ -95,6 +126,15 @@ public class KASUtils {
 
     /**
      * Check whether passed string data is block number format.
+     *
+     * <pre>Example
+     * {@code
+     * boolean isBlockNumber;
+     * isBlockNumber = KASUtils.isBlockNumber("0x5"); // isBlockNumber: true
+     * isBlockNumber = KASUtils.isBlockNumber("125"); // isBlockNumber: false
+     * }
+     * </pre>
+     *
      * @param data The string data to check
      * @return boolean
      */
@@ -102,6 +142,28 @@ public class KASUtils {
         return Utils.isHexStrict(data);
     }
 
+    /**
+     * Converts uncompressed public key string to compressed form public key string by adding prefix.
+     *
+     * <pre>Example
+     * {@code
+     * String x = "ee6de5c9fc0fc05ad43a55b80a3bdb4d6f40aecef7c288d640125feab31f8fcf";
+     * String y = "45d6849dbce543168c93dbac3f11d3aac126cf7349d92ed4a7c4ea57e0993bd0";
+     *
+     * String unCompressedPublicKey = String.format("%s%s", x, y);
+     * String unCompressedPublicKeyWithHexPrefix = String.format("0x%s%s", x, y);
+     *
+     * String compressedPublicKey;
+     *
+     * // compressedPublicKey: "0x04ee6de5c9fc0fc05ad43a55b80a3bdb4d6f40aecef7c288d640125feab31f8fcf45d6849dbce543168c93dbac3f11d3aac126cf7349d92ed4a7c4ea57e0993bd0"
+     * compressedPublicKey = KASUtils.addUncompressedKeyPrefix(publicKeyWithHexPrefix);
+     * compressedPublicKey = KASUtils.addUncompressedKeyPrefix(publicKey);
+     * }
+     * </pre>
+     *
+     * @param publicKey The public key
+     * @return
+     */
     public static String addUncompressedKeyPrefix(String publicKey) {
         if(AccountKeyPublicUtils.isCompressedPublicKey(publicKey)){
             return publicKey;

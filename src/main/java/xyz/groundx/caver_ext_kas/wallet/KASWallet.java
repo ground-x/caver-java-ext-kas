@@ -60,6 +60,13 @@ public class KASWallet implements IWallet {
 
     /**
      * Generates accounts in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * List<String> addressList = caver.wallet.generate(2);
+     * }
+     * </pre>
+     *
      * @param num The number of accounts to generate.
      * @return List
      * @throws KASAPIException
@@ -82,6 +89,14 @@ public class KASWallet implements IWallet {
 
     /**
      * Get an account corresponding to the given address in KAS wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * List<String> addressList = caver.wallet.generate(2);
+     * Account account = caver.wallet.getAccount(addressList.get(0));
+     * }
+     * </pre>
+     *
      * @param address An address to get account in KAS Wallet service.
      * @return Account
      * @throws KASAPIException
@@ -96,6 +111,14 @@ public class KASWallet implements IWallet {
 
     /**
      * Removes an account in KAS Wallet API service.
+     *
+     * <pre>Example
+     * {@code
+     * List<String> addressList = caver.wallet.generate(1);
+     * boolean isRemoved = caver.wallet.remove(addressList.get(0));
+     * }
+     * </pre>
+     *
      * @param address An address of account to remove.
      * @return boolean
      */
@@ -111,6 +134,14 @@ public class KASWallet implements IWallet {
 
     /**
      * Check if the account corresponding to the address exists in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * List<String> addressList = caver.wallet.generate(1);
+     * boolean isExisted = caver.wallet.isExisted(addressList.get(0));
+     * }
+     * </pre>
+     *
      * @param address The address of account to find.
      * @return boolean
      */
@@ -126,6 +157,14 @@ public class KASWallet implements IWallet {
 
     /**
      * Enable account in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * String disabledAccountAddress = "0x{disabledAccountAddress}";
+     * AccountSummary summary = caver.wallet.enableAccount(disabledAccountAddress);
+     * }
+     * </pre>
+     *
      * @param address The address of account to enable.
      * @return AccountSummary
      * @throws KASAPIException
@@ -141,6 +180,14 @@ public class KASWallet implements IWallet {
 
     /**
      * Disable account in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * String enabledAccountAddress = "0x{enabledAccountAddress}";
+     * AccountSummary summary = caver.wallet.disableAccount(enabledAccountAddress);
+     * }
+     * </pre>
+     *
      * @param address The address of account to disable.
      * @return AccountSummary
      * @throws KASAPIException
@@ -155,6 +202,23 @@ public class KASWallet implements IWallet {
 
     /**
      * Sign a transaction instance using an account in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * ValueTransfer tx = caver.transaction.ValueTransfer.create(
+     *         TxPropertyBuilder.valueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
+     * caver.wallet.sign(fromAddress, tx);
+     * }
+     * </pre>
+     *
      * @param address An address of account to sign.
      * @param transaction A transaction instance to sign.
      * @return AbstractTransaction
@@ -183,6 +247,23 @@ public class KASWallet implements IWallet {
 
     /**
      * Sign a transaction with the global fee payer using an account in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     *
+     * FeeDelegatedValueTransfer tx = caver.transaction.feeDelegatedValueTransfer.create(
+     *         TxPropertyBuilder.feeDelegatedValueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
+     * caver.wallet.signAsGlobalFeePayer(tx);
+     * }
+     * </pre>
+     *
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
      * @throws IOException
@@ -221,6 +302,24 @@ public class KASWallet implements IWallet {
 
     /**
      * Sign a transaction as a fee payer using an account in KAS Wallet service.
+     *
+     * <pre>Example
+     * {@code
+     * String fromAddress = "0x{fromAddress}";
+     * String toAddress = "0x{toAddress}";
+     * String feePayerAddress = "0x{feePayerAddress}";
+     *
+     * FeeDelegatedValueTransfer tx = caver.transaction.feeDelegatedValueTransfer.create(
+     *         TxPropertyBuilder.feeDelegatedValueTransfer()
+     *                 .setFrom(fromAddress)
+     *                 .setTo(toAddress)
+     *                 .setValue("0x1")
+     *                 .setGas(BigInteger.valueOf(50000))
+     * );
+     * caver.wallet.signAsFeePayer(feePayerAddress, tx);
+     * }
+     * </pre>
+     *
      * @param feePayerAddress An address of account to sign as a fee payer in KAS Wallet service
      * @param feeDelegatedTransaction A fee delegated transaction instance.
      * @return AbstractFeeDelegatedTransaction
