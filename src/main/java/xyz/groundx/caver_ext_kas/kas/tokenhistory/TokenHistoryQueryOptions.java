@@ -224,6 +224,21 @@ public class TokenHistoryQueryOptions {
     String type;
 
     /**
+     * If true, exclude transfers of 0 KLAY.
+     */
+    Boolean excludeZeroKlay;
+
+    /**
+     * If true, return transactions when sender corresponds to the given address.
+     */
+    Boolean fromOnly;
+
+    /**
+     * If true, return transactions when recipient corresponds to the given address.
+     */
+    Boolean toOnly;
+
+    /**
      * Creates an TokenHistoryQueryOptions instance.
      */
     public TokenHistoryQueryOptions() {
@@ -303,6 +318,30 @@ public class TokenHistoryQueryOptions {
      */
     public String getType() {
         return type;
+    }
+
+    /**
+     * Getter function for excludeZeroKlay
+     * @return Boolean
+     */
+    public Boolean getExcludeZeroKlay() {
+        return excludeZeroKlay;
+    }
+
+    /**
+     * Getter function for fromOnly
+     * @return Boolean
+     */
+    public Boolean getFromOnly() {
+        return fromOnly;
+    }
+
+    /**
+     * Getter function for toOnly
+     * @return Boolean
+     */
+    public Boolean getToOnly() {
+        return toOnly;
     }
 
     /**
@@ -436,6 +475,30 @@ public class TokenHistoryQueryOptions {
      */
     public void setType(CONTRACT_TYPE type) {
         this.type = type.getType();
+    }
+
+    /**
+     * Setter function for excludeZeroKlay.
+     * @param excludeZeroKlay If true, exclude transfers of 0 KLAY.
+     */
+    public void setExcludeZeroKlay(Boolean excludeZeroKlay) {
+        this.excludeZeroKlay = excludeZeroKlay;
+    }
+
+    /**
+     * Setter function for fromOnly.
+     * @param fromOnly If true, return transactions when sender corresponds to the given address.
+     */
+    public void setFromOnly(Boolean fromOnly) {
+        this.fromOnly = fromOnly;
+    }
+
+    /**
+     * Setter function for toOnly.
+     * @param toOnly If true, return transactions when recipient corresponds to the given address.
+     */
+    public void setToOnly(Boolean toOnly) {
+        this.toOnly = toOnly;
     }
 
     boolean checkRangeValid(String from, String to) {
