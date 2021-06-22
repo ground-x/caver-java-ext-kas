@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -21,7 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.Link;
 /**
  * FtContractDetail
  */
@@ -55,9 +54,6 @@ public class FtContractDetail {
   @SerializedName("deletedAt")
   private Long deletedAt = null;
 
-  @SerializedName("link")
-  private Link link = null;
-
   @SerializedName("type")
   private String type = null;
 
@@ -85,10 +81,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Number of token digits
+   * Token digits
    * @return decimals
   **/
-  @Schema(example = "8", required = true, description = "Number of token digits")
+  @Schema(example = "8", required = true, description = "Token digits")
   public Integer getDecimals() {
     return decimals;
   }
@@ -139,10 +135,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Contract labeling status (completed, processing, failed, cancelled)
+   * Contract labelling status (completed, processing, failed, cancelled)
    * @return status
   **/
-  @Schema(example = "completed", required = true, description = "Contract labeling status (completed, processing, failed, cancelled)")
+  @Schema(example = "completed", required = true, description = "Contract labelling status (completed, processing, failed, cancelled)")
   public String getStatus() {
     return status;
   }
@@ -157,10 +153,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Total issue count (in hexadecimal)
+   * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x174876e800", required = true, description = "Total issue count (in hexadecimal)")
+  @Schema(example = "0x174876e800", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -175,10 +171,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Time of labeling (timestamp)
+   * Time of labelling (timestamp)
    * @return createdAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time of labeling (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Time of labelling (timestamp)")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -193,10 +189,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Time when labeling information was last changed (timestamp)
+   * Last change in labelling information (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time when labeling information was last changed (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Last change in labelling information (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }
@@ -211,10 +207,10 @@ public class FtContractDetail {
   }
 
    /**
-   * Time when labeling was deleted (timestamp); 0 if it was not removed
+   * Time of removal of labelling (timestamp); 0 if not removed
    * @return deletedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time when labeling was deleted (timestamp); 0 if it was not removed")
+  @Schema(example = "1592180992", required = true, description = "Time of removal of labelling (timestamp); 0 if not removed")
   public Long getDeletedAt() {
     return deletedAt;
   }
@@ -223,34 +219,16 @@ public class FtContractDetail {
     this.deletedAt = deletedAt;
   }
 
-  public FtContractDetail link(Link link) {
-    this.link = link;
-    return this;
-  }
-
-   /**
-   * Get link
-   * @return link
-  **/
-  @Schema(required = true, description = "")
-  public Link getLink() {
-    return link;
-  }
-
-  public void setLink(Link link) {
-    this.link = link;
-  }
-
   public FtContractDetail type(String type) {
     this.type = type;
     return this;
   }
 
    /**
-   * Contract type (KIP-7, KIP-17, ERC-20, ERC-721)
+   * Contract type (KIP-7, ERC-20)
    * @return type
   **/
-  @Schema(required = true, description = "Contract type (KIP-7, KIP-17, ERC-20, ERC-721)")
+  @Schema(required = true, description = "Contract type (KIP-7, ERC-20)")
   public String getType() {
     return type;
   }
@@ -278,13 +256,12 @@ public class FtContractDetail {
         Objects.equals(this.createdAt, ftContractDetail.createdAt) &&
         Objects.equals(this.updatedAt, ftContractDetail.updatedAt) &&
         Objects.equals(this.deletedAt, ftContractDetail.deletedAt) &&
-        Objects.equals(this.link, ftContractDetail.link) &&
         Objects.equals(this.type, ftContractDetail.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, decimals, name, symbol, status, totalSupply, createdAt, updatedAt, deletedAt, link, type);
+    return Objects.hash(address, decimals, name, symbol, status, totalSupply, createdAt, updatedAt, deletedAt, type);
   }
 
 
@@ -302,7 +279,6 @@ public class FtContractDetail {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
-    sb.append("    link: ").append(toIndentedString(link)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

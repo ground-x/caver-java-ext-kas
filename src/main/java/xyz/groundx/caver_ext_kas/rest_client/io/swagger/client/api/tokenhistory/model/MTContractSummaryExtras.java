@@ -14,14 +14,12 @@ package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
 /**
- * TransferArray
+ * MTContractSummaryExtras
  */
 
 
-public class TransferArray extends ArrayList<AnyOfTransferArrayItems> {
+public class MTContractSummaryExtras {
 
   @Override
   public boolean equals(Object o) {
@@ -31,20 +29,20 @@ public class TransferArray extends ArrayList<AnyOfTransferArrayItems> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash();
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferArray {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("class MTContractSummaryExtras {\n");
+    
     sb.append("}");
     return sb.toString();
   }

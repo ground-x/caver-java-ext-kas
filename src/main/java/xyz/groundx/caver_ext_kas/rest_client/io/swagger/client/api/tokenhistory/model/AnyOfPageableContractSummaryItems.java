@@ -13,8 +13,8 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 /**
-* AnyOfTransferArrayItems
+* AnyOfPageableContractSummaryItemsItems
 */
-public interface AnyOfTransferArrayItems {
+public interface AnyOfPageableContractSummaryItems {
 
 }

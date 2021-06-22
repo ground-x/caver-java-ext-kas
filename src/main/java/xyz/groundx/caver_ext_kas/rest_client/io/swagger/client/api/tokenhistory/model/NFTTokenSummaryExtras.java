@@ -22,72 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * ErrorResponse
+ * NFTTokenSummaryExtras
  */
 
 
-public class ErrorResponse {
-  @SerializedName("code")
-  private Integer code = null;
+public class NFTTokenSummaryExtras {
+  @SerializedName("tokenId")
+  private String tokenId = null;
 
-  @SerializedName("message")
-  private String message = null;
+  @SerializedName("tokenUri")
+  private String tokenUri = null;
 
-  @SerializedName("requestId")
-  private String requestId = null;
-
-  public ErrorResponse code(Integer code) {
-    this.code = code;
+  public NFTTokenSummaryExtras tokenId(String tokenId) {
+    this.tokenId = tokenId;
     return this;
   }
 
    /**
-   * KAS error code
-   * @return code
+   * Token ID (in hexadecimal)
+   * @return tokenId
   **/
-  @Schema(required = true, description = "KAS error code")
-  public Integer getCode() {
-    return code;
+  @Schema(example = "0x1", description = "Token ID (in hexadecimal)")
+  public String getTokenId() {
+    return tokenId;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setTokenId(String tokenId) {
+    this.tokenId = tokenId;
   }
 
-  public ErrorResponse message(String message) {
-    this.message = message;
+  public NFTTokenSummaryExtras tokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
     return this;
   }
 
    /**
-   * KAS error message
-   * @return message
+   * Token URL
+   * @return tokenUri
   **/
-  @Schema(required = true, description = "KAS error message")
-  public String getMessage() {
-    return message;
+  @Schema(example = "https://link.to/nft/1", description = "Token URL")
+  public String getTokenUri() {
+    return tokenUri;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public ErrorResponse requestId(String requestId) {
-    this.requestId = requestId;
-    return this;
-  }
-
-   /**
-   * Request ID
-   * @return requestId
-  **/
-  @Schema(required = true, description = "Request ID")
-  public String getRequestId() {
-    return requestId;
-  }
-
-  public void setRequestId(String requestId) {
-    this.requestId = requestId;
+  public void setTokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
   }
 
 
@@ -99,26 +78,24 @@ public class ErrorResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.code, errorResponse.code) &&
-        Objects.equals(this.message, errorResponse.message) &&
-        Objects.equals(this.requestId, errorResponse.requestId);
+    NFTTokenSummaryExtras nfTTokenSummaryExtras = (NFTTokenSummaryExtras) o;
+    return Objects.equals(this.tokenId, nfTTokenSummaryExtras.tokenId) &&
+        Objects.equals(this.tokenUri, nfTTokenSummaryExtras.tokenUri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, requestId);
+    return Objects.hash(tokenId, tokenUri);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponse {\n");
+    sb.append("class NFTTokenSummaryExtras {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
+    sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
+    sb.append("    tokenUri: ").append(toIndentedString(tokenUri)).append("\n");
     sb.append("}");
     return sb.toString();
   }

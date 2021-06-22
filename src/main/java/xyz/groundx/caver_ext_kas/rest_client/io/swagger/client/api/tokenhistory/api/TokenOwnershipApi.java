@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -26,7 +26,10 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.ErrorResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableContractSummary;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableNftOwnershipChanges;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.PageableTokenSummary;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -54,12 +57,165 @@ public class TokenOwnershipApi {
     }
 
     /**
+     * Build call for getListOfContractByOwnerAddress
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getListOfContractByOwnerAddressCall(String xChainId, String address, String kind, Long size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/account/{address}/contract"
+            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (kind != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
+        if (size != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+        if (cursor != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getListOfContractByOwnerAddressValidateBeforeCall(String xChainId, String address, String kind, Long size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getListOfContractByOwnerAddress(Async)");
+        }
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException("Missing the required parameter 'address' when calling getListOfContractByOwnerAddress(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getListOfContractByOwnerAddressCall(xChainId, address, kind, size, cursor, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get contract data by  EOA
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @return PageableContractSummary
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PageableContractSummary getListOfContractByOwnerAddress(String xChainId, String address, String kind, Long size, String cursor) throws ApiException {
+        ApiResponse<PageableContractSummary> resp = getListOfContractByOwnerAddressWithHttpInfo(xChainId, address, kind, size, cursor);
+        return resp.getData();
+    }
+
+    /**
+     * Get contract data by  EOA
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @return ApiResponse&lt;PageableContractSummary&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<PageableContractSummary> getListOfContractByOwnerAddressWithHttpInfo(String xChainId, String address, String kind, Long size, String cursor) throws ApiException {
+        com.squareup.okhttp.Call call = getListOfContractByOwnerAddressValidateBeforeCall(xChainId, address, kind, size, cursor, null, null);
+        Type localVarReturnType = new TypeToken<PageableContractSummary>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get contract data by  EOA (asynchronously)
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getListOfContractByOwnerAddressAsync(String xChainId, String address, String kind, Long size, String cursor, final ApiCallback<PageableContractSummary> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getListOfContractByOwnerAddressValidateBeforeCall(xChainId, address, kind, size, cursor, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<PageableContractSummary>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for getListOfNftOwnershipChanges
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -139,13 +295,13 @@ public class TokenOwnershipApi {
     }
 
     /**
-     * Search Ownership Change History of Specific NFT
-     * Search for the ownership change history of a specific NFT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query ownership change history for certain NFTs
+     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return PageableNftOwnershipChanges
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -155,13 +311,13 @@ public class TokenOwnershipApi {
     }
 
     /**
-     * Search Ownership Change History of Specific NFT
-     * Search for the ownership change history of a specific NFT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query ownership change history for certain NFTs
+     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return ApiResponse&lt;PageableNftOwnershipChanges&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -172,13 +328,13 @@ public class TokenOwnershipApi {
     }
 
     /**
-     * Search Ownership Change History of Specific NFT (asynchronously)
-     * Search for the ownership change history of a specific NFT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query ownership change history for certain NFTs (asynchronously)
+     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -206,6 +362,165 @@ public class TokenOwnershipApi {
 
         com.squareup.okhttp.Call call = getListOfNftOwnershipChangesValidateBeforeCall(xChainId, nftAddress, tokenId, size, cursor, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<PageableNftOwnershipChanges>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getListOfTokenByOwnerAddress
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param caFilters Contract address list to filter (separated by \&quot;,\&quot;) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getListOfTokenByOwnerAddressCall(String xChainId, String address, String kind, Long size, String caFilters, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/account/{address}/token"
+            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (kind != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
+        if (size != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+        if (caFilters != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("ca-filters", caFilters));
+        if (cursor != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getListOfTokenByOwnerAddressValidateBeforeCall(String xChainId, String address, String kind, Long size, String caFilters, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getListOfTokenByOwnerAddress(Async)");
+        }
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException("Missing the required parameter 'address' when calling getListOfTokenByOwnerAddress(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getListOfTokenByOwnerAddressCall(xChainId, address, kind, size, caFilters, cursor, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get data of certain tokens for certain EOAs
+     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param caFilters Contract address list to filter (separated by \&quot;,\&quot;) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @return PageableTokenSummary
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PageableTokenSummary getListOfTokenByOwnerAddress(String xChainId, String address, String kind, Long size, String caFilters, String cursor) throws ApiException {
+        ApiResponse<PageableTokenSummary> resp = getListOfTokenByOwnerAddressWithHttpInfo(xChainId, address, kind, size, caFilters, cursor);
+        return resp.getData();
+    }
+
+    /**
+     * Get data of certain tokens for certain EOAs
+     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param caFilters Contract address list to filter (separated by \&quot;,\&quot;) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @return ApiResponse&lt;PageableTokenSummary&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<PageableTokenSummary> getListOfTokenByOwnerAddressWithHttpInfo(String xChainId, String address, String kind, Long size, String caFilters, String cursor) throws ApiException {
+        com.squareup.okhttp.Call call = getListOfTokenByOwnerAddressValidateBeforeCall(xChainId, address, kind, size, caFilters, cursor, null, null);
+        Type localVarReturnType = new TypeToken<PageableTokenSummary>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get data of certain tokens for certain EOAs (asynchronously)
+     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param address EOA to query (required)
+     * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param caFilters Contract address list to filter (separated by \&quot;,\&quot;) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getListOfTokenByOwnerAddressAsync(String xChainId, String address, String kind, Long size, String caFilters, String cursor, final ApiCallback<PageableTokenSummary> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getListOfTokenByOwnerAddressValidateBeforeCall(xChainId, address, kind, size, caFilters, cursor, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<PageableTokenSummary>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

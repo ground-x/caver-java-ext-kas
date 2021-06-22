@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -63,10 +63,10 @@ public class MtToken {
   }
 
    /**
-   * Token ID (hex)
+   * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token ID (hex)")
+  @Schema(example = "0x1", required = true, description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -81,10 +81,10 @@ public class MtToken {
   }
 
    /**
-   * Owner address (20-byte)
+   * Owner EOA (20-byte)
    * @return owner
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner address (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner EOA (20-byte)")
   public String getOwner() {
     return owner;
   }
@@ -117,10 +117,10 @@ public class MtToken {
   }
 
    /**
-   * Total supply (hex)
+   * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total supply (hex)")
+  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -135,10 +135,10 @@ public class MtToken {
   }
 
    /**
-   * Token URI
+   * Token URL
    * @return tokenUri
   **/
-  @Schema(example = "https://link.to/mt/1", required = true, description = "Token URI")
+  @Schema(example = "https://link.to/mt/1", required = true, description = "Token URL")
   public String getTokenUri() {
     return tokenUri;
   }
@@ -153,10 +153,10 @@ public class MtToken {
   }
 
    /**
-   * Owner balance
+   * Owner&#x27;s balances in EOA
    * @return balance
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f4", required = true, description = "Owner balance")
+  @Schema(example = "0xaf298d050e4395d69670b12b7f4", required = true, description = "Owner's balances in EOA")
   public String getBalance() {
     return balance;
   }
@@ -189,10 +189,10 @@ public class MtToken {
   }
 
    /**
-   * Sender address of last transfer (either TransferSingle or TransferBatch) (20-byte)
+   * Sender EOA of last TransferSingle or TransferBatch (20-byte)
    * @return transferFrom
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender address of last transfer (either TransferSingle or TransferBatch) (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA of last TransferSingle or TransferBatch (20-byte)")
   public String getTransferFrom() {
     return transferFrom;
   }
@@ -207,10 +207,10 @@ public class MtToken {
   }
 
    /**
-   * Receiver address of last transfer (either TransferSingle or TransferBatch) (20-byte)
+   * Receiver EOA of recent TransferSingle or TransferBatch (20-byte)
    * @return transferTo
   **/
-  @Schema(example = "0xbe02aba56bae1624e2c4f029e3a79308e2a19e98", required = true, description = "Receiver address of last transfer (either TransferSingle or TransferBatch) (20-byte)")
+  @Schema(example = "0xbe02aba56bae1624e2c4f029e3a79308e2a19e98", required = true, description = "Receiver EOA of recent TransferSingle or TransferBatch (20-byte)")
   public String getTransferTo() {
     return transferTo;
   }
@@ -225,10 +225,10 @@ public class MtToken {
   }
 
    /**
-   * UNIX timestamp of when the token information last changed
+   * Last change in token information (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "UNIX timestamp of when the token information last changed")
+  @Schema(example = "1592180992", required = true, description = "Last change in token information (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }

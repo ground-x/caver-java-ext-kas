@@ -21,73 +21,60 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.AccountFT;
 /**
- * ErrorResponse
+ * PageableAccountFT
  */
 
 
-public class ErrorResponse {
-  @SerializedName("code")
-  private Integer code = null;
+public class PageableAccountFT {
+  @SerializedName("items")
+  private List<AccountFT> items = new ArrayList<AccountFT>();
 
-  @SerializedName("message")
-  private String message = null;
+  @SerializedName("cursor")
+  private String cursor = null;
 
-  @SerializedName("requestId")
-  private String requestId = null;
+  public PageableAccountFT items(List<AccountFT> items) {
+    this.items = items;
+    return this;
+  }
 
-  public ErrorResponse code(Integer code) {
-    this.code = code;
+  public PageableAccountFT addItemsItem(AccountFT itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * KAS error code
-   * @return code
+   * Get items
+   * @return items
   **/
-  @Schema(required = true, description = "KAS error code")
-  public Integer getCode() {
-    return code;
+  @Schema(required = true, description = "")
+  public List<AccountFT> getItems() {
+    return items;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setItems(List<AccountFT> items) {
+    this.items = items;
   }
 
-  public ErrorResponse message(String message) {
-    this.message = message;
+  public PageableAccountFT cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
-   * KAS error message
-   * @return message
+   * Next page cursor
+   * @return cursor
   **/
-  @Schema(required = true, description = "KAS error message")
-  public String getMessage() {
-    return message;
+  @Schema(example = "z2o87adeLbW4Aqm53gpq6VbGZg3JmE5vodrwD9XKmY5vMl4Gkw9PZO1NoBpV8LR83y0Edb3Aar7eKQqzJWDg6X2xOe1P27l4kzY0xQa8LNABMWv0VJQ6MpNlr9O1xBDE", required = true, description = "Next page cursor")
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public ErrorResponse requestId(String requestId) {
-    this.requestId = requestId;
-    return this;
-  }
-
-   /**
-   * Request ID
-   * @return requestId
-  **/
-  @Schema(required = true, description = "Request ID")
-  public String getRequestId() {
-    return requestId;
-  }
-
-  public void setRequestId(String requestId) {
-    this.requestId = requestId;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
 
@@ -99,26 +86,24 @@ public class ErrorResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.code, errorResponse.code) &&
-        Objects.equals(this.message, errorResponse.message) &&
-        Objects.equals(this.requestId, errorResponse.requestId);
+    PageableAccountFT pageableAccountFT = (PageableAccountFT) o;
+    return Objects.equals(this.items, pageableAccountFT.items) &&
+        Objects.equals(this.cursor, pageableAccountFT.cursor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, requestId);
+    return Objects.hash(items, cursor);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponse {\n");
+    sb.append("class PageableAccountFT {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();
   }
