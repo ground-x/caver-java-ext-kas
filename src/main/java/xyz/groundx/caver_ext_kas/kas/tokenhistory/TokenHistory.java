@@ -28,6 +28,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Representing an wrapping class tha connects Token history APi.
@@ -160,7 +161,9 @@ public class TokenHistory {
      * @throws ApiException
      */
     public PageableTransfers getTransferHistory(List<Integer> presets, TokenHistoryQueryOptions options) throws ApiException {
-        return this.tokenHistoryApi.getTransfers(chainId, KASUtils.parameterToString(presets), options.getKind(), options.getRange(), options.getSize(), options.getCursor());
+        String isExclude_zero_klay = Optional.ofNullable(options.getExcludeZeroKlay()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+
+        return this.tokenHistoryApi.getTransfers(chainId, KASUtils.parameterToString(presets), options.getKind(), options.getRange(), options.getSize(), options.getCursor(), isExclude_zero_klay);
     }
 
     /**
@@ -272,7 +275,18 @@ public class TokenHistory {
      * @throws ApiException
      */
     public Call getTransferHistoryAsync(List<Integer> presets, TokenHistoryQueryOptions options, ApiCallback<PageableTransfers> callback) throws ApiException {
-        return this.tokenHistoryApi.getTransfersAsync(chainId, KASUtils.parameterToString(presets), options.getKind(), options.getRange(), options.getSize(), options.getCursor(), callback);
+        String isExclude_zero_klay = Optional.ofNullable(options.getExcludeZeroKlay()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+
+        return this.tokenHistoryApi.getTransfersAsync(
+                chainId,
+                KASUtils.parameterToString(presets),
+                options.getKind(),
+                options.getRange(),
+                options.getSize(),
+                options.getCursor(),
+                isExclude_zero_klay,
+                callback
+        );
     }
 
     /**
@@ -365,7 +379,22 @@ public class TokenHistory {
      * @throws ApiException
      */
     public PageableTransfers getTransferHistoryByAccount(String address, TokenHistoryQueryOptions options) throws ApiException {
-        return tokenHistoryApi.getTransfersByEoa(chainId, address, options.getKind(), options.getCaFilter(), options.getRange(), options.getSize(), options.getCursor());
+        String isExclude_zero_klay = Optional.ofNullable(options.getExcludeZeroKlay()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+        String fromOnly = Optional.ofNullable(options.getFromOnly()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+        String toOnly = Optional.ofNullable(options.getToOnly()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+
+        return tokenHistoryApi.getTransfersByEoa(
+                chainId,
+                address,
+                options.getKind(),
+                options.getCaFilter(),
+                options.getRange(),
+                options.getSize(),
+                options.getCursor(),
+                isExclude_zero_klay,
+                fromOnly,
+                toOnly
+        );
     }
 
     /**
@@ -421,7 +450,21 @@ public class TokenHistory {
      * @throws ApiException
      */
     public Call getTransferHistoryAccountAsync(String address, TokenHistoryQueryOptions options, ApiCallback<PageableTransfers> callback) throws ApiException {
-        return tokenHistoryApi.getTransfersByEoaAsync(chainId, address, options.getKind(), options.getCaFilter(), options.getRange(), options.getSize(), options.getCursor(), callback);
+        String isExclude_zero_klay = Optional.ofNullable(options.getExcludeZeroKlay()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+        String fromOnly = Optional.ofNullable(options.getFromOnly()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+        String toOnly = Optional.ofNullable(options.getToOnly()).map(value -> Boolean.toString(value)).orElseGet(()-> null);
+
+        return tokenHistoryApi.getTransfersByEoaAsync(chainId,
+                address,
+                options.getKind(),
+                options.getCaFilter(),
+                options.getRange(),
+                options.getSize(),
+                options.getCursor(),
+                isExclude_zero_klay,
+                fromOnly,
+                toOnly,
+                callback);
     }
 
     /**
