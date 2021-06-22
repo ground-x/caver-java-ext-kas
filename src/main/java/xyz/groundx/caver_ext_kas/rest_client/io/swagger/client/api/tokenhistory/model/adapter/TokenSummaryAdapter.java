@@ -14,29 +14,31 @@
  * limitations under the License.
  */
 
-package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
+package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.adapter;
 
 import com.google.gson.*;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FTTokenSummary;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MTTokenSummary;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.NFTTokenSummary;
 
 import java.lang.reflect.Type;
 
-
-public class TransferItemAdapter implements JsonDeserializer {
+public class TokenSummaryAdapter implements JsonDeserializer {
     @Override
     public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        String type = jsonObject.getAsJsonPrimitive("transferType").getAsString();
+        String kind = jsonObject.getAsJsonPrimitive("kind").getAsString();
 
-        if(type.equals("ft")) {
-            return context.deserialize(json, FtTransfer.class);
-        } else if(type.equals("nft")) {
-            return context.deserialize(json, NftTransfer.class);
-        } else if (type.equals("klay")) {
-            return context.deserialize(json, KlayTransfer.class);
+        if(kind.equals("ft")) {
+            return context.deserialize(json, FTTokenSummary.class);
+        } else if(kind.equals("nft")) {
+            return context.deserialize(json, NFTTokenSummary.class);
+        } else if (kind.equals("mt")) {
+            return context.deserialize(json, MTTokenSummary.class);
         }
 
         return null;
+
     }
 }
-

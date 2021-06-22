@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
+package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.adapter;
 
 import com.google.gson.*;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FTContractSummary;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MTContractSummary;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.NFTContractSummary;
 
 import java.lang.reflect.Type;
 
