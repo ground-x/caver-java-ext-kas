@@ -353,6 +353,14 @@ public class TokenHistoryQueryOptions {
     }
 
     /**
+     * Setter function for caFilter
+     * @param caFilters The list of contract address to query.
+     */
+    public void setCaFilter(List<String> caFilters) {
+        this.caFilter = KASUtils.parameterToString(caFilters);
+    }
+
+    /**
      * Setter function for kind with KIND enum
      * @param kind A enum defined in KIND.
      */
