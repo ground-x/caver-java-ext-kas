@@ -1706,6 +1706,200 @@ public class TokenHistory {
     }
 
     /**
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.<br>
+     * GET /v2/account/{address}/contract
+     *
+     * <pre>Example
+     * {@code
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwner(account);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @return PageableContractSummary
+     * @throws ApiException
+     */
+    public PageableContractSummary getContractListByOwner(String ownerAddress) throws ApiException {
+        return getContractListByOwner(ownerAddress, new TokenHistoryQueryOptions());
+    }
+
+    /**
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.<br>
+     * GET /v2/account/{address}/contract
+     *
+     * <pre>Example
+     * {@code
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
+     * options.setSize((long)2);
+     * .....
+     *
+     * PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwner(account, options);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param options Filters required when retrieving data. `kind`, `size`, `cursor`
+     * @return PageableContractSummary
+     * @throws ApiException
+     */
+    public PageableContractSummary getContractListByOwner(String ownerAddress, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenOwnershipApi.getListOfContractByOwnerAddress(chainId, ownerAddress, options.getKind(), options.getSize(), options.getCursor());
+    }
+
+    /**
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA asynchronously.<br>
+     * GET /v2/account/{address}/contract
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<PageableContractSummary> callback = new ApiCallback<PageableContractSummary>() {
+     *     ...implement callback method.
+     * }
+     *
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwnerAsync(account, callback);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getContractListByOwnerAsync(String ownerAddress, ApiCallback<PageableContractSummary> callback) throws ApiException {
+        return getContractListByOwnerAsync(ownerAddress, new TokenHistoryQueryOptions(), callback);
+    }
+
+    /**
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA asynchronously.<br>
+     * GET /v2/account/{address}/contract
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<PageableContractSummary> callback = new ApiCallback<PageableContractSummary>() {
+     *     ...implement callback method.
+     * }
+     *
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
+     * options.setSize((long)2);
+     * .....
+     *
+     * PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwnerAsync(account, options, callback);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param options Filters required when retrieving data. `kind`, `size`, `cursor`
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getContractListByOwnerAsync(String ownerAddress, TokenHistoryQueryOptions options, ApiCallback<PageableContractSummary> callback) throws ApiException {
+        return this.tokenOwnershipApi.getListOfContractByOwnerAddressAsync(chainId, ownerAddress, options.getKind(), options.getSize(), options.getCursor(), callback);
+    }
+
+    /**
+     * Selecting a EOA will get all token data by EOA.<br>
+     * GET /v2/account/{address}/token
+     *
+     * <pre>Example
+     * {@code
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwner(account);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @return PageableTokenSummary
+     * @throws ApiException
+     */
+    public PageableTokenSummary getTokenListByOwner(String ownerAddress) throws ApiException {
+        return getTokenListByOwner(ownerAddress, new TokenHistoryQueryOptions());
+    }
+
+    /**
+     * Selecting a EOA will get all token data by EOA.<br>
+     * GET /v2/account/{address}/token
+     *
+     * <pre>Example
+     * {@code
+     *
+     * TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+     * options.setKind(TokenHistoryQueryOptions.KIND.FT);
+     * options.setSize((long)2);
+     * .....
+     *
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwner(account, options);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param options Filters required when retrieving data. `kind`, `size`, `ca-filters`, `cursor`
+     * @return PageableTokenSummary
+     * @throws ApiException
+     */
+    public PageableTokenSummary getTokenListByOwner(String ownerAddress, TokenHistoryQueryOptions options) throws ApiException {
+        return this.tokenOwnershipApi.getListOfTokenByOwnerAddress(chainId, ownerAddress, options.getKind(), options.getSize(), options.getCaFilter(), options.getCursor());
+    }
+
+    /**
+     * Selecting a EOA will get all token data by EOA asynchronously.<br>
+     * GET /v2/account/{address}/token
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<PageableTokenSummary> callback = new ApiCallback<PageableTokenSummary>() {
+     *     ...implement callback method.
+     * }
+     *
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwnerAsync(account, callback);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getTokenListByOwnerAsync(String ownerAddress, ApiCallback<PageableTokenSummary> callback) throws ApiException {
+        return getTokenListByOwnerAsync(ownerAddress, new TokenHistoryQueryOptions(), callback);
+    }
+
+    /**
+     * Selecting a EOA will get all token data by EOA asynchronously.<br>
+     * GET /v2/account/{address}/token
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<PageableTokenSummary> callback = new ApiCallback<PageableTokenSummary>() {
+     *     ...implement callback method.
+     * }
+     *
+     * String ownerAddress = "0x{ownerAddress}";
+     * PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwnerAsync(account, callback);
+     * }
+     * </pre>
+     *
+     * @param ownerAddress The EOA to query.
+     * @param options Filters required when retrieving data. `kind`, `size`, `ca-filters`, `cursor`
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getTokenListByOwnerAsync(String ownerAddress, TokenHistoryQueryOptions options, ApiCallback<PageableTokenSummary> callback) throws ApiException {
+        return this.tokenOwnershipApi.getListOfTokenByOwnerAddressAsync(chainId, ownerAddress, options.getKind(), options.getSize(), options.getCaFilter(), options.getCursor(), callback);
+    }
+
+    /**
      * Getter function for tokenApi
      * @return TokenApi
      */
