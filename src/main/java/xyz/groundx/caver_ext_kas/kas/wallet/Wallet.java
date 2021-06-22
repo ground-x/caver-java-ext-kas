@@ -120,19 +120,19 @@ public class Wallet {
      * <pre>Example :
      * {@code
      * ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
-     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKey}"));
-     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKey}", "0x{nonce}"));
+     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKeyOfAccountToBeMigrated}"));
+     * accountsToBeMigrated.add(new MigrationAccount("0x{address}", "0x{privateKeyOfAccountToBeMigrated}", "0x{nonce}"));
      *
      * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
      * }</pre>
      *
-     * @param accounts A list of accounts to be migrated to KAS Wallet Service.
+     * @param accountsToBeMigarted A list of accounts to be migrated to KAS Wallet Service.
      * @return RegistrationStatusResponse
      * @throws ApiException
      * @throws IOException
      * @throws NoSuchFieldException
      */
-    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accounts) throws ApiException, IOException, NoSuchFieldException {
+    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigarted) throws ApiException, IOException, NoSuchFieldException {
         if (this.rpc == null) {
             throw new NoSuchFieldException("Before using migrateAccounts, initNodeAPI must  be called first.");
         }
@@ -145,28 +145,28 @@ public class Wallet {
         }
 
         // Need to validate whether given list of migration accounts is valid or not.
-        for (int i=0; i<accounts.size(); i++) {
-            validateMigrationAccount(accounts.get(i));
+        for (int i=0; i<accountsToBeMigarted.size(); i++) {
+            validateMigrationAccount(accountsToBeMigarted.get(i));
         }
 
         AccountRegistrationRequest request = new AccountRegistrationRequest();
 
-        KeyCreationResponse keyCreationResponse = this.createKeys(accounts.size());
+        KeyCreationResponse keyCreationResponse = this.createKeys(accountsToBeMigarted.size());
         List<Key> createdKeys = keyCreationResponse.getItems();
 
         String gasPrice = this.rpc.klay.getGasPrice().send().getResult();
         for (int i = 0; i < createdKeys.size(); i++) {
-            MigrationAccount migrationAccount = accounts.get(i);
-            Key key = createdKeys.get(i);
+            MigrationAccount accountToBeMigrated = accountsToBeMigarted.get(i);
+            Key newKey = createdKeys.get(i);
 
             FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
                     .setChainId(BigInteger.valueOf(Integer.parseInt(chainId)))
-                    .setFrom(migrationAccount.getAddress())
-                    .setNonce(migrationAccount.getNonce())
+                    .setFrom(accountToBeMigrated.getAddress())
+                    .setNonce(accountToBeMigrated.getNonce())
                     .setAccount(
                             com.klaytn.caver.account.Account.createWithAccountKeyPublic(
-                                    migrationAccount.getAddress(),
-                                    key.getPublicKey()
+                                    accountToBeMigrated.getAddress(),
+                                    newKey.getPublicKey()
                             )
                     )
                     .setGas(BigInteger.valueOf(1000000))
@@ -174,11 +174,11 @@ public class Wallet {
                     .setKlaytnCall(this.rpc.getKlay())
                     .build();
 
-            AbstractKeyring keyring = createKeyringFromMigrationAccount(migrationAccount);
+            AbstractKeyring keyring = createKeyringFromMigrationAccount(accountToBeMigrated);
             tx.sign(keyring);
 
             AccountRegistration accountRegistration = new AccountRegistration();
-            accountRegistration.setKeyId(key.getKeyId());
+            accountRegistration.setKeyId(newKey.getKeyId());
             accountRegistration.setAddress(keyring.getAddress());
             accountRegistration.setRlp(tx.getRLPEncoding());
             request.add(accountRegistration);
