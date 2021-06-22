@@ -12,9 +12,12 @@
 
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
+import com.google.gson.annotations.JsonAdapter;
+
 /**
 * AnyOfTransferArrayItems
 */
+@JsonAdapter(TransferItemAdapter.class)
 public interface AnyOfTransferArrayItems {
 
 }
