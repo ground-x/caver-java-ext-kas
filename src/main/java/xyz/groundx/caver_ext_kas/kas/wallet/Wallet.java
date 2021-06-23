@@ -139,7 +139,7 @@ public class Wallet {
 
         if (this.rpc.getWeb3jService() instanceof HttpService) {
             String url = ((HttpService) this.rpc.getWeb3jService()).getUrl();
-            if (!url.contains("klaytnapi")) {
+            if (!url.contains("klaytn")) {
                 throw new RuntimeException("You should initialize Node API with working endpoint url before calling migrateAccounts.");
             }
         }
