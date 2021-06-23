@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -61,11 +61,11 @@ public class TokenApi {
 
     /**
      * Build call for getMtTokensByContractAddressAndOwnerAddress
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress EOA address (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -145,13 +145,13 @@ public class TokenApi {
     }
 
     /**
-     * Seach All Multi Tokens Owned by a Specific EOA
-     * Lists all tokens of a MT contract that are owned by the queried EOA address.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress EOA address (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Get token data for MT data by EOA
+     * Selecting an MT contract and an EOA will fetch data of MTs by EOA created by MT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @return PageableMtTokensWithBalance
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -161,13 +161,13 @@ public class TokenApi {
     }
 
     /**
-     * Seach All Multi Tokens Owned by a Specific EOA
-     * Lists all tokens of a MT contract that are owned by the queried EOA address.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress EOA address (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Get token data for MT data by EOA
+     * Selecting an MT contract and an EOA will fetch data of MTs by EOA created by MT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @return ApiResponse&lt;PageableMtTokensWithBalance&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -178,13 +178,13 @@ public class TokenApi {
     }
 
     /**
-     * Seach All Multi Tokens Owned by a Specific EOA (asynchronously)
-     * Lists all tokens of a MT contract that are owned by the queried EOA address.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress EOA address (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Get token data for MT data by EOA (asynchronously)
+     * Selecting an MT contract and an EOA will fetch data of MTs by EOA created by MT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -217,10 +217,10 @@ public class TokenApi {
     }
     /**
      * Build call for getMtTokensByContractAddressAndOwnerAddressAndTokenId
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress Owner address (required)
-     * @param tokenId MT ID (hex) (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -301,12 +301,12 @@ public class TokenApi {
     }
 
     /**
-     * Get Specific Multi Token Information
-     * Retrieves a specific MT information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress Owner address (required)
-     * @param tokenId MT ID (hex) (required)
+     * Get data of MT contracts for certain EOAs
+     * Query data of certain MTs.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
      * @return MtToken
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -316,12 +316,12 @@ public class TokenApi {
     }
 
     /**
-     * Get Specific Multi Token Information
-     * Retrieves a specific MT information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress Owner address (required)
-     * @param tokenId MT ID (hex) (required)
+     * Get data of MT contracts for certain EOAs
+     * Query data of certain MTs.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
      * @return ApiResponse&lt;MtToken&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -332,12 +332,12 @@ public class TokenApi {
     }
 
     /**
-     * Get Specific Multi Token Information (asynchronously)
-     * Retrieves a specific MT information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param ownerAddress Owner address (required)
-     * @param tokenId MT ID (hex) (required)
+     * Get data of MT contracts for certain EOAs (asynchronously)
+     * Query data of certain MTs.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -370,11 +370,11 @@ public class TokenApi {
     }
     /**
      * Build call for getMtTokensByContractAddressAndTokenId
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param tokenId MT ID (hex) (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -454,13 +454,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Owner Records of Specific MT
-     * Lists all EOA addresses who own the queried MT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param tokenId MT ID (hex) (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Query list of all owners for certain MTs
+     * Selecting an MT contract and a token ID will  data of the EOA that owns the tokens.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @return PageableMtTokens
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -470,13 +470,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Owner Records of Specific MT
-     * Lists all EOA addresses who own the queried MT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param tokenId MT ID (hex) (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Query list of all owners for certain MTs
+     * Selecting an MT contract and a token ID will  data of the EOA that owns the tokens.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @return ApiResponse&lt;PageableMtTokens&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -487,13 +487,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Owner Records of Specific MT (asynchronously)
-     * Lists all EOA addresses who own the queried MT.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param tokenId MT ID (hex) (required)
-     * @param cursor Offset for the next batch of items (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * Query list of all owners for certain MTs (asynchronously)
+     * Selecting an MT contract and a token ID will  data of the EOA that owns the tokens.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param tokenId MT ID to query (in hexadecimal) (required)
+     * @param cursor Offset for specifying a certain position (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -526,10 +526,10 @@ public class TokenApi {
     }
     /**
      * Build call for getMtsByContractAddress
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -604,12 +604,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific MT Contract
-     * Lists all tokens minted from the queried MT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (optional)
+     * Query data of all tokens for certain MT contracts
+     * Selecting an MT contract will fetch all data of tokens issued by the contract.&lt;p&gt;&lt;/p&gt;  ## Sort&lt;p&gt;&lt;/p&gt;  * The items in the response will be listed in lexicographical order of the token IDs. &lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return PageableMts
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -619,12 +619,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific MT Contract
-     * Lists all tokens minted from the queried MT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (optional)
+     * Query data of all tokens for certain MT contracts
+     * Selecting an MT contract will fetch all data of tokens issued by the contract.&lt;p&gt;&lt;/p&gt;  ## Sort&lt;p&gt;&lt;/p&gt;  * The items in the response will be listed in lexicographical order of the token IDs. &lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return ApiResponse&lt;PageableMts&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -635,12 +635,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific MT Contract (asynchronously)
-     * Lists all tokens minted from the queried MT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param mtAddress MT contract address to look up (required)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (optional)
+     * Query data of all tokens for certain MT contracts (asynchronously)
+     * Selecting an MT contract will fetch all data of tokens issued by the contract.&lt;p&gt;&lt;/p&gt;  ## Sort&lt;p&gt;&lt;/p&gt;  * The items in the response will be listed in lexicographical order of the token IDs. &lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param mtAddress NFT Contract address to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -673,9 +673,9 @@ public class TokenApi {
     }
     /**
      * Build call for getNftById
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -751,11 +751,11 @@ public class TokenApi {
     }
 
     /**
-     * Search Specific NFT Token Information
-     * Retrieve information for a specific NFT.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
+     * Query token data for certain NFTs
+     * Fetch data for certain NFTs 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
      * @return Nft
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -765,11 +765,11 @@ public class TokenApi {
     }
 
     /**
-     * Search Specific NFT Token Information
-     * Retrieve information for a specific NFT.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
+     * Query token data for certain NFTs
+     * Fetch data for certain NFTs 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
      * @return ApiResponse&lt;Nft&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -780,11 +780,11 @@ public class TokenApi {
     }
 
     /**
-     * Search Specific NFT Token Information (asynchronously)
-     * Retrieve information for a specific NFT.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param tokenId NFT ID (HEX) (required)
+     * Query token data for certain NFTs (asynchronously)
+     * Fetch data for certain NFTs 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address to query (required)
+     * @param tokenId NFT ID to query (in hexadecimal) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -817,10 +817,10 @@ public class TokenApi {
     }
     /**
      * Build call for getNftsByContractAddress
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param size Maxium number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress  (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -895,12 +895,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific NFT Contract
-     * Specify an NFT contract to retrieve the information for all NFTs issued by the contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param size Maxium number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all token data for certain NFT contracts
+     * Selecting an NFT contract will fetch data of all NFTs created by this NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress  (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return PageableNfts
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -910,12 +910,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific NFT Contract
-     * Specify an NFT contract to retrieve the information for all NFTs issued by the contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param size Maxium number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all token data for certain NFT contracts
+     * Selecting an NFT contract will fetch data of all NFTs created by this NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress  (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return ApiResponse&lt;PageableNfts&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -926,12 +926,12 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific NFT Contract (asynchronously)
-     * Specify an NFT contract to retrieve the information for all NFTs issued by the contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param size Maxium number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all token data for certain NFT contracts (asynchronously)
+     * Selecting an NFT contract will fetch data of all NFTs created by this NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress  (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -964,11 +964,11 @@ public class TokenApi {
     }
     /**
      * Build call for getNftsByOwnerAddress
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param ownerAddress EOA address (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -1048,13 +1048,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific EOA
-     * Specify the NFT contract and EOA to retrieve the information of the NFTs which the EOA currently owns and were issued by the NFT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param ownerAddress EOA address (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Get token data for NFT data by EOA
+     * Selecting an NFT contract and an EOA will fetch data of the NFTs by EOA created by the NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return PageableNfts
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -1064,13 +1064,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific EOA
-     * Specify the NFT contract and EOA to retrieve the information of the NFTs which the EOA currently owns and were issued by the NFT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param ownerAddress EOA address (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Get token data for NFT data by EOA
+     * Selecting an NFT contract and an EOA will fetch data of the NFTs by EOA created by the NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return ApiResponse&lt;PageableNfts&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -1081,13 +1081,13 @@ public class TokenApi {
     }
 
     /**
-     * Search All Token Information for Specific EOA (asynchronously)
-     * Specify the NFT contract and EOA to retrieve the information of the NFTs which the EOA currently owns and were issued by the NFT contract.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
-     * @param ownerAddress EOA address (required)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Get token data for NFT data by EOA (asynchronously)
+     * Selecting an NFT contract and an EOA will fetch data of the NFTs by EOA created by the NFT contract.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress Contract address to query (required)
+     * @param ownerAddress EOA to query (required)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

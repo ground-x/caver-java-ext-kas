@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -89,10 +89,10 @@ public class NftTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Receiver EOA (20-byte)
+   * Recipient EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver EOA (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Recipient EOA (20-byte)")
   public String getTo() {
     return to;
   }
@@ -125,10 +125,10 @@ public class NftTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Type of transaction detail
+   * Transaction type
    * @return transferType
   **/
-  @Schema(example = "nft", required = true, description = "Type of transaction detail")
+  @Schema(example = "nft", required = true, description = "Transaction type")
   public String getTransferType() {
     return transferType;
   }
@@ -143,10 +143,10 @@ public class NftTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Token identifier (in hexadecimal)
+   * Token Identifier (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token identifier (in hexadecimal)")
+  @Schema(example = "0x1", required = true, description = "Token Identifier (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }

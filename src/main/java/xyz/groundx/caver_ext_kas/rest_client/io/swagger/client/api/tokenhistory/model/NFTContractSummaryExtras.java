@@ -22,63 +22,21 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * FtContract
+ * NFTContractSummaryExtras
  */
 
 
-public class FtContract {
-  @SerializedName("address")
-  private String address = null;
-
-  @SerializedName("decimals")
-  private Long decimals = null;
-
+public class NFTContractSummaryExtras {
   @SerializedName("name")
   private String name = null;
 
   @SerializedName("symbol")
   private String symbol = null;
 
-  @SerializedName("status")
-  private String status = null;
+  @SerializedName("totalSupply")
+  private String totalSupply = null;
 
-  public FtContract address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Contract address (20-byte)
-   * @return address
-  **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Contract address (20-byte)")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public FtContract decimals(Long decimals) {
-    this.decimals = decimals;
-    return this;
-  }
-
-   /**
-   * Token digits
-   * @return decimals
-  **/
-  @Schema(example = "8", required = true, description = "Token digits")
-  public Long getDecimals() {
-    return decimals;
-  }
-
-  public void setDecimals(Long decimals) {
-    this.decimals = decimals;
-  }
-
-  public FtContract name(String name) {
+  public NFTContractSummaryExtras name(String name) {
     this.name = name;
     return this;
   }
@@ -87,7 +45,7 @@ public class FtContract {
    * Token name
    * @return name
   **/
-  @Schema(example = "Test Coin", required = true, description = "Token name")
+  @Schema(example = "KAS NCoin", description = "Token name")
   public String getName() {
     return name;
   }
@@ -96,7 +54,7 @@ public class FtContract {
     this.name = name;
   }
 
-  public FtContract symbol(String symbol) {
+  public NFTContractSummaryExtras symbol(String symbol) {
     this.symbol = symbol;
     return this;
   }
@@ -105,7 +63,7 @@ public class FtContract {
    * Token symbol
    * @return symbol
   **/
-  @Schema(example = "TSTC", required = true, description = "Token symbol")
+  @Schema(example = "KNC", description = "Token symbol")
   public String getSymbol() {
     return symbol;
   }
@@ -114,22 +72,22 @@ public class FtContract {
     this.symbol = symbol;
   }
 
-  public FtContract status(String status) {
-    this.status = status;
+  public NFTContractSummaryExtras totalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
     return this;
   }
 
    /**
-   * Contract labelling status (completed, processing, failed, cancelled)
-   * @return status
+   * Total issued tokens (in hexadecimal)
+   * @return totalSupply
   **/
-  @Schema(example = "completed", required = true, description = "Contract labelling status (completed, processing, failed, cancelled)")
-  public String getStatus() {
-    return status;
+  @Schema(example = "0x1d", description = "Total issued tokens (in hexadecimal)")
+  public String getTotalSupply() {
+    return totalSupply;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setTotalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
   }
 
 
@@ -141,30 +99,26 @@ public class FtContract {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FtContract ftContract = (FtContract) o;
-    return Objects.equals(this.address, ftContract.address) &&
-        Objects.equals(this.decimals, ftContract.decimals) &&
-        Objects.equals(this.name, ftContract.name) &&
-        Objects.equals(this.symbol, ftContract.symbol) &&
-        Objects.equals(this.status, ftContract.status);
+    NFTContractSummaryExtras nfTContractSummaryExtras = (NFTContractSummaryExtras) o;
+    return Objects.equals(this.name, nfTContractSummaryExtras.name) &&
+        Objects.equals(this.symbol, nfTContractSummaryExtras.symbol) &&
+        Objects.equals(this.totalSupply, nfTContractSummaryExtras.totalSupply);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, decimals, name, symbol, status);
+    return Objects.hash(name, symbol, totalSupply);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FtContract {\n");
+    sb.append("class NFTContractSummaryExtras {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    decimals: ").append(toIndentedString(decimals)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
     sb.append("}");
     return sb.toString();
   }

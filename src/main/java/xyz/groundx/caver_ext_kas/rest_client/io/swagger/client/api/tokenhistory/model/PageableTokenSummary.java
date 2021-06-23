@@ -13,38 +13,30 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
+
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtToken;
 /**
- * PageableMtTokensWithBalance
+ * PageableTokenSummary
  */
 
 
-public class PageableMtTokensWithBalance {
+public class PageableTokenSummary {
   @SerializedName("items")
-  private List<MtToken> items = new ArrayList<MtToken>();
-
-  @SerializedName("totalBalance")
-  private String totalBalance = null;
+  private List<AnyOfPageableTokenSummaryItems> items = new ArrayList<AnyOfPageableTokenSummaryItems>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableMtTokensWithBalance items(List<MtToken> items) {
+  public PageableTokenSummary items(List<AnyOfPageableTokenSummaryItems> items) {
     this.items = items;
     return this;
   }
 
-  public PageableMtTokensWithBalance addItemsItem(MtToken itemsItem) {
+  public PageableTokenSummary addItemsItem(AnyOfPageableTokenSummaryItems itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -54,33 +46,15 @@ public class PageableMtTokensWithBalance {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<MtToken> getItems() {
+  public List<AnyOfPageableTokenSummaryItems> getItems() {
     return items;
   }
 
-  public void setItems(List<MtToken> items) {
+  public void setItems(List<AnyOfPageableTokenSummaryItems> items) {
     this.items = items;
   }
 
-  public PageableMtTokensWithBalance totalBalance(String totalBalance) {
-    this.totalBalance = totalBalance;
-    return this;
-  }
-
-   /**
-   * Total balance of tokens by EOA
-   * @return totalBalance
-  **/
-  @Schema(example = "0xf1", required = true, description = "Total balance of tokens by EOA")
-  public String getTotalBalance() {
-    return totalBalance;
-  }
-
-  public void setTotalBalance(String totalBalance) {
-    this.totalBalance = totalBalance;
-  }
-
-  public PageableMtTokensWithBalance cursor(String cursor) {
+  public PageableTokenSummary cursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
@@ -107,25 +81,23 @@ public class PageableMtTokensWithBalance {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageableMtTokensWithBalance pageableMtTokensWithBalance = (PageableMtTokensWithBalance) o;
-    return Objects.equals(this.items, pageableMtTokensWithBalance.items) &&
-        Objects.equals(this.totalBalance, pageableMtTokensWithBalance.totalBalance) &&
-        Objects.equals(this.cursor, pageableMtTokensWithBalance.cursor);
+    PageableTokenSummary pageableTokenSummary = (PageableTokenSummary) o;
+    return Objects.equals(this.items, pageableTokenSummary.items) &&
+        Objects.equals(this.cursor, pageableTokenSummary.cursor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, totalBalance, cursor);
+    return Objects.hash(items, cursor);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageableMtTokensWithBalance {\n");
+    sb.append("class PageableTokenSummary {\n");
     
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    totalBalance: ").append(toIndentedString(totalBalance)).append("\n");
     sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();

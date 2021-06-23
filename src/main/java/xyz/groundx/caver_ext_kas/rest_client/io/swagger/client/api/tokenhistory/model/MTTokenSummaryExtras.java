@@ -22,72 +22,72 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * ErrorResponse
+ * MTTokenSummaryExtras
  */
 
 
-public class ErrorResponse {
-  @SerializedName("code")
-  private Integer code = null;
+public class MTTokenSummaryExtras {
+  @SerializedName("tokenId")
+  private String tokenId = null;
 
-  @SerializedName("message")
-  private String message = null;
+  @SerializedName("tokenUri")
+  private String tokenUri = null;
 
-  @SerializedName("requestId")
-  private String requestId = null;
+  @SerializedName("totalSupply")
+  private String totalSupply = null;
 
-  public ErrorResponse code(Integer code) {
-    this.code = code;
+  public MTTokenSummaryExtras tokenId(String tokenId) {
+    this.tokenId = tokenId;
     return this;
   }
 
    /**
-   * KAS error code
-   * @return code
+   * Token ID (in hexadecimal)
+   * @return tokenId
   **/
-  @Schema(required = true, description = "KAS error code")
-  public Integer getCode() {
-    return code;
+  @Schema(example = "0x1", description = "Token ID (in hexadecimal)")
+  public String getTokenId() {
+    return tokenId;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setTokenId(String tokenId) {
+    this.tokenId = tokenId;
   }
 
-  public ErrorResponse message(String message) {
-    this.message = message;
+  public MTTokenSummaryExtras tokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
     return this;
   }
 
    /**
-   * KAS error message
-   * @return message
+   * Token URL
+   * @return tokenUri
   **/
-  @Schema(required = true, description = "KAS error message")
-  public String getMessage() {
-    return message;
+  @Schema(example = "https://link.to/mt/1", description = "Token URL")
+  public String getTokenUri() {
+    return tokenUri;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setTokenUri(String tokenUri) {
+    this.tokenUri = tokenUri;
   }
 
-  public ErrorResponse requestId(String requestId) {
-    this.requestId = requestId;
+  public MTTokenSummaryExtras totalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
     return this;
   }
 
    /**
-   * Request ID
-   * @return requestId
+   * Total issued amount (in hexadecimal)
+   * @return totalSupply
   **/
-  @Schema(required = true, description = "Request ID")
-  public String getRequestId() {
-    return requestId;
+  @Schema(example = "0xde0b6b3a7640000", description = "Total issued amount (in hexadecimal)")
+  public String getTotalSupply() {
+    return totalSupply;
   }
 
-  public void setRequestId(String requestId) {
-    this.requestId = requestId;
+  public void setTotalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
   }
 
 
@@ -99,26 +99,26 @@ public class ErrorResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ErrorResponse errorResponse = (ErrorResponse) o;
-    return Objects.equals(this.code, errorResponse.code) &&
-        Objects.equals(this.message, errorResponse.message) &&
-        Objects.equals(this.requestId, errorResponse.requestId);
+    MTTokenSummaryExtras mtTokenSummaryExtras = (MTTokenSummaryExtras) o;
+    return Objects.equals(this.tokenId, mtTokenSummaryExtras.tokenId) &&
+        Objects.equals(this.tokenUri, mtTokenSummaryExtras.tokenUri) &&
+        Objects.equals(this.totalSupply, mtTokenSummaryExtras.totalSupply);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, requestId);
+    return Objects.hash(tokenId, tokenUri, totalSupply);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponse {\n");
+    sb.append("class MTTokenSummaryExtras {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
+    sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
+    sb.append("    tokenUri: ").append(toIndentedString(tokenUri)).append("\n");
+    sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
     sb.append("}");
     return sb.toString();
   }
