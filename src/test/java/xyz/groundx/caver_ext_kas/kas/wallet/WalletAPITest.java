@@ -3080,7 +3080,7 @@ public class WalletAPITest {
     }
 
     @Test
-    public void migrateSingleKeyAccount() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateSingleKeyAccount() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
         SingleKeyring singleKeyring = KeyringFactory.generate();
 
@@ -3090,12 +3090,17 @@ public class WalletAPITest {
         );
         accountsToBeMigrated.add(migrationAccount);
 
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        try {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    public void migrateSingleKeyAccountUsingValidNonce() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateSingleKeyAccountUsingValidNonce() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
         SingleKeyring singleKeyring = KeyringFactory.generate();
 
@@ -3107,12 +3112,17 @@ public class WalletAPITest {
 
         accountsToBeMigrated.add(migrationAccount);
 
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        try {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    public void migrateSingleKeyAccount_ThrowException_AllFailed() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateSingleKeyAccount_AllFailed() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
         MigrationAccount accountNotYetDecoupled = new MigrationAccount(
@@ -3122,18 +3132,20 @@ public class WalletAPITest {
         accountsToBeMigrated.add(accountNotYetDecoupled);
 
         try {
-            caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        } catch (KASAPIException e) {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
             assertEquals(
                     "An account with wrong private key should be failed to be migrated.",
                     "all failed",
-                    e.getMessage()
+                    response.getStatus()
             );
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
     @Test
-    public void migrateMultipleSingleKeyAccounts() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateMultipleSingleKeyAccounts() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
         for (int i=0; i<3; i++) {
@@ -3146,12 +3158,17 @@ public class WalletAPITest {
             accountsToBeMigrated.add(migrationAccount);
         }
 
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals("Migrating multiple accounts having single key should be succeeded.", "ok", response.getStatus());
+        try {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals("Migrating multiple accounts having single key should be succeeded.", "ok", response.getStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    public void migrateMultipleSingleKeyAccountsUsingValidNonce() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateMultipleSingleKeyAccountsUsingValidNonce() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
         SingleKeyring keyring1 = KeyringFactory.generate();
         SingleKeyring keyring2 = KeyringFactory.generate();
@@ -3161,7 +3178,8 @@ public class WalletAPITest {
                 new MigrationAccount(
                         keyring1.getAddress(),
                         keyring1.getKey().getPrivateKey(),
-                        "0x0")
+                        "0x0"
+                )
         );
         accountsToBeMigrated.add(
                 new MigrationAccount(
@@ -3171,12 +3189,17 @@ public class WalletAPITest {
                 )
         );
 
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        try {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals("Migrating an account having single key should be succeeded.", "ok", response.getStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    public void migrateMultipleSingleKeyAccounts_throwException_PartiallyFailed() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateMultipleSingleKeyAccounts_PartiallyFailed() {
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
         for (int i=0; i<3; i++) {
@@ -3199,18 +3222,23 @@ public class WalletAPITest {
         accountsToBeMigrated.add(accountNotYetDecoupled);
 
         try {
-            caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        } catch (KASAPIException e) {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
             assertEquals(
                     "If there are accounts with the wrong private key, the migration should fail, but the correct accounts should succeed.",
                     "partially failed",
-                    e.getMessage()
+                    response.getStatus()
             );
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
     @Test
     public void migrate_throwException_withoutInitializingNodeAPI() throws ApiException, NoSuchFieldException, IOException {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("You should initialize Node API with working endpoint url before calling migrateAccounts.");
+
         CaverExtKAS caverExtKAS = new CaverExtKAS();
         caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
 
@@ -3225,45 +3253,41 @@ public class WalletAPITest {
 
         accountsToBeMigrated.add(migrationAccount);
 
+        caverExtKAS.kas.wallet.migrateAccounts(accountsToBeMigrated);
+    }
+
+    @Test
+    public void migrateWithInitializingAPIsManuallyWalletFirst() {
+        CaverExtKAS caverExtKAS = new CaverExtKAS();
+        caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
+        caverExtKAS.initNodeAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_NODE_API);
+
+        ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
+        for (int i=0; i<2; i++) {
+            SingleKeyring singleKeyring = KeyringFactory.generate();
+
+            MigrationAccount migrationAccount = new MigrationAccount(
+                    singleKeyring.getAddress(),
+                    singleKeyring.getKey().getPrivateKey()
+            );
+            accountsToBeMigrated.add(migrationAccount);
+        }
+
         try {
-            // Without initializing Node API, endpoint url of caverExtKAS.rpc is Caver.DEFAULT_URL which is "localhost".
-            caverExtKAS.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        } catch (RuntimeException e) {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
             assertEquals(
-                    "Using account migration feature without init node api should be failed.",
-                    "You should initialize Node API with working endpoint url before calling migrateAccounts.",
-                    e.getMessage()
+                    "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
+                    "ok",
+                    response.getStatus()
             );
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
     @Test
-    public void migrateWithInitializingAPIsManuallyWalletFirst() throws ApiException, IOException, NoSuchFieldException {
-        CaverExtKAS caverExtKAS = new CaverExtKAS();
-        caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
-        caverExtKAS.initNodeAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_NODE_API);
-
-        ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
-        for (int i=0; i<2; i++) {
-            SingleKeyring singleKeyring = KeyringFactory.generate();
-
-            MigrationAccount migrationAccount = new MigrationAccount(
-                    singleKeyring.getAddress(),
-                    singleKeyring.getKey().getPrivateKey()
-            );
-            accountsToBeMigrated.add(migrationAccount);
-        }
-
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals(
-                "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
-                "ok",
-                response.getStatus()
-        );
-    }
-
-    @Test
-    public void migrateWithInitializingAPIsManuallyNodeFirst() throws ApiException, IOException, NoSuchFieldException {
+    public void migrateWithInitializingAPIsManuallyNodeFirst() {
         CaverExtKAS caverExtKAS = new CaverExtKAS();
         caverExtKAS.initNodeAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_NODE_API);
         caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
@@ -3279,16 +3303,24 @@ public class WalletAPITest {
             accountsToBeMigrated.add(migrationAccount);
         }
 
-        RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        assertEquals(
-                "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
-                "ok",
-                response.getStatus()
-        );
+        try {
+            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            assertEquals(
+                    "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
+                    "ok",
+                    response.getStatus()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
     public void migrateAccount_throwException_emptyAddress() throws IOException, NoSuchFieldException, ApiException {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Address of migrationAccount must not be empty.");
+
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
         SingleKeyring singleKeyring = KeyringFactory.generate();
@@ -3300,19 +3332,14 @@ public class WalletAPITest {
 
         accountsToBeMigrated.add(0, migrationAccount);
 
-        try {
-            caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        } catch (IllegalArgumentException e) {
-            assertEquals(
-                    "migrating account with empty address should throws exception",
-                    "Address of migrationAccount must not be empty.",
-                    e.getMessage()
-            );
-        }
+        caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
     }
 
     @Test
     public void migrateAccount_throwException_nullKey() throws IOException, NoSuchFieldException, ApiException {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("MigrationAccountKey of migrationAccount must not be empty.");
+
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
         SingleKeyring singleKeyring = KeyringFactory.generate();
@@ -3324,19 +3351,11 @@ public class WalletAPITest {
         migrationAccount.setMigrationAccountKey(null);
 
         accountsToBeMigrated.add(0, migrationAccount);
-        try {
-            caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
-        } catch (IllegalArgumentException e) {
-            assertEquals(
-                    "migrating account with null key should throws exception",
-                    "MigrationAccountKey of migrationAccount must not be empty.",
-                    e.getMessage()
-            );
-        }
+        caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
     }
 
     @Test
-    public void migrateMultipleKeyAccount() throws NoSuchFieldException {
+    public void migrateMultipleKeyAccount() {
         Wallet wallet = mock(Wallet.class);
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
@@ -3356,14 +3375,14 @@ public class WalletAPITest {
 
             verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
             assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
-        } catch (KASAPIException | IOException | ApiException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
     }
 
     @Test
-    public void migrateRoleBasedKeyAccount() throws NoSuchFieldException {
+    public void migrateRoleBasedKeyAccount() {
         Wallet wallet = mock(Wallet.class);
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
@@ -3382,7 +3401,7 @@ public class WalletAPITest {
 
             verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
             assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
-        } catch (KASAPIException | IOException | ApiException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
