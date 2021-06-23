@@ -2449,8 +2449,8 @@ public class Wallet {
 //     * @return AccountCountByKRN
 //     * @throws ApiException
 //     */
-//    public AccountCountByKRN getAccountCountByKRN() throws ApiException {
-//        return getStatisticsApi().getAccountCountByKRN(getChainId());
+//    public AccountCountByKRN getAccountCountByKRN(String krn) throws ApiException {
+//        return getStatisticsApi().getAccountCountByKRN(getChainId(), krn);
 //    }
 //
 //    /**
