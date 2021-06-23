@@ -88,6 +88,11 @@ public class Wallet {
     RegistrationApi registrationApi;
 
     /**
+     * Fee payer API rest client object.
+     */
+    FeepayerApi feepayerApi;
+
+    /**
      * Klaytn network id.
      */
     String chainId;
@@ -3202,6 +3207,14 @@ public class Wallet {
     }
 
     /**
+     * Getter function for feepayerApi.
+     * @return FeepayerApi
+     */
+    public FeepayerApi getFeepayerApi() {
+        return feepayerApi;
+    }
+
+    /**
      * Getter function for chainId
      * @return String
      */
@@ -3282,6 +3295,14 @@ public class Wallet {
     }
 
     /**
+     * Setter function for feepayerApi
+     * @param feepayerApi fee payer API rest client object.
+     */
+    public void setFeepayerApi(FeepayerApi feepayerApi) {
+        this.feepayerApi = feepayerApi;
+    }
+
+    /**
      * Setter function for chainId
      * @param chainId Klaytn network id.
      */
@@ -3303,6 +3324,7 @@ public class Wallet {
         setStatisticsApi(new StatisticsApi(apiClient));
         setKeyApi(new KeyApi(apiClient));
         setRegistrationApi(new RegistrationApi(apiClient));
+        setFeepayerApi(new FeepayerApi(apiClient));
     }
 
 
