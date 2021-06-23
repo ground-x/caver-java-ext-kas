@@ -23,7 +23,6 @@ import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
@@ -2407,7 +2406,7 @@ public class Wallet {
      * @throws ApiException
      */
     public AccountCountByKRN getAccountCountByKRN() throws ApiException {
-        return getAccountCountByKRN(null);
+        return getStatisticsApi().getAccountCountByKRN(getChainId());
     }
 
     /**
@@ -2431,52 +2430,52 @@ public class Wallet {
      * @throws ApiException
      */
     public Call getAccountCountByKRNAsync(ApiCallback<AccountCountByKRN> callback) throws ApiException {
-        return getAccountCountByKRNAsync(null, callback);
+        return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), callback);
     }
 
-    /**
-     * Return the number of accounts by passed as KRN in KAS.<br>
-     * GET /v2/stat/count/krn
-     *
-     * <pre>Example:
-     * {@code
-     * String krn = "{krn}";
-     * AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN(krn);
-     * }
-     * </pre>
-     *
-     * @param krn The krn string to search
-     * @return AccountCountByKRN
-     * @throws ApiException
-     */
-    public AccountCountByKRN getAccountCountByKRN(String krn) throws ApiException {
-        return getStatisticsApi().getAccountCountByKRN(getChainId(), krn);
-    }
-
-    /**
-     * Return the number of accounts by passed as KRN in KAS asynchronously.<br>
-     * GET /v2/stat/count/krn
-     *
-     * <pre>Example:
-     * {@code
-     * String krn = "{krn}";
-     *
-     * ApiCallback<AccountCountByKRN> callback = new ApiCallback<AccountCountByKRN>() {
-     *     ....implements callback method
-     * };
-     *
-     * caver.kas.wallet.getAccountCountByKRNAsync(krn, callback);
-     * }
-     * </pre>
-     *
-     * @param krn The krn string to search
-     * @param callback The callback function to handle response.
-     * @return AccountCountByKRN
-     * @throws ApiException
-     */
-    public Call getAccountCountByKRNAsync(String krn, ApiCallback<AccountCountByKRN> callback) throws ApiException {
-        return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), krn, callback);
-    }
+//    /**
+//     * Return the number of accounts by passed as KRN in KAS.<br>
+//     * GET /v2/stat/count/krn
+//     *
+//     * <pre>Example:
+//     * {@code
+//     * String krn = "{krn}";
+//     * AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN(krn);
+//     * }
+//     * </pre>
+//     *
+//     * @param krn The krn string to search
+//     * @return AccountCountByKRN
+//     * @throws ApiException
+//     */
+//    public AccountCountByKRN getAccountCountByKRN() throws ApiException {
+//        return getStatisticsApi().getAccountCountByKRN(getChainId());
+//    }
+//
+//    /**
+//     * Return the number of accounts by passed as KRN in KAS asynchronously.<br>
+//     * GET /v2/stat/count/krn
+//     *
+//     * <pre>Example:
+//     * {@code
+//     * String krn = "{krn}";
+//     *
+//     * ApiCallback<AccountCountByKRN> callback = new ApiCallback<AccountCountByKRN>() {
+//     *     ....implements callback method
+//     * };
+//     *
+//     * caver.kas.wallet.getAccountCountByKRNAsync(krn, callback);
+//     * }
+//     * </pre>
+//     *
+//     * @param krn The krn string to search
+//     * @param callback The callback function to handle response.
+//     * @return AccountCountByKRN
+//     * @throws ApiException
+//     */
+//    public Call getAccountCountByKRNAsync(String krn, ApiCallback<AccountCountByKRN> callback) throws ApiException {
+//        return getStatisticsApi().getAccountCountByKRNAsync(getChainId(), krn, callback);
+//    }
 
     /**
      * Create keys in KAS. <br>
@@ -2589,34 +2588,7 @@ public class Wallet {
         KeySignDataRequest request = new KeySignDataRequest();
         request.setData(data);
 
-        return signMessage(keyId, data, "");
-    }
-
-    /**
-     * Sign a message using a key create by KAS. <br>
-     * POST /v2/key/{key-id}/sign
-     *
-     * <pre>Example :
-     * {@code
-     * String keyId = "key Id";
-     * String data = "data";
-     * String krn = "krn";
-     *
-     * caver.kas.wallet.signMessage(keyId, data, krn);
-     * }
-     * </pre>
-     *
-     * @param keyId The key id to use for signing.
-     * @param data The data to sign.
-     * @param krn The krn string.
-     * @return KeySignDataResponse
-     * @throws ApiException
-     */
-    public KeySignDataResponse signMessage(String keyId, String data, String krn) throws ApiException {
-        KeySignDataRequest request = new KeySignDataRequest();
-        request.setData(data);
-
-        return getKeyApi().keySignData(chainId, keyId, request, krn);
+        return getKeyApi().keySignData(chainId, keyId, request);
     }
 
     /**
@@ -2647,40 +2619,7 @@ public class Wallet {
         KeySignDataRequest request = new KeySignDataRequest();
         request.setData(data);
 
-        return signMessageAsync(keyId, data, null, callback);
-    }
-
-    /**
-     * Sign a message using a key create by KAS asynchronously. <br>
-     * The default KRN will be used. <br>
-     * POST /v2/key/{key-id}/sign
-     *
-     * <pre>Example :
-     * {@code
-     * ApiCallback<KeySignDataResponse> callback = new ApiCallback<KeySignDataResponse> callback() {
-     *     ....implements callback method.
-     * }
-     *
-     * String keyId = "key Id";
-     * String data = "data";
-     * String krn = "krn"
-     *
-     * caver.kas.wallet.signMessageAsync(keyId, data, krn, callback);
-     * }
-     * </pre>
-     *
-     * @param keyId The key id to use for signing.
-     * @param data The data to sign.
-     * @param krn The krn string.
-     * @param callback The callback function to handle response.
-     * @return Call
-     * @throws ApiException
-     */
-    public Call signMessageAsync(String keyId, String data, String krn, ApiCallback<KeySignDataResponse> callback) throws ApiException {
-        KeySignDataRequest request = new KeySignDataRequest();
-        request.setData(data);
-
-        return getKeyApi().keySignDataAsync(chainId, keyId, request, krn, callback);
+        return getKeyApi().keySignDataAsync(chainId, keyId, request, callback);
     }
 
     /**
@@ -3200,7 +3139,7 @@ public class Wallet {
 
     /**
      * Getter function for registrationApi
-     * @return
+     * @return RegistrationApi
      */
     public RegistrationApi getRegistrationApi() {
         return registrationApi;
