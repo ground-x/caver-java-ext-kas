@@ -3187,7 +3187,7 @@ public class Wallet {
     }
 
     /**
-     * Retrieve a certain Klaytn fee payer account.<br>
+     * Retrieve a certain Klaytn fee payer account asynchronously.<br>
      * GET /v2/feepayer/{address}
      *
      * <pre>Example
