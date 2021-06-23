@@ -39,6 +39,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -3078,6 +3079,274 @@ public class Wallet {
 
         request.setValue(sendOptions.getValue());
         return getBasicTransactionApi().contractCallAsync(chainId, request, callback);
+    }
+
+    /**
+     * Create a Klaytn fee payer account.<br>
+     * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
+     * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * POST /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * Account feePayerAccount = caver.kas.wallet.createFeePayer();
+     * }
+     * </pre>
+     *
+     * @return Account
+     * @throws ApiException
+     */
+    public Account createFeePayer() throws ApiException {
+        return getFeepayerApi().creatFeePayerAccount(chainId);
+    }
+
+    /**
+     * Create a Klaytn fee payer account asynchronously.<br>
+     * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
+     * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * POST /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<Account> callback = new ApiCallback<Account> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * caver.kas.wallet.createFeePayerAsync(callback);
+     * }
+     * </pre>
+     *
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call createFeePayerAsync(ApiCallback<Account> callback) throws ApiException {
+        return getFeepayerApi().creatFeePayerAccountAsync(chainId, callback);
+    }
+
+    /**
+     * Delete a certain Klaytn fee payer account.<br>
+     * DELETE /v2/feepayer/{address}
+     *
+     * <pre>Example
+     * {@code
+     * String feePayerAddress = "0x{feePayer address}";
+     * AccountStatus status = caver.wallet.kas.deleteFeePayer(feePayerAddress);
+     * }
+     * </pre>
+     *
+     * @param address Klaytn account address.
+     * @return AccountStatus
+     * @throws ApiException
+     */
+    public AccountStatus deleteFeePayer(String address) throws ApiException {
+        return getFeepayerApi().deleteFeePayerAccount(chainId, address);
+    }
+
+    /**
+     * Delete a certain Klaytn fee payer account asynchronously.<br>
+     * DELETE /v2/feepayer/{address}
+     *
+     * <pre> Example
+     * {@code
+     * ApiCallback<AccountStatus> callback = new ApiCallback<AccountStatus> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String feePayerAddress = "0x{feePayer address}";
+     * caver.wallet.kas.deleteFeePayerAsync(feePayerAddress, callback);
+     * }
+     * </pre>
+     *
+     * @param address Klaytn account address.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call deleteFeePayerAsync(String address, ApiCallback<AccountStatus> callback) throws ApiException {
+        return getFeepayerApi().deleteFeePayerAccountAsync(chainId, address, callback);
+    }
+
+    /**
+     * Retrieve a certain Klaytn fee payer account.<br>
+     * GET /v2/feepayer/{address}
+     *
+     * <pre>Example
+     * {@code
+     * String address = "0x{address}";
+     * Account account = caver.kas.wallet.getFeePayer(address);
+     * }
+     * </pre>
+     *
+     * @param address Klaytn account address.
+     * @return Account
+     * @throws ApiException
+     */
+    public Account getFeePayer(String address) throws ApiException {
+        return getFeepayerApi().retrieveFeePayerAccount(chainId, address);
+    }
+
+    /**
+     * Retrieve a certain Klaytn fee payer account.<br>
+     * GET /v2/feepayer/{address}
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<Account> callback = new ApiCallback<Account> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String address = "0x{address}";
+     * caver.kas.wallet.getFeePayerAsync(address, callback);
+     * }
+     * </pre>
+     *
+     * @param address Klaytn account address.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getFeePayerAsync(String address, ApiCallback<Account> callback) throws ApiException {
+        return getFeepayerApi().retrieveFeePayerAccountAsync(chainId, address, callback);
+    }
+
+    /**
+     * Retrieve a list of all Klaytn fee payer accounts.<br>
+     * GET /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * Accounts accounts = caver.kas.wallet.getFeePayerList();
+     * }
+     * </pre>
+     *
+     * @return Accounts
+     * @throws ApiException
+     */
+    public Accounts getFeePayerList() throws ApiException {
+        return getFeePayerList(new WalletQueryOptions());
+    }
+
+    /**
+     * Retrieve a list of all Klaytn fee payer accounts.<br>
+     * GET /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(5l);
+     * options.setFromTimestamp("2021-01-01 00:00:00");
+     * options.setToTimestamp(new Date().getTime() / 1000);
+     *
+     * Accounts accounts = caver.kas.wallet.getFeePayerList(options);
+     * }
+     * </pre>
+     *
+     * @param options ilters required when retrieving data. `to-timestamp`, `from-timestamp`, `size`, and `cursor`.
+     * @return Accounts
+     * @throws ApiException
+     */
+    public Accounts getFeePayerList(WalletQueryOptions options) throws ApiException {
+        String fromTimeStamp = Optional.ofNullable(options.getFromTimestamp()).map(value -> Long.toString(value)).orElseGet(()-> null);
+        String toTimeStamp = Optional.ofNullable(options.getToTimestamp()).map(value -> Long.toString(value)).orElseGet(()-> null);
+
+        return getFeepayerApi().retrieveFeePayerAccounts(chainId, options.getSize(), options.getCursor(), fromTimeStamp, toTimeStamp);
+    }
+
+    /**
+     * Retrieve a list of all Klaytn fee payer accounts asynchronously.<br>
+     * GET /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<Accounts> callback = new ApiCallback<Accounts> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * caver.kas.wallet.getFeePayerListAsync(callback);
+     * }
+     * </pre>
+     *
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getFeePayerListAsync(ApiCallback<Accounts> callback) throws ApiException {
+        return getFeePayerListAsync(new WalletQueryOptions(), callback);
+    }
+
+    /**
+     * Retrieve a list of all Klaytn fee payer accounts asynchronously.<br>
+     * GET /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<Accounts> callback = new ApiCallback<Accounts> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(5l);
+     * options.setFromTimestamp("2021-01-01 00:00:00");
+     * options.setToTimestamp(new Date().getTime() / 1000);
+     *
+     * caver.kas.wallet.getFeePayerListAsync(options, callback);
+     * }
+     * </pre>
+     *
+     * @param options
+     * @param callback
+     * @return
+     * @throws ApiException
+     */
+    public Call getFeePayerListAsync(WalletQueryOptions options, ApiCallback<Accounts> callback) throws ApiException {
+        String fromTimeStamp = Optional.ofNullable(options.getFromTimestamp()).map(value -> Long.toString(value)).orElseGet(()-> null);
+        String toTimeStamp = Optional.ofNullable(options.getToTimestamp()).map(value -> Long.toString(value)).orElseGet(()-> null);
+
+        return getFeepayerApi().retrieveFeePayerAccountsAsync(chainId, options.getSize(), options.getCursor(), fromTimeStamp, toTimeStamp, callback);
+    }
+
+    /**
+     * Delete a key.<br>
+     * DELETE /v2/key/{key-id}
+     *
+     * <pre>Example
+     * {@code
+     * String keyId = "{key id}";
+     * KeyStatus status = caver.kas.wallet.deleteKey(keyId);
+     * }
+     * </pre>
+     *
+     * @param keyId The key ID
+     * @return KeyStatus
+     * @throws ApiException
+     */
+    public KeyStatus deleteKey(String keyId) throws ApiException {
+        return getKeyApi().keyDeletion(chainId, keyId);
+    }
+
+    /**
+     * Delete a key asynchronously.<br>
+     * DELETE /v2/key/{key-id}
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<KeyStatus> callback = new ApiCallback<KeyStatus> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String keyId = "{key id}";
+     * KeyStatus status = caver.kas.wallet.deleteKeyAsync(keyId, callback);
+     * }
+     * </pre>
+     *
+     * @param keyId The key ID.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call deleteKeyAsync(String keyId, ApiCallback<KeyStatus> callback) throws ApiException {
+        return getKeyApi().keyDeletionAsync(chainId, keyId, callback);
     }
     
 
