@@ -22,72 +22,30 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Brief account information
+ * Key status
  */
-@Schema(description = "Brief account information")
+@Schema(description = "Key status")
 
-public class AccountSummary {
-  @SerializedName("address")
-  private String address = null;
+public class KeyStatus {
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("krn")
-  private String krn = null;
-
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
-
-  public AccountSummary address(String address) {
-    this.address = address;
+  public KeyStatus status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Klaytn account address
-   * @return address
+   * Deletion status
+   * @return status
   **/
-  @Schema(example = "0xa809284C83b901eD106Aba4Ccda14628Af128e14", required = true, description = "Klaytn account address")
-  public String getAddress() {
-    return address;
+  @Schema(example = "deleted", required = true, description = "Deletion status")
+  public String getStatus() {
+    return status;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public AccountSummary krn(String krn) {
-    this.krn = krn;
-    return this;
-  }
-
-   /**
-   * KAS KRN
-   * @return krn
-  **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
-  public String getKrn() {
-    return krn;
-  }
-
-  public void setKrn(String krn) {
-    this.krn = krn;
-  }
-
-  public AccountSummary updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The time of the latest update of account data
-   * @return updatedAt
-  **/
-  @Schema(example = "1599187344", required = true, description = "The time of the latest update of account data")
-  public Long getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 
@@ -99,26 +57,22 @@ public class AccountSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountSummary accountSummary = (AccountSummary) o;
-    return Objects.equals(this.address, accountSummary.address) &&
-        Objects.equals(this.krn, accountSummary.krn) &&
-        Objects.equals(this.updatedAt, accountSummary.updatedAt);
+    KeyStatus keyStatus = (KeyStatus) o;
+    return Objects.equals(this.status, keyStatus.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, updatedAt);
+    return Objects.hash(status);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountSummary {\n");
+    sb.append("class KeyStatus {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

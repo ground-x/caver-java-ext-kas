@@ -26,12 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Key;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyCreationRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyCreationResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeySignDataRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeySignDataResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyStatus;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Account;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountStatus;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -39,14 +36,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class KeyApi {
+public class FeepayerApi {
     private ApiClient apiClient;
 
-    public KeyApi() {
+    public FeepayerApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public KeyApi(ApiClient apiClient) {
+    public FeepayerApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -59,20 +56,18 @@ public class KeyApi {
     }
 
     /**
-     * Build call for getKey
+     * Build call for creatFeePayerAccount
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getKeyCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call creatFeePayerAccountCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/key/{key-id}"
-            .replaceAll("\\{" + "key-id" + "\\}", apiClient.escapeString(keyId.toString()));
+        String localVarPath = "/v2/feepayer";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -108,151 +103,17 @@ public class KeyApi {
         }
 
         String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getKeyValidateBeforeCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getKey(Async)");
-        }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException("Missing the required parameter 'keyId' when calling getKey(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = getKeyCall(xChainId, keyId, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * Get key
-     * Retrieve the created keys.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @return Key
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public Key getKey(String xChainId, String keyId) throws ApiException {
-        ApiResponse<Key> resp = getKeyWithHttpInfo(xChainId, keyId);
-        return resp.getData();
-    }
-
-    /**
-     * Get key
-     * Retrieve the created keys.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @return ApiResponse&lt;Key&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<Key> getKeyWithHttpInfo(String xChainId, String keyId) throws ApiException {
-        com.squareup.okhttp.Call call = getKeyValidateBeforeCall(xChainId, keyId, null, null);
-        Type localVarReturnType = new TypeToken<Key>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Get key (asynchronously)
-     * Retrieve the created keys.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call getKeyAsync(String xChainId, String keyId, final ApiCallback<Key> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = getKeyValidateBeforeCall(xChainId, keyId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Key>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for keyCreation
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call keyCreationCall(String xChainId, KeyCreationRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = body;
-        
-        // create path and map variables
-        String localVarPath = "/v2/key";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        if (xChainId != null)
-        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basic" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call keyCreationValidateBeforeCall(String xChainId, KeyCreationRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call creatFeePayerAccountValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling keyCreation(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling creatFeePayerAccount(Async)");
         }
         
-        com.squareup.okhttp.Call call = keyCreationCall(xChainId, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = creatFeePayerAccountCall(xChainId, progressListener, progressRequestListener);
         return call;
 
         
@@ -262,42 +123,39 @@ public class KeyApi {
     }
 
     /**
-     * Key Creation
-     * Creates up to 100 keys in batches.
+     * Create fee payer account
+     * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @return KeyCreationResponse
+     * @return Account
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public KeyCreationResponse keyCreation(String xChainId, KeyCreationRequest body) throws ApiException {
-        ApiResponse<KeyCreationResponse> resp = keyCreationWithHttpInfo(xChainId, body);
+    public Account creatFeePayerAccount(String xChainId) throws ApiException {
+        ApiResponse<Account> resp = creatFeePayerAccountWithHttpInfo(xChainId);
         return resp.getData();
     }
 
     /**
-     * Key Creation
-     * Creates up to 100 keys in batches.
+     * Create fee payer account
+     * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @return ApiResponse&lt;KeyCreationResponse&gt;
+     * @return ApiResponse&lt;Account&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<KeyCreationResponse> keyCreationWithHttpInfo(String xChainId, KeyCreationRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = keyCreationValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<KeyCreationResponse>(){}.getType();
+    public ApiResponse<Account> creatFeePayerAccountWithHttpInfo(String xChainId) throws ApiException {
+        com.squareup.okhttp.Call call = creatFeePayerAccountValidateBeforeCall(xChainId, null, null);
+        Type localVarReturnType = new TypeToken<Account>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Key Creation (asynchronously)
-     * Creates up to 100 keys in batches.
+     * Create fee payer account (asynchronously)
+     * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call keyCreationAsync(String xChainId, KeyCreationRequest body, final ApiCallback<KeyCreationResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call creatFeePayerAccountAsync(String xChainId, final ApiCallback<Account> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -318,26 +176,26 @@ public class KeyApi {
             };
         }
 
-        com.squareup.okhttp.Call call = keyCreationValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<KeyCreationResponse>(){}.getType();
+        com.squareup.okhttp.Call call = creatFeePayerAccountValidateBeforeCall(xChainId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Account>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for keyDeletion
+     * Build call for deleteFeePayerAccount
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
+     * @param address Klaytn account address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call keyDeletionCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call deleteFeePayerAccountCall(String xChainId, String address, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/key/{key-id}"
-            .replaceAll("\\{" + "key-id" + "\\}", apiClient.escapeString(keyId.toString()));
+        String localVarPath = "/v2/feepayer/{address}"
+            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -377,17 +235,17 @@ public class KeyApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call keyDeletionValidateBeforeCall(String xChainId, String keyId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call deleteFeePayerAccountValidateBeforeCall(String xChainId, String address, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling keyDeletion(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling deleteFeePayerAccount(Async)");
         }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException("Missing the required parameter 'keyId' when calling keyDeletion(Async)");
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException("Missing the required parameter 'address' when calling deleteFeePayerAccount(Async)");
         }
         
-        com.squareup.okhttp.Call call = keyDeletionCall(xChainId, keyId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = deleteFeePayerAccountCall(xChainId, address, progressListener, progressRequestListener);
         return call;
 
         
@@ -397,42 +255,42 @@ public class KeyApi {
     }
 
     /**
-     * Key deletion
-     * Delete a key.
+     * Delete fee payer account
+     * Delete a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @return KeyStatus
+     * @param address Klaytn account address (required)
+     * @return AccountStatus
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public KeyStatus keyDeletion(String xChainId, String keyId) throws ApiException {
-        ApiResponse<KeyStatus> resp = keyDeletionWithHttpInfo(xChainId, keyId);
+    public AccountStatus deleteFeePayerAccount(String xChainId, String address) throws ApiException {
+        ApiResponse<AccountStatus> resp = deleteFeePayerAccountWithHttpInfo(xChainId, address);
         return resp.getData();
     }
 
     /**
-     * Key deletion
-     * Delete a key.
+     * Delete fee payer account
+     * Delete a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @return ApiResponse&lt;KeyStatus&gt;
+     * @param address Klaytn account address (required)
+     * @return ApiResponse&lt;AccountStatus&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<KeyStatus> keyDeletionWithHttpInfo(String xChainId, String keyId) throws ApiException {
-        com.squareup.okhttp.Call call = keyDeletionValidateBeforeCall(xChainId, keyId, null, null);
-        Type localVarReturnType = new TypeToken<KeyStatus>(){}.getType();
+    public ApiResponse<AccountStatus> deleteFeePayerAccountWithHttpInfo(String xChainId, String address) throws ApiException {
+        com.squareup.okhttp.Call call = deleteFeePayerAccountValidateBeforeCall(xChainId, address, null, null);
+        Type localVarReturnType = new TypeToken<AccountStatus>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Key deletion (asynchronously)
-     * Delete a key.
+     * Delete fee payer account (asynchronously)
+     * Delete a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
+     * @param address Klaytn account address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call keyDeletionAsync(String xChainId, String keyId, final ApiCallback<KeyStatus> callback) throws ApiException {
+    public com.squareup.okhttp.Call deleteFeePayerAccountAsync(String xChainId, String address, final ApiCallback<AccountStatus> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -453,27 +311,26 @@ public class KeyApi {
             };
         }
 
-        com.squareup.okhttp.Call call = keyDeletionValidateBeforeCall(xChainId, keyId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<KeyStatus>(){}.getType();
+        com.squareup.okhttp.Call call = deleteFeePayerAccountValidateBeforeCall(xChainId, address, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AccountStatus>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for keySignData
+     * Build call for retrieveFeePayerAccount
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @param body  (optional)
+     * @param address Klaytn account address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call keySignDataCall(String xChainId, String keyId, KeySignDataRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = body;
+    public com.squareup.okhttp.Call retrieveFeePayerAccountCall(String xChainId, String address, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/key/{key-id}/sign"
-            .replaceAll("\\{" + "key-id" + "\\}", apiClient.escapeString(keyId.toString()));
+        String localVarPath = "/v2/feepayer/{address}"
+            .replaceAll("\\{" + "address" + "\\}", apiClient.escapeString(address.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -491,7 +348,7 @@ public class KeyApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json"
+            
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -509,21 +366,21 @@ public class KeyApi {
         }
 
         String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call keySignDataValidateBeforeCall(String xChainId, String keyId, KeySignDataRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call retrieveFeePayerAccountValidateBeforeCall(String xChainId, String address, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling keySignData(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveFeePayerAccount(Async)");
         }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException("Missing the required parameter 'keyId' when calling keySignData(Async)");
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException("Missing the required parameter 'address' when calling retrieveFeePayerAccount(Async)");
         }
         
-        com.squareup.okhttp.Call call = keySignDataCall(xChainId, keyId, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountCall(xChainId, address, progressListener, progressRequestListener);
         return call;
 
         
@@ -533,45 +390,42 @@ public class KeyApi {
     }
 
     /**
-     * Sign data using keys
-     * Sign the data using keys.
+     * Retrieve account 
+     * Retrieve a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @param body  (optional)
-     * @return KeySignDataResponse
+     * @param address Klaytn account address (required)
+     * @return Account
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public KeySignDataResponse keySignData(String xChainId, String keyId, KeySignDataRequest body) throws ApiException {
-        ApiResponse<KeySignDataResponse> resp = keySignDataWithHttpInfo(xChainId, keyId, body);
+    public Account retrieveFeePayerAccount(String xChainId, String address) throws ApiException {
+        ApiResponse<Account> resp = retrieveFeePayerAccountWithHttpInfo(xChainId, address);
         return resp.getData();
     }
 
     /**
-     * Sign data using keys
-     * Sign the data using keys.
+     * Retrieve account 
+     * Retrieve a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @param body  (optional)
-     * @return ApiResponse&lt;KeySignDataResponse&gt;
+     * @param address Klaytn account address (required)
+     * @return ApiResponse&lt;Account&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<KeySignDataResponse> keySignDataWithHttpInfo(String xChainId, String keyId, KeySignDataRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = keySignDataValidateBeforeCall(xChainId, keyId, body, null, null);
-        Type localVarReturnType = new TypeToken<KeySignDataResponse>(){}.getType();
+    public ApiResponse<Account> retrieveFeePayerAccountWithHttpInfo(String xChainId, String address) throws ApiException {
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountValidateBeforeCall(xChainId, address, null, null);
+        Type localVarReturnType = new TypeToken<Account>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Sign data using keys (asynchronously)
-     * Sign the data using keys.
+     * Retrieve account  (asynchronously)
+     * Retrieve a certain Klaytn fee payer account.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param keyId key ID (required)
-     * @param body  (optional)
+     * @param address Klaytn account address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call keySignDataAsync(String xChainId, String keyId, KeySignDataRequest body, final ApiCallback<KeySignDataResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call retrieveFeePayerAccountAsync(String xChainId, String address, final ApiCallback<Account> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -592,8 +446,158 @@ public class KeyApi {
             };
         }
 
-        com.squareup.okhttp.Call call = keySignDataValidateBeforeCall(xChainId, keyId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<KeySignDataResponse>(){}.getType();
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountValidateBeforeCall(xChainId, address, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Account>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for retrieveFeePayerAccounts
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call retrieveFeePayerAccountsCall(String xChainId, Long size, String cursor, String toTimestamp, String fromTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/feepayer";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (size != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+        if (cursor != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
+        if (toTimestamp != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("to-timestamp", toTimestamp));
+        if (fromTimestamp != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("from-timestamp", fromTimestamp));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call retrieveFeePayerAccountsValidateBeforeCall(String xChainId, Long size, String cursor, String toTimestamp, String fromTimestamp, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveFeePayerAccounts(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountsCall(xChainId, size, cursor, toTimestamp, fromTimestamp, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Retrieve a list of fee payer accounts
+     * Retrieve a list of all Klaytn fee payer accounts.&lt;p&gt;&lt;/p&gt; ## Size&lt;p&gt;&lt;/p&gt; * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value.&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @return Accounts
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Accounts retrieveFeePayerAccounts(String xChainId, Long size, String cursor, String toTimestamp, String fromTimestamp) throws ApiException {
+        ApiResponse<Accounts> resp = retrieveFeePayerAccountsWithHttpInfo(xChainId, size, cursor, toTimestamp, fromTimestamp);
+        return resp.getData();
+    }
+
+    /**
+     * Retrieve a list of fee payer accounts
+     * Retrieve a list of all Klaytn fee payer accounts.&lt;p&gt;&lt;/p&gt; ## Size&lt;p&gt;&lt;/p&gt; * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value.&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @return ApiResponse&lt;Accounts&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Accounts> retrieveFeePayerAccountsWithHttpInfo(String xChainId, Long size, String cursor, String toTimestamp, String fromTimestamp) throws ApiException {
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountsValidateBeforeCall(xChainId, size, cursor, toTimestamp, fromTimestamp, null, null);
+        Type localVarReturnType = new TypeToken<Accounts>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Retrieve a list of fee payer accounts (asynchronously)
+     * Retrieve a list of all Klaytn fee payer accounts.&lt;p&gt;&lt;/p&gt; ## Size&lt;p&gt;&lt;/p&gt; * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value.&lt;br&gt;
+     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * @param size Maximum size to be queried (optional, default to 100)
+     * @param cursor Information on the last cursor (optional)
+     * @param toTimestamp Limit of the time range to be queried (timestamp in seconds) (optional)
+     * @param fromTimestamp Starting point of the time range to be queried (timestamp in seconds) (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call retrieveFeePayerAccountsAsync(String xChainId, Long size, String cursor, String toTimestamp, String fromTimestamp, final ApiCallback<Accounts> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = retrieveFeePayerAccountsValidateBeforeCall(xChainId, size, cursor, toTimestamp, fromTimestamp, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Accounts>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
