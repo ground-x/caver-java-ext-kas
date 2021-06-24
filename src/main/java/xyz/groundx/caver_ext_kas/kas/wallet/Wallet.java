@@ -139,7 +139,7 @@ public class Wallet {
      */
     public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigarted) throws ApiException, IOException, NoSuchFieldException {
         if (this.rpc == null) {
-            throw new NoSuchFieldException("Before using migrateAccounts, initNodeAPI must  be called first.");
+            throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
         }
 
         // Need to validate whether given list of migration accounts is valid or not.
