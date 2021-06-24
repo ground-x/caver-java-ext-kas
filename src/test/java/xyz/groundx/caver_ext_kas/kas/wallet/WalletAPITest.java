@@ -16,24 +16,26 @@
 
 package xyz.groundx.caver_ext_kas.kas.wallet;
 
+import com.klaytn.caver.abi.ABI;
 import com.klaytn.caver.contract.SendOptions;
+import com.klaytn.caver.kct.kip7.KIP7;
+import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
 import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
+import com.klaytn.caver.utils.Utils;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.PrivateKey;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
-import org.junit.*;
-import org.junit.rules.ExpectedException;
-import xyz.groundx.caver_ext_kas.Config;
-import com.klaytn.caver.abi.ABI;
-import com.klaytn.caver.kct.kip7.KIP7;
-import com.klaytn.caver.kct.kip7.KIP7ConstantData;
-import com.klaytn.caver.utils.Utils;
 import com.squareup.okhttp.Call;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
-import xyz.groundx.caver_ext_kas.exception.KASAPIException;
+import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.*;
 import xyz.groundx.caver_ext_kas.kas.wallet.migration.MigrationAccount;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
@@ -50,7 +52,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 public class WalletAPITest {
     @Rule
@@ -2607,16 +2608,16 @@ public class WalletAPITest {
         }
     }
 
-    @Test
-    public void getAccountCountByKRN_WithKRN() {
-        try {
-            AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN(krn);
-            assertNotNull(accountCountByKRN);
-        } catch (ApiException e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
+//    @Test
+//    public void getAccountCountByKRN_WithKRN() {
+//        try {
+//            AccountCountByKRN accountCountByKRN = caver.kas.wallet.getAccountCountByKRN(krn);
+//            assertNotNull(accountCountByKRN);
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+//    }
 
     @Test
     public void getAccountCountByKRNAsync() {
@@ -2655,43 +2656,43 @@ public class WalletAPITest {
         }
     }
 
-    @Test
-    public void getAccountCountByKRNAsync_WithKRN() {
-        CompletableFuture<AccountCountByKRN> future = new CompletableFuture<>();
-
-        try {
-            Call res = caver.kas.wallet.getAccountCountByKRNAsync(krn, new ApiCallback<AccountCountByKRN>() {
-                @Override
-                public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
-                    future.completeExceptionally(e);
-                }
-
-                @Override
-                public void onSuccess(AccountCountByKRN result, int statusCode, Map<String, List<String>> responseHeaders) {
-                    future.complete(result);
-                }
-
-                @Override
-                public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
-
-                }
-
-                @Override
-                public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
-
-                }
-            });
-
-            if(future.isCompletedExceptionally()) {
-                fail();
-            } else {
-                assertNotNull(future.get());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
+//    @Test
+//    public void getAccountCountByKRNAsync_WithKRN() {
+//        CompletableFuture<AccountCountByKRN> future = new CompletableFuture<>();
+//
+//        try {
+//            Call res = caver.kas.wallet.getAccountCountByKRNAsync(krn, new ApiCallback<AccountCountByKRN>() {
+//                @Override
+//                public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+//                    future.completeExceptionally(e);
+//                }
+//
+//                @Override
+//                public void onSuccess(AccountCountByKRN result, int statusCode, Map<String, List<String>> responseHeaders) {
+//                    future.complete(result);
+//                }
+//
+//                @Override
+//                public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+//
+//                }
+//
+//                @Override
+//                public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+//
+//                }
+//            });
+//
+//            if(future.isCompletedExceptionally()) {
+//                fail();
+//            } else {
+//                assertNotNull(future.get());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+//    }
 
     public static class BasicTxCallBack implements ApiCallback<TransactionResult> {
         CompletableFuture<TransactionResult> future = new CompletableFuture<>();
@@ -2937,15 +2938,15 @@ public class WalletAPITest {
         assertNotNull(keySignDataResponse);
     }
 
-    @Test
-    public void signMessageWithKRN() throws ApiException {
-        String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
-
-        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
-        KeySignDataResponse keySignDataResponse = caver.kas.wallet.signMessage(response.getItems().get(0).getKeyId(), data, response.getItems().get(0).getKrn());
-
-        assertNotNull(keySignDataResponse);
-    }
+//    @Test
+//    public void signMessageWithKRN() throws ApiException {
+//        String data = "0x1122334455667788112233445566778811223344556677881122334455667788";
+//
+//        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+//        KeySignDataResponse keySignDataResponse = caver.kas.wallet.signMessage(response.getItems().get(0).getKeyId(), data, response.getItems().get(0).getKrn());
+//
+//        assertNotNull(keySignDataResponse);
+//    }
 
     @Test
     public void signMessageAsync() throws ApiException, ExecutionException, InterruptedException {
@@ -3404,6 +3405,229 @@ public class WalletAPITest {
         } catch (Exception e) {
             e.printStackTrace();
             fail();
+        }
+    }
+
+    @Test
+    public void createFeePayer() throws ApiException {
+        Account res = caver.kas.wallet.createFeePayer();
+        assertNotNull(res);
+    }
+
+    @Test
+    public void createFeePayerAsync() throws ExecutionException, InterruptedException, ApiException {
+        CompletableFuture<Account> future = new CompletableFuture<>();
+
+        caver.kas.wallet.createFeePayerAsync(new ApiCallback<Account>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Account result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void deleteFeePayer() throws ApiException {
+        Account feePayer = caver.kas.wallet.createFeePayer();
+
+        AccountStatus status = caver.kas.wallet.deleteFeePayer(feePayer.getAddress());
+        assertNotNull(status);
+        assertEquals("deleted", status.getStatus());
+    }
+
+    @Test
+    public void deleteFeePayerAsync() throws ExecutionException, InterruptedException, ApiException {
+        Account feePayer = caver.kas.wallet.createFeePayer();
+
+        CompletableFuture<AccountStatus> future = new CompletableFuture<>();
+        caver.kas.wallet.deleteFeePayerAsync(feePayer.getAddress(), new ApiCallback<AccountStatus>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(AccountStatus result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void getFeePayer() throws ApiException {
+        Account account = caver.kas.wallet.createFeePayer();
+        Account feePayer = caver.kas.wallet.getFeePayer(account.getAddress());
+
+        assertNotNull(feePayer);
+    }
+
+    @Test
+    public void getFeePayerAsync() throws ApiException, ExecutionException, InterruptedException {
+        Account account = caver.kas.wallet.createFeePayer();
+
+        CompletableFuture<Account> future = new CompletableFuture<>();
+        caver.kas.wallet.getFeePayerAsync(account.getAddress(), new ApiCallback<Account>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Account result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void getFeePayerList() throws ApiException {
+        Account account = caver.kas.wallet.createFeePayer();
+
+        Accounts accounts = caver.kas.wallet.getFeePayerList();
+        assertNotNull(accounts);
+    }
+
+    @Test
+    public void getFeePayerListWithOptions() throws ApiException {
+        Account account = caver.kas.wallet.createFeePayer();
+
+        WalletQueryOptions options = new WalletQueryOptions();
+        options.setSize(1L);
+
+        Accounts accounts = caver.kas.wallet.getFeePayerList(options);
+        assertNotNull(accounts);
+    }
+
+    @Test
+    public void getFeePayerListAsync() throws ApiException, ExecutionException, InterruptedException {
+        Account account = caver.kas.wallet.createFeePayer();
+        CompletableFuture<Accounts> future = new CompletableFuture<>();
+
+        caver.kas.wallet.getFeePayerListAsync(new ApiCallback<Accounts>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Accounts result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void deleteKey() throws ApiException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+        Key key = response.getItems().get(0);
+
+        KeyStatus status = caver.kas.wallet.deleteKey(key.getKeyId());
+        assertNotNull(status);
+        assertEquals("deleted", status.getStatus());
+    }
+
+    @Test
+    public void deleteKeyAsync() throws ApiException, ExecutionException, InterruptedException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(1);
+        Key key = response.getItems().get(0);
+
+        CompletableFuture<KeyStatus> future = new CompletableFuture<>();
+
+        caver.kas.wallet.deleteKeyAsync(key.getKeyId(), new ApiCallback<KeyStatus>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(KeyStatus result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
         }
     }
 }
