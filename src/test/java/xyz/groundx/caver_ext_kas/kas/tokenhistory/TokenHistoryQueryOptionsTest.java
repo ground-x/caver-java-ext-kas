@@ -261,4 +261,12 @@ public class TokenHistoryQueryOptionsTest {
         options.setStatus(TokenHistoryQueryOptions.LABEL_STATUS.FAILED);
         assertEquals("failed", options.getStatus());
     }
+
+    @Test
+    public void caFilterWithList() {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setCaFilter(Arrays.asList("0x6679a0006575989065832e17fe4f1e4ed4923390", "0x89a8e75d92ce84076d33f68e4909c4156847dc69"));
+
+        assertEquals("0x6679a0006575989065832e17fe4f1e4ed4923390,0x89a8e75d92ce84076d33f68e4909c4156847dc69", options.getCaFilter());
+    }
 }

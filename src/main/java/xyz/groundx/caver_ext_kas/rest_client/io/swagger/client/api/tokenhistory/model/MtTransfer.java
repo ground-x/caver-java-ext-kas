@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtTransferContract;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MtContract;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.Transaction;
 /**
  * MtTransfer
@@ -32,7 +32,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.
 
 public class MtTransfer implements AnyOfTransferArrayItems {
   @SerializedName("contract")
-  private MtTransferContract contract = null;
+  private MtContract contract = null;
 
   @SerializedName("operator")
   private String operator = null;
@@ -55,7 +55,7 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   @SerializedName("values")
   private List<String> values = new ArrayList<String>();
 
-  public MtTransfer contract(MtTransferContract contract) {
+  public MtTransfer contract(MtContract contract) {
     this.contract = contract;
     return this;
   }
@@ -65,11 +65,11 @@ public class MtTransfer implements AnyOfTransferArrayItems {
    * @return contract
   **/
   @Schema(required = true, description = "")
-  public MtTransferContract getContract() {
+  public MtContract getContract() {
     return contract;
   }
 
-  public void setContract(MtTransferContract contract) {
+  public void setContract(MtContract contract) {
     this.contract = contract;
   }
 
@@ -79,10 +79,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Operator address (20-byte)
+   * Validator EOA (20-byte)
    * @return operator
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Operator address (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Validator EOA (20-byte)")
   public String getOperator() {
     return operator;
   }
@@ -97,10 +97,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Owner address (20-byte)
+   * Sender EOA (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner address (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -115,10 +115,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Recipient address (20-byte)
+   * Receiver EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Recipient address (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver EOA (20-byte)")
   public String getTo() {
     return to;
   }
@@ -151,10 +151,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Transfer type
+   * Transaction type
    * @return transferType
   **/
-  @Schema(example = "mt", required = true, description = "Transfer type")
+  @Schema(example = "mt", required = true, description = "Transaction type")
   public String getTransferType() {
     return transferType;
   }
@@ -174,10 +174,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Array of token IDs (hex)
+   * Array of token identifiers (in hexadecimal)
    * @return ids
   **/
-  @Schema(example = "[0x1,0x2]", required = true, description = "Array of token IDs (hex)")
+  @Schema(example = "[0x1,0x2]", required = true, description = "Array of token identifiers (in hexadecimal)")
   public List<String> getIds() {
     return ids;
   }
@@ -197,10 +197,10 @@ public class MtTransfer implements AnyOfTransferArrayItems {
   }
 
    /**
-   * Array of numbers of tranferring tokens (hex)
+   * Array of sent tokens (in hexadecimal)
    * @return values
   **/
-  @Schema(example = "[0xa,0xb]", required = true, description = "Array of numbers of tranferring tokens (hex)")
+  @Schema(example = "[0xa,0xb]", required = true, description = "Array of sent tokens (in hexadecimal)")
   public List<String> getValues() {
     return values;
   }

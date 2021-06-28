@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -78,10 +78,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Contract name
+   * Token name
    * @return name
   **/
-  @Schema(example = "Test Token", required = true, description = "Contract name")
+  @Schema(example = "Test Token", required = true, description = "Token name")
   public String getName() {
     return name;
   }
@@ -96,10 +96,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Contract symbol
+   * Token symbol
    * @return symbol
   **/
-  @Schema(example = "TSTC", required = true, description = "Contract symbol")
+  @Schema(example = "TSTC", required = true, description = "Token symbol")
   public String getSymbol() {
     return symbol;
   }
@@ -114,10 +114,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Total issue count (in hexadecimal)
+   * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x174876e800", required = true, description = "Total issue count (in hexadecimal)")
+  @Schema(example = "0x174876e800", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -132,10 +132,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Time of labeling (timestamp)
+   * Time of labelling (timestamp)
    * @return createdAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time of labeling (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Time of labelling (timestamp)")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -150,10 +150,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Time when labeling information was last changed (timestamp)
+   * Last change in token in labelling (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time when labeling information was last changed (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Last change in token in labelling (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }
@@ -168,10 +168,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Time when labeling was deleted (timestamp); 0 if it was not removed
+   * Time of removal of labelling (timestamp); 0 if not removed
    * @return deletedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time when labeling was deleted (timestamp); 0 if it was not removed")
+  @Schema(example = "1592180992", required = true, description = "Time of removal of labelling (timestamp); 0 if not removed")
   public Long getDeletedAt() {
     return deletedAt;
   }
@@ -186,10 +186,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Contract type (KIP-7, KIP-17, ERC-20, ERC-721)
+   * Contract type (KIP-17, ERC-721)
    * @return type
   **/
-  @Schema(example = "KIP-7", required = true, description = "Contract type (KIP-7, KIP-17, ERC-20, ERC-721)")
+  @Schema(example = "KIP-7", required = true, description = "Contract type (KIP-17, ERC-721)")
   public String getType() {
     return type;
   }
@@ -204,10 +204,10 @@ public class NftContractDetail {
   }
 
    /**
-   * Contract labeling status (completed, processing, failed, cancelled)
+   * Contract labelling status (completed, processing, failed, cancelled)
    * @return status
   **/
-  @Schema(example = "completed", required = true, description = "Contract labeling status (completed, processing, failed, cancelled)")
+  @Schema(example = "completed", required = true, description = "Contract labelling status (completed, processing, failed, cancelled)")
   public String getStatus() {
     return status;
   }

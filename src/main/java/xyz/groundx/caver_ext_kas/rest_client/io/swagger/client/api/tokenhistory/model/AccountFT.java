@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -78,10 +78,10 @@ public class AccountFT {
   }
 
    /**
-   * EOA address (20-byte)
+   * EOA to query (20-byte)
    * @return owner
   **/
-  @Schema(example = "0x00ebd049eff96861d9fb3843fd0de79b08a3cc17", required = true, description = "EOA address (20-byte)")
+  @Schema(example = "0x00ebd049eff96861d9fb3843fd0de79b08a3cc17", required = true, description = "EOA to query (20-byte)")
   public String getOwner() {
     return owner;
   }
@@ -96,10 +96,10 @@ public class AccountFT {
   }
 
    /**
-   * Token balance (hex)
+   * Token balances (in hexadecimal)
    * @return balance
   **/
-  @Schema(example = "0x15e", required = true, description = "Token balance (hex)")
+  @Schema(example = "0x15e", required = true, description = "Token balances (in hexadecimal)")
   public String getBalance() {
     return balance;
   }
@@ -114,10 +114,10 @@ public class AccountFT {
   }
 
    /**
-   * Converted value using the decimals
+   * Formatted value with contracts &#x60;decimals&#x60;
    * @return formattedValue
   **/
-  @Schema(example = "0.00000000000000035", required = true, description = "Converted value using the decimals")
+  @Schema(example = "0.00000000000000035", required = true, description = "Formatted value with contracts `decimals`")
   public String getFormattedValue() {
     return formattedValue;
   }
@@ -132,10 +132,10 @@ public class AccountFT {
   }
 
    /**
-   * FT decimals
+   * FT token digits
    * @return decimals
   **/
-  @Schema(example = "8", required = true, description = "FT decimals")
+  @Schema(example = "8", required = true, description = "FT token digits")
   public Long getDecimals() {
     return decimals;
   }
@@ -150,10 +150,10 @@ public class AccountFT {
   }
 
    /**
-   * FT name
+   * FT Token name
    * @return name
   **/
-  @Schema(example = "KASFT", required = true, description = "FT name")
+  @Schema(example = "KASFT", required = true, description = "FT Token name")
   public String getName() {
     return name;
   }
@@ -168,10 +168,10 @@ public class AccountFT {
   }
 
    /**
-   * FT symbol
+   * FT Token symbol
    * @return symbol
   **/
-  @Schema(example = "KFT", required = true, description = "FT symbol")
+  @Schema(example = "KFT", required = true, description = "FT Token symbol")
   public String getSymbol() {
     return symbol;
   }
@@ -186,10 +186,10 @@ public class AccountFT {
   }
 
    /**
-   * FT total supply (hex)
+   * FT total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x174876e800", required = true, description = "FT total supply (hex)")
+  @Schema(example = "0x174876e800", required = true, description = "FT total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -204,10 +204,10 @@ public class AccountFT {
   }
 
    /**
-   * UNIX timestamp of when the token information last changed
+   * Last change in token information (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "UNIX timestamp of when the token information last changed")
+  @Schema(example = "1592180992", required = true, description = "Last change in token information (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }
