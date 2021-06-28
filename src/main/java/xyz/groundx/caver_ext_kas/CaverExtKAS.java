@@ -17,12 +17,21 @@
 package xyz.groundx.caver_ext_kas;
 
 import com.klaytn.caver.Caver;
-import com.klaytn.caver.rpc.RPC;
 import com.klaytn.caver.wallet.IWallet;
 import com.squareup.okhttp.Credentials;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.websocket.WebSocketClient;
+import org.web3j.protocol.websocket.WebSocketService;
 import xyz.groundx.caver_ext_kas.kas.KAS;
 import xyz.groundx.caver_ext_kas.wallet.KASWallet;
+
+import java.net.ConnectException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Representing wrapping class that can use Klaytn API Service
@@ -103,57 +112,113 @@ public class CaverExtKAS extends Caver {
     }
 
     /**
-     * Initialize Node API.
+     * Initialize Node API with Http provider.<br>
      * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API);
+        initNodeAPI(chainId, accessKeyId, secretAccessKey,false);
     }
 
     /**
-     * Initialize Node API.
+     * Initialize Node API.<br>
+     * It sets a url to default endpoint automatically.<br>
+     * It can choose provider that Http or Websocket via isWebsocketUsed parameter.
+     *
+     * <pre>
+     * {@code
+     * caver.initNodeAPI(1001, "accessKey", "secretAccessKey", false); // use Http provider
+     * caver.initNodeAPI(1001, "accessKey", "secretAccessKey", true); // use Websocket provider
+     * }
+     * </pre>
+     *
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param isWebSocketUsed If true, HttpProvider is used. If false, WebsocketProvider is used.
+     */
+    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, boolean isWebSocketUsed) {
+        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, URL_NODE_API, isWebSocketUsed);
+    }
+
+    /**
+     * Initialize Node API with Http provider.
      * It sets a url to default endpoint automatically.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API);
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, false);
     }
 
     /**
-     * Initialize Node API.
+     * Initialize Node API.<br>
+     * It sets a url to default endpoint automatically.<br>
+     * It can choose provider that Http or Websocket via isWebsocketUsed parameter.
+     *
+     * <pre>
+     * {@code
+     * caver.initNodeAPI("1001", "accessKey", "secretAccessKey", false); // use Http provider
+     * caver.initNodeAPI("1001", "accessKey", "secretAccessKey", true); // use Websocket provider
+     * }
+     * </pre>
+     *
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param isWebSocketUsed If true, HttpProvider is used. If false, WebsocketProvider is used.
+     */
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, boolean isWebSocketUsed) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API, isWebSocketUsed);
+    }
+
+    /**
+     * Initialize Node API with Http provider.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Node API.
      */
     public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
-        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url, false);
     }
 
     /**
-     * Initialize Node API.
+     * Initialize Node API with Http provider.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Node API.
      */
     public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
-        if(url.equals("https://node-api.klaytnapi.com")) {
-            url = url + "/v1/klaytn";
-        }
+        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url, false);
+    }
 
-        HttpService httpService = new HttpService(url);
-
-        httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
-        httpService.addHeader("x-chain-id", chainId);
-        this.rpc = new RPC(httpService);
-        if (this.kas.wallet != null) {
-            this.kas.wallet.setRPC(this.rpc);
+    /**
+     * Initialize Node API.<br>
+     * It can choose provider that Http or Websocket via isWebsocketUsed parameter.
+     *
+     * <pre>
+     * {@code
+     * caver.initNodeAPI("1001", "accessKey", "secretAccessKey", url, false); // use Http provider
+     * caver.initNodeAPI("1001", "accessKey", "secretAccessKey", url, true); // use Websocket provider
+     * }
+     * </pre>
+     *
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Node API.
+     * @param isWebSocketUsed If true, HttpProvider is used. If false, WebsocketProvider is used.
+     */
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url, boolean isWebSocketUsed) {
+        if(isWebSocketUsed) {
+            initNodeAPIWithWebSocket(chainId, accessKeyId, secretAccessKey, url);
+        } else {
+            initNodeAPIWithHttp(chainId, accessKeyId, secretAccessKey, url);
         }
     }
 
@@ -403,5 +468,46 @@ public class CaverExtKAS extends Caver {
 
     public void setWallet(KASWallet wallet) {
         this.wallet = wallet;
+    }
+
+    private void initNodeAPIWithHttp(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        if(url.equals("https://node-api.klaytnapi.com")) {
+            url = url + "/v1/klaytn";
+        }
+
+        HttpService httpService = new HttpService(url);
+
+        httpService.addHeader("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
+        httpService.addHeader("x-chain-id", chainId);
+
+        this.setCurrentProvider(httpService);
+        if (this.kas.wallet != null) {
+            this.kas.wallet.setRPC(this.rpc);
+        }
+    }
+
+    private void initNodeAPIWithWebSocket(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        Pattern regex = Pattern.compile("^[a-zA-Z0-9]*$");
+
+        if(!regex.matcher(accessKeyId).matches() || !regex.matcher(secretAccessKey).matches()) {
+            throw new InvalidParameterException("Invalid auth: To use the websocket provider, you must use an accessKey and secretAccessKey that do not contain special characters. Please obtain a new AccessKey through the KAS Console.");
+        }
+
+        String websocketUrl = url.replace("https", "wss");
+        websocketUrl = websocketUrl.replace("v1/klaytn", "v1/ws/open?chain-id=" + chainId);
+
+        try {
+            Map header = new HashMap<>();
+            header.put("Authorization", Credentials.basic(accessKeyId, secretAccessKey));
+            WebSocketClient webSocketClient = new WebSocketClient(new URI(websocketUrl), header);
+            WebSocketService webSocketService = new WebSocketService(webSocketClient, false);
+
+            this.setCurrentProvider(webSocketService);
+            webSocketService.connect();
+        } catch(URISyntaxException e) {
+            throw new RuntimeException(String.format("Failed to parse URL: '%s'", websocketUrl), e);
+        } catch(ConnectException e) {
+            throw new RuntimeException(String.format("Failed to connect URL: '%s'", websocketUrl), e);
+        }
     }
 }
