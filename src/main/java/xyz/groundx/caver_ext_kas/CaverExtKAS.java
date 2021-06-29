@@ -70,8 +70,7 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey) {
-        this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
     }
 
     /**
@@ -83,7 +82,35 @@ public class CaverExtKAS extends Caver {
      */
     public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey) {
         this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
+    }
+
+    /**
+     * Creates a CaverExtKAS instance.<br>
+     * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
+     * It can choose provider that Http or Websocket via useHttp parameter.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     */
+    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
+        this.kas = new KAS();
+        initKASAPI(chainId, accessKeyId, secretAccessKey, useHttp);
+    }
+
+    /**
+     * Creates a CaverExtKAS instance.<br>
+     * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
+     * It can choose provider that Http or Websocket via useHttp parameter.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     */
+    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
+        this.kas = new KAS();
+        initKASAPI(chainId, accessKeyId, secretAccessKey, useHttp);
     }
 
     /**
@@ -97,6 +124,16 @@ public class CaverExtKAS extends Caver {
     }
 
     /**
+     * Initialize all KAS API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
+    }
+
+    /**
      * Initialize all KAS API.<br>
      * It can choose provider that Http or Websocket via useHttp parameter.
      * @param chainId The Klaytn network chain id.
@@ -106,16 +143,6 @@ public class CaverExtKAS extends Caver {
      */
     public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
         initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, useHttp);
-    }
-
-    /**
-     * Initialize all KAS API.
-     * @param chainId The Klaytn network chain id.
-     * @param accessKeyId The access key provided by KAS console.
-     * @param secretAccessKey The secret key provided by KAS console.
-     */
-    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
     }
 
     /**

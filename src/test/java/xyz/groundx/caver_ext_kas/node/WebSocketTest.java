@@ -62,8 +62,7 @@ public class WebSocketTest {
 
     @Test
     public void getBlockNumber() throws IOException {
-        CaverExtKAS caver = new CaverExtKAS();
-        caver.initNodeAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_NODE_API, false);
+        CaverExtKAS caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), false);
 
         Quantity blockNumberRes = caver.rpc.klay.getBlockNumber().send();
         assertNotNull(blockNumberRes.getValue());
