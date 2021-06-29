@@ -88,29 +88,29 @@ public class CaverExtKAS extends Caver {
     /**
      * Creates a CaverExtKAS instance.<br>
      * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
+    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
         this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey, useHttp);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
     }
 
     /**
      * Creates a CaverExtKAS instance.<br>
      * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
+    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
         this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey, useHttp);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
     }
 
     /**
@@ -135,26 +135,26 @@ public class CaverExtKAS extends Caver {
 
     /**
      * Initialize all KAS API.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
-        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, useHttp);
+    public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, useNodeAPIWithHttp);
     }
 
     /**
      * Initialize all KAS API.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, useHttp);
+    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
         initAnchorAPI(chainId,accessKeyId, secretAccessKey);
         initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey);
         initWalletAPI(chainId, accessKeyId, secretAccessKey);
@@ -187,7 +187,7 @@ public class CaverExtKAS extends Caver {
     /**
      * Initialize Node API.<br>
      * It sets a url to default endpoint automatically.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      *
      * <pre>
      * {@code
@@ -199,16 +199,16 @@ public class CaverExtKAS extends Caver {
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API, useHttp);
+    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API, useNodeAPIWithHttp);
     }
 
     /**
      * Initialize Node API.<br>
      * It sets a url to default endpoint automatically.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      *
      * <pre>
      * {@code
@@ -220,10 +220,10 @@ public class CaverExtKAS extends Caver {
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, boolean useHttp) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API, useHttp);
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, URL_NODE_API, useNodeAPIWithHttp);
     }
 
     /**
@@ -250,7 +250,7 @@ public class CaverExtKAS extends Caver {
 
     /**
      * Initialize Node API.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      *
      * <pre>
      * {@code
@@ -263,15 +263,15 @@ public class CaverExtKAS extends Caver {
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Node API.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, String url, boolean useHttp) {
-        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url, useHttp);
+    public void initNodeAPI(int chainId, String accessKeyId, String secretAccessKey, String url, boolean useNodeAPIWithHttp) {
+        initNodeAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url, useNodeAPIWithHttp);
     }
 
     /**
      * Initialize Node API.<br>
-     * It can choose provider that Http or Websocket via useHttp parameter.
+     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
      *
      * <pre>
      * {@code
@@ -284,10 +284,10 @@ public class CaverExtKAS extends Caver {
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
      * @param url An URL to request Node API.
-     * @param useHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
      */
-    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url, boolean useHttp) {
-        if(useHttp) {
+    public void initNodeAPI(String chainId, String accessKeyId, String secretAccessKey, String url, boolean useNodeAPIWithHttp) {
+        if(useNodeAPIWithHttp) {
             initNodeAPIWithHttp(chainId, accessKeyId, secretAccessKey, url);
         } else {
             initNodeAPIWithWebSocket(chainId, accessKeyId, secretAccessKey, url);
