@@ -36,32 +36,32 @@ public class CaverExtKASTest {
     public void constructorWithOptions() throws IOException {
         CaverExtKAS caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey());
         assertTrue(caver.currentProvider instanceof HttpService);
-        assertEquals(caver.kas.wallet.getApiClient().getBasePath(), Config.URL_WALLET_API);
-        assertEquals(caver.kas.tokenHistory.getApiClient().getBasePath(), Config.URL_TH_API);
-        assertEquals(caver.kas.anchor.getApiClient().getBasePath(), Config.URL_ANCHOR_API);
-        assertEquals(caver.kas.kip17.getApiClient().getBasePath(), Config.URL_KIP17_API);
-        assertEquals(caver.kas.kip7.getApiClient().getBasePath(), Config.URL_KIP7_API);
+        assertNotNull(caver.kas.wallet);
+        assertNotNull(caver.kas.tokenHistory);
+        assertNotNull(caver.kas.anchor);
+        assertNotNull(caver.kas.kip17);
+        assertNotNull(caver.kas.kip7);
 
         ConfigOptions options = new ConfigOptions();
         options.setUseNodeAPIWithHttp(true);
 
         caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
         assertTrue(caver.currentProvider instanceof HttpService);
-        assertEquals(caver.kas.wallet.getApiClient().getBasePath(), Config.URL_WALLET_API);
-        assertEquals(caver.kas.tokenHistory.getApiClient().getBasePath(), Config.URL_TH_API);
-        assertEquals(caver.kas.anchor.getApiClient().getBasePath(), Config.URL_ANCHOR_API);
-        assertEquals(caver.kas.kip17.getApiClient().getBasePath(), Config.URL_KIP17_API);
-        assertEquals(caver.kas.kip7.getApiClient().getBasePath(), Config.URL_KIP7_API);
+        assertNotNull(caver.kas.wallet);
+        assertNotNull(caver.kas.tokenHistory);
+        assertNotNull(caver.kas.anchor);
+        assertNotNull(caver.kas.kip17);
+        assertNotNull(caver.kas.kip7);
 
         options.setUseNodeAPIWithHttp(false);
         caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
 
         assertTrue(caver.currentProvider instanceof WebSocketService);
-        assertEquals(caver.kas.wallet.getApiClient().getBasePath(), Config.URL_WALLET_API);
-        assertEquals(caver.kas.tokenHistory.getApiClient().getBasePath(), Config.URL_TH_API);
-        assertEquals(caver.kas.anchor.getApiClient().getBasePath(), Config.URL_ANCHOR_API);
-        assertEquals(caver.kas.kip17.getApiClient().getBasePath(), Config.URL_KIP17_API);
-        assertEquals(caver.kas.kip7.getApiClient().getBasePath(), Config.URL_KIP7_API);
+        assertNotNull(caver.kas.wallet);
+        assertNotNull(caver.kas.tokenHistory);
+        assertNotNull(caver.kas.anchor);
+        assertNotNull(caver.kas.kip17);
+        assertNotNull(caver.kas.kip7);
 
         caver.currentProvider.close();
     }
@@ -75,21 +75,21 @@ public class CaverExtKASTest {
         caver.initKASAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
 
         assertTrue(caver.currentProvider instanceof HttpService);
-        assertEquals(caver.kas.wallet.getApiClient().getBasePath(), Config.URL_WALLET_API);
-        assertEquals(caver.kas.tokenHistory.getApiClient().getBasePath(), Config.URL_TH_API);
-        assertEquals(caver.kas.anchor.getApiClient().getBasePath(), Config.URL_ANCHOR_API);
-        assertEquals(caver.kas.kip17.getApiClient().getBasePath(), Config.URL_KIP17_API);
-        assertEquals(caver.kas.kip7.getApiClient().getBasePath(), Config.URL_KIP7_API);
+        assertNotNull(caver.kas.wallet);
+        assertNotNull(caver.kas.tokenHistory);
+        assertNotNull(caver.kas.anchor);
+        assertNotNull(caver.kas.kip17);
+        assertNotNull(caver.kas.kip7);
 
         options.setUseNodeAPIWithHttp(false);
         caver.initKASAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
 
         assertTrue(caver.currentProvider instanceof WebSocketService);
-        assertEquals(caver.kas.wallet.getApiClient().getBasePath(), Config.URL_WALLET_API);
-        assertEquals(caver.kas.tokenHistory.getApiClient().getBasePath(), Config.URL_TH_API);
-        assertEquals(caver.kas.anchor.getApiClient().getBasePath(), Config.URL_ANCHOR_API);
-        assertEquals(caver.kas.kip17.getApiClient().getBasePath(), Config.URL_KIP17_API);
-        assertEquals(caver.kas.kip7.getApiClient().getBasePath(), Config.URL_KIP7_API);
+        assertNotNull(caver.kas.wallet);
+        assertNotNull(caver.kas.tokenHistory);
+        assertNotNull(caver.kas.anchor);
+        assertNotNull(caver.kas.kip17);
+        assertNotNull(caver.kas.kip7);
 
         caver.currentProvider.close();
     }
