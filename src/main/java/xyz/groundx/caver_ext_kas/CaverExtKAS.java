@@ -70,10 +70,8 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey) {
-        ConfigOptions options = new ConfigOptions();
-        options.setUseNodeAPIWithHttp(true);
-
-        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
+        this();
+        initKASAPI(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
@@ -84,10 +82,8 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey) {
-        ConfigOptions options = new ConfigOptions();
-        options.setUseNodeAPIWithHttp(true);
-
-        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
+        this();
+        initKASAPI(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
@@ -100,7 +96,7 @@ public class CaverExtKAS extends Caver {
      * @param options The ConfigOptions instance to config CaverExtKAS.
      */
     public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
-        this.kas = new KAS();
+        this();
         initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
@@ -114,7 +110,7 @@ public class CaverExtKAS extends Caver {
      * @param options The ConfigOptions instance to config CaverExtKAS.
      */
     public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
-        this.kas = new KAS();
+        this();
         initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
