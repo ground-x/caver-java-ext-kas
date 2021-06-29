@@ -70,7 +70,10 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey) {
-        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
+        ConfigOptions options = new ConfigOptions();
+        options.setUseNodeAPIWithHttp(true);
+
+        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
     /**
@@ -81,36 +84,38 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey) {
-        this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
+        ConfigOptions options = new ConfigOptions();
+        options.setUseNodeAPIWithHttp(true);
+
+        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
     /**
      * Creates a CaverExtKAS instance.<br>
      * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
-     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
+     * It can choose provider that Http or Websocket via options parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param options The ConfigOptions instance to config CaverExtKAS.
      */
-    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+    public CaverExtKAS(int chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
         this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
     /**
      * Creates a CaverExtKAS instance.<br>
      * It init all supported KAS API(Node API, Anchor API, Wallet API).<br>
-     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
+     * It can choose provider that Http or Websocket via options parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param options The ConfigOptions instance to config CaverExtKAS.
      */
-    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
+    public CaverExtKAS(String chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
         this.kas = new KAS();
-        initKASAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
+        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
     /**
@@ -120,7 +125,10 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey) {
-        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, true);
+        ConfigOptions options = new ConfigOptions();
+        options.setUseNodeAPIWithHttp(true);
+
+        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, options);
     }
 
     /**
@@ -130,31 +138,34 @@ public class CaverExtKAS extends Caver {
      * @param secretAccessKey The secret key provided by KAS console.
      */
     public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey) {
-        initKASAPI(chainId, accessKeyId, secretAccessKey, true);
+        ConfigOptions options = new ConfigOptions();
+        options.setUseNodeAPIWithHttp(true);
+
+        initKASAPI(chainId, accessKeyId, secretAccessKey, options);
     }
 
     /**
      * Initialize all KAS API.<br>
-     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
+     * It can choose provider that Http or Websocket via options parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param options The ConfigOptions instance to config CaverExtKAS.
      */
-    public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
-        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, useNodeAPIWithHttp);
+    public void initKASAPI(int chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
+        initKASAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, options);
     }
 
     /**
      * Initialize all KAS API.<br>
-     * It can choose provider that Http or Websocket via useNodeAPIWithHttp parameter.
+     * It can choose provider that Http or Websocket via options parameter.
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param useNodeAPIWithHttp If true, HttpProvider is used. If false, WebsocketProvider is used.
+     * @param options The ConfigOptions instance to config CaverExtKAS.
      */
-    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey, boolean useNodeAPIWithHttp) {
-        initNodeAPI(chainId, accessKeyId, secretAccessKey, useNodeAPIWithHttp);
+    public void initKASAPI(String chainId, String accessKeyId, String secretAccessKey, ConfigOptions options) {
+        initNodeAPI(chainId, accessKeyId, secretAccessKey, options.getUseNodeAPIWithHttp());
         initAnchorAPI(chainId,accessKeyId, secretAccessKey);
         initTokenHistoryAPI(chainId, accessKeyId, secretAccessKey);
         initWalletAPI(chainId, accessKeyId, secretAccessKey);

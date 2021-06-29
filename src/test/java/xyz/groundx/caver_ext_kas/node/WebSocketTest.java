@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 import org.web3j.protocol.websocket.WebSocketService;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
+import xyz.groundx.caver_ext_kas.ConfigOptions;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
@@ -62,7 +63,9 @@ public class WebSocketTest {
 
     @Test
     public void getBlockNumber() throws IOException {
-        CaverExtKAS caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), false);
+        ConfigOptions options = new ConfigOptions();
+        options.setUseNodeAPIWithHttp(false);
+        CaverExtKAS caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
 
         Quantity blockNumberRes = caver.rpc.klay.getBlockNumber().send();
         assertNotNull(blockNumberRes.getValue());
