@@ -174,7 +174,6 @@ public class KIP7Test {
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
 
         Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
-        System.out.println(response);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
     }
@@ -271,7 +270,6 @@ public class KIP7Test {
         options.setSize(1);
 
         Kip7ContractListResponse response = caver.kas.kip7.getContractList(options);
-        System.out.println(response);
         assertNotNull(response);
     }
 
@@ -352,7 +350,6 @@ public class KIP7Test {
     @Test
     public void balance() throws ApiException {
         Kip7TokenBalanceResponse response = caver.kas.kip7.balance(testContractAlias, deployerAddress);
-        System.out.println(response);
         assertNotNull(response);
     }
 
@@ -519,7 +516,6 @@ public class KIP7Test {
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
 
         Kip7TransactionStatusResponse response = caver.kas.kip7.transfer(contractAlias, owner, spender, amount);
-        System.out.println(response);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
 
@@ -684,7 +680,6 @@ public class KIP7Test {
 
         Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount);
         assertNotNull(response);
-        System.out.println(response);
 
         Thread.sleep(3000);
     }
