@@ -123,7 +123,7 @@ public class Kip7DeployerApi {
 
     /**
      * Retrieves the default contract deployer account
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.&lt;p&gt;&lt;/p&gt;  
+     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return Kip7DeployerResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -135,7 +135,7 @@ public class Kip7DeployerApi {
 
     /**
      * Retrieves the default contract deployer account
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.&lt;p&gt;&lt;/p&gt;  
+     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return ApiResponse&lt;Kip7DeployerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -148,7 +148,7 @@ public class Kip7DeployerApi {
 
     /**
      * Retrieves the default contract deployer account (asynchronously)
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.&lt;p&gt;&lt;/p&gt;  
+     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
