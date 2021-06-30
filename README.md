@@ -240,7 +240,9 @@ You can use KIP-7 API through caver-java-ext-kas. You can send a KIP-7 API reque
 public void getContractList() {
     try {
         Kip7ContractListResponse
-        }
+    } catch(ApiException e) {
+        //handle error
+    }
 }
 ```
 
