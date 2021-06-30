@@ -131,7 +131,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation account update transaction
-     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -144,7 +144,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation account update transaction
-     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -158,7 +158,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation account update transaction (asynchronously)
-     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for updating the Klaytn account key to another key, using user&#x27;s fee payer account. You can find Klaytn account key types in [Accounts](https://ko.docs.klaytn.com/klaytn/design/accounts).<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; is written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -261,7 +261,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation anchor transaction
-     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -274,7 +274,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation anchor transaction
-     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -288,7 +288,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation anchor transaction (asynchronously)
-     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for anchoring the service chain data on the main chain with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -391,7 +391,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Contract deploy transaction with user fee delegation
-     * Create a transaction for deploying contracts with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for deploying contracts with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -404,7 +404,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Contract deploy transaction with user fee delegation
-     * Create a transaction for deploying contracts with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for deploying contracts with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -418,7 +418,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Contract deploy transaction with user fee delegation (asynchronously)
-     * Create a transaction for deploying contracts with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for deploying contracts with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -521,7 +521,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Execution of transaction with user fee delegation
-     * Create a transaction that executes contracts deployed with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction that executes contracts deployed with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -534,7 +534,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Execution of transaction with user fee delegation
-     * Create a transaction that executes contracts deployed with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction that executes contracts deployed with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -548,7 +548,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Execution of transaction with user fee delegation (asynchronously)
-     * Create a transaction that executes contracts deployed with the user fee payer account.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction that executes contracts deployed with the user fee payer account.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -651,7 +651,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction with a user fee delegation RLP
-     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.&lt;p&gt;&lt;/p&gt; If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.<p></p> If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -664,7 +664,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction with a user fee delegation RLP
-     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.&lt;p&gt;&lt;/p&gt; If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.<p></p> If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -678,7 +678,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction with a user fee delegation RLP (asynchronously)
-     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.&lt;p&gt;&lt;/p&gt; If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create transaction using rlp (SigRLP or TxHashRLP). The rlp from the transaction API of Wallet API is in the TxHashRLP format, which includes signature.  You can create a SigRLP without signature easily using caver.<p></p> If you want to create a SigRLP for each transaction method on caver, use &#x60;getRLPEncodingForSignature()&#x60;, and &#x60;getRLPEncoding()&#x60; to create TxHashRLP. For SigRLP, you sign with the private key of the &#x60;from&#x60; account, as long as the accounts have been created in the account pool. For more details on SigRLP and TxHashRLP by each transaction type, please refer to [Klaytn Docs](https://docs.klaytn.com/klaytn/design/transactions). To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -781,7 +781,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction for cancelling user fee delegation
-     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -794,7 +794,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction for cancelling user fee delegation
-     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -808,7 +808,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * Transaction for cancelling user fee delegation (asynchronously)
-     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for cancelling a pending transaction that had been sent to Klaytn with the user fee payer account. To cancel, you need either the nonce or the transaction hash.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60;  and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -911,7 +911,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation KLAY transfer transaction
-     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -924,7 +924,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation KLAY transfer transaction
-     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -938,7 +938,7 @@ public class FeeDelegatedTransactionPaidByUserApi {
 
     /**
      * User Fee Delegation KLAY transfer transaction (asynchronously)
-     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.&lt;p&gt;&lt;/p&gt; To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.&lt;p&gt;&lt;/p&gt; &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
+     * Create a transaction for transferring KLAY with memo with the fee payer account created by user.<p></p> To use this API, you need two &#x60;x-krn&#x60; for &#x60;account-pool&#x60; and &#x60;feepayer-pool&#x60;. The values for &#x60;x-krn&#x60; are written separated with a comma, as shown below.<p></p> &#x60;&#x60;&#x60; x-krn: krn:1001:wallet:local:account-pool:{{account-pool-id}},krn:1001:wallet:local:feepayer-pool:{{feepayer-pool-id}} &#x60;&#x60;&#x60;
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes

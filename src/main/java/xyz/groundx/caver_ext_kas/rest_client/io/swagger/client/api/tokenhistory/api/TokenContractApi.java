@@ -275,7 +275,7 @@ public class TokenContractApi {
 
     /**
      * Query list of MT contract data
-     * Fetch data of labelled MTs for all contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
@@ -291,7 +291,7 @@ public class TokenContractApi {
 
     /**
      * Query list of MT contract data
-     * Fetch data of labelled MTs for all contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
@@ -308,7 +308,7 @@ public class TokenContractApi {
 
     /**
      * Query list of MT contract data (asynchronously)
-     * Fetch data of labelled MTs for all contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
@@ -425,7 +425,7 @@ public class TokenContractApi {
 
     /**
      * Query list of all NFT contract data
-     * Fetch data of all labelled NFT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
@@ -441,7 +441,7 @@ public class TokenContractApi {
 
     /**
      * Query list of all NFT contract data
-     * Fetch data of all labelled NFT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
@@ -458,7 +458,7 @@ public class TokenContractApi {
 
     /**
      * Query list of all NFT contract data (asynchronously)
-     * Fetch data of all labelled NFT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
@@ -575,7 +575,7 @@ public class TokenContractApi {
 
     /**
      * Query all FT contract data
-     * Fetch data of all labelled FT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
@@ -591,7 +591,7 @@ public class TokenContractApi {
 
     /**
      * Query all FT contract data
-     * Fetch data of all labelled FT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
@@ -608,7 +608,7 @@ public class TokenContractApi {
 
     /**
      * Query all FT contract data (asynchronously)
-     * Fetch data of all labelled FT contracts.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
      * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)

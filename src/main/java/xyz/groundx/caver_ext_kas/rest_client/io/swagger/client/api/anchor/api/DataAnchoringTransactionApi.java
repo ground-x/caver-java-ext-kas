@@ -562,7 +562,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Retrieve a list of transactions by the operator
-     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * Specify an operator ID to retrieve a list of transactions created by the operator.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value<br>
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param size Maximum size to be queried (optional, default to 100)
@@ -579,7 +579,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Retrieve a list of transactions by the operator
-     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * Specify an operator ID to retrieve a list of transactions created by the operator.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value<br>
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param size Maximum size to be queried (optional, default to 100)
@@ -597,7 +597,7 @@ public class DataAnchoringTransactionApi {
 
     /**
      * Retrieve a list of transactions by the operator (asynchronously)
-     * Specify an operator ID to retrieve a list of transactions created by the operator.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value&lt;br&gt;
+     * Specify an operator ID to retrieve a list of transactions created by the operator.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default value (&#x60;size&#x3D;100&#x60;) when &#x60;size&#x3D;0&#x60;<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than the maximum value<br>
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param operatorId Operator account address (required)
      * @param size Maximum size to be queried (optional, default to 100)
