@@ -239,7 +239,7 @@ You can use KIP-7 API through caver-java-ext-kas. You can send a KIP-7 API reque
 ```java
 public void getContractList() {
     try {
-        Kip7ContractListResponse
+        Kip7ContractListResponse response = caver.kas.kip7.getContractList();
     } catch(ApiException e) {
         //handle error
     }
