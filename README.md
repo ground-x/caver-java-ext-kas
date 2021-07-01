@@ -9,8 +9,9 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
     * [Use Node API](#use-node-api)
     * [Use Token History API](#use-token-history-api)
     * [Use Wallet API](#use-wallet-api)
+    * [Use Anchor API](#use-anchor-api)  
     * [User KIP-17 API](#use-kip-17-api)
-    * [Use Anchor API](#use-anchor-api)
+    * [User KIP-7 API](#use-kip-7-api)
     * [Introduced KASWallet](#introduced-kaswallet)
   * [Test](#test)
 
@@ -231,6 +232,30 @@ KIP17QueryOptions options = new KIP17QueryOptions();
 options.setSize();
 options.setCursor();
 ```
+### Use KIP-7 API 
+
+You can use KIP-7 API through caver-java-ext-kas. You can send a KIP-7 API request to the KAS as shown below.
+
+```java
+public void getContractList() {
+    try {
+        Kip7ContractListResponse response = caver.kas.kip7.getContractList();
+    } catch(ApiException e) {
+        //handle error
+    }
+}
+```
+
+You can find query options required each KIP-7 API in KAS Docs.
+For defining query options, you can use `KIP7QueryOptions` class.
+
+```java
+KIP7QueryOptions options = new KIP7QueryOptions();
+options.setSize();
+options.setCursor();
+options.setStatus();
+```
+
 
 ### Introduced KASWallet
 KASWallet allows you to handle transaction instance in caver-java by using KAS Wallet API. 
