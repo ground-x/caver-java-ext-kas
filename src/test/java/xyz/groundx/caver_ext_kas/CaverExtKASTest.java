@@ -52,18 +52,6 @@ public class CaverExtKASTest {
         assertNotNull(caver.kas.anchor);
         assertNotNull(caver.kas.kip17);
         assertNotNull(caver.kas.kip7);
-
-        options.setUseNodeAPIWithHttp(false);
-        caver = new CaverExtKAS(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
-
-        assertTrue(caver.currentProvider instanceof WebSocketService);
-        assertNotNull(caver.kas.wallet);
-        assertNotNull(caver.kas.tokenHistory);
-        assertNotNull(caver.kas.anchor);
-        assertNotNull(caver.kas.kip17);
-        assertNotNull(caver.kas.kip7);
-
-        caver.currentProvider.close();
     }
 
     @Test
@@ -80,17 +68,5 @@ public class CaverExtKASTest {
         assertNotNull(caver.kas.anchor);
         assertNotNull(caver.kas.kip17);
         assertNotNull(caver.kas.kip7);
-
-        options.setUseNodeAPIWithHttp(false);
-        caver.initKASAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), options);
-
-        assertTrue(caver.currentProvider instanceof WebSocketService);
-        assertNotNull(caver.kas.wallet);
-        assertNotNull(caver.kas.tokenHistory);
-        assertNotNull(caver.kas.anchor);
-        assertNotNull(caver.kas.kip17);
-        assertNotNull(caver.kas.kip7);
-
-        caver.currentProvider.close();
     }
 }
