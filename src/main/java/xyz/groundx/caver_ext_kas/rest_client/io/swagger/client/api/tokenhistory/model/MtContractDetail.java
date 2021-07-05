@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -69,10 +69,10 @@ public class MtContractDetail {
   }
 
    /**
-   * Labeling status (completed, processing, failed, cancelled)
+   * Contract labelling status (completed, processing, failed, cancelled)
    * @return status
   **/
-  @Schema(example = "completed", required = true, description = "Labeling status (completed, processing, failed, cancelled)")
+  @Schema(example = "completed", required = true, description = "Contract labelling status (completed, processing, failed, cancelled)")
   public String getStatus() {
     return status;
   }
@@ -87,10 +87,10 @@ public class MtContractDetail {
   }
 
    /**
-   * Labeled (timestamp)
+   * Timestamp of Labelling
    * @return createdAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Labeled (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Timestamp of Labelling")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -105,10 +105,10 @@ public class MtContractDetail {
   }
 
    /**
-   * Last time label information changed (timestamp)
+   * Last change in labelling information (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Last time label information changed (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Last change in labelling information (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }
@@ -123,10 +123,10 @@ public class MtContractDetail {
   }
 
    /**
-   * UNIX timestamp of when the label deleted; 0 if not deleted
+   * Time of removal of labelling (timestamp); 0 if not removed
    * @return deletedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "UNIX timestamp of when the label deleted; 0 if not deleted")
+  @Schema(example = "1592180992", required = true, description = "Time of removal of labelling (timestamp); 0 if not removed")
   public Long getDeletedAt() {
     return deletedAt;
   }

@@ -1,6 +1,6 @@
 /*
- * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * KIP-7 API
+ * # Introduction KIP-7 API is a RESTful API for managing KIP-7 contracts and tokens that follow the [KIP-7 Fungible Token Standard](https://kips.klaytn.com/KIPs/kip-7).   You can deploy contracts and send tokens using the default contract managing account (`deployer`) and an `alias`. And by using SDK like caver,  you can manage your contracts and tokens using [Wallet API](https://refs.klaytnapi.com/en/wallet/latest) for contracts created on the Klaytn Network.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |  | 1130050 | incorrect request; spender 1130107 | incorrect bookmark 1134410 | invalid address; to</br>invalid address; owner</br>invalid address; address 1134411 | invalid amount; amount |  ## 404: Not Found   | Code | Messages |  | --- | --- |  | 1134504 | contract not found 1134506 | deployer not found |   ## 409: Conflict   | Code | Messages |   | --- | --- |   | 1134900 | duplicate alias 1134902 | contract already paused 1134903 | contract already unpaused |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
+package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model;
 
 import java.util.Objects;
 import java.util.Arrays;
@@ -22,18 +22,18 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * InvalidQueryParameterValue
+ * ErrorResponse
  */
 
 
-public class InvalidQueryParameterValue {
+public class ErrorResponse {
   @SerializedName("code")
   private Long code = null;
 
   @SerializedName("message")
   private String message = null;
 
-  public InvalidQueryParameterValue code(Long code) {
+  public ErrorResponse code(Long code) {
     this.code = code;
     return this;
   }
@@ -42,7 +42,7 @@ public class InvalidQueryParameterValue {
    * Get code
    * @return code
   **/
-  @Schema(example = "1040010", description = "")
+  @Schema(example = "1130107", required = true, description = "")
   public Long getCode() {
     return code;
   }
@@ -51,7 +51,7 @@ public class InvalidQueryParameterValue {
     this.code = code;
   }
 
-  public InvalidQueryParameterValue message(String message) {
+  public ErrorResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -60,7 +60,7 @@ public class InvalidQueryParameterValue {
    * Get message
    * @return message
   **/
-  @Schema(example = "[InvalidQueryParameterValue]required presets", description = "")
+  @Schema(example = "incorrect bookmark", required = true, description = "")
   public String getMessage() {
     return message;
   }
@@ -71,16 +71,16 @@ public class InvalidQueryParameterValue {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvalidQueryParameterValue invalidQueryParameterValue = (InvalidQueryParameterValue) o;
-    return Objects.equals(this.code, invalidQueryParameterValue.code) &&
-        Objects.equals(this.message, invalidQueryParameterValue.message);
+    ErrorResponse errorResponse = (ErrorResponse) o;
+    return Objects.equals(this.code, errorResponse.code) &&
+        Objects.equals(this.message, errorResponse.message);
   }
 
   @Override
@@ -92,7 +92,7 @@ public class InvalidQueryParameterValue {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InvalidQueryParameterValue {\n");
+    sb.append("class ErrorResponse {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
@@ -104,7 +104,7 @@ public class InvalidQueryParameterValue {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

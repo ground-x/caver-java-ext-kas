@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -19,11 +19,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransaction;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.anchor.model.AnchorTransaction;
 /**
  * List of anchoring transactions
  */
@@ -42,10 +42,10 @@ public class AnchorTransactions {
   }
 
    /**
-   * Cursor information on last searched location
+   * Cursor information that represents its last location
    * @return cursor
   **/
-  @Schema(required = true, description = "Cursor information on last searched location")
+  @Schema(example = "eyJjcmVhdGVkX2F0IjoxNjE1MjY4NzY5LCJkb2NfaWQiOiJrcm46MTAwMTphbmNob3I6Njc2ZGU5NGEtOWNhOS00NWUyLWE2N2ItZWQ3MjE3OGNkYmNjOm9wZXJhdG9yLXBvb2w6ZGVmYXVsdDoweDZEQzY2ZkIzMmVjYzgzYjIzNGU4OWRmYjc5MmIyN2U2RTg2OEYzYTQ6M2RmZTcyOWYtMzk3Ny00ZDVhLWFhMDAtZTU1MDRmMTc5ZGM5IiwicXVlcnlfaWQiOiJrcm46MTAwMTphbmNob3I6Njc2ZGU5NGEtOWNhOS00NWUyLWE2N2ItZWQ3MjE3OGNkYmNjOm9wZXJhdG9yLXBvb2w6ZGVmYXVsdDpBTkNIX1RYOjB4NkRDNjZmQjMyZWNjODNiMjM0ZTg5ZGZiNzkyYjI3ZTZFODY4RjNhNCIsInR5cGUiOiJBTkNIX1RYIn0=", required = true, description = "Cursor information that represents its last location")
   public String getCursor() {
     return cursor;
   }

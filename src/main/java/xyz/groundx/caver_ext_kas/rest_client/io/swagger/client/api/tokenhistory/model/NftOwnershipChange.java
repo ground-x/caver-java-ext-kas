@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -42,10 +42,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * EOA of sender (previous owner) (20-byte)
+   * Sender (previous owner) EOA (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "EOA of sender (previous owner) (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender (previous owner) EOA (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -60,10 +60,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * EOA of receiver (current owner) (20-byte)
+   * Receiver (current owner) EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "EOA of receiver (current owner) (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver (current owner) EOA (20-byte)")
   public String getTo() {
     return to;
   }
@@ -78,10 +78,10 @@ public class NftOwnershipChange {
   }
 
    /**
-   * Time of ownership change (timestamp)
+   * Change of NFT ownership (timestamp)
    * @return timestamp
   **/
-  @Schema(example = "1592180992", required = true, description = "Time of ownership change (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Change of NFT ownership (timestamp)")
   public Long getTimestamp() {
     return timestamp;
   }

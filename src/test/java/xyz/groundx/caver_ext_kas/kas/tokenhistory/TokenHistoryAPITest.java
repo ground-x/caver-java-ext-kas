@@ -17,14 +17,16 @@
 package xyz.groundx.caver_ext_kas.kas.tokenhistory;
 
 import com.squareup.okhttp.Call;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.JSON;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -37,6 +39,10 @@ import java.util.concurrent.ExecutionException;
 import static org.junit.Assert.*;
 
 public class TokenHistoryAPITest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     public static CaverExtKAS caver;
     public static int preset;
 
@@ -182,18 +188,15 @@ public class TokenHistoryAPITest {
     }
 
     @Test
-    public void getTransferHistoryInvalidPreset() {
-        try {
-            caver.kas.tokenHistory.getTransferHistory(0);
-        } catch (ApiException e) {
-            InvalidQueryParameterValue res = new JSON().deserialize(e.getResponseBody(), InvalidQueryParameterValue.class);
-            Assert.assertEquals(1040400, res.getCode().longValue());
-        }
+    public void getTransferHistoryInvalidPreset() throws ApiException {
+        expectedException.expect(ApiException.class);
+        expectedException.expectMessage("Not Found");
+
+        caver.kas.tokenHistory.getTransferHistory(0);
     }
 
     @Test
     public void getTransferHistoryByTxHash() {
-
         try {
             Transfers transfers = caver.kas.tokenHistory.getTransferHistoryByTxHash(transactionHash);
             assertNotNull(transfers);
@@ -1259,6 +1262,163 @@ public class TokenHistoryAPITest {
 
             @Override
             public void onSuccess(MtContractDetail result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void getTransferHistoryWithExcludeZeroKlayOptions() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setExcludeZeroKlay(true);
+
+        PageableTransfers res = caver.kas.tokenHistory.getTransferHistory(preset, options);
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getTransferHistoryByAccountWithFromOnly() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setFromOnly(true);
+
+        PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
+        assertNotNull(transfers);
+    }
+
+    @Test
+    public void getTransferHistoryByAccountWithToOnly() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setToOnly(true);
+
+        PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
+        assertNotNull(transfers);
+    }
+
+    @Test
+    public void getTransferHistoryByAccountWithExcludeZeroKlayFromOnly() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setExcludeZeroKlay(true);
+        options.setFromOnly(true);
+
+        PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
+        assertNotNull(transfers);
+    }
+
+    @Test
+    public void getTransferHistoryByAccountWithExcludeZeroKlayToOnly() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setExcludeZeroKlay(true);
+        options.setToOnly(true);
+
+        PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
+        assertNotNull(transfers);
+    }
+
+    @Test
+    public void getTransferHistoryByAccountWithFromOnlyToOnly() throws ApiException {
+        expectedException.expect(ApiException.class);
+        expectedException.expectMessage("Bad Request");
+
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setFromOnly(true);
+        options.setToOnly(true);
+
+        PageableTransfers transfers = caver.kas.tokenHistory.getTransferHistoryByAccount(account, options);
+    }
+
+    @Test
+    public void getContractListByOwner() throws ApiException {
+        PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwner(account);
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getContractListByOwnerWithSizeAndKindOptions() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setKind(TokenHistoryQueryOptions.KIND.NFT);
+        options.setSize(2l);
+
+        PageableContractSummary res = caver.kas.tokenHistory.getContractListByOwner(account, options);
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getContractListByOwnerAsync() throws ExecutionException, InterruptedException, ApiException {
+        CompletableFuture<PageableContractSummary> future = new CompletableFuture<>();
+
+        caver.kas.tokenHistory.getContractListByOwnerAsync(account, new ApiCallback<PageableContractSummary>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(PageableContractSummary result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void getTokenListByOwner() throws ApiException {
+        PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwner(account);
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getTokenListByOwnerWithSizeAndKindOptions() throws ApiException {
+        TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
+        options.setKind(TokenHistoryQueryOptions.KIND.MT);
+        options.setSize(2l);
+
+        PageableTokenSummary res = caver.kas.tokenHistory.getTokenListByOwner(account, options);
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getTokenListByOwnerAsync() throws ExecutionException, InterruptedException, ApiException {
+        CompletableFuture<PageableTokenSummary> future = new CompletableFuture<>();
+
+        caver.kas.tokenHistory.getTokenListByOwnerAsync(account, new ApiCallback<PageableTokenSummary>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(PageableTokenSummary result, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.complete(result);
             }
 

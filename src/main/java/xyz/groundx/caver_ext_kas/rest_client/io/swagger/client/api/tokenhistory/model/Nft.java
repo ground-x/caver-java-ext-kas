@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -54,10 +54,10 @@ public class Nft {
   }
 
    /**
-   * EOA of owner (20-byte)
+   * Owner EOA (20-byte)
    * @return owner
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "EOA of owner (20-byte)")
+  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner EOA (20-byte)")
   public String getOwner() {
     return owner;
   }
@@ -72,10 +72,10 @@ public class Nft {
   }
 
    /**
-   * EOA of previous owner (20-byte)
+   * Previous owner EOA (20-byte)
    * @return previousOwner
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "EOA of previous owner (20-byte)")
+  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Previous owner EOA (20-byte)")
   public String getPreviousOwner() {
     return previousOwner;
   }
@@ -108,10 +108,10 @@ public class Nft {
   }
 
    /**
-   * Unique token URL
+   * Token URL
    * @return tokenUri
   **/
-  @Schema(example = "https://link.to/nft/1", required = true, description = "Unique token URL")
+  @Schema(example = "https://link.to/nft/1", required = true, description = "Token URL")
   public String getTokenUri() {
     return tokenUri;
   }
@@ -126,10 +126,10 @@ public class Nft {
   }
 
    /**
-   * Latest transaction hash (32-byte)
+   * Last transaction hash(32-byte)
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Latest transaction hash (32-byte)")
+  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Last transaction hash(32-byte)")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -144,10 +144,10 @@ public class Nft {
   }
 
    /**
-   * Time of token&#x27;s creation (timestamp)
+   * Time of token creation (timestamp)
    * @return createdAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time of token's creation (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Time of token creation (timestamp)")
   public Long getCreatedAt() {
     return createdAt;
   }
@@ -162,10 +162,10 @@ public class Nft {
   }
 
    /**
-   * Time when token information was last changed (timestamp)
+   * Last change in token information (timestamp)
    * @return updatedAt
   **/
-  @Schema(example = "1592180992", required = true, description = "Time when token information was last changed (timestamp)")
+  @Schema(example = "1592180992", required = true, description = "Last change in token information (timestamp)")
   public Long getUpdatedAt() {
     return updatedAt;
   }

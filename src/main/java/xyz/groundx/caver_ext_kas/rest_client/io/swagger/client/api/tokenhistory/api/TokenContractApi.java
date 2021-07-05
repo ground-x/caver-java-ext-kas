@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -61,8 +61,8 @@ public class TokenContractApi {
 
     /**
      * Build call for getFtContractDetail
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param ftAddress FT contract address  (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param ftAddress FT Contract address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -133,10 +133,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific FT Contract Information
-     * Retrieve information for one (1) labeled FT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param ftAddress FT contract address  (required)
+     * Get data of a certain FT contract
+     * Fetch the FT contract information of a given address 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param ftAddress FT Contract address (required)
      * @return FtContractDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -146,10 +146,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific FT Contract Information
-     * Retrieve information for one (1) labeled FT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param ftAddress FT contract address  (required)
+     * Get data of a certain FT contract
+     * Fetch the FT contract information of a given address 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param ftAddress FT Contract address (required)
      * @return ApiResponse&lt;FtContractDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -160,10 +160,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific FT Contract Information (asynchronously)
-     * Retrieve information for one (1) labeled FT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param ftAddress FT contract address  (required)
+     * Get data of a certain FT contract (asynchronously)
+     * Fetch the FT contract information of a given address 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param ftAddress FT Contract address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -196,11 +196,11 @@ public class TokenContractApi {
     }
     /**
      * Build call for getListOfMtContracts
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -274,13 +274,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All MT Contract Information
-     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Query list of MT contract data
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @return PageableMtContractDetails
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -290,13 +290,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All MT Contract Information
-     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Query list of MT contract data
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @return ApiResponse&lt;PageableMtContractDetails&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -307,13 +307,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All MT Contract Information (asynchronously)
-     * Lists all labeled MT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Query list of MT contract data (asynchronously)
+     * Fetch data of labelled MTs for all contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param status Labelling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type  [KIP-37, ERC-1155]; return both if not specified (optional)
-     * @param size Number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Offset for the next batch of items (pagination)  (optional)
+     * @param type Contract type [KIP-37, ERC-1155], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -346,11 +346,11 @@ public class TokenContractApi {
     }
     /**
      * Build call for getListOfNftContracts
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-17, ERC-721]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset  (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -424,13 +424,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All NFT Contract Information
-     * Retrieve information for all labeled NFT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-17, ERC-721]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset  (optional)
+     * Query list of all NFT contract data
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @return PageableNftContractDetails
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -440,13 +440,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All NFT Contract Information
-     * Retrieve information for all labeled NFT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-17, ERC-721]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset  (optional)
+     * Query list of all NFT contract data
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @return ApiResponse&lt;PageableNftContractDetails&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -457,13 +457,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All NFT Contract Information (asynchronously)
-     * Retrieve information for all labeled NFT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-17, ERC-721]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset  (optional)
+     * Query list of all NFT contract data (asynchronously)
+     * Fetch data of all labelled NFT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-17, ERC-721], returns all types if not specified (optional)
+     * @param size Number of response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Response offset (pagination)  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -496,11 +496,11 @@ public class TokenContractApi {
     }
     /**
      * Build call for getListofFtContracts
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-7, ERC-20]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
+     * @param size Number of maximum response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -574,13 +574,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All FT Contract Information
-     * Retrieve information for all labeled FT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-7, ERC-20]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all FT contract data
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
+     * @param size Number of maximum response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return PageableFtContractDetails
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -590,13 +590,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All FT Contract Information
-     * Retrieve information for all labeled FT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-7, ERC-20]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all FT contract data
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
+     * @param size Number of maximum response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @return ApiResponse&lt;PageableFtContractDetails&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -607,13 +607,13 @@ public class TokenContractApi {
     }
 
     /**
-     * Search List of All FT Contract Information (asynchronously)
-     * Retrieve information for all labeled FT contracts.<p></p>  ## Size<p></p>  * The &#x60;size&#x60; query parameter is optional (minimum &#x3D; 1, maximum &#x3D; 1000, default &#x3D; 100).<br> * Submitting negative values result in errors.<br> * Submitting zero results in a query with &#x60;size&#x3D;100&#x60;, which is the default value.<br> * Submitting values greater than 1000 result in queries with &#x60;size&#x3D;1000&#x60;, which is the maximum value.<br> 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param status Labeling status [completed, processing, failed, cancelled] (optional)
-     * @param type Contract type [KIP-7, ERC-20]. If not set, return all types. (optional)
-     * @param size Maximum number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
-     * @param cursor Response offset (optional)
+     * Query all FT contract data (asynchronously)
+     * Fetch data of all labelled FT contracts.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param status Labelling status [completed, processing, failed, cancelled] (optional)
+     * @param type Contract type [KIP-7, ERC-20], returns all types if not specified (optional)
+     * @param size Number of maximum response items (min&#x3D;1, max&#x3D;1000, default&#x3D;100) (optional)
+     * @param cursor Offset for specifying a certain position (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -646,7 +646,7 @@ public class TokenContractApi {
     }
     /**
      * Build call for getMtContractDetail
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -718,9 +718,9 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific MT Contract Information
-     * Retrieves a labeled MT contract information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Get data of a certain MT contract
+     * Fetch data of labelled MTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress  (required)
      * @return MtContractDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -731,9 +731,9 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific MT Contract Information
-     * Retrieves a labeled MT contract information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Get data of a certain MT contract
+     * Fetch data of labelled MTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress  (required)
      * @return ApiResponse&lt;MtContractDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -745,9 +745,9 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific MT Contract Information (asynchronously)
-     * Retrieves a labeled MT contract information.
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
+     * Get data of a certain MT contract (asynchronously)
+     * Fetch data of labelled MTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -781,8 +781,8 @@ public class TokenContractApi {
     }
     /**
      * Build call for getNftContractDetail
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -853,10 +853,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific NFT Contract Information
-     * Retrieve information for one (1) labeled NFT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
+     * Get data of certain NFT contracts
+     * Fetch data of labelled NFTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address (required)
      * @return NftContractDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -866,10 +866,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific NFT Contract Information
-     * Retrieve information for one (1) labeled NFT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
+     * Get data of certain NFT contracts
+     * Fetch data of labelled NFTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address (required)
      * @return ApiResponse&lt;NftContractDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -880,10 +880,10 @@ public class TokenContractApi {
     }
 
     /**
-     * Search Specific NFT Contract Information (asynchronously)
-     * Retrieve information for one (1) labeled NFT contract. 
-     * @param xChainId  Klaytn network chain ID (1001 or 8217) (required)
-     * @param nftAddress NFT contract address (required)
+     * Get data of certain NFT contracts (asynchronously)
+     * Fetch data of labelled NFTs for a certain contract. 
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param nftAddress NFT Contract address (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

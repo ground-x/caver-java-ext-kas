@@ -60,6 +60,7 @@ public class Config {
     public static String URL_TH_API = "https://th-api.klaytnapi.com";
     public static String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
     public static String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
+    public static String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
@@ -103,6 +104,7 @@ public class Config {
         caver.initWalletAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_WALLET_API);
         caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
         caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
+        caver.initKIP7API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP7_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
@@ -133,6 +135,7 @@ public class Config {
             URL_TH_API = loadEnvData(env, "URL_TH_API" + identifier);
             URL_ANCHOR_API = loadEnvData(env, "URL_ANCHOR_API" + identifier);
             URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
+            URL_KIP7_API = loadEnvData(env, "URL_KIP7_API" + identifier);
         }
 
         accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
@@ -380,5 +383,13 @@ public class Config {
         } else {
             return TokenHistoryTestData.loadProdData();
         }
+    }
+
+    public static String getAccessKey() {
+        return accessKey;
+    }
+
+    public static String getSecretAccessKey() {
+        return secretAccessKey;
     }
 }

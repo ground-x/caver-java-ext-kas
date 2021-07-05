@@ -1,6 +1,6 @@
 /*
  * Anchor API
- * # Introduction This document discusses Klaytn API Service (KAS) Anchor API. Anchor API features functions for sending metadata to prove data reliability and ensuring the reliability of service chain data to the Klaytn main chain.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |   # Authentication  <!-- ReDoc-Inject: <security-definitions> -->
+ * # Introduction This document describes KAS (Klaytn API Service) Anchor API. Anchor API provides features sending metadata available to verify data reliability to ensure the reliability of service chain data to Klaytn main chain.  For more details on using the Anchor API, please refer to [Tutorial](https://docs.klaytnapi.com/tutorial/anchor-api).    # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1071010 | data don't exist 1071615 | its value is out of range; size 1072100 | same payload ID or payload was already anchored 1072101 | all configured accounts have insufficient funds |  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -18,9 +18,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * Anchor data. ID is set to SHA256 (payload) by default if an ID is not provided. It receives a string-type ID value and determines that it is not set if it is not a string type.
+ * Anchoring data. Default settings for ID is &#x60;id &#x3D; SHA256(payload)&#x60; unless ID is provided. It receives a string-type ID; unless it regards as an unset ID.
  */
-@Schema(description = "Anchor data. ID is set to SHA256 (payload) by default if an ID is not provided. It receives a string-type ID value and determines that it is not set if it is not a string type.")
+@Schema(description = "Anchoring data. Default settings for ID is `id = SHA256(payload)` unless ID is provided. It receives a string-type ID; unless it regards as an unset ID.")
 
 public class AnchorBlockPayload extends HashMap<String, Object> {
 

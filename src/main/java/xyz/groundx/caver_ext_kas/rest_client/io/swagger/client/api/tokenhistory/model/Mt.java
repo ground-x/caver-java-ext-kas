@@ -1,6 +1,6 @@
 /*
  * Token History API
- * # Introduction  Token History API allows users to search for information and transfer records on KLAY, FT (KIP-7, Labeled ERC-20), and NFT (KIP-17, Labeled ERC-721) tokens. You can use Token History API to check the records of a specific EOA transferring KLAY, retrieve NFT information, or other purposes.  For more details on Token History API, refer to our [tutorial](https://klaytn.com).  For any questions regarding this document or KAS, visit [the developer forum](https://forum.klaytn.com/).  
+ * # Introduction  Token History API allows you to query the transaction history of KLAY, FTs (KIP-7 and Labelled ERC-20), NFTs (KIP-17 and Labelled ERC-721), and MTs (KIP-37 and Labelled ERC-1155). You can track KLAY's transaction history or retrieve NFT-related data of a certain EOA.   For more details on using Token History API, please refer to the [Tutorial](https://docs.klaytnapi.com/tutorial).   For any inquiries on this document or KAS in general, please visit [Developer Forum](https://forum.klaytn.com/).  
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -42,10 +42,10 @@ public class Mt {
   }
 
    /**
-   * Token ID (hex)
+   * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token ID (hex)")
+  @Schema(example = "0x1", required = true, description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -60,10 +60,10 @@ public class Mt {
   }
 
    /**
-   * Total supply (hex)
+   * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total supply (hex)")
+  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -78,10 +78,10 @@ public class Mt {
   }
 
    /**
-   * Token URI
+   * Token URL
    * @return tokenUri
   **/
-  @Schema(example = "https://link.to/mt/1", required = true, description = "Token URI")
+  @Schema(example = "https://link.to/mt/1", required = true, description = "Token URL")
   public String getTokenUri() {
     return tokenUri;
   }

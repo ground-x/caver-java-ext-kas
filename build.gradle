@@ -1,5 +1,5 @@
 buildscript {
-    ext.caver_version = '1.5.6-rc.6'
+    ext.caver_version = '1.6.3-rc.1'
 }
 
 plugins {
@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'io.codearte.nexus-staging'
 
 allprojects {
-    version '1.1.1'
+    version '1.4.0'
     group 'xyz.groundx.caver'
     description 'An extension library of caver-java for using KAS (Klaytn API Service).'
 
