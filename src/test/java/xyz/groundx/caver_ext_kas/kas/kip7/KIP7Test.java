@@ -196,7 +196,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void deploy_withHexStringSupply() throws ApiException {
+    public void deploy_withHexStringSupply() throws ApiException, InterruptedException {
         String testAlias = "test-contract" + new Date().getTime();
         String name = "TEST_KIP7";
         String symbol = "TKIP7";
@@ -394,7 +394,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approve() throws ApiException {
+    public void approve() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -422,7 +422,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approve_withHexStringAmount() throws ApiException {
+    public void approve_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -450,7 +450,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approveWithOutOwner() throws ApiException {
+    public void approveWithOutOwner() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -476,7 +476,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approveWithOutOwner_withHexStringAmount() throws ApiException {
+    public void approveWithOutOwner_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
@@ -502,7 +502,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transfer() throws ApiException, TransactionException, IOException {
+    public void transfer() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -534,7 +534,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException {
+    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
