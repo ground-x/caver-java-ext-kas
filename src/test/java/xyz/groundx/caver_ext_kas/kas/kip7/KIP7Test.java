@@ -163,6 +163,7 @@ public class KIP7Test {
             assertNotNull(future.get());
             assertTrue(Utils.isAddress(future.get().getAddress()));
         }
+        Thread.sleep(5000);
     }
 
     @Test
@@ -190,10 +191,12 @@ public class KIP7Test {
 
         Call call = caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void deploy_withHexStringSupply() throws ApiException {
+    public void deploy_withHexStringSupply() throws ApiException, InterruptedException {
         String testAlias = "test-contract" + new Date().getTime();
         String name = "TEST_KIP7";
         String symbol = "TKIP7";
@@ -203,6 +206,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -217,6 +222,8 @@ public class KIP7Test {
 
         Call call = caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -387,7 +394,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approve() throws ApiException {
+    public void approve() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -396,6 +403,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -408,10 +417,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approve_withHexStringAmount() throws ApiException {
+    public void approve_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -420,6 +431,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -432,10 +445,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approveWithOutOwner() throws ApiException {
+    public void approveWithOutOwner() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -443,6 +458,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -454,10 +471,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approveWithOutOwner_withHexStringAmount() throws ApiException {
+    public void approveWithOutOwner_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
@@ -465,6 +484,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -476,10 +497,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void transfer() throws ApiException, TransactionException, IOException {
+    public void transfer() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -491,6 +514,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -509,7 +534,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException {
+    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -521,6 +546,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -539,7 +566,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithOutOwner() throws ApiException, TransactionException, IOException {
+    public void transferWithOutOwner() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -550,6 +577,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -567,7 +596,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithOutOwner_WithHexStringAmount() throws ApiException, TransactionException, IOException {
+    public void transferWithOutOwner_WithHexStringAmount() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
@@ -578,6 +607,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
