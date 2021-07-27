@@ -20,9 +20,7 @@ import com.klaytn.caver.methods.response.TransactionReceipt;
 import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
 import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.squareup.okhttp.Call;
-import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.utils.Numeric;
@@ -31,7 +29,6 @@ import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -63,11 +60,6 @@ public class KIP17Test {
         Kip17TransactionStatusResponse deployStatus = caver.kas.kip17.deploy("KIP17", "KCTT", testContractAlias);
         TransactionReceiptProcessor receiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         receiptProcessor.waitForTransactionReceipt(deployStatus.getTransactionHash());
-
-        Thread.sleep(5000);
-        for(int i=0; i<2; i++) {
-            mintToken(testContractAlias, account, BigInteger.valueOf(new Date().getTime()));
-        }
 
         Thread.sleep(5000);
     }
@@ -473,25 +465,32 @@ public class KIP17Test {
     }
 
     @Test
-    public void approve() throws ApiException, InterruptedException {
+    public void approve() throws ApiException, InterruptedException, TransactionException, IOException {
         String from = account;
         String to = caver.kas.wallet.createAccount().getAddress();
 
-        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
-        Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, res.getItems().get(0).getTokenId());
+        BigInteger tokenId = BigInteger.valueOf(new Date().getTime());
+        mintToken(testContractAlias, account, tokenId);
+
+        Thread.sleep(3000);
+
+        Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, tokenId);
         assertNotNull(response);
         Thread.sleep(5000);
     }
 
     @Test
-    public void approveAsync() throws ApiException, ExecutionException, InterruptedException {
+    public void approveAsync() throws ApiException, ExecutionException, InterruptedException, TransactionException, IOException {
         String from = account;
         String to = caver.kas.wallet.createAccount().getAddress();
 
-        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
+        BigInteger tokenId = BigInteger.valueOf(new Date().getTime());
+        mintToken(testContractAlias, account, tokenId);
+
+        Thread.sleep(3000);
 
         CompletableFuture<Kip17TransactionStatusResponse> completableFuture = new CompletableFuture<>();
-        Call result = caver.kas.kip17.approveAsync(testContractAlias, from, to, res.getItems().get(0).getTokenId(), new ApiCallback<Kip17TransactionStatusResponse>() {
+        Call result = caver.kas.kip17.approveAsync(testContractAlias, from, to, tokenId, new ApiCallback<Kip17TransactionStatusResponse>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 completableFuture.completeExceptionally(e);

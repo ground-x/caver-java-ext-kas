@@ -633,7 +633,7 @@ public class KIP7Test {
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -654,7 +654,7 @@ public class KIP7Test {
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -672,7 +672,7 @@ public class KIP7Test {
         String to = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -693,7 +693,7 @@ public class KIP7Test {
         String to = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
