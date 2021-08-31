@@ -21,6 +21,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * TransferKip37TokenRequest
  */
@@ -37,10 +39,10 @@ public class TransferKip37TokenRequest {
   private String to = null;
 
   @SerializedName("ids")
-  private String ids = null;
+  private List<String> ids = new ArrayList<String>();
 
   @SerializedName("amounts")
-  private String amounts = null;
+  private List<String> amounts = new ArrayList<String>();
 
   public TransferKip37TokenRequest sender(String sender) {
     this.sender = sender;
@@ -96,8 +98,13 @@ public class TransferKip37TokenRequest {
     this.to = to;
   }
 
-  public TransferKip37TokenRequest ids(String ids) {
+  public TransferKip37TokenRequest ids(List<String> ids) {
     this.ids = ids;
+    return this;
+  }
+
+  public TransferKip37TokenRequest addIdsItem(String idsItem) {
+    this.ids.add(idsItem);
     return this;
   }
 
@@ -106,16 +113,21 @@ public class TransferKip37TokenRequest {
    * @return ids
   **/
   @Schema(required = true, description = "Array of IDs of the tokens to send")
-  public String getIds() {
+  public List<String> getIds() {
     return ids;
   }
 
-  public void setIds(String ids) {
+  public void setIds(List<String> ids) {
     this.ids = ids;
   }
 
-  public TransferKip37TokenRequest amounts(String amounts) {
+  public TransferKip37TokenRequest amounts(List<String> amounts) {
     this.amounts = amounts;
+    return this;
+  }
+
+  public TransferKip37TokenRequest addAmountsItem(String amountsItem) {
+    this.amounts.add(amountsItem);
     return this;
   }
 
@@ -124,17 +136,17 @@ public class TransferKip37TokenRequest {
    * @return amounts
   **/
   @Schema(required = true, description = "Array of the tokens to send (in hex.)")
-  public String getAmounts() {
+  public List<String> getAmounts() {
     return amounts;
   }
 
-  public void setAmounts(String amounts) {
+  public void setAmounts(List<String> amounts) {
     this.amounts = amounts;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -173,7 +185,7 @@ public class TransferKip37TokenRequest {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }
