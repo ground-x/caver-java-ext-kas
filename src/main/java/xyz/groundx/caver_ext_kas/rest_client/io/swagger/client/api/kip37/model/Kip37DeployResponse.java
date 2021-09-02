@@ -23,19 +23,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOption;
 /**
- * Kip37ContractListResponseItem
+ * Kip37DeployResponse
  */
 
 
-public class Kip37ContractListResponseItem {
-  @SerializedName("address")
-  private String address = null;
-
-  @SerializedName("alias")
-  private String alias = null;
-
+public class Kip37DeployResponse {
   @SerializedName("status")
   private String status = null;
+
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
   @SerializedName("uri")
   private String uri = null;
@@ -43,52 +40,16 @@ public class Kip37ContractListResponseItem {
   @SerializedName("options")
   private Kip37FeePayerOption options = null;
 
-  public Kip37ContractListResponseItem address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Contract address
-   * @return address
-  **/
-  @Schema(required = true, description = "Contract address")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public Kip37ContractListResponseItem alias(String alias) {
-    this.alias = alias;
-    return this;
-  }
-
-   /**
-   * Contract alias
-   * @return alias
-  **/
-  @Schema(required = true, description = "Contract alias")
-  public String getAlias() {
-    return alias;
-  }
-
-  public void setAlias(String alias) {
-    this.alias = alias;
-  }
-
-  public Kip37ContractListResponseItem status(String status) {
+  public Kip37DeployResponse status(String status) {
     this.status = status;
     return this;
   }
 
    /**
-   * Contract status [&#x60;init&#x60;, &#x60;submitted&#x60;, &#x60;deployed&#x60;]
+   * Transaction status (&#x60;Submitted&#x60;, &#x60;Pending&#x60;)
    * @return status
   **/
-  @Schema(required = true, description = "Contract status [`init`, `submitted`, `deployed`]")
+  @Schema(required = true, description = "Transaction status (`Submitted`, `Pending`)")
   public String getStatus() {
     return status;
   }
@@ -97,7 +58,25 @@ public class Kip37ContractListResponseItem {
     this.status = status;
   }
 
-  public Kip37ContractListResponseItem uri(String uri) {
+  public Kip37DeployResponse transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+    return this;
+  }
+
+   /**
+   * Transaction hash
+   * @return transactionHash
+  **/
+  @Schema(required = true, description = "Transaction hash")
+  public String getTransactionHash() {
+    return transactionHash;
+  }
+
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public Kip37DeployResponse uri(String uri) {
     this.uri = uri;
     return this;
   }
@@ -115,7 +94,7 @@ public class Kip37ContractListResponseItem {
     this.uri = uri;
   }
 
-  public Kip37ContractListResponseItem options(Kip37FeePayerOption options) {
+  public Kip37DeployResponse options(Kip37FeePayerOption options) {
     this.options = options;
     return this;
   }
@@ -135,35 +114,33 @@ public class Kip37ContractListResponseItem {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip37ContractListResponseItem kip37ContractListResponseItem = (Kip37ContractListResponseItem) o;
-    return Objects.equals(this.address, kip37ContractListResponseItem.address) &&
-        Objects.equals(this.alias, kip37ContractListResponseItem.alias) &&
-        Objects.equals(this.status, kip37ContractListResponseItem.status) &&
-        Objects.equals(this.uri, kip37ContractListResponseItem.uri) &&
-        Objects.equals(this.options, kip37ContractListResponseItem.options);
+    Kip37DeployResponse kip37DeployResponse = (Kip37DeployResponse) o;
+    return Objects.equals(this.status, kip37DeployResponse.status) &&
+        Objects.equals(this.transactionHash, kip37DeployResponse.transactionHash) &&
+        Objects.equals(this.uri, kip37DeployResponse.uri) &&
+        Objects.equals(this.options, kip37DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, alias, status, uri, options);
+    return Objects.hash(status, transactionHash, uri, options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip37ContractListResponseItem {\n");
+    sb.append("class Kip37DeployResponse {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
     sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
@@ -174,7 +151,7 @@ public class Kip37ContractListResponseItem {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

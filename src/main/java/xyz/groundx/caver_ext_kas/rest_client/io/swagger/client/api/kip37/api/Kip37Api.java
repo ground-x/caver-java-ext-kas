@@ -30,11 +30,11 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.A
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.BurnKip37TokenRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.CreateKip37TokenRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.DeployKip37ContractRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.DeployerKip37ContractResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ErrorResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ImportKip37ContractRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37Contract;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37ContractListResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37ContractListResponseItem;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37DeployResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TokenInfoListResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TokenListResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TransactionStatusResponse;
@@ -109,7 +109,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -248,7 +248,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -387,7 +387,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -524,7 +524,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -558,11 +558,11 @@ public class Kip37Api {
      * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return DeployerKip37ContractResponse
+     * @return Kip37DeployResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public DeployerKip37ContractResponse deployContract(String xChainId, DeployKip37ContractRequest body) throws ApiException {
-        ApiResponse<DeployerKip37ContractResponse> resp = deployContractWithHttpInfo(xChainId, body);
+    public Kip37DeployResponse deployContract(String xChainId, DeployKip37ContractRequest body) throws ApiException {
+        ApiResponse<Kip37DeployResponse> resp = deployContractWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
@@ -571,12 +571,12 @@ public class Kip37Api {
      * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;DeployerKip37ContractResponse&gt;
+     * @return ApiResponse&lt;Kip37DeployResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DeployerKip37ContractResponse> deployContractWithHttpInfo(String xChainId, DeployKip37ContractRequest body) throws ApiException {
+    public ApiResponse<Kip37DeployResponse> deployContractWithHttpInfo(String xChainId, DeployKip37ContractRequest body) throws ApiException {
         com.squareup.okhttp.Call call = deployContractValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<DeployerKip37ContractResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37DeployResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -589,7 +589,7 @@ public class Kip37Api {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call deployContractAsync(String xChainId, DeployKip37ContractRequest body, final ApiCallback<DeployerKip37ContractResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call deployContractAsync(String xChainId, DeployKip37ContractRequest body, final ApiCallback<Kip37DeployResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -611,7 +611,7 @@ public class Kip37Api {
         }
 
         com.squareup.okhttp.Call call = deployContractValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<DeployerKip37ContractResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37DeployResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -655,7 +655,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -693,11 +693,11 @@ public class Kip37Api {
      * Queries a specified contract using the alias or the contract address.
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37ContractListResponseItem getContract(String contractAddressOrAlias, String xChainId) throws ApiException {
-        ApiResponse<Kip37ContractListResponseItem> resp = getContractWithHttpInfo(contractAddressOrAlias, xChainId);
+    public Kip37Contract getContract(String contractAddressOrAlias, String xChainId) throws ApiException {
+        ApiResponse<Kip37Contract> resp = getContractWithHttpInfo(contractAddressOrAlias, xChainId);
         return resp.getData();
     }
 
@@ -706,12 +706,12 @@ public class Kip37Api {
      * Queries a specified contract using the alias or the contract address.
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @return ApiResponse&lt;Kip37ContractListResponseItem&gt;
+     * @return ApiResponse&lt;Kip37Contract&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37ContractListResponseItem> getContractWithHttpInfo(String contractAddressOrAlias, String xChainId) throws ApiException {
+    public ApiResponse<Kip37Contract> getContractWithHttpInfo(String contractAddressOrAlias, String xChainId) throws ApiException {
         com.squareup.okhttp.Call call = getContractValidateBeforeCall(contractAddressOrAlias, xChainId, null, null);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -724,7 +724,7 @@ public class Kip37Api {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getContractAsync(String contractAddressOrAlias, String xChainId, final ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public com.squareup.okhttp.Call getContractAsync(String contractAddressOrAlias, String xChainId, final ApiCallback<Kip37Contract> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -746,7 +746,7 @@ public class Kip37Api {
         }
 
         com.squareup.okhttp.Call call = getContractValidateBeforeCall(contractAddressOrAlias, xChainId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -796,7 +796,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -945,7 +945,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1092,7 +1092,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1126,11 +1126,11 @@ public class Kip37Api {
      * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37ContractListResponseItem importContract(String xChainId, ImportKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37ContractListResponseItem> resp = importContractWithHttpInfo(xChainId, body);
+    public Kip37Contract importContract(String xChainId, ImportKip37ContractRequest body) throws ApiException {
+        ApiResponse<Kip37Contract> resp = importContractWithHttpInfo(xChainId, body);
         return resp.getData();
     }
 
@@ -1139,12 +1139,12 @@ public class Kip37Api {
      * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;Kip37ContractListResponseItem&gt;
+     * @return ApiResponse&lt;Kip37Contract&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37ContractListResponseItem> importContractWithHttpInfo(String xChainId, ImportKip37ContractRequest body) throws ApiException {
+    public ApiResponse<Kip37Contract> importContractWithHttpInfo(String xChainId, ImportKip37ContractRequest body) throws ApiException {
         com.squareup.okhttp.Call call = importContractValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -1157,7 +1157,7 @@ public class Kip37Api {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call importContractAsync(String xChainId, ImportKip37ContractRequest body, final ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public com.squareup.okhttp.Call importContractAsync(String xChainId, ImportKip37ContractRequest body, final ApiCallback<Kip37Contract> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1179,7 +1179,7 @@ public class Kip37Api {
         }
 
         com.squareup.okhttp.Call call = importContractValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -1230,7 +1230,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1368,7 +1368,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1507,7 +1507,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1648,7 +1648,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1794,7 +1794,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -1833,11 +1833,11 @@ public class Kip37Api {
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37ContractListResponseItem putContract(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37ContractListResponseItem> resp = putContractWithHttpInfo(xChainId, contractAddressOrAlias, body);
+    public Kip37Contract putContract(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
+        ApiResponse<Kip37Contract> resp = putContractWithHttpInfo(xChainId, contractAddressOrAlias, body);
         return resp.getData();
     }
 
@@ -1847,12 +1847,12 @@ public class Kip37Api {
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;Kip37ContractListResponseItem&gt;
+     * @return ApiResponse&lt;Kip37Contract&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37ContractListResponseItem> putContractWithHttpInfo(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
+    public ApiResponse<Kip37Contract> putContractWithHttpInfo(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
         com.squareup.okhttp.Call call = putContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -1866,7 +1866,7 @@ public class Kip37Api {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call putContractAsync(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body, final ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public com.squareup.okhttp.Call putContractAsync(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body, final ApiCallback<Kip37Contract> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1888,7 +1888,7 @@ public class Kip37Api {
         }
 
         com.squareup.okhttp.Call call = putContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponseItem>(){}.getType();
+        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -1933,7 +1933,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -2072,7 +2072,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -2213,7 +2213,7 @@ public class Kip37Api {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))

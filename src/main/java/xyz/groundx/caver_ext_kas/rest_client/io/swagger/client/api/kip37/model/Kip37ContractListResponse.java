@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37ContractListResponseItem;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37Contract;
 /**
  * Kip37ContractListResponse
  */
@@ -31,17 +31,17 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.K
 
 public class Kip37ContractListResponse {
   @SerializedName("items")
-  private List<Kip37ContractListResponseItem> items = new ArrayList<Kip37ContractListResponseItem>();
+  private List<Kip37Contract> items = new ArrayList<Kip37Contract>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public Kip37ContractListResponse items(List<Kip37ContractListResponseItem> items) {
+  public Kip37ContractListResponse items(List<Kip37Contract> items) {
     this.items = items;
     return this;
   }
 
-  public Kip37ContractListResponse addItemsItem(Kip37ContractListResponseItem itemsItem) {
+  public Kip37ContractListResponse addItemsItem(Kip37Contract itemsItem) {
     this.items.add(itemsItem);
     return this;
   }
@@ -51,11 +51,11 @@ public class Kip37ContractListResponse {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<Kip37ContractListResponseItem> getItems() {
+  public List<Kip37Contract> getItems() {
     return items;
   }
 
-  public void setItems(List<Kip37ContractListResponseItem> items) {
+  public void setItems(List<Kip37Contract> items) {
     this.items = items;
   }
 
@@ -79,7 +79,7 @@ public class Kip37ContractListResponse {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -112,7 +112,7 @@ public class Kip37ContractListResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

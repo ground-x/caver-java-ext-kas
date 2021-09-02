@@ -82,7 +82,7 @@ public class KIP37 {
      * @return DeployerKip37ContractResponse
      * @throws ApiException
      */
-    public DeployerKip37ContractResponse deploy(String uri, String alias) throws ApiException {
+    public Kip37DeployResponse deploy(String uri, String alias) throws ApiException {
         return deploy(uri, alias, null);
     }
 
@@ -102,7 +102,7 @@ public class KIP37 {
      * @return DeployerKip37ContractResponse
      * @throws ApiException
      */
-    public DeployerKip37ContractResponse deploy(String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37DeployResponse deploy(String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
         DeployKip37ContractRequest request = new DeployKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
@@ -128,7 +128,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String uri, String alias, ApiCallback<DeployerKip37ContractResponse> callback) throws ApiException {
+    public Call deployAsync(String uri, String alias, ApiCallback<Kip37DeployResponse> callback) throws ApiException {
         return deployAsync(uri, alias, null, callback);
     }
 
@@ -148,7 +148,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<DeployerKip37ContractResponse> callback) throws ApiException {
+    public Call deployAsync(String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37DeployResponse> callback) throws ApiException {
         DeployKip37ContractRequest request = new DeployKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
@@ -249,7 +249,7 @@ public class KIP37 {
      * @return Kip37ContractListResponseItem
      * @throws ApiException
      */
-    public Kip37ContractListResponseItem importContract(String contractAddress, String uri, String alias) throws ApiException {
+    public Kip37Contract importContract(String contractAddress, String uri, String alias) throws ApiException {
         return importContract(contractAddress, uri, alias, null);
     }
 
@@ -263,7 +263,7 @@ public class KIP37 {
      * @return Kip37ContractListResponseItem
      * @throws ApiException
      */
-    public Kip37ContractListResponseItem importContract(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37Contract importContract(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
         ImportKip37ContractRequest request = new ImportKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
@@ -292,7 +292,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call importContractAsync(String contractAddress, String uri, String alias, ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public Call importContractAsync(String contractAddress, String uri, String alias, ApiCallback<Kip37Contract> callback) throws ApiException {
         return importContractAsync(contractAddress, uri, alias, null, callback);
     }
 
@@ -307,7 +307,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call importContractAsync(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public Call importContractAsync(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37Contract> callback) throws ApiException {
         ImportKip37ContractRequest request = new ImportKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
@@ -324,7 +324,7 @@ public class KIP37 {
      * @return Kip37ContractListResponseItem
      * @throws ApiException
      */
-    public Kip37ContractListResponseItem getContract(String addressOrAlias) throws ApiException {
+    public Kip37Contract getContract(String addressOrAlias) throws ApiException {
         return kip37Api.getContract(addressOrAlias, chainId);
     }
 
@@ -336,7 +336,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call getContractAsync(String addressOrAlias, ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public Call getContractAsync(String addressOrAlias, ApiCallback<Kip37Contract> callback) throws ApiException {
         return kip37Api.getContractAsync(addressOrAlias, chainId, callback);
     }
 
@@ -349,7 +349,7 @@ public class KIP37 {
      * @return Kip37ContractListResponseItem
      * @throws ApiException
      */
-    public Kip37ContractListResponseItem updateContractOptions(String addressOrAlias) throws ApiException {
+    public Kip37Contract updateContractOptions(String addressOrAlias) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         return updateContractOptions(addressOrAlias, null);
     }
@@ -362,7 +362,7 @@ public class KIP37 {
      * @return Kip37ContractListResponseItem
      * @throws ApiException
      */
-    public Kip37ContractListResponseItem updateContractOptions(String addressOrAlias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37Contract updateContractOptions(String addressOrAlias, Kip37FeePayerOption feePayerOption) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         request.setOptions(feePayerOption);
 
@@ -380,7 +380,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call updateContractOptionsAsync(String addressOrAlias, ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public Call updateContractOptionsAsync(String addressOrAlias, ApiCallback<Kip37Contract> callback) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         return updateContractOptionsAsync(addressOrAlias, null, callback);
     }
@@ -394,7 +394,7 @@ public class KIP37 {
      * @return Call
      * @throws ApiException
      */
-    public Call updateContractOptionsAsync(String addressOrAlias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37ContractListResponseItem> callback) throws ApiException {
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37Contract> callback) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         request.setOptions(feePayerOption);
 
