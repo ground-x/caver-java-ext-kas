@@ -95,7 +95,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * Sender EOA (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Sender EOA (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -113,7 +113,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * Receiver EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver EOA (20-byte)")
+  @Schema(example = "1031886162996749679318352520149534827025669355376", required = true, description = "Receiver EOA (20-byte)")
   public String getTo() {
     return to;
   }
@@ -167,7 +167,7 @@ public class FtTransfer implements AnyOfTransferArrayItems {
    * Number of tokens sent (in hexadecimal)
    * @return value
   **/
-  @Schema(example = "0xa", required = true, description = "Number of tokens sent (in hexadecimal)")
+  @Schema(example = "10", required = true, description = "Number of tokens sent (in hexadecimal)")
   public String getValue() {
     return value;
   }

@@ -13,16 +13,21 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.NFTContractSummaryExtras;
 /**
  * NFTContractSummary
  */
 
 
-public class NFTContractSummary implements AnyOfPageableContractSummaryItems {
+public class NFTContractSummary implements AnyOfContractSummaryArrayItems {
   @SerializedName("kind")
   private String kind = null;
 
@@ -65,7 +70,7 @@ public class NFTContractSummary implements AnyOfPageableContractSummaryItems {
    * Contract address (20-byte)
    * @return contractAddress
   **/
-  @Schema(example = "0xfa9a1b66b970dc713ae71d56a7cc44b573d4c8f7", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "1430684394453548368053955237815050750213221566711", required = true, description = "Contract address (20-byte)")
   public String getContractAddress() {
     return contractAddress;
   }
@@ -101,7 +106,7 @@ public class NFTContractSummary implements AnyOfPageableContractSummaryItems {
    * Total balance of tokens (in hexadecimal)
    * @return totalBalance
   **/
-  @Schema(example = "0x1", required = true, description = "Total balance of tokens (in hexadecimal)")
+  @Schema(example = "1", required = true, description = "Total balance of tokens (in hexadecimal)")
   public String getTotalBalance() {
     return totalBalance;
   }

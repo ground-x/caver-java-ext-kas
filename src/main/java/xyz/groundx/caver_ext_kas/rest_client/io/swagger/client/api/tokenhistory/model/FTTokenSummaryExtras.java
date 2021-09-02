@@ -105,7 +105,7 @@ public class FTTokenSummaryExtras {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xde0b6b3a7640000", description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "1000000000000000000", description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }

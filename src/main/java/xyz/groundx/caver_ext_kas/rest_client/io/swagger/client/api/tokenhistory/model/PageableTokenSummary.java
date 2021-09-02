@@ -13,12 +13,15 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.TokenSummaryArray;
 /**
  * PageableTokenSummary
  */
@@ -26,18 +29,13 @@ import java.util.List;
 
 public class PageableTokenSummary {
   @SerializedName("items")
-  private List<AnyOfPageableTokenSummaryItems> items = new ArrayList<AnyOfPageableTokenSummaryItems>();
+  private TokenSummaryArray items = null;
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableTokenSummary items(List<AnyOfPageableTokenSummaryItems> items) {
+  public PageableTokenSummary items(TokenSummaryArray items) {
     this.items = items;
-    return this;
-  }
-
-  public PageableTokenSummary addItemsItem(AnyOfPageableTokenSummaryItems itemsItem) {
-    this.items.add(itemsItem);
     return this;
   }
 
@@ -46,11 +44,11 @@ public class PageableTokenSummary {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<AnyOfPageableTokenSummaryItems> getItems() {
+  public TokenSummaryArray getItems() {
     return items;
   }
 
-  public void setItems(List<AnyOfPageableTokenSummaryItems> items) {
+  public void setItems(TokenSummaryArray items) {
     this.items = items;
   }
 

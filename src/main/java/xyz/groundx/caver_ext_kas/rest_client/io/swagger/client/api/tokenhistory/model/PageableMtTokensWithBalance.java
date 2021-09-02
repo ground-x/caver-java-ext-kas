@@ -71,7 +71,7 @@ public class PageableMtTokensWithBalance {
    * Total balance of tokens by EOA
    * @return totalBalance
   **/
-  @Schema(example = "0xf1", required = true, description = "Total balance of tokens by EOA")
+  @Schema(example = "241", required = true, description = "Total balance of tokens by EOA")
   public String getTotalBalance() {
     return totalBalance;
   }

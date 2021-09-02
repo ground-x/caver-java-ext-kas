@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.adapter;
+package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.adapter;
 
 import com.google.gson.*;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.FtTransfer;
@@ -24,7 +24,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.
 import java.lang.reflect.Type;
 
 
-public class TransferItemAdapter implements JsonDeserializer {
+public class TransferArrayItemAdapter implements JsonDeserializer {
     @Override
     public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();

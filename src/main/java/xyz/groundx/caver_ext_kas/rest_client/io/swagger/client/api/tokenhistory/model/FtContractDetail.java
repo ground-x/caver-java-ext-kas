@@ -66,7 +66,7 @@ public class FtContractDetail {
    * Contract address (20-byte)
    * @return address
   **/
-  @Schema(example = "0xaD15bCa7D0f1e077f43eC18ACBA7eE2a347ADE87", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "988140153216339146931061266587822162750899674759", required = true, description = "Contract address (20-byte)")
   public String getAddress() {
     return address;
   }
@@ -156,7 +156,7 @@ public class FtContractDetail {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x174876e800", required = true, description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "100000000000", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }

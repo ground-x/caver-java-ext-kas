@@ -81,7 +81,7 @@ public class NFTContractSummaryExtras {
    * Total issued tokens (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x1d", description = "Total issued tokens (in hexadecimal)")
+  @Schema(example = "29", description = "Total issued tokens (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }

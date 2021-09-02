@@ -13,12 +13,12 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import com.google.gson.annotations.JsonAdapter;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.adapter.TokenSummaryAdapter;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.adapter.TokenSummaryArrayAdapter;
 
 /**
-* AnyOfPageableTokenSummaryItemsItems
+* AnyOfTokenSummaryArrayItems
 */
-@JsonAdapter(TokenSummaryAdapter.class)
-public interface AnyOfPageableTokenSummaryItems {
+@JsonAdapter(TokenSummaryArrayAdapter.class)
+public interface AnyOfTokenSummaryArrayItems {
 
 }
