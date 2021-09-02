@@ -158,7 +158,7 @@ public class KIP37QueryOptions {
      * Setter function for status
      * @param status The STATUS_TYPE enum value.
      */
-    public void setStatus(KIP7QueryOptions.STATUS_TYPE status) {
+    public void setStatus(STATUS_TYPE status) {
         this.status = status.getStatus();
     }
 }
