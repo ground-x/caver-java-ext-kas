@@ -45,6 +45,9 @@ public class Transaction {
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
+  @SerializedName("blockNumber")
+  private Long blockNumber = null;
+
   @SerializedName("typeInt")
   private Integer typeInt = null;
 
@@ -60,7 +63,7 @@ public class Transaction {
    * Fee delegation account address (20-byte)
    * @return feePayer
   **/
-  @Schema(example = "0xd0ea3e0eabaea095ea3ba231c043dbf8c0feb40a", required = true, description = "Fee delegation account address (20-byte)")
+  @Schema(example = "1192693860661700396879673921856029630237486527498", required = true, description = "Fee delegation account address (20-byte)")
   public String getFeePayer() {
     return feePayer;
   }
@@ -96,7 +99,7 @@ public class Transaction {
    * Gas fee
    * @return fee
   **/
-  @Schema(example = "0xa455", required = true, description = "Gas fee")
+  @Schema(example = "42069", required = true, description = "Gas fee")
   public String getFee() {
     return fee;
   }
@@ -114,7 +117,7 @@ public class Transaction {
    * EOA of the sender of transaction (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "EOA of the sender of transaction (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "EOA of the sender of transaction (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -150,13 +153,31 @@ public class Transaction {
    * Transaction hash (32-byte)
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Transaction hash (32-byte)")
+  @Schema(example = "88941640552803633154072611475047379401865108829661485995735632343373081359608", required = true, description = "Transaction hash (32-byte)")
   public String getTransactionHash() {
     return transactionHash;
   }
 
   public void setTransactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
+  }
+
+  public Transaction blockNumber(Long blockNumber) {
+    this.blockNumber = blockNumber;
+    return this;
+  }
+
+   /**
+   * Number of the block with the transaction
+   * @return blockNumber
+  **/
+  @Schema(example = "5312105", required = true, description = "Number of the block with the transaction")
+  public Long getBlockNumber() {
+    return blockNumber;
+  }
+
+  public void setBlockNumber(Long blockNumber) {
+    this.blockNumber = blockNumber;
   }
 
   public Transaction typeInt(Integer typeInt) {
@@ -186,7 +207,7 @@ public class Transaction {
    * Amount of KLAY transferred (in hexadecimal)
    * @return value
   **/
-  @Schema(example = "0xa", required = true, description = "Amount of KLAY transferred (in hexadecimal)")
+  @Schema(example = "10", required = true, description = "Amount of KLAY transferred (in hexadecimal)")
   public String getValue() {
     return value;
   }
@@ -211,13 +232,14 @@ public class Transaction {
         Objects.equals(this.from, transaction.from) &&
         Objects.equals(this.timestamp, transaction.timestamp) &&
         Objects.equals(this.transactionHash, transaction.transactionHash) &&
+        Objects.equals(this.blockNumber, transaction.blockNumber) &&
         Objects.equals(this.typeInt, transaction.typeInt) &&
         Objects.equals(this.value, transaction.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, feeRatio, fee, from, timestamp, transactionHash, typeInt, value);
+    return Objects.hash(feePayer, feeRatio, fee, from, timestamp, transactionHash, blockNumber, typeInt, value);
   }
 
 
@@ -232,6 +254,7 @@ public class Transaction {
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    blockNumber: ").append(toIndentedString(blockNumber)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");

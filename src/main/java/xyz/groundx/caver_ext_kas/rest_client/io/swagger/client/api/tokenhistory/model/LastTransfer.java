@@ -45,7 +45,7 @@ public class LastTransfer {
    * Transaction hash
    * @return transactionHash
   **/
-  @Schema(example = "0xcd23a37616840f997298a6ae62effb8d28303b1a22ee0acc73f8e486714837ff", required = true, description = "Transaction hash")
+  @Schema(example = "92787101775136283788116696130206602888805531084566083190358739835879365818367", required = true, description = "Transaction hash")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -63,7 +63,7 @@ public class LastTransfer {
    * Sender EOA (20-byte)
    * @return transferFrom
   **/
-  @Schema(example = "0xbdfaeffb231ed4ef4600a8be4f5aa02ba4821708", required = true, description = "Sender EOA (20-byte)")
+  @Schema(example = "1084595347279233181306210657890446417538037454600", required = true, description = "Sender EOA (20-byte)")
   public String getTransferFrom() {
     return transferFrom;
   }
@@ -81,7 +81,7 @@ public class LastTransfer {
    * Receiver EOA (20-byte)
    * @return transferTo
   **/
-  @Schema(example = "0x034e13e54e62c6ea3614a04b81e95cf4a4f18a21", required = true, description = "Receiver EOA (20-byte)")
+  @Schema(example = "18868163600244298753922165206477148089088051745", required = true, description = "Receiver EOA (20-byte)")
   public String getTransferTo() {
     return transferTo;
   }

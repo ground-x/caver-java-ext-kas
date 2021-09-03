@@ -45,7 +45,7 @@ public class MTTokenSummaryExtras {
    * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", description = "Token ID (in hexadecimal)")
+  @Schema(example = "1", description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -81,7 +81,7 @@ public class MTTokenSummaryExtras {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xde0b6b3a7640000", description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "1000000000000000000", description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }

@@ -57,7 +57,7 @@ public class Nft {
    * Owner EOA (20-byte)
    * @return owner
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner EOA (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Owner EOA (20-byte)")
   public String getOwner() {
     return owner;
   }
@@ -75,7 +75,7 @@ public class Nft {
    * Previous owner EOA (20-byte)
    * @return previousOwner
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Previous owner EOA (20-byte)")
+  @Schema(example = "1031886162996749679318352520149534827025669355376", required = true, description = "Previous owner EOA (20-byte)")
   public String getPreviousOwner() {
     return previousOwner;
   }
@@ -93,7 +93,7 @@ public class Nft {
    * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token ID (in hexadecimal)")
+  @Schema(example = "1", required = true, description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -129,7 +129,7 @@ public class Nft {
    * Last transaction hash(32-byte)
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Last transaction hash(32-byte)")
+  @Schema(example = "88941640552803633154072611475047379401865108829661485995735632343373081359608", required = true, description = "Last transaction hash(32-byte)")
   public String getTransactionHash() {
     return transactionHash;
   }

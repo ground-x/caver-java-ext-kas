@@ -36,6 +36,9 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
   @SerializedName("fee")
   private String fee = null;
 
+  @SerializedName("status")
+  private Integer status = null;
+
   @SerializedName("from")
   private String from = null;
 
@@ -48,11 +51,17 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
   @SerializedName("transactionIndex")
   private Integer transactionIndex = null;
 
+  @SerializedName("blockNumber")
+  private Long blockNumber = null;
+
   @SerializedName("transferType")
   private String transferType = null;
 
   @SerializedName("typeInt")
   private Integer typeInt = null;
+
+  @SerializedName("timestamp")
+  private Long timestamp = null;
 
   @SerializedName("value")
   private String value = null;
@@ -66,7 +75,7 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Fee delegation account address (20-byte)
    * @return feePayer
   **/
-  @Schema(example = "0xd0ea3e0eabaea095ea3ba231c043dbf8c0feb40a", required = true, description = "Fee delegation account address (20-byte)")
+  @Schema(example = "1192693860661700396879673921856029630237486527498", required = true, description = "Fee delegation account address (20-byte)")
   public String getFeePayer() {
     return feePayer;
   }
@@ -102,13 +111,31 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Gas fee
    * @return fee
   **/
-  @Schema(example = "0xa455", required = true, description = "Gas fee")
+  @Schema(example = "42069", required = true, description = "Gas fee")
   public String getFee() {
     return fee;
   }
 
   public void setFee(String fee) {
     this.fee = fee;
+  }
+
+  public KlayTransfer status(Integer status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Transaction status (&#x60;1&#x60;: success, &#x60;0&#x60;: failure)
+   * @return status
+  **/
+  @Schema(example = "1", required = true, description = "Transaction status (`1`: success, `0`: failure)")
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
   public KlayTransfer from(String from) {
@@ -120,7 +147,7 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Sender EOA (20-byte)
    * @return from
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Sender EOA (20-byte)")
   public String getFrom() {
     return from;
   }
@@ -138,7 +165,7 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Receiver EOA (20-byte)
    * @return to
   **/
-  @Schema(example = "0xb4bf60383c64d47f2e667f2fe8f7ed0c9380f770", required = true, description = "Receiver EOA (20-byte)")
+  @Schema(example = "1031886162996749679318352520149534827025669355376", required = true, description = "Receiver EOA (20-byte)")
   public String getTo() {
     return to;
   }
@@ -156,7 +183,7 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Transaction hash
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Transaction hash")
+  @Schema(example = "88941640552803633154072611475047379401865108829661485995735632343373081359608", required = true, description = "Transaction hash")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -183,16 +210,34 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
     this.transactionIndex = transactionIndex;
   }
 
+  public KlayTransfer blockNumber(Long blockNumber) {
+    this.blockNumber = blockNumber;
+    return this;
+  }
+
+   /**
+   * Number of the block with the transaction
+   * @return blockNumber
+  **/
+  @Schema(example = "5312105", required = true, description = "Number of the block with the transaction")
+  public Long getBlockNumber() {
+    return blockNumber;
+  }
+
+  public void setBlockNumber(Long blockNumber) {
+    this.blockNumber = blockNumber;
+  }
+
   public KlayTransfer transferType(String transferType) {
     this.transferType = transferType;
     return this;
   }
 
    /**
-   * Transactino type
+   * Transaction type
    * @return transferType
   **/
-  @Schema(example = "klay", required = true, description = "Transactino type")
+  @Schema(example = "klay", required = true, description = "Transaction type")
   public String getTransferType() {
     return transferType;
   }
@@ -219,6 +264,24 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
     this.typeInt = typeInt;
   }
 
+  public KlayTransfer timestamp(Long timestamp) {
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * The UNIX timestamp of when the transaction was submitted
+   * @return timestamp
+  **/
+  @Schema(example = "1592180992", required = true, description = "The UNIX timestamp of when the transaction was submitted")
+  public Long getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
+  }
+
   public KlayTransfer value(String value) {
     this.value = value;
     return this;
@@ -228,7 +291,7 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
    * Amount of KLAY transferred (in hexadecimal)
    * @return value
   **/
-  @Schema(example = "0xa", required = true, description = "Amount of KLAY transferred (in hexadecimal)")
+  @Schema(example = "10", required = true, description = "Amount of KLAY transferred (in hexadecimal)")
   public String getValue() {
     return value;
   }
@@ -250,18 +313,21 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
     return Objects.equals(this.feePayer, klayTransfer.feePayer) &&
         Objects.equals(this.feeRatio, klayTransfer.feeRatio) &&
         Objects.equals(this.fee, klayTransfer.fee) &&
+        Objects.equals(this.status, klayTransfer.status) &&
         Objects.equals(this.from, klayTransfer.from) &&
         Objects.equals(this.to, klayTransfer.to) &&
         Objects.equals(this.transactionHash, klayTransfer.transactionHash) &&
         Objects.equals(this.transactionIndex, klayTransfer.transactionIndex) &&
+        Objects.equals(this.blockNumber, klayTransfer.blockNumber) &&
         Objects.equals(this.transferType, klayTransfer.transferType) &&
         Objects.equals(this.typeInt, klayTransfer.typeInt) &&
+        Objects.equals(this.timestamp, klayTransfer.timestamp) &&
         Objects.equals(this.value, klayTransfer.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(feePayer, feeRatio, fee, from, to, transactionHash, transactionIndex, transferType, typeInt, value);
+    return Objects.hash(feePayer, feeRatio, fee, status, from, to, transactionHash, transactionIndex, blockNumber, transferType, typeInt, timestamp, value);
   }
 
 
@@ -273,12 +339,15 @@ public class KlayTransfer implements AnyOfTransferArrayItems {
     sb.append("    feePayer: ").append(toIndentedString(feePayer)).append("\n");
     sb.append("    feeRatio: ").append(toIndentedString(feeRatio)).append("\n");
     sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
     sb.append("    transactionIndex: ").append(toIndentedString(transactionIndex)).append("\n");
+    sb.append("    blockNumber: ").append(toIndentedString(blockNumber)).append("\n");
     sb.append("    transferType: ").append(toIndentedString(transferType)).append("\n");
     sb.append("    typeInt: ").append(toIndentedString(typeInt)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
