@@ -61,6 +61,7 @@ public class Config {
     public static String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
     public static String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
     public static String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
+    public static String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
@@ -105,6 +106,7 @@ public class Config {
         caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
         caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
         caver.initKIP7API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP7_API);
+        caver.initKIP37API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP37_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
