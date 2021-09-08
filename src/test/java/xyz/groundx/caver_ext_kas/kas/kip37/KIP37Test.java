@@ -1532,7 +1532,7 @@ public class KIP37Test {
         BigInteger tokenId = BigInteger.valueOf(30003);
         String tokenIdHex = Numeric.toHexStringWithPrefix(tokenId);
         createToken(testContractAddress, tokenId, BigInteger.ONE, "https://token-cdn-domain/0x02.json");
-        Thread.sleep(150000);
+        Thread.sleep(5000);
 
         Kip37TransactionStatusResponse response = caver.kas.kip37.pauseToken(testContractAddress, tokenIdHex, deployerAddress);
         getReceipt(caver, response.getTransactionHash());
