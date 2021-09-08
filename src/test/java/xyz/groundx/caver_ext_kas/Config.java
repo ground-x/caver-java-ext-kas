@@ -138,6 +138,7 @@ public class Config {
             URL_ANCHOR_API = loadEnvData(env, "URL_ANCHOR_API" + identifier);
             URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
             URL_KIP7_API = loadEnvData(env, "URL_KIP7_API" + identifier);
+            URL_KIP37_API = loadEnvData(env, "URL_KIP37_API" + identifier);
         }
 
         accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
