@@ -73,7 +73,10 @@ public class KIP37 {
      *
      * <pre>Example :
      * {@code
+     * String alias = "my-first-kip37";
+     * String uri = "https://token-cdn-domain/{id}.json";
      *
+     * Kip37DeployResponse response = caver.kas.kip37.deploy(uri, alias);
      * }
      * </pre>
      *
@@ -88,11 +91,28 @@ public class KIP37 {
 
     /**
      * Deploy KIP-37 contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * POST /v1/contract
      *
      * <pre>Example :
      * {@code
+     * String alias = "my-first-kip37";
+     * String uri = "https://token-cdn-domain/{id}.json";
      *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * Kip37DeployResponse response = caver.kas.kip37.deploy(uri, alias, option);
      * }
      * </pre>
      *
@@ -119,7 +139,14 @@ public class KIP37 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip37DeployResponse> callback = new ApiCallback<Kip37DeployResponse>() {
+     *     ....implements callback method
+     * };
      *
+     * String alias = "my-first-kip37";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     *
+     * caver.kas.kip37.deployAsync(uri, alias, option, callback);
      * }
      * </pre>
      * @param uri The URI that stores the contract's metadata.
@@ -133,14 +160,35 @@ public class KIP37 {
     }
 
     /**
-     * Deploy KIP-37 contract.<br>
+     * Deploy KIP-37 contract asynchronously.<br>
      * POST /v1/contract
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip37DeployResponse> callback = new ApiCallback<Kip37DeployResponse>() {
+     *     ....implements callback method
+     * };
      *
+     * String alias = "my-first-kip37";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * caver.kas.kip37.deployAsync(uri, alias, option, callback);
      * }
      * </pre>
+     *
      * @param uri The URI that stores the contract's metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
@@ -158,12 +206,12 @@ public class KIP37 {
     }
 
     /**
-     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time.
+     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time.<br>
      * GET /v1/contract
      *
      * <pre>Example :
      * {@code
-     *
+     * Kip37ContractListResponse response = caver.kas.kip37.getContractList();
      * }
      * </pre>
      *
@@ -176,12 +224,17 @@ public class KIP37 {
     }
 
     /**
-     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time.
+     * Get a list of all KIP-37 contracts by account.<br>
+     * The response items will be listed in the order of contract creation request time.<br>
      * GET /v1/contract
      *
      * <pre>Example :
      * {@code
+     * KIP37QueryOptions options = new KIP37QueryOptions();
+     * options.setSize(1);
+     * options.setStatus(KIP37QueryOptions.STATUS_TYPE.DEPLOYED);
      *
+     * Kip37ContractListResponse response = caver.kas.kip37.getContractList(options);
      * }
      * </pre>
      *
@@ -200,7 +253,10 @@ public class KIP37 {
      *
      * <pre>Example :
      * {@code
-     *
+     * ApiCallback<Kip37ContractListResponse> callback = new ApiCallback<Kip37ContractListResponse>() {
+     *     ....implements callback method
+     * };
+     * caver.kas.kip37.getContractListAsync(callback);
      * }
      * </pre>
      *
@@ -219,7 +275,15 @@ public class KIP37 {
      *
      * <pre>Example :
      * {@code
+     * ApiCallback<Kip37ContractListResponse> callback = new ApiCallback<Kip37ContractListResponse>() {
+     *     ....implements callback method
+     * };
      *
+     * KIP37QueryOptions options = new KIP37QueryOptions();
+     * options.setSize(1);
+     * options.setStatus(KIP37QueryOptions.STATUS_TYPE.DEPLOYED);
+     *
+     * caver.kas.kip37.getContractListAsync(options, callback);
      * }
      * </pre>
      *
@@ -239,7 +303,11 @@ public class KIP37 {
      *
      * <pre>Example :
      * {@code
+     * String contractAddress = "0x{contractAddress}";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     * String alias = "my-first-kip37";
      *
+     * Kip37Contract response = caver.kas.kip37.importContract(contractAddress, uri, alias);
      * }
      * </pre>
      *
@@ -256,6 +324,30 @@ public class KIP37 {
     /**
      * Import a contract that has already been deployed.<br>
      * POST /v1/contract/import
+     *
+     * <pre>Example :
+     * {@code
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     * String alias = "my-first-kip37";
+     *
+     * Kip37Contract response = caver.kas.kip37.importContract(contractAddress, uri, alias, option);
+     * }
+     * </pre>
+     *
      * @param contractAddress The contract address.
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
@@ -282,6 +374,15 @@ public class KIP37 {
      * <pre>Example :
      * {@code
      *
+     * ApiCallback<Kip37Contract> callback = new ApiCallback<Kip37Contract>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     * String alias = "my-first-kip37";
+     *
+     * caver.kas.kip37.importContractAsync(contractAddress, uri, alias, callback);
      * }
      * </pre>
      *
@@ -299,6 +400,35 @@ public class KIP37 {
     /**
      * Import a contract that has already been deployed asynchronously.<br>
      * POST /v1/contract/import
+     *
+     * <pre>Example :
+     * {@code
+     *
+     * ApiCallback<Kip37Contract> callback = new ApiCallback<Kip37Contract>() {
+     *     ....implements callback method
+     * };
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String uri = "https://token-cdn-domain/{id}.json";
+     * String alias = "my-first-kip37";
+     *
+     * caver.kas.kip37.importContractAsync(contractAddress, uri, alias, option, callback);
+     * }
+     * </pre>
+     *
      * @param contractAddress The contract address.
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
@@ -318,8 +448,16 @@ public class KIP37 {
     }
 
     /**
-     * Queries a specific contract using the alias or the contract address.
+     * Queries a specific contract using the alias or the contract address.<br>
      * GET /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{contract address}";
+     * Kip37Contract response = caver.kas.kip37.getContract(contractAddress);
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @return Kip37ContractListResponseItem
      * @throws ApiException
@@ -329,8 +467,20 @@ public class KIP37 {
     }
 
     /**
-     * Queries a specific contract using the alias or the contract address asynchronously.
+     * Queries a specific contract using the alias or the contract address asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip37ContractListResponse> callback = new ApiCallback<Kip37ContractListResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contract address}";
+     * caver.kas.kip37.getContractAsync(contractAddress, callback);
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
      * @return Call
@@ -343,8 +493,15 @@ public class KIP37 {
     /**
      * Updates the information of a KIP-37 contract.<br>
      * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
-     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>
+     * {@code
+     * Kip37Contract response = caver.kas.kip37.updateContractOptions("0x{contractAddress}");
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @return Kip37ContractListResponseItem
      * @throws ApiException
@@ -356,7 +513,28 @@ public class KIP37 {
 
     /**
      * Updates the information of a KIP-37 contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>
+     * {@code
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * Kip37Contract response = caver.kas.kip37.updateContractOptions("0x{contractAddress}", option);
+     * }
+     * </pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
      * @return Kip37ContractListResponseItem
@@ -373,8 +551,18 @@ public class KIP37 {
     /**
      * Updates the information of a KIP-37 contract.<br>
      * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
-     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>
+     *{@code
+     * ApiCallback<Kip37Contract> callback = new ApiCallback<Kip37Contract>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.kip37.updateContractOptionsAsync("0x{contractAddress}", callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
      * @return Call
@@ -387,7 +575,31 @@ public class KIP37 {
 
     /**
      * Updates the information of a KIP-37 contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>
+     *{@code
+     * ApiCallback<Kip37Contract> callback = new ApiCallback<Kip37Contract>() {
+     *     ....implements callback method
+     * };
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip37FeePayerOptionUserFeePayer userFeePayerOption = new Kip37FeePayerOptionUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * caver.kas.kip37.updateContractOptionsAsync("0x{contractAddress}", option, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
      * @param callback The callback to handle response.
@@ -402,8 +614,18 @@ public class KIP37 {
     }
 
     /**
-     * Grants authorization to a third party to transfer all tokens for a specified contract.
-     * POST /v1/contract/{contract-address-or-alias}/approveall
+     * Grants authorization to a third party to transfer all tokens for a specified contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/approveall<br>
+     *
+     * <pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}"
+     * String to = "0x{toAddress}"
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.setApprovalForAll(contractAddress, from, to);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param from The Klaytn account address of the owner.
      * @param to The Klaytn account address to be authorized for token transfer.
@@ -416,8 +638,18 @@ public class KIP37 {
 
 
     /**
-     * Grants or cancels authorization to a third party to transfer all tokens for a specified contract.
-     * POST /v1/contract/{contract-address-or-alias}/approveall
+     * Grants or cancels authorization to a third party to transfer all tokens for a specified contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/approveall<br>
+     *
+     * <pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}"
+     * String to = "0x{toAddress}"
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.setApprovalForAll(contractAddress, from, to, true);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param from The Klaytn account address of the owner.
      * @param to The Klaytn account address to be authorized for token transfer.
@@ -437,6 +669,20 @@ public class KIP37 {
     /**
      * Grants authorization to a third party to transfer all tokens for a specified contract asynchronously.
      * POST /v1/contract/{contract-address-or-alias}/approveall
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}"
+     * String to = "0x{toAddress}"
+     *
+     * caver.kas.kip37.setApprovalForAll(contractAddress, from, to, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param from The Klaytn account address of the owner.
      * @param to The Klaytn account address to be authorized for token transfer.
@@ -449,8 +695,22 @@ public class KIP37 {
     }
 
     /**
-     * Grants or cancels authorization to a third party to transfer all tokens for a specified contract asynchronously.
-     * POST /v1/contract/{contract-address-or-alias}/approveall
+     * Grants or cancels authorization to a third party to transfer all tokens for a specified contract asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/approveall<br>
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String from = "0x{fromAddress}"
+     * String to = "0x{toAddress}"
+     *
+     * caver.kas.kip37.setApprovalForAll(contractAddress, from, to, true, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param from The Klaytn account address of the owner.
      * @param to The Klaytn account address to be authorized for token transfer.
@@ -469,9 +729,17 @@ public class KIP37 {
     }
 
     /**
-     * Pauses all operation for a specified contract.
-     * It sets a pauser to contract deployer.
+     * Pauses all operation for a specified contract.<br>
+     * It sets a pauser to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     *<pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pause(contractAddress);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @return Kip37TransactionStatusResponse
      * @throws ApiException
@@ -481,8 +749,17 @@ public class KIP37 {
     }
 
     /**
-     * Pauses all operation for a specified contract.
+     * Pauses all operation for a specified contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     *<pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pause(contractAddress, pauser);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param pauser The pauser account to pause all contract operations
      * @return Kip37TransactionStatusResponse
@@ -496,9 +773,20 @@ public class KIP37 {
     }
 
     /**
-     * Pauses all operation for a specified contract asynchronously.
-     * It sets a pauser to contract deployer.
+     * Pauses all operation for a specified contract asynchronously.<br>
+     * It sets a pauser to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * caver.kas.kip37.pauseAsync(contractAddress, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
      * @return Kip37TransactionStatusResponse
@@ -509,8 +797,20 @@ public class KIP37 {
     }
 
     /**
-     * Pauses all operation for a specified contract asynchronously.
+     * Pauses all operation for a specified contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String puaser = "0x{pauserAddress}";
+     * caver.kas.kip37.pauseAsync(contractAddress, pauser, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param pauser The pauser account to pause all contract operations
      * @param callback The callback to handle response.
@@ -525,9 +825,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume the operations for a paused contract.
-     * It sets a pauser to contract deployer.
+     * Resume the operations for a paused contract.<br>
+     * It sets a pauser to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     *<pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpause(contractAddress);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @return Kip37TransactionStatusResponse
      * @throws ApiException
@@ -537,8 +845,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume the operations for a paused contract.
+     * Resume the operations for a paused contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     *<pre>
+     *{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpause(contractAddress, pauser);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param pauser The pauser account to resume all contract operations
      * @return Kip37TransactionStatusResponse
@@ -552,9 +869,20 @@ public class KIP37 {
     }
 
     /**
-     * Resume the operations for a paused contract asynchronously.
-     * It sets a pauser to contract deployer.
+     * Resume the operations for a paused contract asynchronously.<br>
+     * It sets a pauser to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * caver.kas.kip37.unpauseAsync(contractAddress, pauser, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
      * @return Call
@@ -565,8 +893,20 @@ public class KIP37 {
     }
 
     /**
-     * Resume the operations for a paused contract.
+     * Resume the operations for a paused contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     *<pre>
+     *{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String puaser = "0x{pauserAddress}";
+     * caver.kas.kip37.unpauseAsync(contractAddress, pauser, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param pauser The pauser account to resume all contract operations
      * @param callback The callback to handle response.
@@ -581,9 +921,18 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract.
-     * It sets a sender to contract deployer.
+     * Create a new token from a specified KIP-37 contract.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * BigInteger tokenId = BigInteger.ONE;
+     * BigInteger initialSupply = BigInteger.valueOf(1000);
+     * String uri = "https://token-cdn-domain/{0x01}.json";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.create(testContractAddress, tokenId, initialSupply, uri);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token. It cannot use an existing one.
      * @param initialSupply The initial supply of new token.
@@ -596,9 +945,18 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract.
-     * It sets a sender to contract deployer.
+     * Create a new token from a specified KIP-37 contract.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String tokenId = "0x02";
+     * String initialSupply = Numeric.toHexStringWithPrefix(BigInteger.valueOf(1000));
+     * String uri = "https://token-cdn-domain/{0x01}.json";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.create(testContractAddress, tokenId, initialSupply, uri);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token.(in hex, with the 0x prefix) It cannot use an existing one.
      * @param initialSupply The initial supply of new token.(in hex, with the 0x prefix)
@@ -611,8 +969,19 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract.
+     * Create a new token from a specified KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger initialSupply = BigIntger.valueOf(1000);
+     * String uri = "https://token-cdn-domain/0x01.json";
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.create(contractAddress, tokenId, initialSupply, uri, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token. It cannot use an existing one.
      * @param initialSupply The initial supply of new token.
@@ -622,12 +991,23 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TransactionStatusResponse create(String addressOrAlias, BigInteger tokenId, BigInteger initialSupply, String uri, String sender) throws ApiException {
-        return create(addressOrAlias, sender, Numeric.toHexStringWithPrefix(tokenId), Numeric.toHexStringWithPrefix(initialSupply), uri);
+        return create(addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), Numeric.toHexStringWithPrefix(initialSupply), uri, sender);
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract.
+     * Create a new token from a specified KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String initialSupply = "0x01";
+     * String uri = "https://token-cdn-domain/0x01.json";
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.create(contractAddress, tokenId, initialSupply, uri, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token.(in hex, with the 0x prefix) It cannot use an existing one.
      * @param initialSupply The initial supply of new token.(in hex, with the 0x prefix)
@@ -647,9 +1027,24 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract asynchronously.
-     * It sets a sender to contract deployer.
+     * Create a new token from a specified KIP-37 contract asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger initialSupply = BigIntger.valueOf(1000);
+     * String uri = "https://token-cdn-domain/0x01.json";
+     *
+     * caver.kas.kip37.createAsync(contractAddress, tokenId, initialSupply, uri, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token. It cannot use an existing one.
      * @param initialSupply The initial supply of new token.
@@ -663,9 +1058,24 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract asynchronously.
-     * It sets a sender to contract deployer.
+     * Create a new token from a specified KIP-37 contract asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String initialSupply = "0x01";
+     * String uri = "https://token-cdn-domain/0x01.json";
+     *
+     * caver.kas.kip37.createAsync(contractAddress, tokenId, initialSupply, uri, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token.(in hex, with the 0x prefix) It cannot use an existing one.
      * @param initialSupply The initial supply of new token.(in hex, with the 0x prefix)
@@ -679,8 +1089,24 @@ public class KIP37 {
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract asynchronously.
+     * Create a new token from a specified KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger initialSupply = BigIntger.valueOf(1000);
+     * String uri = "https://token-cdn-domain/0x01.json";
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.createAsync(contractAddress, tokenId, initialSupply, uri, sender, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token. It cannot use an existing one.
      * @param initialSupply The initial supply of new token.
@@ -691,12 +1117,28 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call createAsync(String addressOrAlias, BigInteger tokenId, BigInteger initialSupply, String uri, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        return createAsync(addressOrAlias, sender, Numeric.toHexStringWithPrefix(tokenId), Numeric.toHexStringWithPrefix(initialSupply), uri, callback);
+        return createAsync(addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), Numeric.toHexStringWithPrefix(initialSupply), uri, sender, callback);
     }
 
     /**
-     * Create a new token from a specified KIP-37 contract asynchronously.
+     * Create a new token from a specified KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String initialSupply = "0x01";
+     * String uri = "https://token-cdn-domain/0x01.json";
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.createAsync(contractAddress, tokenId, initialSupply, uri, sender, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The ID of new token.(in hex, with the 0x prefix) It cannot use an existing one.
      * @param initialSupply The initial supply of new token.(in hex, with the 0x prefix)
@@ -717,8 +1159,13 @@ public class KIP37 {
     }
 
     /**
-     * Retrieve a list of KIP-37 tokens.
+     * Retrieve a list of KIP-37 tokens.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * Kip37TokenInfoListResponse response = caver.kas.kip37.getTokenList("0x{contractAddress}");
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @return Kip37TokenInfoListResponse
      * @throws ApiException
@@ -728,8 +1175,16 @@ public class KIP37 {
     }
 
     /**
-     * Retrieve a list of KIP-37 tokens.
+     * Retrieve a list of KIP-37 tokens.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * KIP37QueryOptions options = new KIP37QueryOptions();
+     * options.setSize(1);
+     *
+     * Kip37TokenInfoListResponse response = caver.kas.kip37.getTokenList("0x{contractAddress}", options);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param queryOptions Filters required when retrieving data. `size`, `cursor`.
      * @return Kip37TokenInfoListResponse
@@ -740,8 +1195,17 @@ public class KIP37 {
     }
 
     /**
-     * Retrieve a list of KIP-37 tokens asynchronously.
+     * Retrieve a list of KIP-37 tokens asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TokenInfoListResponse> callback = new ApiCallback<Kip37TokenInfoListResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.kip37.getTokenListAsync("0x{contractAddress}", callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
      * @return Kip37TokenInfoListResponse
@@ -752,8 +1216,20 @@ public class KIP37 {
     }
 
     /**
-     * Retrieve a list of KIP-37 tokens asynchronously.
+     * Retrieve a list of KIP-37 tokens asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TokenInfoListResponse> callback = new ApiCallback<Kip37TokenInfoListResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * KIP37QueryOptions options = new KIP37QueryOptions();
+     * options.setSize(1);
+     *
+     * caver.kas.kip37.getTokenListAsync("0x{contractAddress}", options, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param queryOptions Filters required when retrieving data. `size`, `cursor`.
      * @param callback The callback to handle response.
@@ -765,9 +1241,114 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 token.<br>
+     * It sets a sender to contract deployer.<br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenId, amount);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.
+     * @param amount The token amount to burn.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse burn(String addressOrAlias, BigInteger id, BigInteger amount) throws ApiException {
+        return burn(addressOrAlias, id, amount, null);
+    }
+
+    /**
+     * Burns KIP-37 token.<br>
+     * It sets a sender to contract deployer.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenId, amount);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.(in hex, with the 0x prefix)
+     * @param amount The token amount to burn.(in hex, with the 0x prefix)
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse burn(String addressOrAlias, String id, String amount) throws ApiException {
+        return burn(addressOrAlias, id, amount, null);
+    }
+
+    /**
+     * Burns KIP-37 token.<br>
+     * It sets a sender to contract deployer.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     * String from = "0x{fromAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenId, amount, from);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.
+     * @param amount The token amount to burn.
+     * @param from The owner of the token or the account that authorized to burn.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse burn(String addressOrAlias, BigInteger id, BigInteger amount, String from) throws ApiException {
+        return burn(addressOrAlias, new BigInteger[]{id}, new BigInteger[]{amount}, from);
+    }
+
+    /**
+     * Burns KIP-37 tokens.<br>
+     * It sets a sender to contract deployer.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     * String from = "0x{fromAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenId, amount, from);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.(in hex, with the 0x prefix)
+     * @param amount The token amount to burn.(in hex, with the 0x prefix)
+     * @param from The owner of the token or the account that authorized to burn.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse burn(String addressOrAlias, String id, String amount, String from) throws ApiException {
+        return burn(addressOrAlias, new String[]{id}, new String[]{amount}, from);
+    }
+
+    /**
+     * Burns KIP-37 tokens.<br>
+     * It sets a sender to contract deployer.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] burnAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenIdArray, burnAmountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.
      * @param amounts The array of token amount to burn.
@@ -775,16 +1356,25 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TransactionStatusResponse burn(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
 
         return burn(addressOrAlias, ids_hex, amounts_hex, null);
     }
 
     /**
-     * Burns KIP-37 tokens.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens.<br>
+     * It sets a sender to contract deployer.<br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] burnAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenIdArray, burnAmountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.(in hex, with the 0x prefix)
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
@@ -796,8 +1386,18 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens.
+     * Burns KIP-37 tokens.<br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] burnAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     * String from = "0x{fromAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenIdArray, burnAmountArray, from);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.
      * @param amounts The array of token amount to burn.
@@ -806,15 +1406,25 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TransactionStatusResponse burn(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts, String from) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
 
         return burn(addressOrAlias, ids_hex, amounts_hex, from);
     }
 
     /**
-     * Burns KIP-37 tokens.
+     * Burns KIP-37 tokens.<br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] burnAmountArray = new String[]{"0x01", "0x01"};
+     * String from = "0x{fromAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.burn(contractAddress, tokenIdArray, burnAmountArray, from);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.(in hex, with the 0x prefix)
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
@@ -832,9 +1442,143 @@ public class KIP37 {
     }
 
     /**
+     * Burns KIP-37 tokens asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenId, amount, callback);
+     *
+     *
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.
+     * @param amount The token amount to burn.
+     * @param callback The callback to handle response.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, BigInteger id, BigInteger amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, id, amount, null, callback);
+    }
+
+    /**
      * Burns KIP-37 tokens asynchronously.
      * It sets a sender to contract deployer.
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenId, amount, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.(in hex, with the 0x prefix)
+     * @param amount The token amount to burn.(in hex, with the 0x prefix)
+     * @param callback The callback to handle response.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, String id, String amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, id, amount, null, callback);
+    }
+
+    /**
+     * Burns KIP-37 tokens asynchronously.
+     * It sets a sender to contract deployer.
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     * String from = "0x{fromAddress}";
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenId, amount, from, callback);
+     *
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.
+     * @param amount The token amount to burn.
+     * @param from The owner of the token or the account that authorized to burn.
+     * @param callback The callback to handle response.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, BigInteger id, BigInteger amount, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, new BigInteger[]{id}, new BigInteger[]{amount}, from, callback);
+    }
+
+    /**
+     * Burns KIP-37 tokens asynchronously.
+     * It sets a sender to contract deployer.
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     * String from = "0x{fromAddress}";
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenId, amount, from, callback);
+     *
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param id The token id to burn.(in hex, with the 0x prefix)
+     * @param amount The token amount to burn.(in hex, with the 0x prefix)
+     * @param from The owner of the token or the account that authorized to burn.
+     * @param callback The callback to handle response.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call burnAsync(String addressOrAlias, String id, String amount, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return burnAsync(addressOrAlias, new String[]{id}, new String[]{amount}, null, callback);
+    }
+
+    /**
+     * Burns KIP-37 tokens asynchronously.
+     * It sets a sender to contract deployer.
+     * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] burnAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenIdArray, burnAmountArray, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.
      * @param amounts The array of token amount to burn.
@@ -843,8 +1587,8 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
 
         return burnAsync(addressOrAlias, ids_hex, amounts_hex, null, callback);
     }
@@ -853,6 +1597,19 @@ public class KIP37 {
      * Burns KIP-37 tokens asynchronously.
      * It sets a sender to contract deployer.
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] burnAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenIdArray, burnAmountArray, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.(in hex, with the 0x prefix)
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
@@ -867,6 +1624,21 @@ public class KIP37 {
     /**
      * Burns KIP-37 tokens asynchronously.
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] burnAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     * String from = "0x{fromAddress}";
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenIdArray, burnAmountArray, from, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.
      * @param amounts The array of token amount to burn.
@@ -876,8 +1648,8 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
 
         return burnAsync(addressOrAlias, ids_hex, amounts_hex, from, callback);
     }
@@ -885,6 +1657,20 @@ public class KIP37 {
     /**
      * Burns KIP-37 tokens asynchronously.
      * DELETE /v1/contract/{contract-address-or-alias}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] burnAmountArray = new String[]{"0x01", "0x01"};
+     * String from = "0x{fromAddress}";
+     *
+     * caver.kas.kip37.burnAsync(contractAddress, tokenIdArray, burnAmountArray, from, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ids The array of token id to burn.(in hex, with the 0x prefix)
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
@@ -903,9 +1689,121 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
-     * It sets a sender to contract deployer.
+     * Mint token for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenId, amount);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id The token id to mint additionally.
+     * @param amount The token amount to mint additionally.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger id, BigInteger amount) throws ApiException {
+        return mint(addressOrAlias, to, id, amount, null);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenId, amount);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id The token id to mint additionally.(in hex, with the 0x prefix)
+     * @param amount The token amount to mint additionally.(in hex, with the 0x prefix)
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse mint(String addressOrAlias, String to, String id, String amount) throws ApiException {
+        return mint(addressOrAlias, to, id, amount, null);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenId, amount, sender);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id The token id to mint additionally.
+     * @param amount The token amount to mint additionally.
+     * @param sender The account address to mint token additionally.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger id, BigInteger amount, String sender) throws ApiException {
+        return mint(addressOrAlias, to, new BigInteger[]{id}, new BigInteger[]{amount}, sender);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenId, amount, sender);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id Array of the token ids to mint additionally.(in hex, with the 0x prefix)
+     * @param amount Array of the token amount to mint additionally.(in hex, with the 0x prefix)
+     * @param sender The account address to mint token additionally.
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip37TransactionStatusResponse mint(String addressOrAlias, String to, String id, String amount, String sender) throws ApiException {
+        return mint(addressOrAlias, to, new String[]{id}, new String[]{amount}, sender);
+    }
+
+    /**
+     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] mintAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenIdArray, mintAmountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.
@@ -918,9 +1816,19 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
-     * It sets a sender to contract deployer.
+     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] mintAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenIdArray, mintAmountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.(in hex, with the 0x prefix)
@@ -933,8 +1841,19 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
+     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] mintAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenIdArray, mintAmountArray, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.
@@ -944,14 +1863,25 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger[] ids, BigInteger[] amounts, String sender) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
         return mint(addressOrAlias, to, ids_hex, amounts_hex, sender);
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
+     * Mint multiple tokens for a given KIP-37 contract. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] mintAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.mint(contractAddress, to, tokenIdArray, mintAmountArray, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.(in hex, with the 0x prefix)
@@ -970,9 +1900,145 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
-     * It sets a sender to contract deployer.
+     * Mint token for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenId, amount. callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id Array of the token ids to mint additionally.
+     * @param amount Array of the token amount to mint additionally.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, BigInteger id, BigInteger amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, id, amount, null, callback);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenId, amount, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id Array of the token ids to mint additionally.(in hex, with the 0x prefix)
+     * @param amount Array of the token amount to mint additionally.(in hex, with the 0x prefix)
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, String id, String amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, id, amount, null, callback);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInteger amount = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenId, amount, sender, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id Array of the token ids to mint additionally.
+     * @param amount Array of the token amount to mint additionally.
+     * @param sender The account address to mint token additionally.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, BigInteger id, BigInteger amount, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, new BigInteger[]{id}, new BigInteger[]{amount}, sender, callback);
+    }
+
+    /**
+     * Mint token for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * String tokenId = "0x01";
+     * String amount = "0x01";
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenId, amount, sender, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
+     * @param to The account address of the token owner.
+     * @param id Array of the token ids to mint additionally.(in hex, with the 0x prefix)
+     * @param amount Array of the token amount to mint additionally.(in hex, with the 0x prefix)
+     * @param sender The account address to mint token additionally.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, String id, String amount, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, new String[]{id}, new String[]{amount}, sender, callback);
+    }
+
+    /**
+     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] mintAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenIdArray, mintAmountArray, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.
@@ -986,9 +2052,23 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
-     * It sets a sender to contract deployer.
+     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] mintAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenIdArray, mintAmountArray, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.(in hex, with the 0x prefix)
@@ -1002,8 +2082,23 @@ public class KIP37 {
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
+     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] mintAmountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenIdArray, mintAmountArray, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.
@@ -1014,14 +2109,29 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call mintAsync(String addressOrAlias, String to, BigInteger[] ids, BigInteger[] amounts, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
         return mintAsync(addressOrAlias, to, ids_hex, amounts_hex, sender, callback);
     }
 
     /**
-     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}
+     * Mint multiple tokens for a given KIP-37 contract asynchronously. Minting is possible after having created a token with {@link KIP37#create(String, BigInteger, BigInteger, String, String)}<br>
      * POST /v1/contract/{contract-address-or-alias}/token/mint
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String to = "0x{toAddress}";
+     * String sender = "0x{senderAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] mintAmountArray = new String[]{"0x01", "0x01"};
+     *
+     * caver.kas.kip37.mintAsync(contractAddress, to, tokenIdArray, mintAmountArray, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param to The account address of the token owner.
      * @param ids Array of the token ids to mint additionally.(in hex, with the 0x prefix)
@@ -1041,8 +2151,20 @@ public class KIP37 {
     }
 
     /**
-     * Sends a token for a given KIP-37 contract.
+     * Sends a token for a given KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInger amount = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.transfer(contractAddress, sender, owner, to, tokenId, amount);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1057,8 +2179,20 @@ public class KIP37 {
     }
 
     /**
-     * Sends a token for a given KIP-37 contract.
+     * Sends a token for a given KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * String tokenId = "0x1";
+     * String amount = "0x1";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.transfer(contractAddress, sender, owner, to, tokenId, amount);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1073,8 +2207,20 @@ public class KIP37 {
     }
 
     /**
-     * Sends multiple tokens for a given KIP-37 contract.
+     * Sends multiple tokens for a given KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] amountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.transfer(contractAddress, sender, owner, to, tokenIdArray, amountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1085,14 +2231,26 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TransactionStatusResponse transfer(String addressOrAlias, String sender, String owner, String to, BigInteger[] ids, BigInteger[] amounts) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
         return transfer(addressOrAlias, sender, owner, to, ids_hex, amounts_hex);
     }
 
     /**
-     * Sends multiple tokens for a given KIP-37 contract.
+     * Sends multiple tokens for a given KIP-37 contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] amountArray = new String[]{"0x01", "0x01"};
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.transfer(contractAddress, sender, owner, to, tokenIdArray, amountArray);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1114,8 +2272,25 @@ public class KIP37 {
     }
 
     /**
-     * Sends a token for a given KIP-37 contract asynchronously.
+     * Sends a token for a given KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * BigInger amount = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.transferAsync(contractAddress, sender, owner, to, tokenId, amount, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1131,8 +2306,25 @@ public class KIP37 {
     }
 
     /**
-     * Sends a token for a given KIP-37 contract asynchronously.
+     * Sends a token for a given KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * String tokenId = "0x1";
+     * String amount = "0x1";
+     *
+     * caver.kas.kip37.transferAsync(contractAddress, sender, owner, to, tokenId, amount, callback);
+     *
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1148,8 +2340,24 @@ public class KIP37 {
     }
 
     /**
-     * Sends multiple tokens for a given KIP-37 contract asynchronously.
+     * Sends multiple tokens for a given KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * BigInteger[] tokenIdArray = new BigInteger[]{BigInteger.valueOf(1), BigInteger.valueOf(2)};
+     * BigInteger[] amountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
+     *
+     * caver.kas.kip37.transferAsync(contractAddress, sender, owner, to, tokenIdArray, amountArray, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1161,15 +2369,31 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call transferAsync(String addressOrAlias, String sender, String owner, String to, BigInteger[] ids, BigInteger[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        String[] ids_hex = (String[]) Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray();
-        String[] amounts_hex = (String[]) Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray();
+        String[] ids_hex = Arrays.stream(ids).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
+        String[] amounts_hex = Arrays.stream(amounts).map(Numeric::toHexStringWithPrefix).toArray(String[]::new);
         return transferAsync(addressOrAlias, sender, owner, to, ids_hex, amounts_hex, callback);
     }
 
 
     /**
-     * Sends multiple tokens for a given KIP-37 contract asynchronously.
+     * Sends multiple tokens for a given KIP-37 contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/transfer
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String sender = "0x{senderAddress}";
+     * String owner = "0x{ownerAddress}";
+     * String to = "0x{toAddress}";
+     * String[] tokenIdArray = new String[]{"0x01", "0x02"};
+     * String[] amountArray = new String[]{"0x01", "0x01"};
+     *
+     * caver.kas.kip37.transferAsync(contractAddress, sender, owner, to, tokenIdArray, amountArray, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param sender The account address to send the token.
      * @param owner The account address that owned the token.
@@ -1192,9 +2416,17 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens.
-     * It sets a sender to contract deployer.
+     * Pause the operations of a specified token, such as minting and creating tokens.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pauseToken(contractAddress, tokenId);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @return Kip37TransactionStatusResponse
@@ -1205,9 +2437,17 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens.
-     * It sets a sender to contract deployer.
+     * Pause the operations of a specified token, such as minting and creating tokens.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pauseToken(contractAddress, tokenId);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @return Kip37TransactionStatusResponse
@@ -1218,8 +2458,17 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens.
-     * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     * Pause the operations of a specified token, such as minting and creating tokens.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}<br>
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pauseToken(contractAddress, tokenId, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param sender The account address to execute token operations.
@@ -1231,8 +2480,17 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens.
-     * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     * Pause the operations of a specified token, such as minting and creating tokens.<br>
+     * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}<br>
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.pauseToken(contractAddress, tokenId, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param sender The account address to execute token operations.
@@ -1247,9 +2505,21 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.pauseTokenAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param callback The callback to handle response.
@@ -1261,8 +2531,20 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip37.pauseTokenAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
@@ -1275,8 +2557,21 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.
+     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.pauseTokenAsync(contractAddress, tokenId, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param sender The account address to execute token operations.
@@ -1289,8 +2584,21 @@ public class KIP37 {
     }
 
     /**
-     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.
+     * Pause the operations of a specified token, such as minting and creating tokens asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/pause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.pauseTokenAsync(contractAddress, tokenId, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param sender The account address to execute token operations.
@@ -1306,9 +2614,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract.
-     * It sets a sender to contract deployer.
+     * Resume paused token operation for a given contract.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpauseToken(contractAddress, tokenId);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @return Kip37TransactionStatusResponse
@@ -1319,9 +2635,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract.
-     * It sets a sender to contract deployer.
+     * Resume paused token operation for a given contract.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpauseToken(contractAddress, tokenId);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @return Kip37TransactionStatusResponse
@@ -1332,8 +2656,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract.
+     * Resume paused token operation for a given contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpauseToken(contractAddress, tokenId, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param sender The account address to execute token operations.
@@ -1345,8 +2678,17 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract.
+     * Resume paused token operation for a given contract.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     * String sender = "0x{senderAddress}";
+     *
+     * Kip37TransactionStatusResponse response = caver.kas.kip37.unpauseToken(contractAddress, tokenId, sender);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param sender The account address to execute token operations.
@@ -1361,9 +2703,21 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract asynchronously.
-     * It sets a sender to contract deployer.
+     * Resume paused token operation for a given contract asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     *
+     * caver.kas.kip37.unpauseTokenAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param callback The callback to handle response.
@@ -1375,9 +2729,21 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract asynchronously.
-     * It sets a sender to contract deployer.
+     * Resume paused token operation for a given contract asynchronously.<br>
+     * It sets a sender to contract deployer.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     *
+     * caver.kas.kip37.unpauseTokenAsync(contractAddress, tokenId, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
@@ -1389,8 +2755,21 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract asynchronously.
+     * Resume paused token operation for a given contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * BigInteger tokenId = BigInteger.valueOf(1);
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.unpauseTokenAsync(contractAddress, tokenId, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param sender The account address to execute token operations.
@@ -1403,8 +2782,21 @@ public class KIP37 {
     }
 
     /**
-     * Resume paused token operation for a given contract asynchronously.
+     * Resume paused token operation for a given contract asynchronously.<br>
      * POST /v1/contract/{contract-address-or-alias}/token/unpause/{token-id}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TransactionStatusResponse> callback = new ApiCallback<Kip37TransactionStatusResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String tokenId = "0x1";
+     * String sender = "0x{senderAddress}";
+     *
+     * caver.kas.kip37.unpauseTokenAsync(contractAddress, tokenId, sender, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param sender The account address to execute token operations.
@@ -1420,8 +2812,16 @@ public class KIP37 {
     }
 
     /**
-     * Retrieves a list of tokens owned by a certain account.
+     * Retrieves a list of tokens owned by a certain account.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}/token
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * Kip37TokenListResponse response = caver.kas.kip37.getTokenListByOwner(contractAddress, ownerAddress);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ownerAddress The owner account to query.
      * @return Kip37TokenListResponse
@@ -1432,8 +2832,19 @@ public class KIP37 {
     }
 
     /**
-     * Retrieves a list of tokens owned by a certain account.
+     * Retrieves a list of tokens owned by a certain account.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}/token
+     *
+     * <pre>{@code
+     * KIP37QueryOptions queryOptions = new KIP37QueryOptions();
+     * queryOptions.setSize(1);
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * Kip37TokenListResponse response = caver.kas.kip37.getTokenListByOwner(contractAddress, ownerAddress, queryOptions);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ownerAddress The owner account to query.
      * @param queryOptions Filters required when retrieving data. `size`, `cursor` and `status`
@@ -1445,8 +2856,20 @@ public class KIP37 {
     }
 
     /**
-     * Retrieves a list of tokens owned by a certain account asynchronously.
+     * Retrieves a list of tokens owned by a certain account asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TokenListResponse> callback = new ApiCallback<Kip37TokenListResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * caver.kas.kip37.getTokenListByOwnerAsync(contractAddress, ownerAddress, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ownerAddress The owner account to query.
      * @param callback The callback to handle response.
@@ -1458,8 +2881,23 @@ public class KIP37 {
     }
 
     /**
-     * Retrieves a list of tokens owned by a certain account asynchronously.
+     * Retrieves a list of tokens owned by a certain account asynchronously.<br>
      * GET /v1/contract/{contract-address-or-alias}/owner/{owner-address}/token
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37TokenListResponse> callback = new ApiCallback<Kip37TokenListResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * KIP37QueryOptions queryOptions = new KIP37QueryOptions();
+     * queryOptions.setSize(1);
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String ownerAddress = "0x{ownerAddress}";
+     *
+     * caver.kas.kip37.getTokenListByOwnerAsync(contractAddress, ownerAddress, queryOptions, callback);
+     * }</pre>
+     *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param ownerAddress The owner account to query.
      * @param queryOptions Filters required when retrieving data. `size`, `cursor` and `status`
@@ -1472,8 +2910,13 @@ public class KIP37 {
     }
 
     /**
-     * Retrieves a contract deployer account.
+     * Retrieves a contract deployer account.<br>
      * GET /v1/deployer/default
+     *
+     * <pre>{@code
+     * Kip37DeployerResponse response = caver.kas.kip37.getDeployer();
+     * }</pre>
+     *
      * @return Kip37DeployerResponse
      * @throws ApiException
      */
@@ -1482,8 +2925,17 @@ public class KIP37 {
     }
 
     /**
-     * Retrieving a contract deployer account asynchronously.
+     * Retrieving a contract deployer account asynchronously.<br>
      * GET /v1/deployer/default
+     *
+     * <pre>{@code
+     * ApiCallback<Kip37DeployerResponse> callback = new ApiCallback<Kip37DeployerResponse>() {
+     *     ....implements callback method
+     * };
+     *
+     * caver.kas.kip37.getDeployerAsync(callback);
+     * }</pre>
+     *
      * @param callback The callback to handle response
      * @return Call
      * @throws ApiException
