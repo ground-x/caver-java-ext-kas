@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOption;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOptionResponse;
 /**
  * Kip37DeployResponse
  */
@@ -38,7 +38,7 @@ public class Kip37DeployResponse {
   private String uri = null;
 
   @SerializedName("options")
-  private Kip37FeePayerOption options = null;
+  private Kip37FeePayerOptionResponse options = null;
 
   public Kip37DeployResponse status(String status) {
     this.status = status;
@@ -94,7 +94,7 @@ public class Kip37DeployResponse {
     this.uri = uri;
   }
 
-  public Kip37DeployResponse options(Kip37FeePayerOption options) {
+  public Kip37DeployResponse options(Kip37FeePayerOptionResponse options) {
     this.options = options;
     return this;
   }
@@ -104,11 +104,11 @@ public class Kip37DeployResponse {
    * @return options
   **/
   @Schema(description = "")
-  public Kip37FeePayerOption getOptions() {
+  public Kip37FeePayerOptionResponse getOptions() {
     return options;
   }
 
-  public void setOptions(Kip37FeePayerOption options) {
+  public void setOptions(Kip37FeePayerOptionResponse options) {
     this.options = options;
   }
 

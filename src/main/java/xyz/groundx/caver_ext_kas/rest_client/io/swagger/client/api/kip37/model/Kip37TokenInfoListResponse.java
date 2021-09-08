@@ -21,6 +21,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TokenInfoListResponseItem;
 /**
  * Kip37TokenInfoListResponse
@@ -29,13 +31,18 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.K
 
 public class Kip37TokenInfoListResponse {
   @SerializedName("items")
-  private Kip37TokenInfoListResponseItem items = null;
+  private List<Kip37TokenInfoListResponseItem> items = new ArrayList<Kip37TokenInfoListResponseItem>();
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public Kip37TokenInfoListResponse items(Kip37TokenInfoListResponseItem items) {
+  public Kip37TokenInfoListResponse items(List<Kip37TokenInfoListResponseItem> items) {
     this.items = items;
+    return this;
+  }
+
+  public Kip37TokenInfoListResponse addItemsItem(Kip37TokenInfoListResponseItem itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
@@ -44,11 +51,11 @@ public class Kip37TokenInfoListResponse {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public Kip37TokenInfoListResponseItem getItems() {
+  public List<Kip37TokenInfoListResponseItem> getItems() {
     return items;
   }
 
-  public void setItems(Kip37TokenInfoListResponseItem items) {
+  public void setItems(List<Kip37TokenInfoListResponseItem> items) {
     this.items = items;
   }
 

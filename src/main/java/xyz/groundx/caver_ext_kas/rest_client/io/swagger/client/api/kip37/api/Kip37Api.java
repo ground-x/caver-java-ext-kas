@@ -144,7 +144,7 @@ public class Kip37Api {
 
     /**
      * Grant/Remove Authorization for Token Transfers
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -158,7 +158,7 @@ public class Kip37Api {
 
     /**
      * Grant/Remove Authorization for Token Transfers
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -173,7 +173,7 @@ public class Kip37Api {
 
     /**
      * Grant/Remove Authorization for Token Transfers (asynchronously)
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -283,7 +283,7 @@ public class Kip37Api {
 
     /**
      * Burn KIP-37 Token
-     * Burns KIP-37 tokens.  ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -297,7 +297,7 @@ public class Kip37Api {
 
     /**
      * Burn KIP-37 Token
-     * Burns KIP-37 tokens.  ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -312,7 +312,7 @@ public class Kip37Api {
 
     /**
      * Burn KIP-37 Token (asynchronously)
-     * Burns KIP-37 tokens.  ## From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -422,7 +422,7 @@ public class Kip37Api {
 
     /**
      * Mint a KIP-37 Token
-     * Create a new token from a specified KIP-37 contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -436,7 +436,7 @@ public class Kip37Api {
 
     /**
      * Mint a KIP-37 Token
-     * Create a new token from a specified KIP-37 contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -451,7 +451,7 @@ public class Kip37Api {
 
     /**
      * Mint a KIP-37 Token (asynchronously)
-     * Create a new token from a specified KIP-37 contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -555,7 +555,7 @@ public class Kip37Api {
 
     /**
      * Deploy KIP-37 Contract
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return Kip37DeployResponse
@@ -568,7 +568,7 @@ public class Kip37Api {
 
     /**
      * Deploy KIP-37 Contract
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip37DeployResponse&gt;
@@ -582,7 +582,7 @@ public class Kip37Api {
 
     /**
      * Deploy KIP-37 Contract (asynchronously)
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -831,7 +831,7 @@ public class Kip37Api {
 
     /**
      * Get KIP-37 Token List
-     * Returns a list of KIP-37 tokens.   ## Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The maximum number of items to return (optional)
@@ -846,7 +846,7 @@ public class Kip37Api {
 
     /**
      * Get KIP-37 Token List
-     * Returns a list of KIP-37 tokens.   ## Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The maximum number of items to return (optional)
@@ -862,7 +862,7 @@ public class Kip37Api {
 
     /**
      * Get KIP-37 Token List (asynchronously)
-     * Returns a list of KIP-37 tokens.   ## Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The maximum number of items to return (optional)
@@ -1123,7 +1123,7 @@ public class Kip37Api {
 
     /**
      * Import KIP-37 Contract
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return Kip37Contract
@@ -1136,7 +1136,7 @@ public class Kip37Api {
 
     /**
      * Import KIP-37 Contract
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip37Contract&gt;
@@ -1150,7 +1150,7 @@ public class Kip37Api {
 
     /**
      * Import KIP-37 Contract (asynchronously)
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -1403,7 +1403,7 @@ public class Kip37Api {
 
     /**
      * Mint Additional KIP-37 Tokens
-     * Mint multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1417,7 +1417,7 @@ public class Kip37Api {
 
     /**
      * Mint Additional KIP-37 Tokens
-     * Mint multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1432,7 +1432,7 @@ public class Kip37Api {
 
     /**
      * Mint Additional KIP-37 Tokens (asynchronously)
-     * Mint multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1542,7 +1542,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Contract
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ## Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1556,7 +1556,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Contract
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ## Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1571,7 +1571,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Contract (asynchronously)
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ## Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1687,7 +1687,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Token Operations
-     * Pause the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to pause operations (required)
@@ -1702,7 +1702,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Token Operations
-     * Pause the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to pause operations (required)
@@ -1718,7 +1718,7 @@ public class Kip37Api {
 
     /**
      * Pause KIP-37 Token Operations (asynchronously)
-     * Pause the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to pause operations (required)
@@ -1829,7 +1829,7 @@ public class Kip37Api {
 
     /**
      * Edit KIP-37 Contract Information
-     * Edits the information of a contract. &lt;br/&gt;  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1843,7 +1843,7 @@ public class Kip37Api {
 
     /**
      * Edit KIP-37 Contract Information
-     * Edits the information of a contract. &lt;br/&gt;  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1858,7 +1858,7 @@ public class Kip37Api {
 
     /**
      * Edit KIP-37 Contract Information (asynchronously)
-     * Edits the information of a contract. &lt;br/&gt;  ## Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1968,7 +1968,7 @@ public class Kip37Api {
 
     /**
      * Send KIP-37 Token
-     * Sends multiple tokens for a given KIP-37 contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1982,7 +1982,7 @@ public class Kip37Api {
 
     /**
      * Send KIP-37 Token
-     * Sends multiple tokens for a given KIP-37 contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1997,7 +1997,7 @@ public class Kip37Api {
 
     /**
      * Send KIP-37 Token (asynchronously)
-     * Sends multiple tokens for a given KIP-37 contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ## Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -2107,7 +2107,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Contract
-     * Resume the operations for a paused contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -2121,7 +2121,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Contract
-     * Resume the operations for a paused contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -2136,7 +2136,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Contract (asynchronously)
-     * Resume the operations for a paused contract.  ## Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -2252,7 +2252,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Token Operations
-     * Resume paused token operations for a given contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to resume operations (required)
@@ -2267,7 +2267,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Token Operations
-     * Resume paused token operations for a given contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to resume operations (required)
@@ -2283,7 +2283,7 @@ public class Kip37Api {
 
     /**
      * Resume KIP-37 Token Operations (asynchronously)
-     * Resume paused token operations for a given contract.  ## Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param tokenId ID of the token to resume operations (required)
