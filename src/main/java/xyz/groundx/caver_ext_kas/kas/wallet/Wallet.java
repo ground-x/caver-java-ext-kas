@@ -141,6 +141,12 @@ public class Wallet {
         if (this.rpc == null) {
             throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
         }
+        if (this.rpc.getWeb3jService() instanceof HttpService) {
+            String url = ((HttpService)this.rpc.getWeb3jService()).getUrl();
+            if (url.contains("localhost")) {
+                throw new RuntimeException("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
+            }
+        }
 
         // Need to validate whether given list of migration accounts is valid or not.
         for (int i=0; i<accountsToBeMigarted.size(); i++) {

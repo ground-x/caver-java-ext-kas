@@ -3239,7 +3239,8 @@ public class WalletAPITest {
     public void migrate_throwException_withoutInitializingNodeAPI() throws ApiException, NoSuchFieldException, IOException {
         // This test case is assuming that the user does not directly launch the KAS service on the local host.
         // Since it is unlikely that the KAS service will be run on the local host and tested, this test case will be kept as it is.
-        expectedException.expect(java.net.ConnectException.class);
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
 
         CaverExtKAS caverExtKAS = new CaverExtKAS();
         caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
