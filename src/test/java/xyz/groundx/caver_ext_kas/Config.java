@@ -24,6 +24,7 @@ import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.kct.kip17.KIP17;
 import com.klaytn.caver.kct.kip17.KIP17ConstantData;
 import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip37.KIP37;
 import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.kct.kip7.KIP7DeployParams;
@@ -274,26 +275,9 @@ public class Config {
 
     public static String deployKIP37(Caver caver, String deployer) {
         try {
-            Contract contract = new Contract(caver, KIP37ConstantData.ABI);
-            ContractDeployParams contractDeployParams = new ContractDeployParams(KIP37ConstantData.BINARY, "uri");
+            KIP37 kip37 = KIP37.deploy(caver, "uri", deployer, keyringContainer);
 
-            String input = ABI.encodeContractDeploy(contract.getConstructor(), contractDeployParams.getBytecode(), contractDeployParams.getDeployParams());
-
-            SmartContractDeploy deployTx = new SmartContractDeploy.Builder()
-                    .setKlaytnCall(caver.rpc.klay)
-                    .setFrom(deployer)
-                    .setInput(input)
-                    .setCodeFormat(CodeFormat.EVM)
-                    .setHumanReadable(false)
-                    .setGas(BigInteger.valueOf(7500000))
-                    .build();
-
-            keyringContainer.sign(deployer, deployTx);
-            Bytes32 res = caver.rpc.klay.sendRawTransaction(deployTx).send();
-            PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
-            TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
-
-            return receiptData.getContractAddress();
+            return kip37.getContractAddress();
         } catch (IOException | ReflectiveOperationException | TransactionException e) {
             e.printStackTrace();
         }
