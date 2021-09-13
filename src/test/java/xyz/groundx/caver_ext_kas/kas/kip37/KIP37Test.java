@@ -51,6 +51,9 @@ public class KIP37Test {
     public static String testContractAddress;
     public static String deployerAddress;
 
+    public static String importedAddress1;
+    public static String importedAddress2;
+
     public static final BigInteger CREATED_TOKEN_ID_1 = BigInteger.valueOf(110000);
     public static final BigInteger CREATED_TOKEN_ID_2 = BigInteger.valueOf(210000);
 
@@ -117,6 +120,9 @@ public class KIP37Test {
         userFeePayer = caver.kas.wallet.createFeePayer();
         Config.sendValue(userFeePayer.getAddress());
         Config.sendValue(deployerAddress);
+
+        importedAddress1 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
+        importedAddress2 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
     }
 
     public static boolean isPausedContract(String contractAddress) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -290,11 +296,8 @@ public class KIP37Test {
 
     @Test
     public void importContract() throws ApiException, InterruptedException {
-        String contractAddress = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-        Thread.sleep(5000);
-
         String alias = "kk-" + new Date().getTime();
-        Kip37Contract response = caver.kas.kip37.importContract(contractAddress, "uri", alias);
+        Kip37Contract response = caver.kas.kip37.importContract(importedAddress1, "uri", alias);
 
         assertNotNull(response);
     }
@@ -324,11 +327,8 @@ public class KIP37Test {
             }
         };
 
-        String contractAddress = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-        Thread.sleep(5000);
-
         String alias = "kk-" + new Date().getTime();
-        caver.kas.kip37.importContractAsync(contractAddress, "uri", alias, callback);
+        caver.kas.kip37.importContractAsync(importedAddress2, "uri", alias, callback);
 
         if(future.isCompletedExceptionally()) {
             fail();
