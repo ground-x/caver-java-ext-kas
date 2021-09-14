@@ -23,6 +23,7 @@ import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
@@ -107,9 +108,9 @@ public class Wallet {
     RPC rpc;
 
     /**
-     * The endpoint url set in RPC.
+     * The url set in RPC.
      */
-    String endpointUrl;
+    String rpcUrl;
 
     /**
      * Creates an WalletAPI instance.
@@ -145,7 +146,7 @@ public class Wallet {
         if (this.rpc == null) {
             throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
         }
-        if (this.endpointUrl.contains("localhost")) {
+        if (this.rpcUrl.contains("localhost")) {
             throw new RuntimeException("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
         }
 
@@ -3542,14 +3543,18 @@ public class Wallet {
      */
     public void setRPC(RPC rpc) {
         this.rpc = rpc;
+        if (this.rpc.getWeb3jService() instanceof HttpService) {
+            String url = ((HttpService)this.rpc.getWeb3jService()).getUrl();
+            this.rpcUrl = url;
+        }
     }
 
     /**
-     * Setter function for endpointUrl
-     * @param endpointUrl The endpointUrl set in Rpc.
+     * Setter function for rpcUrl
+     * @param rpcUrl The url set in Rpc.
      */
-    public void setEndpointUrl(String endpointUrl) {
-        this.endpointUrl = endpointUrl;
+    public void setRpcUrl(String rpcUrl) {
+        this.rpcUrl = rpcUrl;
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {
