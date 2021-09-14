@@ -103,6 +103,9 @@ public class KIP37Test {
     }
 
     public static void prepareKIP37Contract(CaverExtKAS caver) throws ApiException, TransactionException, IOException, InterruptedException {
+        importedAddress1 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
+        importedAddress2 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
+
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
 
@@ -120,9 +123,6 @@ public class KIP37Test {
         userFeePayer = caver.kas.wallet.createFeePayer();
         Config.sendValue(userFeePayer.getAddress());
         Config.sendValue(deployerAddress);
-
-        importedAddress1 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-        importedAddress2 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
     }
 
     public static boolean isPausedContract(String contractAddress) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -180,6 +180,11 @@ public class KIP37Test {
             caver.kas.kip37.unpause(testContractAddress);
             Thread.sleep(5000);
         }
+    }
+
+    @Test
+    public void deployTest() {
+        Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
     }
 
     @Test
