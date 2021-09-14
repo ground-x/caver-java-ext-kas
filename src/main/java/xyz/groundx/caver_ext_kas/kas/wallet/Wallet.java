@@ -23,7 +23,6 @@ import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
@@ -108,6 +107,11 @@ public class Wallet {
     RPC rpc;
 
     /**
+     * The endpoint url set in RPC.
+     */
+    String endpointUrl;
+
+    /**
      * Creates an WalletAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
@@ -141,11 +145,8 @@ public class Wallet {
         if (this.rpc == null) {
             throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
         }
-        if (this.rpc.getWeb3jService() instanceof HttpService) {
-            String url = ((HttpService)this.rpc.getWeb3jService()).getUrl();
-            if (url.contains("localhost")) {
-                throw new RuntimeException("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
-            }
+        if (this.endpointUrl.contains("localhost")) {
+            throw new RuntimeException("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
         }
 
         // Need to validate whether given list of migration accounts is valid or not.
@@ -3541,6 +3542,14 @@ public class Wallet {
      */
     public void setRPC(RPC rpc) {
         this.rpc = rpc;
+    }
+
+    /**
+     * Setter function for endpointUrl
+     * @param endpointUrl The endpointUrl set in Rpc.
+     */
+    public void setEndpointUrl(String endpointUrl) {
+        this.endpointUrl = endpointUrl;
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {

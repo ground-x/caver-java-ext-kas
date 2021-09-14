@@ -388,6 +388,7 @@ public class CaverExtKAS extends Caver {
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
         kas.wallet.setRPC(this.rpc);
+        kas.wallet.setEndpointUrl(url);
         setWallet(new KASWallet(this.kas.wallet));
     }
 
@@ -562,6 +563,7 @@ public class CaverExtKAS extends Caver {
         this.setCurrentProvider(httpService);
         if (this.kas.wallet != null) {
             this.kas.wallet.setRPC(this.rpc);
+            this.kas.wallet.setEndpointUrl(url);
         }
     }
 
@@ -582,6 +584,10 @@ public class CaverExtKAS extends Caver {
             WebSocketService webSocketService = new WebSocketService(webSocketClient, false);
 
             this.setCurrentProvider(webSocketService);
+            if (this.kas.wallet != null) {
+                this.kas.wallet.setRPC(this.rpc);
+                this.kas.wallet.setEndpointUrl(websocketUrl);
+            }
             webSocketService.connect();
         } catch(URISyntaxException e) {
             throw new RuntimeException(String.format("Failed to parse URL: '%s'", websocketUrl), e);
