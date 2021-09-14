@@ -3240,7 +3240,7 @@ public class WalletAPITest {
         // This test case is assuming that the user does not directly launch the KAS service on the local host.
         // Since it is unlikely that the KAS service will be run on the local host and tested, this test case will be kept as it is.
         expectedException.expect(RuntimeException.class);
-        expectedException.expectMessage("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
+        expectedException.expectMessage("You should initialize Node API with working url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
 
         CaverExtKAS caverExtKAS = new CaverExtKAS();
         caverExtKAS.initWalletAPI(Config.CHAIN_ID_BAOBOB, Config.getAccessKey(), Config.getSecretAccessKey(), Config.URL_WALLET_API);
@@ -3277,7 +3277,7 @@ public class WalletAPITest {
         }
 
         try {
-            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            RegistrationStatusResponse response = caverExtKAS.kas.wallet.migrateAccounts(accountsToBeMigrated);
             assertEquals(
                     "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
                     "ok",
@@ -3307,7 +3307,7 @@ public class WalletAPITest {
         }
 
         try {
-            RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
+            RegistrationStatusResponse response = caverExtKAS.kas.wallet.migrateAccounts(accountsToBeMigrated);
             assertEquals(
                     "Migrating multiple accounts with a single key should succeed after manually initializing each API.",
                     "ok",

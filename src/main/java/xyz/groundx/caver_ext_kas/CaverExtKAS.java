@@ -55,6 +55,11 @@ public class CaverExtKAS extends Caver {
     public KASWallet wallet;
 
     /**
+     * The boolean to check whether NodeApi is initialized or not.
+     */
+    public boolean nodeApiInitialized;
+
+    /**
      * Creates a CaverExtKAS instance.<br>
      * It need to init each KAS API manually.
      */
@@ -299,6 +304,10 @@ public class CaverExtKAS extends Caver {
         } else {
             initNodeAPIWithWebSocket(chainId, accessKeyId, secretAccessKey, url);
         }
+        this.nodeApiInitialized = true;
+        if (this.kas.wallet != null) {
+            kas.wallet.setNodeApiInitialized(this.nodeApiInitialized);
+        }
     }
 
     /**
@@ -388,7 +397,7 @@ public class CaverExtKAS extends Caver {
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
         kas.wallet.setRPC(this.rpc);
-        setWallet(new KASWallet(this.kas.wallet));
+        setWallet(new KASWallet(this.kas.wallet, nodeApiInitialized));
     }
 
     /**
@@ -562,7 +571,6 @@ public class CaverExtKAS extends Caver {
         this.setCurrentProvider(httpService);
         if (this.kas.wallet != null) {
             this.kas.wallet.setRPC(this.rpc);
-            this.kas.wallet.setRpcUrl(url);
         }
     }
 
@@ -585,7 +593,6 @@ public class CaverExtKAS extends Caver {
             this.setCurrentProvider(webSocketService);
             if (this.kas.wallet != null) {
                 this.kas.wallet.setRPC(this.rpc);
-                this.kas.wallet.setRpcUrl(websocketUrl);
             }
             webSocketService.connect();
         } catch(URISyntaxException e) {
