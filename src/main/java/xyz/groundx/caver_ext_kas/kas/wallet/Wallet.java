@@ -23,7 +23,6 @@ import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
@@ -108,6 +107,11 @@ public class Wallet {
     RPC rpc;
 
     /**
+     * The nodeAPIInitialized exists for checking if NodeApi is initialized or not.
+     */
+    private boolean nodeAPIInitialized;
+
+    /**
      * Creates an WalletAPI instance.
      * @param chainId A Klaytn network chain id.
      * @param walletApiClient The Api client for connection with KAS.
@@ -131,30 +135,29 @@ public class Wallet {
      * RegistrationStatusResponse response = caver.kas.wallet.migrateAccounts(accountsToBeMigrated);
      * }</pre>
      *
-     * @param accountsToBeMigarted A list of accounts to be migrated to KAS Wallet Service.
+     * @param accountsToBeMigrated A list of accounts to be migrated to KAS Wallet Service.
      * @return RegistrationStatusResponse
      * @throws ApiException
      * @throws IOException
-     * @throws NoSuchFieldException
      */
-    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigarted) throws ApiException, IOException, NoSuchFieldException {
-        if (this.rpc == null) {
-            throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
+    public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigrated) throws ApiException, IOException {
+        if (!nodeAPIInitialized) {
+            throw new RuntimeException("You should initialize Node API with working url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
         }
 
         // Need to validate whether given list of migration accounts is valid or not.
-        for (int i=0; i<accountsToBeMigarted.size(); i++) {
-            validateMigrationAccount(accountsToBeMigarted.get(i));
+        for (int i=0; i<accountsToBeMigrated.size(); i++) {
+            validateMigrationAccount(accountsToBeMigrated.get(i));
         }
 
         AccountRegistrationRequest request = new AccountRegistrationRequest();
 
-        KeyCreationResponse keyCreationResponse = this.createKeys(accountsToBeMigarted.size());
+        KeyCreationResponse keyCreationResponse = this.createKeys(accountsToBeMigrated.size());
         List<Key> createdKeys = keyCreationResponse.getItems();
 
         String gasPrice = this.rpc.klay.getGasPrice().send().getResult();
         for (int i = 0; i < createdKeys.size(); i++) {
-            MigrationAccount accountToBeMigrated = accountsToBeMigarted.get(i);
+            MigrationAccount accountToBeMigrated = accountsToBeMigrated.get(i);
             Key newKey = createdKeys.get(i);
 
             FeeDelegatedAccountUpdate tx = new FeeDelegatedAccountUpdate.Builder()
@@ -3535,6 +3538,14 @@ public class Wallet {
      */
     public void setRPC(RPC rpc) {
         this.rpc = rpc;
+    }
+
+    /**
+     * Setter function for nodeAPIInitialized
+     * @param nodeAPIInitialized The boolean for checking NodeAPI is initialized or not.
+     */
+    public void setNodeAPIInitialized(boolean nodeAPIInitialized) {
+        this.nodeAPIInitialized = nodeAPIInitialized;
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {
