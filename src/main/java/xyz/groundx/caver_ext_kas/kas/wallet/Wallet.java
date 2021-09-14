@@ -3544,7 +3544,7 @@ public class Wallet {
 
     /**
      * Setter function for nodeApiInitialized
-     * @param nodeApiInitialized The boolean for checkign nodeApi is initalized or not.
+     * @param nodeApiInitialized The boolean for checking nodeApi is initialized or not.
      */
     public void setNodeApiInitialized(boolean nodeApiInitialized) {
         this.nodeApiInitialized = nodeApiInitialized;
