@@ -143,9 +143,6 @@ public class Wallet {
      * @throws NoSuchFieldException
      */
     public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigarted) throws ApiException, IOException, NoSuchFieldException {
-        if (this.rpc == null) {
-            throw new NoSuchFieldException("Before using migrateAccounts, rpc must be set. You should call initNodeAPI first.");
-        }
         if (this.rpcUrl.contains("localhost")) {
             throw new RuntimeException("You should initialize Node API with working endpoint url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
         }
