@@ -55,7 +55,7 @@ public class Kip37DeployerApi {
 
     /**
      * Build call for getDefaultDeployer
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -106,6 +106,10 @@ public class Kip37DeployerApi {
     
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getDefaultDeployerValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getDefaultDeployer(Async)");
+        }
         
         com.squareup.okhttp.Call call = getDefaultDeployerCall(xChainId, progressListener, progressRequestListener);
         return call;
@@ -119,7 +123,7 @@ public class Kip37DeployerApi {
     /**
      * Get Default Account for Contract Deployment
      * Get account for deploying and managing contract.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return Kip37DeployerResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -131,7 +135,7 @@ public class Kip37DeployerApi {
     /**
      * Get Default Account for Contract Deployment
      * Get account for deploying and managing contract.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return ApiResponse&lt;Kip37DeployerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -144,7 +148,7 @@ public class Kip37DeployerApi {
     /**
      * Get Default Account for Contract Deployment (asynchronously)
      * Get account for deploying and managing contract.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
