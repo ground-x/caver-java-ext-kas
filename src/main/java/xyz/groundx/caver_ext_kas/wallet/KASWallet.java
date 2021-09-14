@@ -55,18 +55,7 @@ public class KASWallet implements IWallet {
      * @param walletAPI An WalletAPI instance to use KAS Wallet API.
      */
     public KASWallet(Wallet walletAPI) {
-        this(walletAPI, false);
-    }
-
-    /**
-     * Creates a wallet instance that uses the KAS Wallet API. <br>
-     * KASWallet used as a member of CaverExtKAS named wallet.
-     * @param walletAPI An WalletAPI instance to use KAS Wallet API.
-     * @param nodeApiInitialized A boolean to check whether the NodeApi is initialized or not.
-     */
-    public KASWallet(Wallet walletAPI, boolean nodeApiInitialized) {
         this.walletAPI = walletAPI;
-        this.walletAPI.setNodeApiInitialized(nodeApiInitialized);
     }
 
     /**

@@ -23,7 +23,6 @@ import com.klaytn.caver.transaction.type.FeeDelegatedAccountUpdate;
 import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
@@ -108,9 +107,9 @@ public class Wallet {
     RPC rpc;
 
     /**
-     * The nodeApiInitialized exists for checking if NodeApi is initialized or not.
+     * The nodeAPIInitialized exists for checking if NodeApi is initialized or not.
      */
-    boolean nodeApiInitialized;
+    private boolean nodeAPIInitialized;
 
     /**
      * Creates an WalletAPI instance.
@@ -140,10 +139,9 @@ public class Wallet {
      * @return RegistrationStatusResponse
      * @throws ApiException
      * @throws IOException
-     * @throws NoSuchFieldException
      */
     public RegistrationStatusResponse migrateAccounts(List<MigrationAccount> accountsToBeMigrated) throws ApiException, IOException {
-        if (!nodeApiInitialized) {
+        if (!nodeAPIInitialized) {
             throw new RuntimeException("You should initialize Node API with working url(e.g. https://node-api.klaytnapi.com/v1/klaytn) first.");
         }
 
@@ -3543,11 +3541,11 @@ public class Wallet {
     }
 
     /**
-     * Setter function for nodeApiInitialized
-     * @param nodeApiInitialized The boolean for checking nodeApi is initialized or not.
+     * Setter function for nodeAPIInitialized
+     * @param nodeAPIInitialized The boolean for checking NodeAPI is initialized or not.
      */
-    public void setNodeApiInitialized(boolean nodeApiInitialized) {
-        this.nodeApiInitialized = nodeApiInitialized;
+    public void setNodeAPIInitialized(boolean nodeAPIInitialized) {
+        this.nodeAPIInitialized = nodeAPIInitialized;
     }
 
     private List<MultisigKey> convertMultiSigKey(AccountKeyWeightedMultiSig weightedMultiSig) {
