@@ -22,48 +22,48 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Brief account information
+ * KeyListItems
  */
-@Schema(description = "Brief account information")
 
-public class AccountSummary {
-  @SerializedName("address")
-  private String address = null;
+
+public class KeyListItems {
+  @SerializedName("keyId")
+  private String keyId = null;
 
   @SerializedName("krn")
   private String krn = null;
 
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
+  @SerializedName("publicKey")
+  private String publicKey = null;
 
-  public AccountSummary address(String address) {
-    this.address = address;
+  public KeyListItems keyId(String keyId) {
+    this.keyId = keyId;
     return this;
   }
 
    /**
-   * Klaytn account address
-   * @return address
+   * key ID
+   * @return keyId
   **/
-  @Schema(example = "959314666733178453511848909171916369896053837332", required = true, description = "Klaytn account address")
-  public String getAddress() {
-    return address;
+  @Schema(required = true, description = "key ID")
+  public String getKeyId() {
+    return keyId;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setKeyId(String keyId) {
+    this.keyId = keyId;
   }
 
-  public AccountSummary krn(String krn) {
+  public KeyListItems krn(String krn) {
     this.krn = krn;
     return this;
   }
 
    /**
-   * KAS KRN
+   * KAS resource name
    * @return krn
   **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
+  @Schema(required = true, description = "KAS resource name")
   public String getKrn() {
     return krn;
   }
@@ -72,22 +72,22 @@ public class AccountSummary {
     this.krn = krn;
   }
 
-  public AccountSummary updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public KeyListItems publicKey(String publicKey) {
+    this.publicKey = publicKey;
     return this;
   }
 
    /**
-   * The time of the latest update of account data
-   * @return updatedAt
+   * Public key
+   * @return publicKey
   **/
-  @Schema(example = "1599187344", required = true, description = "The time of the latest update of account data")
-  public Long getUpdatedAt() {
-    return updatedAt;
+  @Schema(required = true, description = "Public key")
+  public String getPublicKey() {
+    return publicKey;
   }
 
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
   }
 
 
@@ -99,26 +99,26 @@ public class AccountSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountSummary accountSummary = (AccountSummary) o;
-    return Objects.equals(this.address, accountSummary.address) &&
-        Objects.equals(this.krn, accountSummary.krn) &&
-        Objects.equals(this.updatedAt, accountSummary.updatedAt);
+    KeyListItems keyListItems = (KeyListItems) o;
+    return Objects.equals(this.keyId, keyListItems.keyId) &&
+        Objects.equals(this.krn, keyListItems.krn) &&
+        Objects.equals(this.publicKey, keyListItems.publicKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, updatedAt);
+    return Objects.hash(keyId, krn, publicKey);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountSummary {\n");
+    sb.append("class KeyListItems {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    keyId: ").append(toIndentedString(keyId)).append("\n");
     sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

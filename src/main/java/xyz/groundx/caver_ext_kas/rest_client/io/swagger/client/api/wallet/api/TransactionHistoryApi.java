@@ -26,8 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountCountByAccountID;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountCountByKRN;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResult;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResultList;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.InlineResponse400;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,14 +36,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StatisticsApi {
+public class TransactionHistoryApi {
     private ApiClient apiClient;
 
-    public StatisticsApi() {
+    public TransactionHistoryApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public StatisticsApi(ApiClient apiClient) {
+    public TransactionHistoryApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -55,21 +56,24 @@ public class StatisticsApi {
     }
 
     /**
-     * Build call for getAccountCountByAccountID
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * Build call for getV2HistoryFdTx
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param from The Klaytn account address of the sender (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByAccountIDCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getV2HistoryFdTxCall(String xChainId, String from, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/stat/count";
+        String localVarPath = "/v2/history/fd/tx";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (from != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("from", from));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (xChainId != null)
@@ -106,13 +110,9 @@ public class StatisticsApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getAccountCountByAccountIDValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getAccountCountByAccountID(Async)");
-        }
+    private com.squareup.okhttp.Call getV2HistoryFdTxValidateBeforeCall(String xChainId, String from, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDCall(xChainId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getV2HistoryFdTxCall(xChainId, from, progressListener, progressRequestListener);
         return call;
 
         
@@ -122,39 +122,42 @@ public class StatisticsApi {
     }
 
     /**
-     * Number of Klaytn accounts and keys of a user
-     * Returns the number of all Klaytn accounts and keys for a certain KAS user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @return AccountCountByAccountID
+     * Get Fee Delegation Transaction History
+     * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param from The Klaytn account address of the sender (optional)
+     * @return FDTransactionWithCurrencyResultList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AccountCountByAccountID getAccountCountByAccountID(String xChainId) throws ApiException {
-        ApiResponse<AccountCountByAccountID> resp = getAccountCountByAccountIDWithHttpInfo(xChainId);
+    public FDTransactionWithCurrencyResultList getV2HistoryFdTx(String xChainId, String from) throws ApiException {
+        ApiResponse<FDTransactionWithCurrencyResultList> resp = getV2HistoryFdTxWithHttpInfo(xChainId, from);
         return resp.getData();
     }
 
     /**
-     * Number of Klaytn accounts and keys of a user
-     * Returns the number of all Klaytn accounts and keys for a certain KAS user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @return ApiResponse&lt;AccountCountByAccountID&gt;
+     * Get Fee Delegation Transaction History
+     * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param from The Klaytn account address of the sender (optional)
+     * @return ApiResponse&lt;FDTransactionWithCurrencyResultList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AccountCountByAccountID> getAccountCountByAccountIDWithHttpInfo(String xChainId) throws ApiException {
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDValidateBeforeCall(xChainId, null, null);
-        Type localVarReturnType = new TypeToken<AccountCountByAccountID>(){}.getType();
+    public ApiResponse<FDTransactionWithCurrencyResultList> getV2HistoryFdTxWithHttpInfo(String xChainId, String from) throws ApiException {
+        com.squareup.okhttp.Call call = getV2HistoryFdTxValidateBeforeCall(xChainId, from, null, null);
+        Type localVarReturnType = new TypeToken<FDTransactionWithCurrencyResultList>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Number of Klaytn accounts and keys of a user (asynchronously)
-     * Returns the number of all Klaytn accounts and keys for a certain KAS user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * Get Fee Delegation Transaction History (asynchronously)
+     * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param from The Klaytn account address of the sender (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByAccountIDAsync(String xChainId, final ApiCallback<AccountCountByAccountID> callback) throws ApiException {
+    public com.squareup.okhttp.Call getV2HistoryFdTxAsync(String xChainId, String from, final ApiCallback<FDTransactionWithCurrencyResultList> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -175,24 +178,26 @@ public class StatisticsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getAccountCountByAccountIDValidateBeforeCall(xChainId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AccountCountByAccountID>(){}.getType();
+        com.squareup.okhttp.Call call = getV2HistoryFdTxValidateBeforeCall(xChainId, from, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<FDTransactionWithCurrencyResultList>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for getAccountCountByKRN
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * Build call for getV2HistoryFdTxTransactionHash
+     * @param transactionHash Transaction hash (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByKRNCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getV2HistoryFdTxTransactionHashCall(String transactionHash, String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/stat/count/krn";
+        String localVarPath = "/v2/history/fd/tx/{transaction-hash}"
+            .replaceAll("\\{" + "transaction-hash" + "\\}", apiClient.escapeString(transactionHash.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -232,13 +237,13 @@ public class StatisticsApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getAccountCountByKRNValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getAccountCountByKRN(Async)");
+    private com.squareup.okhttp.Call getV2HistoryFdTxTransactionHashValidateBeforeCall(String transactionHash, String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'transactionHash' is set
+        if (transactionHash == null) {
+            throw new ApiException("Missing the required parameter 'transactionHash' when calling getV2HistoryFdTxTransactionHash(Async)");
         }
         
-        com.squareup.okhttp.Call call = getAccountCountByKRNCall(xChainId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getV2HistoryFdTxTransactionHashCall(transactionHash, xChainId, progressListener, progressRequestListener);
         return call;
 
         
@@ -248,39 +253,42 @@ public class StatisticsApi {
     }
 
     /**
-     * Number of Klaytn accounts in a certain account repository of a user.
-     * Returns the number of Klaytn accounts for a certain account repository of a user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @return AccountCountByKRN
+     * Get Fee Delegation Transaction History
+     * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
+     * @param transactionHash Transaction hash (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @return FDTransactionWithCurrencyResult
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public AccountCountByKRN getAccountCountByKRN(String xChainId) throws ApiException {
-        ApiResponse<AccountCountByKRN> resp = getAccountCountByKRNWithHttpInfo(xChainId);
+    public FDTransactionWithCurrencyResult getV2HistoryFdTxTransactionHash(String transactionHash, String xChainId) throws ApiException {
+        ApiResponse<FDTransactionWithCurrencyResult> resp = getV2HistoryFdTxTransactionHashWithHttpInfo(transactionHash, xChainId);
         return resp.getData();
     }
 
     /**
-     * Number of Klaytn accounts in a certain account repository of a user.
-     * Returns the number of Klaytn accounts for a certain account repository of a user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @return ApiResponse&lt;AccountCountByKRN&gt;
+     * Get Fee Delegation Transaction History
+     * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
+     * @param transactionHash Transaction hash (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @return ApiResponse&lt;FDTransactionWithCurrencyResult&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<AccountCountByKRN> getAccountCountByKRNWithHttpInfo(String xChainId) throws ApiException {
-        com.squareup.okhttp.Call call = getAccountCountByKRNValidateBeforeCall(xChainId, null, null);
-        Type localVarReturnType = new TypeToken<AccountCountByKRN>(){}.getType();
+    public ApiResponse<FDTransactionWithCurrencyResult> getV2HistoryFdTxTransactionHashWithHttpInfo(String transactionHash, String xChainId) throws ApiException {
+        com.squareup.okhttp.Call call = getV2HistoryFdTxTransactionHashValidateBeforeCall(transactionHash, xChainId, null, null);
+        Type localVarReturnType = new TypeToken<FDTransactionWithCurrencyResult>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Number of Klaytn accounts in a certain account repository of a user. (asynchronously)
-     * Returns the number of Klaytn accounts for a certain account repository of a user.
-     * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
+     * Get Fee Delegation Transaction History (asynchronously)
+     * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
+     * @param transactionHash Transaction hash (required)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAccountCountByKRNAsync(String xChainId, final ApiCallback<AccountCountByKRN> callback) throws ApiException {
+    public com.squareup.okhttp.Call getV2HistoryFdTxTransactionHashAsync(String transactionHash, String xChainId, final ApiCallback<FDTransactionWithCurrencyResult> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -301,8 +309,8 @@ public class StatisticsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getAccountCountByKRNValidateBeforeCall(xChainId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<AccountCountByKRN>(){}.getType();
+        com.squareup.okhttp.Call call = getV2HistoryFdTxTransactionHashValidateBeforeCall(transactionHash, xChainId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<FDTransactionWithCurrencyResult>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

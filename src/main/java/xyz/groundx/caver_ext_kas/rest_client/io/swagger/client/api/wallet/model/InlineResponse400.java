@@ -21,73 +21,74 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.math.BigDecimal;
 /**
- * Brief account information
+ * InlineResponse400
  */
-@Schema(description = "Brief account information")
 
-public class AccountSummary {
-  @SerializedName("address")
-  private String address = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+public class InlineResponse400 {
+  @SerializedName("code")
+  private BigDecimal code = null;
 
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
+  @SerializedName("message")
+  private String message = null;
 
-  public AccountSummary address(String address) {
-    this.address = address;
+  @SerializedName("requestId")
+  private String requestId = null;
+
+  public InlineResponse400 code(BigDecimal code) {
+    this.code = code;
     return this;
   }
 
    /**
-   * Klaytn account address
-   * @return address
+   * Get code
+   * @return code
   **/
-  @Schema(example = "959314666733178453511848909171916369896053837332", required = true, description = "Klaytn account address")
-  public String getAddress() {
-    return address;
+  @Schema(required = true, description = "")
+  public BigDecimal getCode() {
+    return code;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setCode(BigDecimal code) {
+    this.code = code;
   }
 
-  public AccountSummary krn(String krn) {
-    this.krn = krn;
+  public InlineResponse400 message(String message) {
+    this.message = message;
     return this;
   }
 
    /**
-   * KAS KRN
-   * @return krn
+   * Get message
+   * @return message
   **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
-  public String getKrn() {
-    return krn;
+  @Schema(required = true, description = "")
+  public String getMessage() {
+    return message;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
-  public AccountSummary updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public InlineResponse400 requestId(String requestId) {
+    this.requestId = requestId;
     return this;
   }
 
    /**
-   * The time of the latest update of account data
-   * @return updatedAt
+   * Get requestId
+   * @return requestId
   **/
-  @Schema(example = "1599187344", required = true, description = "The time of the latest update of account data")
-  public Long getUpdatedAt() {
-    return updatedAt;
+  @Schema(required = true, description = "")
+  public String getRequestId() {
+    return requestId;
   }
 
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setRequestId(String requestId) {
+    this.requestId = requestId;
   }
 
 
@@ -99,26 +100,26 @@ public class AccountSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountSummary accountSummary = (AccountSummary) o;
-    return Objects.equals(this.address, accountSummary.address) &&
-        Objects.equals(this.krn, accountSummary.krn) &&
-        Objects.equals(this.updatedAt, accountSummary.updatedAt);
+    InlineResponse400 inlineResponse400 = (InlineResponse400) o;
+    return Objects.equals(this.code, inlineResponse400.code) &&
+        Objects.equals(this.message, inlineResponse400.message) &&
+        Objects.equals(this.requestId, inlineResponse400.requestId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, updatedAt);
+    return Objects.hash(code, message, requestId);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountSummary {\n");
+    sb.append("class InlineResponse400 {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

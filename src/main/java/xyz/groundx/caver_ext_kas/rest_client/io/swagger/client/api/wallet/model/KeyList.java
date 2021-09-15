@@ -21,73 +21,60 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyListItems;
 /**
- * Brief account information
+ * List of keys
  */
-@Schema(description = "Brief account information")
+@Schema(description = "List of keys")
 
-public class AccountSummary {
-  @SerializedName("address")
-  private String address = null;
+public class KeyList {
+  @SerializedName("items")
+  private List<KeyListItems> items = new ArrayList<KeyListItems>();
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("cursor")
+  private String cursor = null;
 
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
+  public KeyList items(List<KeyListItems> items) {
+    this.items = items;
+    return this;
+  }
 
-  public AccountSummary address(String address) {
-    this.address = address;
+  public KeyList addItemsItem(KeyListItems itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * Klaytn account address
-   * @return address
+   * List of keys
+   * @return items
   **/
-  @Schema(example = "959314666733178453511848909171916369896053837332", required = true, description = "Klaytn account address")
-  public String getAddress() {
-    return address;
+  @Schema(required = true, description = "List of keys")
+  public List<KeyListItems> getItems() {
+    return items;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setItems(List<KeyListItems> items) {
+    this.items = items;
   }
 
-  public AccountSummary krn(String krn) {
-    this.krn = krn;
+  public KeyList cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
-   * KAS KRN
-   * @return krn
+   * Last cursor record
+   * @return cursor
   **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
-  public String getKrn() {
-    return krn;
+  @Schema(required = true, description = "Last cursor record")
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
-  }
-
-  public AccountSummary updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The time of the latest update of account data
-   * @return updatedAt
-  **/
-  @Schema(example = "1599187344", required = true, description = "The time of the latest update of account data")
-  public Long getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
 
@@ -99,26 +86,24 @@ public class AccountSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountSummary accountSummary = (AccountSummary) o;
-    return Objects.equals(this.address, accountSummary.address) &&
-        Objects.equals(this.krn, accountSummary.krn) &&
-        Objects.equals(this.updatedAt, accountSummary.updatedAt);
+    KeyList keyList = (KeyList) o;
+    return Objects.equals(this.items, keyList.items) &&
+        Objects.equals(this.cursor, keyList.cursor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, updatedAt);
+    return Objects.hash(items, cursor);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountSummary {\n");
+    sb.append("class KeyList {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

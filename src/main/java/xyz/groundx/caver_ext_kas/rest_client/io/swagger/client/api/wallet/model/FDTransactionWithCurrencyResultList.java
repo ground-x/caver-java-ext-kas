@@ -21,73 +21,60 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResult;
 /**
- * Brief account information
+ * List of results of fee delegation transactions and KLAY converted into different currencies based on the rates at the time of sending the transaction.
  */
-@Schema(description = "Brief account information")
+@Schema(description = "List of results of fee delegation transactions and KLAY converted into different currencies based on the rates at the time of sending the transaction.")
 
-public class AccountSummary {
-  @SerializedName("address")
-  private String address = null;
+public class FDTransactionWithCurrencyResultList {
+  @SerializedName("cursor")
+  private String cursor = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("items")
+  private List<FDTransactionWithCurrencyResult> items = new ArrayList<FDTransactionWithCurrencyResult>();
 
-  @SerializedName("updatedAt")
-  private Long updatedAt = null;
-
-  public AccountSummary address(String address) {
-    this.address = address;
+  public FDTransactionWithCurrencyResultList cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
-   * Klaytn account address
-   * @return address
+   * The pointer for the next request, after which the result will be returned.
+   * @return cursor
   **/
-  @Schema(example = "959314666733178453511848909171916369896053837332", required = true, description = "Klaytn account address")
-  public String getAddress() {
-    return address;
+  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
-  public AccountSummary krn(String krn) {
-    this.krn = krn;
+  public FDTransactionWithCurrencyResultList items(List<FDTransactionWithCurrencyResult> items) {
+    this.items = items;
+    return this;
+  }
+
+  public FDTransactionWithCurrencyResultList addItemsItem(FDTransactionWithCurrencyResult itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * KAS KRN
-   * @return krn
+   * The result of fee delegation transactions and the fee amount
+   * @return items
   **/
-  @Schema(example = "krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default", required = true, description = "KAS KRN")
-  public String getKrn() {
-    return krn;
+  @Schema(required = true, description = "The result of fee delegation transactions and the fee amount")
+  public List<FDTransactionWithCurrencyResult> getItems() {
+    return items;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
-  }
-
-  public AccountSummary updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The time of the latest update of account data
-   * @return updatedAt
-  **/
-  @Schema(example = "1599187344", required = true, description = "The time of the latest update of account data")
-  public Long getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setItems(List<FDTransactionWithCurrencyResult> items) {
+    this.items = items;
   }
 
 
@@ -99,26 +86,24 @@ public class AccountSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountSummary accountSummary = (AccountSummary) o;
-    return Objects.equals(this.address, accountSummary.address) &&
-        Objects.equals(this.krn, accountSummary.krn) &&
-        Objects.equals(this.updatedAt, accountSummary.updatedAt);
+    FDTransactionWithCurrencyResultList fdTransactionWithCurrencyResultList = (FDTransactionWithCurrencyResultList) o;
+    return Objects.equals(this.cursor, fdTransactionWithCurrencyResultList.cursor) &&
+        Objects.equals(this.items, fdTransactionWithCurrencyResultList.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn, updatedAt);
+    return Objects.hash(cursor, items);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountSummary {\n");
+    sb.append("class FDTransactionWithCurrencyResultList {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }
