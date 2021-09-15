@@ -3090,7 +3090,8 @@ public class Wallet {
      * @throws ApiException
      */
     public Account createFeePayer() throws ApiException {
-        return getFeepayerApi().creatFeePayerAccount(chainId);
+        //TODO
+        return getFeepayerApi().creatFeePayerAccount(chainId, new V2FeepayerBody());
     }
 
     /**
@@ -3114,7 +3115,8 @@ public class Wallet {
      * @throws ApiException
      */
     public Call createFeePayerAsync(ApiCallback<Account> callback) throws ApiException {
-        return getFeepayerApi().creatFeePayerAccountAsync(chainId, callback);
+        //TODO
+        return getFeepayerApi().creatFeePayerAccountAsync(chainId, new V2FeepayerBody(), callback);
     }
 
     /**
@@ -3548,7 +3550,7 @@ public class Wallet {
                 }).collect(Collectors.toList());
     }
 
-    AccountUpdateKey makeUncompressedKeyFormat(AccountUpdateKey updateKey) {
+    OneOfAccountUpdateTransactionRequestAccountKey makeUncompressedKeyFormat(OneOfAccountUpdateTransactionRequestAccountKey updateKey) {
         if(updateKey instanceof EmptyUpdateKeyType) {
             return updateKey;
         }
@@ -3561,8 +3563,52 @@ public class Wallet {
                 weightKey.setPublicKey(KASUtils.addUncompressedKeyPrefix(weightKey.getPublicKey()));
             });
         } else if(updateKey instanceof RoleBasedUpdateKeyType) {
-            List<AccountUpdateKey> roleKeyList = ((KeyTypeRoleBased) updateKey).getKey();
-            roleKeyList.stream().forEach(roleKey -> makeUncompressedKeyFormat(roleKey));
+            List<OneOfRoleBasedUpdateKeyTypeKeyItems> roleKeyList = ((KeyTypeRoleBased) updateKey).getKey();
+            roleKeyList.stream().forEach(roleKey -> makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey)roleKey));
+        } else {
+            throw new IllegalArgumentException("Not supported update Key type.");
+        }
+
+        return updateKey;
+    }
+
+    OneOfFDAccountUpdateTransactionRequestAccountKey makeUncompressedKeyFormat(OneOfFDAccountUpdateTransactionRequestAccountKey updateKey) {
+        if(updateKey instanceof EmptyUpdateKeyType) {
+            return updateKey;
+        }
+
+        if(updateKey instanceof PubkeyUpdateKeyType) {
+            ((KeyTypePublic)updateKey).setKey(KASUtils.addUncompressedKeyPrefix(((KeyTypePublic) updateKey).getKey()));
+        } else if(updateKey instanceof MultisigUpdateKeyType) {
+            MultisigUpdateKey keys = ((KeyTypeMultiSig) updateKey).getKey();
+            keys.getWeightedKeys().stream().forEach(weightKey -> {
+                weightKey.setPublicKey(KASUtils.addUncompressedKeyPrefix(weightKey.getPublicKey()));
+            });
+        } else if(updateKey instanceof RoleBasedUpdateKeyType) {
+            List<OneOfRoleBasedUpdateKeyTypeKeyItems> roleKeyList = ((KeyTypeRoleBased) updateKey).getKey();
+            roleKeyList.stream().forEach(roleKey -> makeUncompressedKeyFormat((OneOfFDAccountUpdateTransactionRequestAccountKey)roleKey));
+        } else {
+            throw new IllegalArgumentException("Not supported update Key type.");
+        }
+
+        return updateKey;
+    }
+
+    OneOfFDUserAccountUpdateTransactionRequestAccountKey makeUncompressedKeyFormat(OneOfFDUserAccountUpdateTransactionRequestAccountKey updateKey) {
+        if(updateKey instanceof EmptyUpdateKeyType) {
+            return updateKey;
+        }
+
+        if(updateKey instanceof PubkeyUpdateKeyType) {
+            ((KeyTypePublic) updateKey).setKey(KASUtils.addUncompressedKeyPrefix(((KeyTypePublic) updateKey).getKey()));
+        } else if(updateKey instanceof MultisigUpdateKeyType) {
+            MultisigUpdateKey keys = ((KeyTypeMultiSig) updateKey).getKey();
+            keys.getWeightedKeys().stream().forEach(weightKey -> {
+                weightKey.setPublicKey(KASUtils.addUncompressedKeyPrefix(weightKey.getPublicKey()));
+            });
+        } else if(updateKey instanceof RoleBasedUpdateKeyType) {
+            List<OneOfRoleBasedUpdateKeyTypeKeyItems> roleKeyList = ((KeyTypeRoleBased) updateKey).getKey();
+            roleKeyList.stream().forEach(roleKey -> makeUncompressedKeyFormat((OneOfFDAccountUpdateTransactionRequestAccountKey) roleKey));
         } else {
             throw new IllegalArgumentException("Not supported update Key type.");
         }

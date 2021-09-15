@@ -240,7 +240,7 @@ public class WalletAPITest {
         KeyTypePublic accountUpdateKey = createPublicKeyType();
         KeyTypeMultiSig fdKey = createWeightedMultiSigKeyType(account);
 
-        AccountUpdateKey[] keys = new AccountUpdateKey[] {txKey, accountUpdateKey, fdKey};
+        OneOfRoleBasedUpdateKeyTypeKeyItems[] keys = new OneOfRoleBasedUpdateKeyTypeKeyItems[] {txKey, accountUpdateKey, fdKey};
         KeyTypeRoleBased roleBasedUpdateKeyType = new KeyTypeRoleBased(Arrays.asList(keys));
 
         return roleBasedUpdateKeyType;
@@ -255,7 +255,7 @@ public class WalletAPITest {
     public void makeUncompressedFormat_LegacyKeyType() {
         KeyTypeLegacy type = new KeyTypeLegacy();
 
-        caver.kas.wallet.makeUncompressedKeyFormat(type);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) type);
         assertEquals(KeyTypeLegacy.KEY_TYPE, type.getKeyType().longValue());
     }
 
@@ -263,7 +263,7 @@ public class WalletAPITest {
     public void makeUncompressedFormat_FailKeyType() {
         KeyTypeFail type = new KeyTypeFail();
 
-        caver.kas.wallet.makeUncompressedKeyFormat(type);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) type);
         assertEquals(KeyTypeFail.KEY_TYPE, type.getKeyType().longValue());
     }
 
@@ -274,7 +274,7 @@ public class WalletAPITest {
         KeyTypePublic type = new KeyTypePublic();
         type.setKey(actual);
 
-        caver.kas.wallet.makeUncompressedKeyFormat(type);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) type);
         assertEquals(expected, type.getKey());
     }
 
@@ -284,7 +284,7 @@ public class WalletAPITest {
         KeyTypePublic type = new KeyTypePublic();
         type.setKey(expected);
 
-        caver.kas.wallet.makeUncompressedKeyFormat(type);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) type);
         assertEquals(expected, type.getKey());
     }
 
@@ -305,7 +305,7 @@ public class WalletAPITest {
         KeyTypeMultiSig multiSig = new KeyTypeMultiSig();
         multiSig.setKey(multisigUpdateKey);
 
-        caver.kas.wallet.makeUncompressedKeyFormat(multiSig);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) multiSig);
         assertEquals(expected, multiSig.getKey().getWeightedKeys().get(0).getPublicKey());
         assertEquals(expected, multiSig.getKey().getWeightedKeys().get(1).getPublicKey());
     }
@@ -318,7 +318,7 @@ public class WalletAPITest {
         Account account = makeAccount();
         KeyTypeRoleBased roleBased = createRoleBasedKeyType(account);
 
-        List<AccountUpdateKey> keyList = roleBased.getKey();
+        List<OneOfRoleBasedUpdateKeyTypeKeyItems> keyList = roleBased.getKey();
 
         ((KeyTypePublic)keyList.get(0)).setKey(actual);
         ((KeyTypePublic)keyList.get(1)).setKey(expected);
@@ -329,7 +329,7 @@ public class WalletAPITest {
             multisigKeyList.get(i).setPublicKey(actual);
         }
 
-        caver.kas.wallet.makeUncompressedKeyFormat(roleBased);
+        caver.kas.wallet.makeUncompressedKeyFormat((OneOfAccountUpdateTransactionRequestAccountKey) roleBased);
 
         assertEquals(expected,((KeyTypePublic)keyList.get(0)).getKey());
         assertEquals(expected,((KeyTypePublic)keyList.get(1)).getKey());

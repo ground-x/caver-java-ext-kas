@@ -17,7 +17,7 @@
 package xyz.groundx.caver_ext_kas.kas.wallet.accountkey;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountUpdateKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.OneOfRoleBasedUpdateKeyTypeKeyItems;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.RoleBasedUpdateKeyType;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class KeyTypeRoleBased extends RoleBasedUpdateKeyType {
         super.setKeyType(KEY_TYPE);
     }
 
-    public KeyTypeRoleBased(List<AccountUpdateKey> keyList) {
+    public KeyTypeRoleBased(List<OneOfRoleBasedUpdateKeyTypeKeyItems> keyList) {
         super.setKeyType(KEY_TYPE);
         super.setKey(keyList);
     }
