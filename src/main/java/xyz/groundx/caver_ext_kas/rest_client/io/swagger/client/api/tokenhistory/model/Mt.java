@@ -45,7 +45,7 @@ public class Mt {
    * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token ID (in hexadecimal)")
+  @Schema(example = "1", required = true, description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -63,7 +63,7 @@ public class Mt {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "3552713678800500929355621337890625", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }

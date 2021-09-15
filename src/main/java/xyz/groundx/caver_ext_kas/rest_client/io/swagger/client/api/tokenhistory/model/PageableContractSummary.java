@@ -13,12 +13,15 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.ContractSummaryArray;
 /**
  * PageableContractSummary
  */
@@ -26,18 +29,13 @@ import java.util.List;
 
 public class PageableContractSummary {
   @SerializedName("items")
-  private List<AnyOfPageableContractSummaryItems> items = new ArrayList<AnyOfPageableContractSummaryItems>();
+  private ContractSummaryArray items = null;
 
   @SerializedName("cursor")
   private String cursor = null;
 
-  public PageableContractSummary items(List<AnyOfPageableContractSummaryItems> items) {
+  public PageableContractSummary items(ContractSummaryArray items) {
     this.items = items;
-    return this;
-  }
-
-  public PageableContractSummary addItemsItem(AnyOfPageableContractSummaryItems itemsItem) {
-    this.items.add(itemsItem);
     return this;
   }
 
@@ -46,11 +44,11 @@ public class PageableContractSummary {
    * @return items
   **/
   @Schema(required = true, description = "")
-  public List<AnyOfPageableContractSummaryItems> getItems() {
+  public ContractSummaryArray getItems() {
     return items;
   }
 
-  public void setItems(List<AnyOfPageableContractSummaryItems> items) {
+  public void setItems(ContractSummaryArray items) {
     this.items = items;
   }
 

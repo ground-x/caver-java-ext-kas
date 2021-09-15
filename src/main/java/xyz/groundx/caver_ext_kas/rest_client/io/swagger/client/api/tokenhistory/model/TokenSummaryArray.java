@@ -14,40 +14,14 @@ package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 /**
- * MtContract
+ * TokenSummaryArray
  */
 
 
-public class MtContract {
-  @SerializedName("address")
-  private String address = null;
-
-  public MtContract address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Contract address (20-byte)
-   * @return address
-  **/
-  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Contract address (20-byte)")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
+public class TokenSummaryArray extends ArrayList<AnyOfTokenSummaryArrayItems> {
 
   @Override
   public boolean equals(Object o) {
@@ -57,22 +31,20 @@ public class MtContract {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MtContract mtContract = (MtContract) o;
-    return Objects.equals(this.address, mtContract.address);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address);
+    return Objects.hash(super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MtContract {\n");
-    
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("class TokenSummaryArray {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

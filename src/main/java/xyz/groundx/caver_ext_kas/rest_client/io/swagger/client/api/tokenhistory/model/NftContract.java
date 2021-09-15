@@ -48,7 +48,7 @@ public class NftContract {
    * Contract address (20-byte)
    * @return address
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Contract address (20-byte)")
   public String getAddress() {
     return address;
   }

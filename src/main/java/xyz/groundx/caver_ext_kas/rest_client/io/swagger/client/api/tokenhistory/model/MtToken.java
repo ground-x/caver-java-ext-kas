@@ -66,7 +66,7 @@ public class MtToken {
    * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", required = true, description = "Token ID (in hexadecimal)")
+  @Schema(example = "1", required = true, description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }
@@ -84,7 +84,7 @@ public class MtToken {
    * Owner EOA (20-byte)
    * @return owner
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Owner EOA (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Owner EOA (20-byte)")
   public String getOwner() {
     return owner;
   }
@@ -102,7 +102,7 @@ public class MtToken {
    * CA (20-byte)
    * @return tokenAddress
   **/
-  @Schema(example = "0x2c2382bcca41295495973be1d5a997d21f77b50e", required = true, description = "CA (20-byte)")
+  @Schema(example = "251987508837296013569320541070808745076556543246", required = true, description = "CA (20-byte)")
   public String getTokenAddress() {
     return tokenAddress;
   }
@@ -120,7 +120,7 @@ public class MtToken {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f41", required = true, description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "3552713678800500929355621337890625", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
@@ -156,7 +156,7 @@ public class MtToken {
    * Owner&#x27;s balances in EOA
    * @return balance
   **/
-  @Schema(example = "0xaf298d050e4395d69670b12b7f4", required = true, description = "Owner's balances in EOA")
+  @Schema(example = "222044604925031308084726333618164", required = true, description = "Owner's balances in EOA")
   public String getBalance() {
     return balance;
   }
@@ -174,7 +174,7 @@ public class MtToken {
    * Last transaction hash (32-byte)
    * @return transactionHash
   **/
-  @Schema(example = "0xc4a32f41e829f50c4e8774be68864f522120a2047db2143b59b3919ebd9234f8", required = true, description = "Last transaction hash (32-byte)")
+  @Schema(example = "88941640552803633154072611475047379401865108829661485995735632343373081359608", required = true, description = "Last transaction hash (32-byte)")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -192,7 +192,7 @@ public class MtToken {
    * Sender EOA of last TransferSingle or TransferBatch (20-byte)
    * @return transferFrom
   **/
-  @Schema(example = "0x5e47b195eeb11d72f5e1d27aebb6d341f1a9bedb", required = true, description = "Sender EOA of last TransferSingle or TransferBatch (20-byte)")
+  @Schema(example = "538243955260495079143208573429421427237585534683", required = true, description = "Sender EOA of last TransferSingle or TransferBatch (20-byte)")
   public String getTransferFrom() {
     return transferFrom;
   }
@@ -210,7 +210,7 @@ public class MtToken {
    * Receiver EOA of recent TransferSingle or TransferBatch (20-byte)
    * @return transferTo
   **/
-  @Schema(example = "0xbe02aba56bae1624e2c4f029e3a79308e2a19e98", required = true, description = "Receiver EOA of recent TransferSingle or TransferBatch (20-byte)")
+  @Schema(example = "1084767800437542748145381337441068992140348071576", required = true, description = "Receiver EOA of recent TransferSingle or TransferBatch (20-byte)")
   public String getTransferTo() {
     return transferTo;
   }

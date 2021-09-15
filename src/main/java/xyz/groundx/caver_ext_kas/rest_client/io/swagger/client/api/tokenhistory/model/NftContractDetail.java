@@ -63,7 +63,7 @@ public class NftContractDetail {
    * Contract address (20-byte)
    * @return address
   **/
-  @Schema(example = "0xc7565d24af561fe783aa73747ca0eda1f09f1118", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "1138015141406836645658636649985329447897143382296", required = true, description = "Contract address (20-byte)")
   public String getAddress() {
     return address;
   }
@@ -117,7 +117,7 @@ public class NftContractDetail {
    * Total issued amount (in hexadecimal)
    * @return totalSupply
   **/
-  @Schema(example = "0x174876e800", required = true, description = "Total issued amount (in hexadecimal)")
+  @Schema(example = "100000000000", required = true, description = "Total issued amount (in hexadecimal)")
   public String getTotalSupply() {
     return totalSupply;
   }
