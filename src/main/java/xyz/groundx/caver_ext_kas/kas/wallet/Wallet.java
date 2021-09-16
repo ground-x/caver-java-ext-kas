@@ -92,6 +92,11 @@ public class Wallet {
     FeepayerApi feepayerApi;
 
     /**
+     * Transaction history API rest client object.
+     */
+    TransactionHistoryApi transactionHistoryApi;
+
+    /**
      * Klaytn network id.
      */
     String chainId;
@@ -3081,6 +3086,8 @@ public class Wallet {
      * Create a Klaytn fee payer account.<br>
      * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
      * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * It sets a withoutAccountUpdate field to false.<br>
+     * It means the feePayer account will be updated to Role-based account key type with all roles other than RoleFeePayer will be set to AccountKeyFail type.<br>
      * POST /v2/feepayer
      *
      * <pre>Example
@@ -3093,14 +3100,36 @@ public class Wallet {
      * @throws ApiException
      */
     public Account createFeePayer() throws ApiException {
-        //TODO
-        return getFeepayerApi().creatFeePayerAccount(chainId, new V2FeepayerBody());
+        return createFeePayer(false);
+    }
+
+    /**
+     * Create a Klaytn fee payer account.<br>
+     * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
+     * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * POST /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * Account feePayerAccount = caver.kas.wallet.createFeePayer(true);
+     * }
+     * </pre>
+     * @param withoutAccountUpdate Whether the feePayer account update to Role-based account key type. If false, it updated account to Role-based account with all roles other than fee payer roles will be set to AccountKeyFail type.
+     * @return Account
+     * @throws ApiException
+     */
+    public Account createFeePayer(boolean withoutAccountUpdate) throws ApiException {
+        V2FeepayerBody body = new V2FeepayerBody();
+        body.setWithoutAccountUpdate(withoutAccountUpdate);
+        return getFeepayerApi().creatFeePayerAccount(chainId, body);
     }
 
     /**
      * Create a Klaytn fee payer account asynchronously.<br>
      * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
      * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * It sets a withoutAccountUpdate field to false.<br>
+     * It means the feePayer account will be updated to Role-based account key type with all roles other than RoleFeePayer will be set to AccountKeyFail type.<br>
      * POST /v2/feepayer
      *
      * <pre>Example
@@ -3118,8 +3147,34 @@ public class Wallet {
      * @throws ApiException
      */
     public Call createFeePayerAsync(ApiCallback<Account> callback) throws ApiException {
-        //TODO
-        return getFeepayerApi().creatFeePayerAccountAsync(chainId, new V2FeepayerBody(), callback);
+        return createFeePayerAsync(false, callback);
+    }
+
+    /**
+     * Create a Klaytn fee payer account asynchronously.<br>
+     * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
+     * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
+     * POST /v2/feepayer
+     *
+     * <pre>Example
+     * {@code
+     * ApiCallback<Account> callback = new ApiCallback<Account> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * caver.kas.wallet.createFeePayerAsync(true, callback);
+     * }
+     * </pre>
+     *
+     * @param withoutAccountUpdate Whether the feePayer account update to Role-based account key type. If false, it updated account to Role-based account with all roles other than fee payer roles will be set to AccountKeyFail type.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call createFeePayerAsync(boolean withoutAccountUpdate, ApiCallback<Account> callback) throws ApiException {
+        V2FeepayerBody body = new V2FeepayerBody();
+        body.setWithoutAccountUpdate(withoutAccountUpdate);
+        return getFeepayerApi().creatFeePayerAccountAsync(chainId, body, callback);
     }
 
     /**
@@ -3346,7 +3401,216 @@ public class Wallet {
     public Call deleteKeyAsync(String keyId, ApiCallback<KeyStatus> callback) throws ApiException {
         return getKeyApi().keyDeletionAsync(chainId, keyId, callback);
     }
-    
+
+    /**
+     * Retrieve a list of keys.<br>
+     * GET /v2/key
+     *
+     * <pre>{@code
+     * String krn = "krn";
+     * KeyList response = caver.wallet.getKeyListByKRN(krn);
+     * }</pre>
+     *
+     * @param krn The KAS resource name.
+     * @return KeyList
+     * @throws ApiException
+     */
+    public KeyList getKeyListByKRN(String krn) throws ApiException {
+        return getKeyListByKRN(krn, new WalletQueryOptions());
+    }
+
+    /**
+     * Retrieve a list of keys asynchronously.<br>
+     * GET /v2/key
+     *
+     * <pre>{@code
+     * ApiCallback<KeyList> callback = new ApiCallback<KeyList> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String krn = "krn";
+     * caver.wallet.getKeyListByKRNAsync(krn, callback);
+     *
+     * }</pre>
+     *
+     * @param krn The KAS resource name.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getKeyListByKRNAsync(String krn, ApiCallback<KeyList> callback) throws ApiException {
+        return getKeyListByKRNAsync(krn, new WalletQueryOptions(), callback);
+    }
+
+    /**
+     * Retrieve a list of keys.<br>
+     * GET /v2/key
+     *
+     * <pre>{@code
+     * String krn = "krn";
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(1);
+     *
+     * KeyList response = caver.wallet.getKeyListByKRN(krn, options);
+     * }</pre>
+     *
+     * @param krn The KAS resource name.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @return KeyList
+     * @throws ApiException
+     */
+    public KeyList getKeyListByKRN(String krn, WalletQueryOptions options) throws ApiException {
+        String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
+        return this.keyApi.retrieveKeys(krn, chainId, options.getCursor(), size);
+    }
+
+    /**
+     * Retrieve a list of keys asynchronously.<br>
+     * GET /v2/key
+     *
+     * <pre>{@code
+     * ApiCallback<KeyList> callback = new ApiCallback<KeyList> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String krn = "krn";
+     * WalletQueryOptions options = new WalletQueryOptions();
+     * options.setSize(1);
+     *
+     * KeyList response = caver.wallet.getKeyListByKRN(krn, options, callback);
+     * }</pre>
+     *
+     * @param krn The KAS resource name.
+     * @param options Filters required when retrieving data. `size`, `cursor`.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getKeyListByKRNAsync(String krn, WalletQueryOptions options, ApiCallback<KeyList> callback) throws ApiException {
+        String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
+        return this.keyApi.retrieveKeysAsync(krn, chainId, options.getCursor(), size, callback);
+    }
+
+    /**
+     * Retrieve the histories of fee delegation transactions.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * GET /v2/history/fd/tx
+     *
+     * <pre>{@code
+     * FDTransactionWithCurrencyResultList response = caver.wallet.getFDTransactionList();
+     * }</pre>
+     *
+     * @return FDTransactionWithCurrencyResultList
+     * @throws ApiException
+     */
+    public FDTransactionWithCurrencyResultList getFDTransactionList() throws ApiException {
+        return getFDTransactionList(null);
+    }
+
+    /**
+     * Retrieve the histories of fee delegation transactions asynchronously.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * GET /v2/history/fd/tx
+     *
+     * <pre>{@code
+     * ApiCallback<FDTransactionWithCurrencyResultList> callback = new ApiCallback<FDTransactionWithCurrencyResultList> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * caver.wallet.getFDTransactionListAsync(callback);
+     * }</pre>
+     *
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getFDTransactionListAsync(ApiCallback<FDTransactionWithCurrencyResultList> callback) throws ApiException {
+        return getFDTransactionListAsync(null, callback);
+    }
+
+    /**
+     * Retrieve the histories of fee delegation transactions.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * If you passed from passed as a parameter, retrieves transaction only from a certain address.<br>
+     * GET /v2/history/fd/tx
+     *
+     * <pre>{@code
+     * String from = "0x{fromAddress}";
+     * FDTransactionWithCurrencyResultList response = caver.wallet.getFDTransactionList(from);
+     * }</pre>
+     *
+     * @param from The Klaytn account address of the sender.
+     * @return FDTransactionWithCurrencyResultList
+     * @throws ApiException
+     */
+    public FDTransactionWithCurrencyResultList getFDTransactionList(String from) throws ApiException {
+        return this.transactionHistoryApi.getV2HistoryFdTx(chainId, from);
+    }
+
+    /**
+     * Retrieve the histories of fee delegated transactions asynchronously.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * If you passed from passed as a parameter, retrieves transaction only from a certain address.<br>
+     * GET /v2/history/fd/tx
+     *
+     * <pre>{@code
+     * ApiCallback<FDTransactionWithCurrencyResultList> callback = new ApiCallback<FDTransactionWithCurrencyResultList> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String from = "0x{fromAddress}";
+     * caver.wallet.getFDTransactionListAsync(from, callback);
+     * }</pre>
+     *
+     * @param from The Klaytn account address of the sender.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getFDTransactionListAsync(String from, ApiCallback<FDTransactionWithCurrencyResultList> callback) throws ApiException {
+        return this.transactionHistoryApi.getV2HistoryFdTxAsync(chainId, from, callback);
+    }
+
+    /**
+     * Retrieves a fee delegated transaction by transaction hash.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * GET /v2/history/fd/tx/{transaction-hash}
+     *
+     * <pre>{@code
+     * String txHash = "0x{transactionHash}";
+     * FDTransactionWithCurrencyResult response = caver.wallet.getFDTransaction(txHash);
+     * }</pre>
+     *
+     * @param txHash The transaction hash to get a fee delegated transaction.
+     * @return FDTransactionWithCurrencyResult
+     * @throws ApiException
+     */
+    public FDTransactionWithCurrencyResult getFDTransaction(String txHash) throws ApiException {
+        return this.transactionHistoryApi.getV2HistoryFdTxTransactionHash(txHash, chainId);
+    }
+
+    /**
+     * Retrieves a fee delegated transaction by transaction hash asynchronously.<br>
+     * You can find out the KRW and USD price of the fees at the time of sending the transaction.<br>
+     * GET /v2/history/fd/tx/{transaction-hash}
+     *
+     * <pre>{@code
+     * ApiCallback<FDTransactionWithCurrencyResult> callback = new ApiCallback<FDTransactionWithCurrencyResultList> callback() {
+     *   ....implement callback method.
+     * };
+     *
+     * String txHash = "0x{transactionHash}";
+     * caver.wallet.getFDTransactionAsync(txHash, callback);
+     * }</pre>
+     *
+     * @param txHash The transaction hash to get a fee delegated transaction.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call getFDTransactionAsync(String txHash, ApiCallback<FDTransactionWithCurrencyResult> callback) throws ApiException {
+        return this.transactionHistoryApi.getV2HistoryFdTxTransactionHashAsync(txHash, chainId, callback);
+    }
 
     /**
      * Getter function for accountApi.
@@ -3418,6 +3682,14 @@ public class Wallet {
      */
     public FeepayerApi getFeepayerApi() {
         return feepayerApi;
+    }
+
+    /**
+     * Getter function for transactionHistoryApi
+     * @return transactionHistoryApi
+     */
+    public TransactionHistoryApi getTransactionHistoryApi() {
+        return transactionHistoryApi;
     }
 
     /**
@@ -3509,6 +3781,14 @@ public class Wallet {
     }
 
     /**
+     * Setter function for transactionHistoryApi
+     * @param transactionHistoryApi Transaction History API rest client object.
+     */
+    public void setTransactionHistoryApi(TransactionHistoryApi transactionHistoryApi) {
+        this.transactionHistoryApi = transactionHistoryApi;
+    }
+
+    /**
      * Setter function for chainId
      * @param chainId Klaytn network id.
      */
@@ -3531,6 +3811,7 @@ public class Wallet {
         setKeyApi(new KeyApi(apiClient));
         setRegistrationApi(new RegistrationApi(apiClient));
         setFeepayerApi(new FeepayerApi(apiClient));
+        setTransactionHistoryApi(new TransactionHistoryApi(apiClient));
     }
 
 

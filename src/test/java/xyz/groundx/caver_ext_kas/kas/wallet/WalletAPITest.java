@@ -28,10 +28,7 @@ import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.klaytn.caver.wallet.keyring.PrivateKey;
 import com.klaytn.caver.wallet.keyring.SingleKeyring;
 import com.squareup.okhttp.Call;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.web3j.protocol.exceptions.TransactionException;
 import xyz.groundx.caver_ext_kas.CaverExtKAS;
@@ -73,8 +70,6 @@ public class WalletAPITest {
     static String txHash;
     static String krn;
 
-    static RegistrationStatusResponse response;
-
     @BeforeClass
     public static void init() throws IOException, TransactionException, ApiException {
         Config.init();
@@ -103,9 +98,6 @@ public class WalletAPITest {
         }
 
         ftContractAddress = ftContractAddress.equals("") ? deployKIP7() : ftContractAddress;
-
-        response = new RegistrationStatusResponse();
-        response.setStatus("ok");
     }
 
     public static Account makeAccount() throws ApiException{
@@ -3359,6 +3351,9 @@ public class WalletAPITest {
 
     @Test
     public void migrateMultipleKeyAccount() {
+        RegistrationStatusResponse mockResponse = new RegistrationStatusResponse();
+        mockResponse.setStatus("ok");
+
         Wallet wallet = mock(Wallet.class);
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
@@ -3373,11 +3368,11 @@ public class WalletAPITest {
         accountsToBeMigrated.add(accountWithMultisigPrivateKeys);
 
         try {
-            when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+            when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(mockResponse);
             RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
 
             verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
-            assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            assertEquals("A status of response should be ok", mockResponse.getStatus(), actualResponse.getStatus());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -3386,6 +3381,9 @@ public class WalletAPITest {
 
     @Test
     public void migrateRoleBasedKeyAccount() {
+        RegistrationStatusResponse mockResponse = new RegistrationStatusResponse();
+        mockResponse.setStatus("ok");
+
         Wallet wallet = mock(Wallet.class);
         ArrayList<MigrationAccount> accountsToBeMigrated = new ArrayList<>();
 
@@ -3399,11 +3397,11 @@ public class WalletAPITest {
         accountsToBeMigrated.add(accountWithRoleBasedPrivateKeys);
 
         try {
-            when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(response);
+            when(wallet.migrateAccounts(accountsToBeMigrated)).thenReturn(mockResponse);
             RegistrationStatusResponse actualResponse = wallet.migrateAccounts(accountsToBeMigrated);
 
             verify(wallet, times(1)).migrateAccounts(accountsToBeMigrated);
-            assertEquals("A status of response should be ok", response.getStatus(), actualResponse.getStatus());
+            assertEquals("A status of response should be ok", mockResponse.getStatus(), actualResponse.getStatus());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -3631,5 +3629,157 @@ public class WalletAPITest {
         } else {
             assertNotNull(future.get());
         }
+    }
+
+    @Test
+    public void getKeyListByKRN() throws ApiException, InterruptedException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(3);
+        String krn = response.getItems().get(0).getKrn();
+
+        KeyList keyList = caver.kas.wallet.getKeyListByKRN(krn);
+        assertNotNull(keyList);
+    }
+
+    @Test
+    public void getKeyListByKRNWithOptions() throws ApiException, InterruptedException {
+        KeyCreationResponse response = caver.kas.wallet.createKeys(3);
+        String krn = response.getItems().get(0).getKrn();
+
+        WalletQueryOptions options = new WalletQueryOptions();
+        options.setSize(1L);
+
+        KeyList keyList = caver.kas.wallet.getKeyListByKRN(krn, options);
+        assertNotNull(keyList);
+    }
+
+    @Test
+    public void getKeyListByKRNAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<KeyList> future = new CompletableFuture<>();
+        ApiCallback<KeyList> callback = new ApiCallback<KeyList>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(KeyList result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        KeyCreationResponse response = caver.kas.wallet.createKeys(3);
+        String krn = response.getItems().get(0).getKrn();
+        caver.kas.wallet.getKeyListByKRNAsync(krn, callback);
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Ignore
+    public void getFDTransactionList() throws ApiException {
+        //It doesn't work in baobab
+        FDTransactionWithCurrencyResultList response = caver.kas.wallet.getFDTransactionList();
+        assertNotNull(response);
+    }
+
+    @Ignore
+    public void getFDTransactionListWithFrom() throws ApiException {
+        //It doesn't work in baobab
+        FDTransactionWithCurrencyResultList response = caver.kas.wallet.getFDTransactionList(baseAccount);
+        assertNotNull(response);
+    }
+
+    @Ignore
+    public void getFDTransactionListAsync() throws ApiException, ExecutionException, InterruptedException {
+        //It doesn't work in baobab
+        CompletableFuture<FDTransactionWithCurrencyResultList> future = new CompletableFuture<>();
+        ApiCallback<FDTransactionWithCurrencyResultList> callback = new ApiCallback<FDTransactionWithCurrencyResultList>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(FDTransactionWithCurrencyResultList result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        caver.kas.wallet.getFDTransactionListAsync(callback);
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+
+    @Ignore
+    public void getFDTransaction() throws ApiException {
+        FDTransactionWithCurrencyResult response = caver.kas.wallet.getFDTransaction(txHash);
+        assertNotNull(response);
+    }
+
+    @Ignore
+    public void getFDTransactionAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<FDTransactionWithCurrencyResult> future = new CompletableFuture<>();
+        ApiCallback<FDTransactionWithCurrencyResult> callback = new ApiCallback<FDTransactionWithCurrencyResult>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(FDTransactionWithCurrencyResult result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        caver.kas.wallet.getFDTransactionAsync(txHash, callback);
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void createFeePayerWithoutAccountUpdate() throws ApiException {
+        Account account = caver.kas.wallet.createFeePayer(true);
+        assertNotNull(account);
     }
 }
