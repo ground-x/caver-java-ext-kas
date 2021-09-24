@@ -54,10 +54,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * Klaytn account address to send transaction
+   * The Klaytn account address that sends the transaction.
    * @return from
   **/
-  @Schema(example = "552714228230442729489415054454372803633806727088", required = true, description = "Klaytn account address to send transaction")
+  @Schema(example = "552714228230442729489415054454372803633806727088", required = true, description = "The Klaytn account address that sends the transaction.")
   public String getFrom() {
     return from;
   }
@@ -72,10 +72,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * KLAY converted into PEB
+   * KLAY converted into PEB.
    * @return value
   **/
-  @Schema(example = "0", required = true, description = "KLAY converted into PEB")
+  @Schema(example = "0", required = true, description = "KLAY converted into PEB.")
   public String getValue() {
     return value;
   }
@@ -90,10 +90,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * KLAY receiver&#x27;s Klaytn account address
+   * The Klaytn account address that receives the KLAY.
    * @return to
   **/
-  @Schema(example = "458589992856735687761939783085233253254964399530", required = true, description = "KLAY receiver's Klaytn account address")
+  @Schema(example = "458589992856735687761939783085233253254964399530", required = true, description = "The Klaytn account address that receives the KLAY.")
   public String getTo() {
     return to;
   }
@@ -108,10 +108,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * Memo to add to the transaction
+   * Memo to appended to the transaction.
    * @return memo
   **/
-  @Schema(example = "291", description = "Memo to add to the transaction")
+  @Schema(example = "291", description = "Memo to appended to the transaction.")
   public String getMemo() {
     return memo;
   }
@@ -126,10 +126,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * Unique identifier for the transactions being sent (By entering 0, the nonce will be automatically determined)
+   * Unique identifier for the transaction being sent (Entering 0 will set the value automatically)
    * @return nonce
   **/
-  @Schema(example = "0", description = "Unique identifier for the transactions being sent (By entering 0, the nonce will be automatically determined)")
+  @Schema(example = "0", description = "Unique identifier for the transaction being sent (Entering 0 will set the value automatically)")
   public Long getNonce() {
     return nonce;
   }
@@ -144,10 +144,10 @@ public class ValueTransferTransactionRequest {
   }
 
    /**
-   * Maximum gas fee to be used for sending the transaction(By entering 0, it will be set to default value) 
+   * Maximum gas fee used for sending the transaction (Entering 0 will set it to the default value) 
    * @return gas
   **/
-  @Schema(example = "0", description = "Maximum gas fee to be used for sending the transaction(By entering 0, it will be set to default value) ")
+  @Schema(example = "0", description = "Maximum gas fee used for sending the transaction (Entering 0 will set it to the default value) ")
   public Long getGas() {
     return gas;
   }
@@ -176,7 +176,7 @@ public class ValueTransferTransactionRequest {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -219,7 +219,7 @@ public class ValueTransferTransactionRequest {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

@@ -59,7 +59,7 @@ public class FeepayerApi {
     /**
      * Build call for creatFeePayerAccount
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
+     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withoutAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -95,7 +95,7 @@ public class FeepayerApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -128,7 +128,7 @@ public class FeepayerApi {
      * Create fee payer account
      * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
+     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withoutAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
      * @return Account
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -141,7 +141,7 @@ public class FeepayerApi {
      * Create fee payer account
      * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
+     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withoutAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
      * @return ApiResponse&lt;Account&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -155,7 +155,7 @@ public class FeepayerApi {
      * Create fee payer account (asynchronously)
      * Create a Klaytn fee payer account. Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned. Klaytn fee payer account should be updated to [AccountKeyRoleBased](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) and can only be used for fee delegation.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
-     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
+     * @param body You can set whether the FeePayer has been updated to [Role-based account](https://docs.klaytn.com/klaytn/design/accounts#accountkeyrolebased) with &#x60;withoutAccountUpdate&#x60;. The default value is &#x60;false&#x60;, in which case all roles other than **RoleFeePayer** will be set to [AccountKeyFail](https://docs.klaytn.com/klaytn/design/accounts#accountkeyfail), putting the FeePayer role in the foreground. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -226,7 +226,7 @@ public class FeepayerApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -361,7 +361,7 @@ public class FeepayerApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -506,7 +506,7 @@ public class FeepayerApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
