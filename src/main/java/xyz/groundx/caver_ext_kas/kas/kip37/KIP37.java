@@ -21,8 +21,10 @@ import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37Api;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37DeployerApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.ContractApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.DeployerApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.TokenApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.TokenOwnershipApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.*;
 
 import java.math.BigInteger;
@@ -33,14 +35,24 @@ import java.util.Arrays;
  */
 public class KIP37 {
     /**
-     * KIP-37 API rest-client object.
+     * KIP-37 contract API rest-client object.
      */
-    Kip37Api kip37Api;
+    ContractApi contractApi;
 
     /**
      * KIP-37 deployer API rest-client object.
      */
-    Kip37DeployerApi kip37DeployerApi;
+    DeployerApi deployerApi;
+
+    /**
+     * KIP-37 token API rest-client object.
+     */
+    TokenApi tokenApi;
+
+    /**
+     * KIP-37 token ownership API rest-client object.
+     */
+    TokenOwnershipApi tokenOwnershipApi;
 
     /**
      * Klaytn network id
@@ -59,10 +71,7 @@ public class KIP37 {
      */
     public KIP37(String chainId, ApiClient apiClient) {
         this.chainId = chainId;
-        this.apiClient = apiClient;
-
-        setKip37Api(new Kip37Api(apiClient));
-        setKip37DeployerApi(new Kip37DeployerApi(apiClient));
+        setApiClient(apiClient);
     }
 
     /**
@@ -128,7 +137,7 @@ public class KIP37 {
         request.setUri(uri);
         request.setOptions(feePayerOption);
 
-        return kip37Api.deployContract(chainId, request);
+        return contractApi.deployContract(chainId, request);
     }
 
     /**
@@ -202,7 +211,7 @@ public class KIP37 {
         request.setUri(uri);
         request.setOptions(feePayerOption);
 
-        return kip37Api.deployContractAsync(chainId, request, callback);
+        return contractApi.deployContractAsync(chainId, request, callback);
     }
 
     /**
@@ -243,7 +252,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37ContractListResponse getContractList(KIP37QueryOptions options) throws ApiException {
-        return kip37Api.listContractsInDeployerPool(chainId, options.getSize(), options.getCursor(), options.getStatus());
+        return contractApi.listContractsInDeployerPool(chainId, options.getSize(), options.getCursor(), options.getStatus());
     }
 
     /**
@@ -292,7 +301,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call getContractListAsync(KIP37QueryOptions options, ApiCallback<Kip37ContractListResponse> callback) throws ApiException {
-        return kip37Api.listContractsInDeployerPoolAsync(chainId, options.getSize(), options.getCursor(), options.getStatus(), callback);
+        return contractApi.listContractsInDeployerPoolAsync(chainId, options.getSize(), options.getCursor(), options.getStatus(), callback);
     }
 
     /**
@@ -362,7 +371,7 @@ public class KIP37 {
         request.setAddress(contractAddress);
         request.setOptions(feePayerOption);
 
-        return kip37Api.importContract(chainId, request);
+        return contractApi.importContract(chainId, request);
     }
 
     /**
@@ -444,7 +453,7 @@ public class KIP37 {
         request.setAddress(contractAddress);
         request.setOptions(feePayerOption);
 
-        return kip37Api.importContractAsync(chainId, request, callback);
+        return contractApi.importContractAsync(chainId, request, callback);
     }
 
     /**
@@ -463,7 +472,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37Contract getContract(String addressOrAlias) throws ApiException {
-        return kip37Api.getContract(addressOrAlias, chainId);
+        return contractApi.getContract(addressOrAlias, chainId);
     }
 
     /**
@@ -487,7 +496,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call getContractAsync(String addressOrAlias, ApiCallback<Kip37Contract> callback) throws ApiException {
-        return kip37Api.getContractAsync(addressOrAlias, chainId, callback);
+        return contractApi.getContractAsync(addressOrAlias, chainId, callback);
     }
 
     /**
@@ -507,7 +516,6 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37Contract updateContractOptions(String addressOrAlias) throws ApiException {
-        UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         return updateContractOptions(addressOrAlias, null);
     }
 
@@ -544,7 +552,7 @@ public class KIP37 {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         request.setOptions(feePayerOption);
 
-        return kip37Api.putContract(chainId, addressOrAlias, request);
+        return contractApi.putContract(chainId, addressOrAlias, request);
     }
 
 
@@ -569,7 +577,6 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call updateContractOptionsAsync(String addressOrAlias, ApiCallback<Kip37Contract> callback) throws ApiException {
-        UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         return updateContractOptionsAsync(addressOrAlias, null, callback);
     }
 
@@ -610,7 +617,7 @@ public class KIP37 {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
         request.setOptions(feePayerOption);
 
-        return kip37Api.putContractAsync(chainId, addressOrAlias, request, callback);
+        return contractApi.putContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -663,7 +670,7 @@ public class KIP37 {
         request.setTo(to);
         request.setApproved(approved);
 
-        return kip37Api.approveAll(chainId, addressOrAlias, request);
+        return contractApi.approveAll(chainId, addressOrAlias, request);
     }
 
     /**
@@ -725,7 +732,7 @@ public class KIP37 {
         request.setTo(to);
         request.setApproved(approved);
 
-        return kip37Api.approveAllAsync(chainId, addressOrAlias, request, callback);
+        return contractApi.approveAllAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -769,7 +776,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(pauser);
 
-        return kip37Api.pauseContract(chainId, addressOrAlias, request);
+        return contractApi.pauseContract(chainId, addressOrAlias, request);
     }
 
     /**
@@ -821,7 +828,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(pauser);
 
-        return kip37Api.pauseContractAsync(chainId, addressOrAlias, request, callback);
+        return contractApi.pauseContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -865,7 +872,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(pauser);
 
-        return kip37Api.unpauseContract(chainId, addressOrAlias, request);
+        return contractApi.unpauseContract(chainId, addressOrAlias, request);
     }
 
     /**
@@ -917,7 +924,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(pauser);
 
-        return kip37Api.unpauseContractAsync(chainId, addressOrAlias, request, callback);
+        return contractApi.unpauseContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1023,7 +1030,7 @@ public class KIP37 {
         request.setInitialSupply(initialSupply);
         request.setUri(uri);
 
-        return kip37Api.createToken(chainId, addressOrAlias, request);
+        return tokenApi.createToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1155,7 +1162,7 @@ public class KIP37 {
         request.setInitialSupply(initialSupply);
         request.setUri(uri);
 
-        return kip37Api.createTokenAsync(chainId, addressOrAlias, request, callback);
+        return tokenApi.createTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1191,7 +1198,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TokenInfoListResponse getTokenList(String addressOrAlias, KIP37QueryOptions queryOptions) throws ApiException {
-        return kip37Api.getTokens(addressOrAlias, chainId, queryOptions.getSize(), queryOptions.getCursor());
+        return tokenApi.getTokens(addressOrAlias, chainId, queryOptions.getSize(), queryOptions.getCursor());
     }
 
     /**
@@ -1237,7 +1244,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call getTokenListAsync(String addressOrAlias, KIP37QueryOptions queryOptions, ApiCallback<Kip37TokenInfoListResponse> callback) throws ApiException {
-        return kip37Api.getTokensAsync(addressOrAlias, chainId, queryOptions.getSize(), queryOptions.getCursor(), callback);
+        return tokenApi.getTokensAsync(addressOrAlias, chainId, queryOptions.getSize(), queryOptions.getCursor(), callback);
     }
 
     /**
@@ -1438,7 +1445,7 @@ public class KIP37 {
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
 
-        return kip37Api.burnToken(chainId, addressOrAlias, request);
+        return tokenApi.burnToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1558,7 +1565,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, String id, String amount, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
-        return burnAsync(addressOrAlias, new String[]{id}, new String[]{amount}, null, callback);
+        return burnAsync(addressOrAlias, new String[]{id}, new String[]{amount}, from, callback);
     }
 
     /**
@@ -1685,7 +1692,7 @@ public class KIP37 {
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
 
-        return kip37Api.burnTokenAsync(chainId, addressOrAlias, request, callback);
+        return tokenApi.burnTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1896,7 +1903,7 @@ public class KIP37 {
         request.setTo(to);
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
-        return kip37Api.mintToken(chainId, addressOrAlias, request);
+        return tokenApi.mintToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -2147,7 +2154,7 @@ public class KIP37 {
         request.setTo(to);
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
-        return kip37Api.mintTokenAsync(chainId, addressOrAlias, request, callback);
+        return tokenApi.mintTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -2268,7 +2275,7 @@ public class KIP37 {
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
 
-        return kip37Api.transferToken(chainId, addressOrAlias, request);
+        return tokenApi.transferToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -2412,7 +2419,7 @@ public class KIP37 {
         request.setIds(Arrays.asList(ids));
         request.setAmounts(Arrays.asList(amounts));
 
-        return kip37Api.transferTokenAsync(chainId, addressOrAlias, request, callback);
+        return tokenApi.transferTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -2501,7 +2508,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(sender);
 
-        return kip37Api.pauseToken(chainId, addressOrAlias, tokenId, request);
+        return tokenApi.pauseToken(chainId, addressOrAlias, tokenId, request);
     }
 
     /**
@@ -2610,7 +2617,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(sender);
 
-        return kip37Api.pauseTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
+        return tokenApi.pauseTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
     }
 
     /**
@@ -2699,7 +2706,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(sender);
 
-        return kip37Api.unpauseToken(chainId, addressOrAlias, tokenId, request);
+        return tokenApi.unpauseToken(chainId, addressOrAlias, tokenId, request);
     }
 
     /**
@@ -2808,7 +2815,7 @@ public class KIP37 {
         OperateKip37ContractRequest request = new OperateKip37ContractRequest();
         request.setSender(sender);
 
-        return kip37Api.unpauseTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
+        return tokenApi.unpauseTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
     }
 
     /**
@@ -2852,7 +2859,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37TokenListResponse getTokenListByOwner(String addressOrAlias, String ownerAddress, KIP37QueryOptions queryOptions) throws ApiException {
-        return kip37Api.getTokensByOwner(addressOrAlias, ownerAddress, chainId, queryOptions.getSize(), queryOptions.getCursor());
+        return tokenOwnershipApi.getTokensByOwner(addressOrAlias, ownerAddress, chainId, queryOptions.getSize(), queryOptions.getCursor());
     }
 
     /**
@@ -2906,7 +2913,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call getTokenListByOwnerAsync(String addressOrAlias, String ownerAddress, KIP37QueryOptions queryOptions, ApiCallback<Kip37TokenListResponse> callback) throws ApiException {
-        return kip37Api.getTokensByOwnerAsync(addressOrAlias, ownerAddress, chainId, queryOptions.getSize(), queryOptions.getCursor(), callback);
+        return tokenOwnershipApi.getTokensByOwnerAsync(addressOrAlias, ownerAddress, chainId, queryOptions.getSize(), queryOptions.getCursor(), callback);
     }
 
     /**
@@ -2921,7 +2928,7 @@ public class KIP37 {
      * @throws ApiException
      */
     public Kip37DeployerResponse getDeployer() throws ApiException {
-        return kip37DeployerApi.getDefaultDeployer(chainId);
+        return deployerApi.getDefaultDeployer(chainId);
     }
 
     /**
@@ -2941,39 +2948,71 @@ public class KIP37 {
      * @throws ApiException
      */
     public Call getDeployerAsync(ApiCallback<Kip37DeployerResponse> callback) throws ApiException {
-        return kip37DeployerApi.getDefaultDeployerAsync(chainId, callback);
+        return deployerApi.getDefaultDeployerAsync(chainId, callback);
     }
 
     /**
-     * Getter function for kip37Api.
-     * @return Kip37Api
+     * Getter function for contractApi
+     * @return ContractApi
      */
-    public Kip37Api getKip37Api() {
-        return kip37Api;
+    public ContractApi getContractApi() {
+        return contractApi;
     }
 
     /**
-     * Setter function for kip37Api
-     * @param kip37Api The Kip37Api instance.
+     * Setter function for contractApi
+     * @param contractApi KIP-37 contract API rest-client object.
      */
-    public void setKip37Api(Kip37Api kip37Api) {
-        this.kip37Api = kip37Api;
+    public void setContractApi(ContractApi contractApi) {
+        this.contractApi = contractApi;
     }
 
     /**
-     * Getter function for kip37DeployerApi
-     * @return Kip37DeployerApi
+     * Getter function for deployerApi
+     * @return DeployerApi
      */
-    public Kip37DeployerApi getKip37DeployerApi() {
-        return kip37DeployerApi;
+    public DeployerApi getDeployerApi() {
+        return deployerApi;
     }
 
     /**
-     * Setter function for kip37DeployerApi
-     * @param kip37DeployerApi The Kip37DeployerApi instance.
+     * Setter function for deployerApi
+     * @param deployerApi KIP-37 deployer API rest-client object.
      */
-    public void setKip37DeployerApi(Kip37DeployerApi kip37DeployerApi) {
-        this.kip37DeployerApi = kip37DeployerApi;
+    public void setDeployerApi(DeployerApi deployerApi) {
+        this.deployerApi = deployerApi;
+    }
+
+    /**
+     * Getter function for tokenApi
+     * @return TokenApi
+     */
+    public TokenApi getTokenApi() {
+        return tokenApi;
+    }
+
+    /**
+     * Setter function for tokenApi
+     * @param tokenApi KIP-37 token API rest-client object.
+     */
+    public void setTokenApi(TokenApi tokenApi) {
+        this.tokenApi = tokenApi;
+    }
+
+    /**
+     * Getter function for tokenOwnershipApi.
+     * @return TokenOwnershipApi
+     */
+    public TokenOwnershipApi getTokenOwnershipApi() {
+        return tokenOwnershipApi;
+    }
+
+    /**
+     * Setter function for tokenOwnershipApi
+     * @param tokenOwnershipApi KIP-37 token ownership API rest-client object.
+     */
+    public void setTokenOwnershipApi(TokenOwnershipApi tokenOwnershipApi) {
+        this.tokenOwnershipApi = tokenOwnershipApi;
     }
 
     /**
@@ -3006,7 +3045,9 @@ public class KIP37 {
      */
     public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
-        setKip37Api(new Kip37Api(apiClient));
-        setKip37DeployerApi(new Kip37DeployerApi(apiClient));
+        setContractApi(new ContractApi(apiClient));
+        setDeployerApi(new DeployerApi(apiClient));
+        setTokenApi(new TokenApi(apiClient));
+        setTokenOwnershipApi(new TokenOwnershipApi(apiClient));
     }
 }
