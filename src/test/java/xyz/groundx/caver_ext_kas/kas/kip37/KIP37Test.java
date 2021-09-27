@@ -103,9 +103,6 @@ public class KIP37Test {
     }
 
     public static void prepareKIP37Contract(CaverExtKAS caver) throws ApiException, TransactionException, IOException, InterruptedException {
-        importedAddress1 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-        importedAddress2 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
 
@@ -299,16 +296,18 @@ public class KIP37Test {
         assertNotNull(response);
     }
 
-    @Test
+    @Ignore
     public void importContract() throws ApiException, InterruptedException {
+        importedAddress1 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
         String alias = "kk-" + new Date().getTime();
         Kip37Contract response = caver.kas.kip37.importContract(importedAddress1, "uri", alias);
 
         assertNotNull(response);
     }
 
-    @Test
+    @Ignore
     public void importContractAsync() throws ApiException, ExecutionException, InterruptedException {
+        importedAddress2 = Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
         CompletableFuture<Kip37Contract> future = new CompletableFuture<>();
         ApiCallback<Kip37Contract> callback = new ApiCallback<Kip37Contract>() {
             @Override
