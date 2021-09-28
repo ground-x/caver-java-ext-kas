@@ -21,10 +21,10 @@ import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.ContractApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.DeployerApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.TokenApi;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.TokenOwnershipApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37ContractApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37DeployerApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37TokenApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.api.Kip37TokenOwnershipApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.*;
 
 import java.math.BigInteger;
@@ -37,22 +37,22 @@ public class KIP37 {
     /**
      * KIP-37 contract API rest-client object.
      */
-    ContractApi contractApi;
+    Kip37ContractApi contractApi;
 
     /**
      * KIP-37 deployer API rest-client object.
      */
-    DeployerApi deployerApi;
+    Kip37DeployerApi deployerApi;
 
     /**
      * KIP-37 token API rest-client object.
      */
-    TokenApi tokenApi;
+    Kip37TokenApi tokenApi;
 
     /**
      * KIP-37 token ownership API rest-client object.
      */
-    TokenOwnershipApi tokenOwnershipApi;
+    Kip37TokenOwnershipApi tokenOwnershipApi;
 
     /**
      * Klaytn network id
@@ -2955,7 +2955,7 @@ public class KIP37 {
      * Getter function for contractApi
      * @return ContractApi
      */
-    public ContractApi getContractApi() {
+    public Kip37ContractApi getContractApi() {
         return contractApi;
     }
 
@@ -2963,7 +2963,7 @@ public class KIP37 {
      * Setter function for contractApi
      * @param contractApi KIP-37 contract API rest-client object.
      */
-    public void setContractApi(ContractApi contractApi) {
+    public void setContractApi(Kip37ContractApi contractApi) {
         this.contractApi = contractApi;
     }
 
@@ -2971,7 +2971,7 @@ public class KIP37 {
      * Getter function for deployerApi
      * @return DeployerApi
      */
-    public DeployerApi getDeployerApi() {
+    public Kip37DeployerApi getDeployerApi() {
         return deployerApi;
     }
 
@@ -2979,7 +2979,7 @@ public class KIP37 {
      * Setter function for deployerApi
      * @param deployerApi KIP-37 deployer API rest-client object.
      */
-    public void setDeployerApi(DeployerApi deployerApi) {
+    public void setDeployerApi(Kip37DeployerApi deployerApi) {
         this.deployerApi = deployerApi;
     }
 
@@ -2987,7 +2987,7 @@ public class KIP37 {
      * Getter function for tokenApi
      * @return TokenApi
      */
-    public TokenApi getTokenApi() {
+    public Kip37TokenApi getTokenApi() {
         return tokenApi;
     }
 
@@ -2995,7 +2995,7 @@ public class KIP37 {
      * Setter function for tokenApi
      * @param tokenApi KIP-37 token API rest-client object.
      */
-    public void setTokenApi(TokenApi tokenApi) {
+    public void setTokenApi(Kip37TokenApi tokenApi) {
         this.tokenApi = tokenApi;
     }
 
@@ -3003,7 +3003,7 @@ public class KIP37 {
      * Getter function for tokenOwnershipApi.
      * @return TokenOwnershipApi
      */
-    public TokenOwnershipApi getTokenOwnershipApi() {
+    public Kip37TokenOwnershipApi getTokenOwnershipApi() {
         return tokenOwnershipApi;
     }
 
@@ -3011,7 +3011,7 @@ public class KIP37 {
      * Setter function for tokenOwnershipApi
      * @param tokenOwnershipApi KIP-37 token ownership API rest-client object.
      */
-    public void setTokenOwnershipApi(TokenOwnershipApi tokenOwnershipApi) {
+    public void setTokenOwnershipApi(Kip37TokenOwnershipApi tokenOwnershipApi) {
         this.tokenOwnershipApi = tokenOwnershipApi;
     }
 
@@ -3045,9 +3045,9 @@ public class KIP37 {
      */
     public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
-        setContractApi(new ContractApi(apiClient));
-        setDeployerApi(new DeployerApi(apiClient));
-        setTokenApi(new TokenApi(apiClient));
-        setTokenOwnershipApi(new TokenOwnershipApi(apiClient));
+        setContractApi(new Kip37ContractApi(apiClient));
+        setDeployerApi(new Kip37DeployerApi(apiClient));
+        setTokenApi(new Kip37TokenApi(apiClient));
+        setTokenOwnershipApi(new Kip37TokenOwnershipApi(apiClient));
     }
 }

@@ -34,9 +34,6 @@ public class Kip37DeployResponse {
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  @SerializedName("uri")
-  private String uri = null;
-
   @SerializedName("options")
   private Kip37FeePayerOptionResponse options = null;
 
@@ -76,24 +73,6 @@ public class Kip37DeployResponse {
     this.transactionHash = transactionHash;
   }
 
-  public Kip37DeployResponse uri(String uri) {
-    this.uri = uri;
-    return this;
-  }
-
-   /**
-   * Contract URI
-   * @return uri
-  **/
-  @Schema(required = true, description = "Contract URI")
-  public String getUri() {
-    return uri;
-  }
-
-  public void setUri(String uri) {
-    this.uri = uri;
-  }
-
   public Kip37DeployResponse options(Kip37FeePayerOptionResponse options) {
     this.options = options;
     return this;
@@ -124,13 +103,12 @@ public class Kip37DeployResponse {
     Kip37DeployResponse kip37DeployResponse = (Kip37DeployResponse) o;
     return Objects.equals(this.status, kip37DeployResponse.status) &&
         Objects.equals(this.transactionHash, kip37DeployResponse.transactionHash) &&
-        Objects.equals(this.uri, kip37DeployResponse.uri) &&
         Objects.equals(this.options, kip37DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, transactionHash, uri, options);
+    return Objects.hash(status, transactionHash, options);
   }
 
 
@@ -141,7 +119,6 @@ public class Kip37DeployResponse {
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();

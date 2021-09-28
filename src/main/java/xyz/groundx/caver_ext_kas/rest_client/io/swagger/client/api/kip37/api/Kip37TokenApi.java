@@ -26,16 +26,14 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ApproveAllKip37ContractRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.DeployKip37ContractRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.BurnKip37TokenRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.CreateKip37TokenRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ErrorResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ImportKip37ContractRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37Contract;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37ContractListResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37DeployResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TokenInfoListResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TransactionStatusResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.MintKip37TokenRequest;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.OperateKip37ContractRequest;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.UpdateKip37ContractRequest;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.TransferKip37TokenRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,14 +41,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ContractApi {
+public class Kip37TokenApi {
     private ApiClient apiClient;
 
-    public ContractApi() {
+    public Kip37TokenApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public ContractApi(ApiClient apiClient) {
+    public Kip37TokenApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -63,7 +61,7 @@ public class ContractApi {
     }
 
     /**
-     * Build call for approveAll
+     * Build call for burnToken
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -72,11 +70,11 @@ public class ContractApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call approveAllCall(String xChainId, String contractAddressOrAlias, ApproveAllKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call burnTokenCall(String xChainId, String contractAddressOrAlias, BurnKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}/approveall"
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token"
             .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -113,21 +111,21 @@ public class ContractApi {
         }
 
         String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call approveAllValidateBeforeCall(String xChainId, String contractAddressOrAlias, ApproveAllKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call burnTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, BurnKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling approveAll(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling burnToken(Async)");
         }
         // verify the required parameter 'contractAddressOrAlias' is set
         if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling approveAll(Async)");
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling burnToken(Async)");
         }
         
-        com.squareup.okhttp.Call call = approveAllCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = burnTokenCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -137,37 +135,37 @@ public class ContractApi {
     }
 
     /**
-     * Grant/Remove Authorization for Token Transfers
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Burn KIP-37 Token
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return Kip37TransactionStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37TransactionStatusResponse approveAll(String xChainId, String contractAddressOrAlias, ApproveAllKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37TransactionStatusResponse> resp = approveAllWithHttpInfo(xChainId, contractAddressOrAlias, body);
+    public Kip37TransactionStatusResponse burnToken(String xChainId, String contractAddressOrAlias, BurnKip37TokenRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = burnTokenWithHttpInfo(xChainId, contractAddressOrAlias, body);
         return resp.getData();
     }
 
     /**
-     * Grant/Remove Authorization for Token Transfers
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Burn KIP-37 Token
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37TransactionStatusResponse> approveAllWithHttpInfo(String xChainId, String contractAddressOrAlias, ApproveAllKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = approveAllValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
+    public ApiResponse<Kip37TransactionStatusResponse> burnTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, BurnKip37TokenRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = burnTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Grant/Remove Authorization for Token Transfers (asynchronously)
-     * Grants/cancels authorization to a third party (&#x60;to&#x60;) to transfer all tokens for a specified contract.    ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Burn KIP-37 Token (asynchronously)
+     * Burns KIP-37 tokens.  ##### From The account that sends the transaction.  If the &#x60;from&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;burn&#x60; function. - If there are multiple elements, call the &#x60;burnBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -175,7 +173,7 @@ public class ContractApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call approveAllAsync(String xChainId, String contractAddressOrAlias, ApproveAllKip37ContractRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call burnTokenAsync(String xChainId, String contractAddressOrAlias, BurnKip37TokenRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -196,155 +194,26 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = approveAllValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = burnTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for deployContract
+     * Build call for createToken
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call deployContractCall(String xChainId, DeployKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call createTokenCall(String xChainId, String contractAddressOrAlias, CreateKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v1/contract";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        if (xChainId != null)
-        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call deployContractValidateBeforeCall(String xChainId, DeployKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling deployContract(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = deployContractCall(xChainId, body, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * Deploy KIP-37 Contract
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @return Kip37DeployResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public Kip37DeployResponse deployContract(String xChainId, DeployKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37DeployResponse> resp = deployContractWithHttpInfo(xChainId, body);
-        return resp.getData();
-    }
-
-    /**
-     * Deploy KIP-37 Contract
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @return ApiResponse&lt;Kip37DeployResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<Kip37DeployResponse> deployContractWithHttpInfo(String xChainId, DeployKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = deployContractValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<Kip37DeployResponse>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Deploy KIP-37 Contract (asynchronously)
-     * Deploys a KIP-37 contract. &lt;br/&gt;   KIP-37 supports the use of &#x60;alias&#x60;, which you can use in place of the account address. The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call deployContractAsync(String xChainId, DeployKip37ContractRequest body, final ApiCallback<Kip37DeployResponse> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = deployContractValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37DeployResponse>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for getContract
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call getContractCall(String contractAddressOrAlias, String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}"
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token"
             .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -363,140 +232,6 @@ public class ContractApi {
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getContractValidateBeforeCall(String contractAddressOrAlias, String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'contractAddressOrAlias' is set
-        if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling getContract(Async)");
-        }
-        // verify the required parameter 'xChainId' is set
-        if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getContract(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = getContractCall(contractAddressOrAlias, xChainId, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * Get KIP-37 Contract Information
-     * Queries a specified contract using the alias or the contract address.
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @return Kip37Contract
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public Kip37Contract getContract(String contractAddressOrAlias, String xChainId) throws ApiException {
-        ApiResponse<Kip37Contract> resp = getContractWithHttpInfo(contractAddressOrAlias, xChainId);
-        return resp.getData();
-    }
-
-    /**
-     * Get KIP-37 Contract Information
-     * Queries a specified contract using the alias or the contract address.
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @return ApiResponse&lt;Kip37Contract&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<Kip37Contract> getContractWithHttpInfo(String contractAddressOrAlias, String xChainId) throws ApiException {
-        com.squareup.okhttp.Call call = getContractValidateBeforeCall(contractAddressOrAlias, xChainId, null, null);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Get KIP-37 Contract Information (asynchronously)
-     * Queries a specified contract using the alias or the contract address.
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call getContractAsync(String contractAddressOrAlias, String xChainId, final ApiCallback<Kip37Contract> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = getContractValidateBeforeCall(contractAddressOrAlias, xChainId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for importContract
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param body  (optional)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call importContractCall(String xChainId, ImportKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = body;
-        
-        // create path and map variables
-        String localVarPath = "/v1/contract/import";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        if (xChainId != null)
-        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
             "application/json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
@@ -519,13 +254,17 @@ public class ContractApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call importContractValidateBeforeCall(String xChainId, ImportKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call createTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, CreateKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling importContract(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling createToken(Async)");
+        }
+        // verify the required parameter 'contractAddressOrAlias' is set
+        if (contractAddressOrAlias == null) {
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling createToken(Async)");
         }
         
-        com.squareup.okhttp.Call call = importContractCall(xChainId, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createTokenCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -535,42 +274,45 @@ public class ContractApi {
     }
 
     /**
-     * Import KIP-37 Contract
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Mint a KIP-37 Token
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
-     * @return Kip37Contract
+     * @return Kip37TransactionStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37Contract importContract(String xChainId, ImportKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37Contract> resp = importContractWithHttpInfo(xChainId, body);
+    public Kip37TransactionStatusResponse createToken(String xChainId, String contractAddressOrAlias, CreateKip37TokenRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = createTokenWithHttpInfo(xChainId, contractAddressOrAlias, body);
         return resp.getData();
     }
 
     /**
-     * Import KIP-37 Contract
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Mint a KIP-37 Token
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;Kip37Contract&gt;
+     * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37Contract> importContractWithHttpInfo(String xChainId, ImportKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = importContractValidateBeforeCall(xChainId, body, null, null);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
+    public ApiResponse<Kip37TransactionStatusResponse> createTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, CreateKip37TokenRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = createTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Import KIP-37 Contract (asynchronously)
-     * Import a contract that has already been deployed.&lt;br/&gt;   The &#x60;alias&#x60; must only contain lowercase letters, numbers and hyphens and begin with a lowercase letter.  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Mint a KIP-37 Token (asynchronously)
+     * Creates a new token from a specified KIP-37 contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call importContractAsync(String xChainId, ImportKip37ContractRequest body, final ApiCallback<Kip37Contract> callback) throws ApiException {
+    public com.squareup.okhttp.Call createTokenAsync(String xChainId, String contractAddressOrAlias, CreateKip37TokenRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -591,27 +333,28 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = importContractValidateBeforeCall(xChainId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
+        com.squareup.okhttp.Call call = createTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for listContractsInDeployerPool
+     * Build call for getTokens
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
+     * @param size The maximum number of items to return (optional)
      * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @param status Status of the contract you want to query as a filter for the request. You can only choose one of [&#x60;all&#x60;,&#x60;init&#x60;,&#x60;submitted&#x60;,&#x60;deployed&#x60;,&#x60;imported&#x60;,&#x60;failed&#x60;]. The default value is &#x60;all&#x60;. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call listContractsInDeployerPoolCall(String xChainId, Integer size, String cursor, String status, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getTokensCall(String contractAddressOrAlias, String xChainId, Integer size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v1/contract";
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token"
+            .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -619,8 +362,6 @@ public class ContractApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
         if (cursor != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
-        if (status != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("status", status));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (xChainId != null)
@@ -657,13 +398,17 @@ public class ContractApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call listContractsInDeployerPoolValidateBeforeCall(String xChainId, Integer size, String cursor, String status, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getTokensValidateBeforeCall(String contractAddressOrAlias, String xChainId, Integer size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'contractAddressOrAlias' is set
+        if (contractAddressOrAlias == null) {
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling getTokens(Async)");
+        }
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling listContractsInDeployerPool(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getTokens(Async)");
         }
         
-        com.squareup.okhttp.Call call = listContractsInDeployerPoolCall(xChainId, size, cursor, status, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getTokensCall(contractAddressOrAlias, xChainId, size, cursor, progressListener, progressRequestListener);
         return call;
 
         
@@ -673,48 +418,48 @@ public class ContractApi {
     }
 
     /**
-     * Get KIP-37 Contract
-     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time. &lt;br/&gt;&lt;br/&gt; The &#x60;status&#x60; field in the response can contain the following: - &#x60;init&#x60;: Initial state before transaction is sent - &#x60;submitted&#x60;: Contract deployment transaction has been sent - &#x60;deployed&#x60;: Contract has been deployed - &#x60;imported&#x60;: Contract list has been imported - &#x60;failed&#x60;: Contract deployment transaction has failed
+     * Get KIP-37 Token List
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
+     * @param size The maximum number of items to return (optional)
      * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @param status Status of the contract you want to query as a filter for the request. You can only choose one of [&#x60;all&#x60;,&#x60;init&#x60;,&#x60;submitted&#x60;,&#x60;deployed&#x60;,&#x60;imported&#x60;,&#x60;failed&#x60;]. The default value is &#x60;all&#x60;. (optional)
-     * @return Kip37ContractListResponse
+     * @return Kip37TokenInfoListResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37ContractListResponse listContractsInDeployerPool(String xChainId, Integer size, String cursor, String status) throws ApiException {
-        ApiResponse<Kip37ContractListResponse> resp = listContractsInDeployerPoolWithHttpInfo(xChainId, size, cursor, status);
+    public Kip37TokenInfoListResponse getTokens(String contractAddressOrAlias, String xChainId, Integer size, String cursor) throws ApiException {
+        ApiResponse<Kip37TokenInfoListResponse> resp = getTokensWithHttpInfo(contractAddressOrAlias, xChainId, size, cursor);
         return resp.getData();
     }
 
     /**
-     * Get KIP-37 Contract
-     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time. &lt;br/&gt;&lt;br/&gt; The &#x60;status&#x60; field in the response can contain the following: - &#x60;init&#x60;: Initial state before transaction is sent - &#x60;submitted&#x60;: Contract deployment transaction has been sent - &#x60;deployed&#x60;: Contract has been deployed - &#x60;imported&#x60;: Contract list has been imported - &#x60;failed&#x60;: Contract deployment transaction has failed
+     * Get KIP-37 Token List
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
+     * @param size The maximum number of items to return (optional)
      * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @param status Status of the contract you want to query as a filter for the request. You can only choose one of [&#x60;all&#x60;,&#x60;init&#x60;,&#x60;submitted&#x60;,&#x60;deployed&#x60;,&#x60;imported&#x60;,&#x60;failed&#x60;]. The default value is &#x60;all&#x60;. (optional)
-     * @return ApiResponse&lt;Kip37ContractListResponse&gt;
+     * @return ApiResponse&lt;Kip37TokenInfoListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37ContractListResponse> listContractsInDeployerPoolWithHttpInfo(String xChainId, Integer size, String cursor, String status) throws ApiException {
-        com.squareup.okhttp.Call call = listContractsInDeployerPoolValidateBeforeCall(xChainId, size, cursor, status, null, null);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponse>(){}.getType();
+    public ApiResponse<Kip37TokenInfoListResponse> getTokensWithHttpInfo(String contractAddressOrAlias, String xChainId, Integer size, String cursor) throws ApiException {
+        com.squareup.okhttp.Call call = getTokensValidateBeforeCall(contractAddressOrAlias, xChainId, size, cursor, null, null);
+        Type localVarReturnType = new TypeToken<Kip37TokenInfoListResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Get KIP-37 Contract (asynchronously)
-     * Get a list of all KIP-37 contracts by account. The response items will be listed in the order of contract creation request time. &lt;br/&gt;&lt;br/&gt; The &#x60;status&#x60; field in the response can contain the following: - &#x60;init&#x60;: Initial state before transaction is sent - &#x60;submitted&#x60;: Contract deployment transaction has been sent - &#x60;deployed&#x60;: Contract has been deployed - &#x60;imported&#x60;: Contract list has been imported - &#x60;failed&#x60;: Contract deployment transaction has failed
+     * Get KIP-37 Token List (asynchronously)
+     * Returns a list of KIP-37 tokens.   ##### Sort Order - The response items are listed in lexicographical order of the token ID. 
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
+     * @param size The maximum number of items to return (optional)
      * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @param status Status of the contract you want to query as a filter for the request. You can only choose one of [&#x60;all&#x60;,&#x60;init&#x60;,&#x60;submitted&#x60;,&#x60;deployed&#x60;,&#x60;imported&#x60;,&#x60;failed&#x60;]. The default value is &#x60;all&#x60;. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call listContractsInDeployerPoolAsync(String xChainId, Integer size, String cursor, String status, final ApiCallback<Kip37ContractListResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getTokensAsync(String contractAddressOrAlias, String xChainId, Integer size, String cursor, final ApiCallback<Kip37TokenInfoListResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -735,13 +480,13 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = listContractsInDeployerPoolValidateBeforeCall(xChainId, size, cursor, status, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37ContractListResponse>(){}.getType();
+        com.squareup.okhttp.Call call = getTokensValidateBeforeCall(contractAddressOrAlias, xChainId, size, cursor, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Kip37TokenInfoListResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for pauseContract
+     * Build call for mintToken
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -750,11 +495,11 @@ public class ContractApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call pauseContractCall(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call mintTokenCall(String xChainId, String contractAddressOrAlias, MintKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}/pause"
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token/mint"
             .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -795,17 +540,17 @@ public class ContractApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call pauseContractValidateBeforeCall(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call mintTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, MintKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling pauseContract(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling mintToken(Async)");
         }
         // verify the required parameter 'contractAddressOrAlias' is set
         if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling pauseContract(Async)");
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling mintToken(Async)");
         }
         
-        com.squareup.okhttp.Call call = pauseContractCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = mintTokenCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -815,37 +560,37 @@ public class ContractApi {
     }
 
     /**
-     * Pause KIP-37 Contract
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Mint Additional KIP-37 Tokens
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return Kip37TransactionStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37TransactionStatusResponse pauseContract(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37TransactionStatusResponse> resp = pauseContractWithHttpInfo(xChainId, contractAddressOrAlias, body);
+    public Kip37TransactionStatusResponse mintToken(String xChainId, String contractAddressOrAlias, MintKip37TokenRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = mintTokenWithHttpInfo(xChainId, contractAddressOrAlias, body);
         return resp.getData();
     }
 
     /**
-     * Pause KIP-37 Contract
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Mint Additional KIP-37 Tokens
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37TransactionStatusResponse> pauseContractWithHttpInfo(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = pauseContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
+    public ApiResponse<Kip37TransactionStatusResponse> mintTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, MintKip37TokenRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = mintTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Pause KIP-37 Contract (asynchronously)
-     * Pauses all operations for a specified contract, such as minting, transfering tokens.&lt;br /&gt; You can resume using [/v1/{contract-address-or-alias/unpause](#operation/UnpauseContract).    ##### Sender The Account that sends the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt;&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Mint Additional KIP-37 Tokens (asynchronously)
+     * Mints multiple tokens for a given KIP-37 contract.   Minting is possible after having created a token with [Create KIP-37 Token](#operation/CreateToken).    ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;mint&#x60; function. - If there are multiple elements, call the &#x60;mintBatch&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -853,7 +598,7 @@ public class ContractApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call pauseContractAsync(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call mintTokenAsync(String xChainId, String contractAddressOrAlias, MintKip37TokenRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -874,27 +619,29 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = pauseContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = mintTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for putContract
+     * Build call for pauseToken
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to pause operations (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call putContractCall(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call pauseTokenCall(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}"
-            .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token/pause/{token-id}"
+            .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()))
+            .replaceAll("\\{" + "token-id" + "\\}", apiClient.escapeString(tokenId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -930,21 +677,25 @@ public class ContractApi {
         }
 
         String[] localVarAuthNames = new String[] { "basic" };
-        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call putContractValidateBeforeCall(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call pauseTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling putContract(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling pauseToken(Async)");
         }
         // verify the required parameter 'contractAddressOrAlias' is set
         if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling putContract(Async)");
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling pauseToken(Async)");
+        }
+        // verify the required parameter 'tokenId' is set
+        if (tokenId == null) {
+            throw new ApiException("Missing the required parameter 'tokenId' when calling pauseToken(Async)");
         }
         
-        com.squareup.okhttp.Call call = putContractCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = pauseTokenCall(xChainId, contractAddressOrAlias, tokenId, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -954,45 +705,48 @@ public class ContractApi {
     }
 
     /**
-     * Edit KIP-37 Contract Information
-     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Pause KIP-37 Token Operations
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to pause operations (required)
      * @param body  (optional)
-     * @return Kip37Contract
+     * @return Kip37TransactionStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37Contract putContract(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37Contract> resp = putContractWithHttpInfo(xChainId, contractAddressOrAlias, body);
+    public Kip37TransactionStatusResponse pauseToken(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = pauseTokenWithHttpInfo(xChainId, contractAddressOrAlias, tokenId, body);
         return resp.getData();
     }
 
     /**
-     * Edit KIP-37 Contract Information
-     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Pause KIP-37 Token Operations
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to pause operations (required)
      * @param body  (optional)
-     * @return ApiResponse&lt;Kip37Contract&gt;
+     * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37Contract> putContractWithHttpInfo(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = putContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
+    public ApiResponse<Kip37TransactionStatusResponse> pauseTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = pauseTokenValidateBeforeCall(xChainId, contractAddressOrAlias, tokenId, body, null, null);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Edit KIP-37 Contract Information (asynchronously)
-     * Edits the information of a contract. &lt;br/&gt;  ##### Options   Options for paying the transaction fee. For more details, please refer to [Fee Payer Options](#section/Fee-Payer-Options).
+     * Pause KIP-37 Token Operations (asynchronously)
+     * Pauses the operations of a specified token, such as minting and creating tokens.  You can resume the opertations by using [/v1/{contract-address-or-alias/token/unpause/{token-id}](#operation/UnpauseToken).  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to pause operations (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call putContractAsync(String xChainId, String contractAddressOrAlias, UpdateKip37ContractRequest body, final ApiCallback<Kip37Contract> callback) throws ApiException {
+    public com.squareup.okhttp.Call pauseTokenAsync(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1013,13 +767,13 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = putContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37Contract>(){}.getType();
+        com.squareup.okhttp.Call call = pauseTokenValidateBeforeCall(xChainId, contractAddressOrAlias, tokenId, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
-     * Build call for unpauseContract
+     * Build call for transferToken
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1028,11 +782,11 @@ public class ContractApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call unpauseContractCall(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call transferTokenCall(String xChainId, String contractAddressOrAlias, TransferKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}/unpause"
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token/transfer"
             .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -1073,17 +827,17 @@ public class ContractApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call unpauseContractValidateBeforeCall(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call transferTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, TransferKip37TokenRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling unpauseContract(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling transferToken(Async)");
         }
         // verify the required parameter 'contractAddressOrAlias' is set
         if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling unpauseContract(Async)");
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling transferToken(Async)");
         }
         
-        com.squareup.okhttp.Call call = unpauseContractCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = transferTokenCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
         return call;
 
         
@@ -1093,37 +847,37 @@ public class ContractApi {
     }
 
     /**
-     * Resume KIP-37 Contract
-     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Send KIP-37 Token
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return Kip37TransactionStatusResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37TransactionStatusResponse unpauseContract(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body) throws ApiException {
-        ApiResponse<Kip37TransactionStatusResponse> resp = unpauseContractWithHttpInfo(xChainId, contractAddressOrAlias, body);
+    public Kip37TransactionStatusResponse transferToken(String xChainId, String contractAddressOrAlias, TransferKip37TokenRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = transferTokenWithHttpInfo(xChainId, contractAddressOrAlias, body);
         return resp.getData();
     }
 
     /**
-     * Resume KIP-37 Contract
-     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Send KIP-37 Token
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37TransactionStatusResponse> unpauseContractWithHttpInfo(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body) throws ApiException {
-        com.squareup.okhttp.Call call = unpauseContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
+    public ApiResponse<Kip37TransactionStatusResponse> transferTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, TransferKip37TokenRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = transferTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, null, null);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Resume KIP-37 Contract (asynchronously)
-     * Resumes the operations for a paused contract.  ##### Sender The account for sending the transaction.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * Send KIP-37 Token (asynchronously)
+     * Sends multiple tokens for a given KIP-37 contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and&#x60;owner&#x60; are different,&#x60;sender&#x60; must be authorized to send the token.  If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.  ##### Batch Items Call the contract function according to the Batch Items (&#x60;ids&#x60;, &#x60;amounts&#x60;) included in the request.  - If there is one element, call the &#x60;safeTransferFrom&#x60; function. - If there are multiple elements, call the &#x60;safeBatchTransferFrom&#x60; function.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
      * @param body  (optional)
@@ -1131,7 +885,7 @@ public class ContractApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call unpauseContractAsync(String xChainId, String contractAddressOrAlias, OperateKip37ContractRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call transferTokenAsync(String xChainId, String contractAddressOrAlias, TransferKip37TokenRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1152,7 +906,155 @@ public class ContractApi {
             };
         }
 
-        com.squareup.okhttp.Call call = unpauseContractValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = transferTokenValidateBeforeCall(xChainId, contractAddressOrAlias, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for unpauseToken
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to resume operations (required)
+     * @param body  (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call unpauseTokenCall(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/v1/contract/{contract-address-or-alias}/token/unpause/{token-id}"
+            .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()))
+            .replaceAll("\\{" + "token-id" + "\\}", apiClient.escapeString(tokenId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (xChainId != null)
+        localVarHeaderParams.put("x-chain-id", apiClient.parameterToString(xChainId));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "basic" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call unpauseTokenValidateBeforeCall(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling unpauseToken(Async)");
+        }
+        // verify the required parameter 'contractAddressOrAlias' is set
+        if (contractAddressOrAlias == null) {
+            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling unpauseToken(Async)");
+        }
+        // verify the required parameter 'tokenId' is set
+        if (tokenId == null) {
+            throw new ApiException("Missing the required parameter 'tokenId' when calling unpauseToken(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = unpauseTokenCall(xChainId, contractAddressOrAlias, tokenId, body, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Resume KIP-37 Token Operations
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to resume operations (required)
+     * @param body  (optional)
+     * @return Kip37TransactionStatusResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Kip37TransactionStatusResponse unpauseToken(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body) throws ApiException {
+        ApiResponse<Kip37TransactionStatusResponse> resp = unpauseTokenWithHttpInfo(xChainId, contractAddressOrAlias, tokenId, body);
+        return resp.getData();
+    }
+
+    /**
+     * Resume KIP-37 Token Operations
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to resume operations (required)
+     * @param body  (optional)
+     * @return ApiResponse&lt;Kip37TransactionStatusResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Kip37TransactionStatusResponse> unpauseTokenWithHttpInfo(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = unpauseTokenValidateBeforeCall(xChainId, contractAddressOrAlias, tokenId, body, null, null);
+        Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Resume KIP-37 Token Operations (asynchronously)
+     * Resumes paused token operations for a given contract.  ##### Sender The account for sending the transaction. If the &#x60;sender&#x60; and &#x60;owner&#x60; are different, &#x60;sender&#x60; must be authorized to transfer the token.    If the &#x60;sender&#x60; account belongs to a default &#x60;account-pool&#x60; for either KIP-37 or Wallet, you can omit the KRN.&lt;br /&gt; Otherwise you have to provide the KRN data (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;) in the header.
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
+     * @param tokenId ID of the token to resume operations (required)
+     * @param body  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call unpauseTokenAsync(String xChainId, String contractAddressOrAlias, String tokenId, OperateKip37ContractRequest body, final ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = unpauseTokenValidateBeforeCall(xChainId, contractAddressOrAlias, tokenId, body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Kip37TransactionStatusResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

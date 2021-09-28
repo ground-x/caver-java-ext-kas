@@ -26,8 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.ErrorResponse;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37TokenListResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37DeployerResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,14 +34,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TokenOwnershipApi {
+public class Kip37DeployerApi {
     private ApiClient apiClient;
 
-    public TokenOwnershipApi() {
+    public Kip37DeployerApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public TokenOwnershipApi(ApiClient apiClient) {
+    public Kip37DeployerApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -55,31 +54,21 @@ public class TokenOwnershipApi {
     }
 
     /**
-     * Build call for getTokensByOwner
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param ownerAddress Klaytn account address to query. (required)
+     * Build call for getDefaultDeployer
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
-     * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getTokensByOwnerCall(String contractAddressOrAlias, String ownerAddress, String xChainId, Integer size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getDefaultDeployerCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v1/contract/{contract-address-or-alias}/owner/{owner-address}/token"
-            .replaceAll("\\{" + "contract-address-or-alias" + "\\}", apiClient.escapeString(contractAddressOrAlias.toString()))
-            .replaceAll("\\{" + "owner-address" + "\\}", apiClient.escapeString(ownerAddress.toString()));
+        String localVarPath = "/v1/deployer/default";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (size != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-        if (cursor != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("cursor", cursor));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (xChainId != null)
@@ -116,21 +105,13 @@ public class TokenOwnershipApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getTokensByOwnerValidateBeforeCall(String contractAddressOrAlias, String ownerAddress, String xChainId, Integer size, String cursor, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'contractAddressOrAlias' is set
-        if (contractAddressOrAlias == null) {
-            throw new ApiException("Missing the required parameter 'contractAddressOrAlias' when calling getTokensByOwner(Async)");
-        }
-        // verify the required parameter 'ownerAddress' is set
-        if (ownerAddress == null) {
-            throw new ApiException("Missing the required parameter 'ownerAddress' when calling getTokensByOwner(Async)");
-        }
+    private com.squareup.okhttp.Call getDefaultDeployerValidateBeforeCall(String xChainId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
-            throw new ApiException("Missing the required parameter 'xChainId' when calling getTokensByOwner(Async)");
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getDefaultDeployer(Async)");
         }
         
-        com.squareup.okhttp.Call call = getTokensByOwnerCall(contractAddressOrAlias, ownerAddress, xChainId, size, cursor, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getDefaultDeployerCall(xChainId, progressListener, progressRequestListener);
         return call;
 
         
@@ -140,51 +121,39 @@ public class TokenOwnershipApi {
     }
 
     /**
-     * Get KIP-37 Token List of an Account
-     * Returns a list of tokens owned by a certain account. 
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param ownerAddress Klaytn account address to query. (required)
+     * Get Default Account for Contract Deployment
+     * Get account for deploying and managing contract.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
-     * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @return Kip37TokenListResponse
+     * @return Kip37DeployerResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Kip37TokenListResponse getTokensByOwner(String contractAddressOrAlias, String ownerAddress, String xChainId, Integer size, String cursor) throws ApiException {
-        ApiResponse<Kip37TokenListResponse> resp = getTokensByOwnerWithHttpInfo(contractAddressOrAlias, ownerAddress, xChainId, size, cursor);
+    public Kip37DeployerResponse getDefaultDeployer(String xChainId) throws ApiException {
+        ApiResponse<Kip37DeployerResponse> resp = getDefaultDeployerWithHttpInfo(xChainId);
         return resp.getData();
     }
 
     /**
-     * Get KIP-37 Token List of an Account
-     * Returns a list of tokens owned by a certain account. 
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param ownerAddress Klaytn account address to query. (required)
+     * Get Default Account for Contract Deployment
+     * Get account for deploying and managing contract.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
-     * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
-     * @return ApiResponse&lt;Kip37TokenListResponse&gt;
+     * @return ApiResponse&lt;Kip37DeployerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Kip37TokenListResponse> getTokensByOwnerWithHttpInfo(String contractAddressOrAlias, String ownerAddress, String xChainId, Integer size, String cursor) throws ApiException {
-        com.squareup.okhttp.Call call = getTokensByOwnerValidateBeforeCall(contractAddressOrAlias, ownerAddress, xChainId, size, cursor, null, null);
-        Type localVarReturnType = new TypeToken<Kip37TokenListResponse>(){}.getType();
+    public ApiResponse<Kip37DeployerResponse> getDefaultDeployerWithHttpInfo(String xChainId) throws ApiException {
+        com.squareup.okhttp.Call call = getDefaultDeployerValidateBeforeCall(xChainId, null, null);
+        Type localVarReturnType = new TypeToken<Kip37DeployerResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Get KIP-37 Token List of an Account (asynchronously)
-     * Returns a list of tokens owned by a certain account. 
-     * @param contractAddressOrAlias Contract address (in hex. with the 0x prefix) or alias (required)
-     * @param ownerAddress Klaytn account address to query. (required)
+     * Get Default Account for Contract Deployment (asynchronously)
+     * Get account for deploying and managing contract.
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
-     * @param size Number of items to return (optional)
-     * @param cursor The pointer after which the results will be returned. &#x60;cursor&#x60; will be included in the result when you request a query of a specific number (&#x60;size&#x60;) of items. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getTokensByOwnerAsync(String contractAddressOrAlias, String ownerAddress, String xChainId, Integer size, String cursor, final ApiCallback<Kip37TokenListResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getDefaultDeployerAsync(String xChainId, final ApiCallback<Kip37DeployerResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -205,8 +174,8 @@ public class TokenOwnershipApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getTokensByOwnerValidateBeforeCall(contractAddressOrAlias, ownerAddress, xChainId, size, cursor, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Kip37TokenListResponse>(){}.getType();
+        com.squareup.okhttp.Call call = getDefaultDeployerValidateBeforeCall(xChainId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Kip37DeployerResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
