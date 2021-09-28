@@ -21,60 +21,74 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetOwnerKip17TokensResponseItem;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOption;
 /**
- * GetOwnerKip17TokensResponse
+ * Kip17DeployResponse
  */
 
 
-public class GetOwnerKip17TokensResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class Kip17DeployResponse {
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("items")
-  private List<GetOwnerKip17TokensResponseItem> items = new ArrayList<GetOwnerKip17TokensResponseItem>();
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
-  public GetOwnerKip17TokensResponse cursor(String cursor) {
-    this.cursor = cursor;
+  @SerializedName("option")
+  private Kip17FeePayerOption option = null;
+
+  public Kip17DeployResponse status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * Transaction status
+   * @return status
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(example = "Submitted", required = true, description = "Transaction status")
+  public String getStatus() {
+    return status;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public GetOwnerKip17TokensResponse items(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
-    return this;
-  }
-
-  public GetOwnerKip17TokensResponse addItemsItem(GetOwnerKip17TokensResponseItem itemsItem) {
-    this.items.add(itemsItem);
+  public Kip17DeployResponse transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Transaction hash
+   * @return transactionHash
   **/
-  @Schema(required = true, description = "")
-  public List<GetOwnerKip17TokensResponseItem> getItems() {
-    return items;
+  @Schema(example = "4663258735679063349023531882594378480699948849164964832626057066280066375387", required = true, description = "Transaction hash")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setItems(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public Kip17DeployResponse option(Kip17FeePayerOption option) {
+    this.option = option;
+    return this;
+  }
+
+   /**
+   * Get option
+   * @return option
+  **/
+  @Schema(description = "")
+  public Kip17FeePayerOption getOption() {
+    return option;
+  }
+
+  public void setOption(Kip17FeePayerOption option) {
+    this.option = option;
   }
 
 
@@ -86,24 +100,26 @@ public class GetOwnerKip17TokensResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetOwnerKip17TokensResponse getOwnerKip17TokensResponse = (GetOwnerKip17TokensResponse) o;
-    return Objects.equals(this.cursor, getOwnerKip17TokensResponse.cursor) &&
-        Objects.equals(this.items, getOwnerKip17TokensResponse.items);
+    Kip17DeployResponse kip17DeployResponse = (Kip17DeployResponse) o;
+    return Objects.equals(this.status, kip17DeployResponse.status) &&
+        Objects.equals(this.transactionHash, kip17DeployResponse.transactionHash) &&
+        Objects.equals(this.option, kip17DeployResponse.option);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(status, transactionHash, option);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetOwnerKip17TokensResponse {\n");
+    sb.append("class Kip17DeployResponse {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    option: ").append(toIndentedString(option)).append("\n");
     sb.append("}");
     return sb.toString();
   }

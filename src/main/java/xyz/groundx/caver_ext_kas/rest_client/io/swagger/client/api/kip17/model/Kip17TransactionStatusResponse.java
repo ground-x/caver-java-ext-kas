@@ -1,6 +1,6 @@
 /*
  * KIP-17 API
- *   # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1100050 | incorrect request 1100101 | data don't exist 1100251 | its value is out of range; size 1104401 | failed to get an account |   ## 404: Not Found   | Code | Messages |   | --- | --- |   | 1104404 | Token not found |   ## 409: Conflict   | Code | Messages |   | --- | --- |   | 1104400 | Duplicate alias - test |  
+ * # Introduction The KIP-17 API helps BApp (Blockchain Application) developers to manage contracts and tokens created in accordance with the [KIP-17](https://docs.klaytnapi.com/v/en/api#kip-17-api) standard, which is Klaytn's technical speficication for Non-Fungible Tokens.  The functionality of the multiple endpoints enables you to do the following actions: - deploy smart contracts - manage the entire life cycle of an NFT from minting, to sending and burning - get contract or token data - authorize a third party to execute token transfers - view token ownership history  For more details on KAS, please refer to [KAS Docs](https://docs.klaytnapi.com/). If you have any questions or comments, please leave them in the [Klaytn Developers Forum](http://forum.klaytn.com).    **alias**  When a method of the KIP-17 API requires a contract address, you can use the contract **alias**. You can give the contract an alias when deploying, and use it in place of the complicated address.  # Fee Payer Options KAS KIP-17 supports four ways to pay the transaction fees.<br />  **1. Only using KAS Global FeePayer Account** <br /> Sends all transactions using KAS Global FeePayer Account. ``` {     \"options\": {       \"enableGlobalFeePayer\": true     } } ``` <br />  **2. Using User FeePayer Account** <br /> Sends all transactions using User FeePayer Account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ``` <br />  **3. Using both KAS Global FeePayer Account + User FeePayer Account** <br /> Sends transactions using User FeePayer Account by default, and switches to the KAS Global FeePayer Account when balances are insufficient. ``` {   \"options\": {     \"enableGlobalFeePayer\": true,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ``` <br />  **4. Not using FeePayer Account** <br /> Sends transactions the default way, paying the transaction fee from the user's account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false   } } ``` <br />  # Error Code This section contains the errors that might occur when using the KIP-17 API. KAS uses HTTP status codes. More details can be found in this [link](https://developer.mozilla.org/en/docs/Web/HTTP/Status).
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -33,6 +33,9 @@ public class Kip17TransactionStatusResponse {
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
+  @SerializedName("transactionId")
+  private String transactionId = null;
+
   public Kip17TransactionStatusResponse status(String status) {
     this.status = status;
     return this;
@@ -57,16 +60,34 @@ public class Kip17TransactionStatusResponse {
   }
 
    /**
-   * Hash of the transaction
+   * Transaction hash
    * @return transactionHash
   **/
-  @Schema(example = "0xa996fd0808410d71b8c07d7007340b9d683d5554de8afd9906b3c4a789330451", required = true, description = "Hash of the transaction")
+  @Schema(example = "4663258735679063349023531882594378480699948849164964832626057066280066375387", required = true, description = "Transaction hash")
   public String getTransactionHash() {
     return transactionHash;
   }
 
   public void setTransactionHash(String transactionHash) {
     this.transactionHash = transactionHash;
+  }
+
+  public Kip17TransactionStatusResponse transactionId(String transactionId) {
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * The multi-signature transaction id.
+   * @return transactionId
+  **/
+  @Schema(description = "The multi-signature transaction id.")
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
   }
 
 
@@ -80,12 +101,13 @@ public class Kip17TransactionStatusResponse {
     }
     Kip17TransactionStatusResponse kip17TransactionStatusResponse = (Kip17TransactionStatusResponse) o;
     return Objects.equals(this.status, kip17TransactionStatusResponse.status) &&
-        Objects.equals(this.transactionHash, kip17TransactionStatusResponse.transactionHash);
+        Objects.equals(this.transactionHash, kip17TransactionStatusResponse.transactionHash) &&
+        Objects.equals(this.transactionId, kip17TransactionStatusResponse.transactionId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, transactionHash);
+    return Objects.hash(status, transactionHash, transactionId);
   }
 
 
@@ -96,6 +118,7 @@ public class Kip17TransactionStatusResponse {
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -21,60 +21,52 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetOwnerKip17TokensResponseItem;
 /**
- * GetOwnerKip17TokensResponse
+ * Kip17FeePayerOptionUserFeePayer
  */
 
 
-public class GetOwnerKip17TokensResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class Kip17FeePayerOptionUserFeePayer {
+  @SerializedName("krn")
+  private String krn = null;
 
-  @SerializedName("items")
-  private List<GetOwnerKip17TokensResponseItem> items = new ArrayList<GetOwnerKip17TokensResponseItem>();
+  @SerializedName("address")
+  private String address = null;
 
-  public GetOwnerKip17TokensResponse cursor(String cursor) {
-    this.cursor = cursor;
+  public Kip17FeePayerOptionUserFeePayer krn(String krn) {
+    this.krn = krn;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * The KRN of the FeePayer-Pool of the FeePayer.
+   * @return krn
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(description = "The KRN of the FeePayer-Pool of the FeePayer.")
+  public String getKrn() {
+    return krn;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setKrn(String krn) {
+    this.krn = krn;
   }
 
-  public GetOwnerKip17TokensResponse items(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
-    return this;
-  }
-
-  public GetOwnerKip17TokensResponse addItemsItem(GetOwnerKip17TokensResponseItem itemsItem) {
-    this.items.add(itemsItem);
+  public Kip17FeePayerOptionUserFeePayer address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * The Klaytn account address that will pay the transaction fee.
+   * @return address
   **/
-  @Schema(required = true, description = "")
-  public List<GetOwnerKip17TokensResponseItem> getItems() {
-    return items;
+  @Schema(description = "The Klaytn account address that will pay the transaction fee.")
+  public String getAddress() {
+    return address;
   }
 
-  public void setItems(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -86,24 +78,24 @@ public class GetOwnerKip17TokensResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetOwnerKip17TokensResponse getOwnerKip17TokensResponse = (GetOwnerKip17TokensResponse) o;
-    return Objects.equals(this.cursor, getOwnerKip17TokensResponse.cursor) &&
-        Objects.equals(this.items, getOwnerKip17TokensResponse.items);
+    Kip17FeePayerOptionUserFeePayer kip17FeePayerOptionUserFeePayer = (Kip17FeePayerOptionUserFeePayer) o;
+    return Objects.equals(this.krn, kip17FeePayerOptionUserFeePayer.krn) &&
+        Objects.equals(this.address, kip17FeePayerOptionUserFeePayer.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(krn, address);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetOwnerKip17TokensResponse {\n");
+    sb.append("class Kip17FeePayerOptionUserFeePayer {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }

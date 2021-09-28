@@ -21,60 +21,53 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetOwnerKip17TokensResponseItem;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptionUserFeePayer;
 /**
- * GetOwnerKip17TokensResponse
+ * Kip17FeePayerOption
  */
 
 
-public class GetOwnerKip17TokensResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class Kip17FeePayerOption {
+  @SerializedName("enableGlobalFeePayer")
+  private Boolean enableGlobalFeePayer = null;
 
-  @SerializedName("items")
-  private List<GetOwnerKip17TokensResponseItem> items = new ArrayList<GetOwnerKip17TokensResponseItem>();
+  @SerializedName("userFeePayer")
+  private Kip17FeePayerOptionUserFeePayer userFeePayer = null;
 
-  public GetOwnerKip17TokensResponse cursor(String cursor) {
-    this.cursor = cursor;
+  public Kip17FeePayerOption enableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * The boolean value that indicates whether KAS global fee delegation is used. The default value is &#x60;true&#x60;.
+   * @return enableGlobalFeePayer
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(description = "The boolean value that indicates whether KAS global fee delegation is used. The default value is `true`.")
+  public Boolean isEnableGlobalFeePayer() {
+    return enableGlobalFeePayer;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setEnableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
   }
 
-  public GetOwnerKip17TokensResponse items(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
-    return this;
-  }
-
-  public GetOwnerKip17TokensResponse addItemsItem(GetOwnerKip17TokensResponseItem itemsItem) {
-    this.items.add(itemsItem);
+  public Kip17FeePayerOption userFeePayer(Kip17FeePayerOptionUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Get userFeePayer
+   * @return userFeePayer
   **/
-  @Schema(required = true, description = "")
-  public List<GetOwnerKip17TokensResponseItem> getItems() {
-    return items;
+  @Schema(description = "")
+  public Kip17FeePayerOptionUserFeePayer getUserFeePayer() {
+    return userFeePayer;
   }
 
-  public void setItems(List<GetOwnerKip17TokensResponseItem> items) {
-    this.items = items;
+  public void setUserFeePayer(Kip17FeePayerOptionUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
   }
 
 
@@ -86,24 +79,24 @@ public class GetOwnerKip17TokensResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetOwnerKip17TokensResponse getOwnerKip17TokensResponse = (GetOwnerKip17TokensResponse) o;
-    return Objects.equals(this.cursor, getOwnerKip17TokensResponse.cursor) &&
-        Objects.equals(this.items, getOwnerKip17TokensResponse.items);
+    Kip17FeePayerOption kip17FeePayerOption = (Kip17FeePayerOption) o;
+    return Objects.equals(this.enableGlobalFeePayer, kip17FeePayerOption.enableGlobalFeePayer) &&
+        Objects.equals(this.userFeePayer, kip17FeePayerOption.userFeePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(enableGlobalFeePayer, userFeePayer);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetOwnerKip17TokensResponse {\n");
+    sb.append("class Kip17FeePayerOption {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    enableGlobalFeePayer: ").append(toIndentedString(enableGlobalFeePayer)).append("\n");
+    sb.append("    userFeePayer: ").append(toIndentedString(userFeePayer)).append("\n");
     sb.append("}");
     return sb.toString();
   }
