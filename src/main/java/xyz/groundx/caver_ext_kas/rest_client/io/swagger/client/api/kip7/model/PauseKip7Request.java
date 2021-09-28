@@ -22,93 +22,30 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * TransferKip7TokenFromRequest
+ * PauseKip7Request
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class PauseKip7Request {
+  @SerializedName("pauser")
+  private String pauser = null;
 
-  @SerializedName("owner")
-  private String owner = null;
-
-  @SerializedName("to")
-  private String to = null;
-
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public PauseKip7Request pauser(String pauser) {
+    this.pauser = pauser;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * The Klaytn account address whose authority to send contracts will be removed. The default value is the &#x60;deployer&#x60;&#x27;s address.
+   * @return pauser
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(description = "The Klaytn account address whose authority to send contracts will be removed. The default value is the `deployer`'s address.")
+  public String getPauser() {
+    return pauser;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
-  }
-
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-   /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
-  **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
-  }
-
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Klaytn account address to receive tokens
-   * @return to
-  **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setPauser(String pauser) {
+    this.pauser = pauser;
   }
 
 
@@ -120,28 +57,22 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    PauseKip7Request pauseKip7Request = (PauseKip7Request) o;
+    return Objects.equals(this.pauser, pauseKip7Request.pauser);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(pauser);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class PauseKip7Request {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    pauser: ").append(toIndentedString(pauser)).append("\n");
     sb.append("}");
     return sb.toString();
   }

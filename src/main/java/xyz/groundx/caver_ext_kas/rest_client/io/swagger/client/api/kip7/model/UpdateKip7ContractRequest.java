@@ -21,94 +21,32 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOption;
 /**
- * TransferKip7TokenFromRequest
+ * UpdateKip7ContractRequest
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class UpdateKip7ContractRequest {
+  @SerializedName("options")
+  private Kip7FeePayerOption options = null;
 
-  @SerializedName("owner")
-  private String owner = null;
-
-  @SerializedName("to")
-  private String to = null;
-
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public UpdateKip7ContractRequest options(Kip7FeePayerOption options) {
+    this.options = options;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * Get options
+   * @return options
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(description = "")
+  public Kip7FeePayerOption getOptions() {
+    return options;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
-  }
-
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-   /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
-  **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
-  }
-
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Klaytn account address to receive tokens
-   * @return to
-  **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setOptions(Kip7FeePayerOption options) {
+    this.options = options;
   }
 
 
@@ -120,28 +58,22 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    UpdateKip7ContractRequest updateKip7ContractRequest = (UpdateKip7ContractRequest) o;
+    return Objects.equals(this.options, updateKip7ContractRequest.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class UpdateKip7ContractRequest {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }

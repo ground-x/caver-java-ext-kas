@@ -22,93 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * TransferKip7TokenFromRequest
+ * AddMinterKip7Request
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class AddMinterKip7Request {
+  @SerializedName("sender")
+  private String sender = null;
 
-  @SerializedName("owner")
-  private String owner = null;
+  @SerializedName("minter")
+  private String minter = null;
 
-  @SerializedName("to")
-  private String to = null;
-
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public AddMinterKip7Request sender(String sender) {
+    this.sender = sender;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * Klaytn account address that grants authority to mint and burn a token. The default value is the &#x60;deployer&#x60;&#x27;s address&#x27;.
+   * @return sender
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(example = "175224902929872758239811531255736711146941009517", description = "Klaytn account address that grants authority to mint and burn a token. The default value is the `deployer`'s address'.")
+  public String getSender() {
+    return sender;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
+  public void setSender(String sender) {
+    this.sender = sender;
   }
 
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
+  public AddMinterKip7Request minter(String minter) {
+    this.minter = minter;
     return this;
   }
 
    /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
+   * The Klaytn account address to be granted authority to mint and burn tokens.
+   * @return minter
   **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
+  @Schema(example = "905926021062573029082840825013416120695539447028", required = true, description = "The Klaytn account address to be granted authority to mint and burn tokens.")
+  public String getMinter() {
+    return minter;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Klaytn account address to receive tokens
-   * @return to
-  **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setMinter(String minter) {
+    this.minter = minter;
   }
 
 
@@ -120,28 +78,24 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    AddMinterKip7Request addMinterKip7Request = (AddMinterKip7Request) o;
+    return Objects.equals(this.sender, addMinterKip7Request.sender) &&
+        Objects.equals(this.minter, addMinterKip7Request.minter);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(sender, minter);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class AddMinterKip7Request {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    sender: ").append(toIndentedString(sender)).append("\n");
+    sb.append("    minter: ").append(toIndentedString(minter)).append("\n");
     sb.append("}");
     return sb.toString();
   }

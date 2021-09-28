@@ -21,94 +21,74 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionResponse;
 /**
- * TransferKip7TokenFromRequest
+ * Kip7DeployResponse
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class Kip7DeployResponse {
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("owner")
-  private String owner = null;
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
-  @SerializedName("to")
-  private String to = null;
+  @SerializedName("options")
+  private Kip7FeePayerOptionResponse options = null;
 
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public Kip7DeployResponse status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * Transaction status (&#x60;Submitted&#x60;, &#x60;Pending&#x60;)
+   * @return status
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(required = true, description = "Transaction status (`Submitted`, `Pending`)")
+  public String getStatus() {
+    return status;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
+  public Kip7DeployResponse transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
+   * Transaction hash
+   * @return transactionHash
   **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
+  @Schema(required = true, description = "Transaction hash")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
   }
 
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
+  public Kip7DeployResponse options(Kip7FeePayerOptionResponse options) {
+    this.options = options;
     return this;
   }
 
    /**
-   * Klaytn account address to receive tokens
-   * @return to
+   * Get options
+   * @return options
   **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
+  @Schema(description = "")
+  public Kip7FeePayerOptionResponse getOptions() {
+    return options;
   }
 
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setOptions(Kip7FeePayerOptionResponse options) {
+    this.options = options;
   }
 
 
@@ -120,28 +100,26 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    Kip7DeployResponse kip7DeployResponse = (Kip7DeployResponse) o;
+    return Objects.equals(this.status, kip7DeployResponse.status) &&
+        Objects.equals(this.transactionHash, kip7DeployResponse.transactionHash) &&
+        Objects.equals(this.options, kip7DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(status, transactionHash, options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class Kip7DeployResponse {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }

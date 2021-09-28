@@ -22,93 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * TransferKip7TokenFromRequest
+ * Kip7FeePayerOptionResponseUserFeePayer
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class Kip7FeePayerOptionResponseUserFeePayer {
+  @SerializedName("krn")
+  private String krn = null;
 
-  @SerializedName("owner")
-  private String owner = null;
+  @SerializedName("address")
+  private String address = null;
 
-  @SerializedName("to")
-  private String to = null;
-
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public Kip7FeePayerOptionResponseUserFeePayer krn(String krn) {
+    this.krn = krn;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * The KRN of the Fee-payer Pool
+   * @return krn
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(description = "The KRN of the Fee-payer Pool")
+  public String getKrn() {
+    return krn;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
+  public void setKrn(String krn) {
+    this.krn = krn;
   }
 
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
+  public Kip7FeePayerOptionResponseUserFeePayer address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
+   * The Klaytn account address of the FeePayer
+   * @return address
   **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
+  @Schema(description = "The Klaytn account address of the FeePayer")
+  public String getAddress() {
+    return address;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Klaytn account address to receive tokens
-   * @return to
-  **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -120,28 +78,24 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    Kip7FeePayerOptionResponseUserFeePayer kip7FeePayerOptionResponseUserFeePayer = (Kip7FeePayerOptionResponseUserFeePayer) o;
+    return Objects.equals(this.krn, kip7FeePayerOptionResponseUserFeePayer.krn) &&
+        Objects.equals(this.address, kip7FeePayerOptionResponseUserFeePayer.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(krn, address);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class Kip7FeePayerOptionResponseUserFeePayer {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }

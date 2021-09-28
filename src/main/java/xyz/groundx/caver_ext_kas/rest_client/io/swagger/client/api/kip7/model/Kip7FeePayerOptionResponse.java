@@ -21,94 +21,53 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionResponseUserFeePayer;
 /**
- * TransferKip7TokenFromRequest
+ * Kip7FeePayerOptionResponse
  */
 
 
-public class TransferKip7TokenFromRequest {
-  @SerializedName("spender")
-  private String spender = null;
+public class Kip7FeePayerOptionResponse {
+  @SerializedName("enableGlobalFeepayer")
+  private Boolean enableGlobalFeepayer = null;
 
-  @SerializedName("owner")
-  private String owner = null;
+  @SerializedName("userFeePayer")
+  private Kip7FeePayerOptionResponseUserFeePayer userFeePayer = null;
 
-  @SerializedName("to")
-  private String to = null;
-
-  @SerializedName("amount")
-  private String amount = null;
-
-  public TransferKip7TokenFromRequest spender(String spender) {
-    this.spender = spender;
+  public Kip7FeePayerOptionResponse enableGlobalFeepayer(Boolean enableGlobalFeepayer) {
+    this.enableGlobalFeepayer = enableGlobalFeepayer;
     return this;
   }
 
    /**
-   * The Klaytn account address to send tokens on behalf of the &#x60;owner&#x60;.
-   * @return spender
+   * The boolean value indicating whether KAS Global Fee Delegation is being used. The default value is &#x60;true&#x60;.
+   * @return enableGlobalFeepayer
   **/
-  @Schema(example = "1224943311509860752118718913702900079034625498283", required = true, description = "The Klaytn account address to send tokens on behalf of the `owner`.")
-  public String getSpender() {
-    return spender;
+  @Schema(description = "The boolean value indicating whether KAS Global Fee Delegation is being used. The default value is `true`.")
+  public Boolean isEnableGlobalFeepayer() {
+    return enableGlobalFeepayer;
   }
 
-  public void setSpender(String spender) {
-    this.spender = spender;
+  public void setEnableGlobalFeepayer(Boolean enableGlobalFeepayer) {
+    this.enableGlobalFeepayer = enableGlobalFeepayer;
   }
 
-  public TransferKip7TokenFromRequest owner(String owner) {
-    this.owner = owner;
+  public Kip7FeePayerOptionResponse userFeePayer(Kip7FeePayerOptionResponseUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
     return this;
   }
 
    /**
-   * The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.
-   * @return owner
+   * Get userFeePayer
+   * @return userFeePayer
   **/
-  @Schema(example = "175224902929872758239811531255736711146941009517", required = true, description = "The Klaytn account address of the owner granting the authority to send tokens on his or her behalf.")
-  public String getOwner() {
-    return owner;
+  @Schema(description = "")
+  public Kip7FeePayerOptionResponseUserFeePayer getUserFeePayer() {
+    return userFeePayer;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public TransferKip7TokenFromRequest to(String to) {
-    this.to = to;
-    return this;
-  }
-
-   /**
-   * Klaytn account address to receive tokens
-   * @return to
-  **/
-  @Schema(example = "361035695825504109740984612991529297972311119991", required = true, description = "Klaytn account address to receive tokens")
-  public String getTo() {
-    return to;
-  }
-
-  public void setTo(String to) {
-    this.to = to;
-  }
-
-  public TransferKip7TokenFromRequest amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Transfer amount (in hex.)
-   * @return amount
-  **/
-  @Schema(example = "80", required = true, description = "Transfer amount (in hex.)")
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setUserFeePayer(Kip7FeePayerOptionResponseUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
   }
 
 
@@ -120,28 +79,24 @@ public class TransferKip7TokenFromRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransferKip7TokenFromRequest transferKip7TokenFromRequest = (TransferKip7TokenFromRequest) o;
-    return Objects.equals(this.spender, transferKip7TokenFromRequest.spender) &&
-        Objects.equals(this.owner, transferKip7TokenFromRequest.owner) &&
-        Objects.equals(this.to, transferKip7TokenFromRequest.to) &&
-        Objects.equals(this.amount, transferKip7TokenFromRequest.amount);
+    Kip7FeePayerOptionResponse kip7FeePayerOptionResponse = (Kip7FeePayerOptionResponse) o;
+    return Objects.equals(this.enableGlobalFeepayer, kip7FeePayerOptionResponse.enableGlobalFeepayer) &&
+        Objects.equals(this.userFeePayer, kip7FeePayerOptionResponse.userFeePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spender, owner, to, amount);
+    return Objects.hash(enableGlobalFeepayer, userFeePayer);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransferKip7TokenFromRequest {\n");
+    sb.append("class Kip7FeePayerOptionResponse {\n");
     
-    sb.append("    spender: ").append(toIndentedString(spender)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    enableGlobalFeepayer: ").append(toIndentedString(enableGlobalFeepayer)).append("\n");
+    sb.append("    userFeePayer: ").append(toIndentedString(userFeePayer)).append("\n");
     sb.append("}");
     return sb.toString();
   }

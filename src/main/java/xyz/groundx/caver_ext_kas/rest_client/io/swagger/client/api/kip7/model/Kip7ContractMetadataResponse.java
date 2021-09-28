@@ -1,6 +1,6 @@
 /*
  * KIP-7 API
- * # Introduction KIP-7 API is a RESTful API for managing KIP-7 contracts and tokens that follow the [KIP-7 Fungible Token Standard](https://kips.klaytn.com/KIPs/kip-7).   You can deploy contracts and send tokens using the default contract managing account (`deployer`) and an `alias`. And by using SDK like caver,  you can manage your contracts and tokens using [Wallet API](https://refs.klaytnapi.com/en/wallet/latest) for contracts created on the Klaytn Network.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |  | 1130050 | incorrect request; spender 1130107 | incorrect bookmark 1134410 | invalid address; to</br>invalid address; owner</br>invalid address; address 1134411 | invalid amount; amount |  ## 404: Not Found   | Code | Messages |  | --- | --- |  | 1134504 | contract not found 1134506 | deployer not found |   ## 409: Conflict   | Code | Messages |   | --- | --- |   | 1134900 | duplicate alias 1134902 | contract already paused 1134903 | contract already unpaused |  
+ * # Introduction The KIP-17 API helps BApp (Blockchain Application) developers to manage contracts and tokens created in accordance with the [KIP-7](https://docs.klaytnapi.com/v/en/api#kip-7-api) standard, which is Klaytn's technical speficication for Fungible Tokens.  The functionality of the multiple endpoints enables you to do the following actions: - deploy smart contracts - manage the entire life cycle of an FT from minting, to sending and burning - get contract or token data - authorize a third party to execute token transfers - send tokens on behalf of the owner   For more details on KAS, please refer to [KAS Docs](https://docs.klaytnapi.com/). If you have any questions or comments, please leave them in the [Klaytn Developers Forum](http://forum.klaytn.com).    **alias**  When a method of the KIP-17 API requires a contract address, you can use the contract **alias**. You can give the contract an alias when deploying, and use it in place of the complicated address.  **deployer**  When you create a contract, you will be assigned one `deployer` address per Credential, which is the account address used for managing contracts. In KIP-7 API, this address is used in many different token-related operations. You can find the `deployer` address with [KIP7Deployer](#operation/GetDefaultDeployer).  Even with contracts created using SDKs like \"caver\", you can still use the contract address and [Wallet API](https://refs.klaytnapi.com/en/wallet/latest) account to manage your contracts and tokens.  # Fee Payer Options  KAS KIP-17 supports four ways to pay the transaction fees.<br />  **1. Only using KAS Global FeePayer Account** <br /> Sends all transactions using KAS Global FeePayer Account. ``` {     \"options\": {       \"enableGlobalFeePayer\": true     } } ```  <br />  **2. Using User FeePayer Account** <br /> Sends all transactions using User FeePayer Account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ```  <br />  **3. Using both KAS Global FeePayer Account + User FeePayer Account** <br /> Sends transactions using User FeePayer Account by default, and switches to the KAS Global FeePayer Account when balances are insufficient. ``` {   \"options\": {     \"enableGlobalFeePayer\": true,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ```  <br />  **4. Not using FeePayer Account** <br /> Sends transactions the default way, paying the transaction fee from the user's account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false   } } ```  # Error Code This section contains the errors that might occur when using the KIP-17 API. KAS uses HTTP status codes. More details can be found in this [link](https://developer.mozilla.org/en/docs/Web/HTTP/Status). 
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOption;
 /**
  * Kip7ContractMetadataResponse
  */
@@ -42,6 +43,9 @@ public class Kip7ContractMetadataResponse {
   @SerializedName("totalSupply")
   private String totalSupply = null;
 
+  @SerializedName("options")
+  private Kip7FeePayerOption options = null;
+
   public Kip7ContractMetadataResponse address(String address) {
     this.address = address;
     return this;
@@ -51,7 +55,7 @@ public class Kip7ContractMetadataResponse {
    * Contract address
    * @return address
   **/
-  @Schema(example = "0x0f73bb170deb398180f02e60d7ea154c270b8fb9", required = true, description = "Contract address")
+  @Schema(example = "88215745102653612937125749890058681434164137913", required = true, description = "Contract address")
   public String getAddress() {
     return address;
   }
@@ -66,10 +70,10 @@ public class Kip7ContractMetadataResponse {
   }
 
    /**
-   * Token decimal place
+   * The number of digits that come after the decimal place when displaying token values on-screen. The default value is &#x60;0&#x60;.
    * @return decimals
   **/
-  @Schema(example = "8", required = true, description = "Token decimal place")
+  @Schema(example = "8", required = true, description = "The number of digits that come after the decimal place when displaying token values on-screen. The default value is `0`.")
   public Long getDecimals() {
     return decimals;
   }
@@ -120,16 +124,34 @@ public class Kip7ContractMetadataResponse {
   }
 
    /**
-   * Total supply (in hexadecimal)
+   * Total supply (in hex)
    * @return totalSupply
   **/
-  @Schema(example = "0x500", required = true, description = "Total supply (in hexadecimal)")
+  @Schema(example = "1280", required = true, description = "Total supply (in hex)")
   public String getTotalSupply() {
     return totalSupply;
   }
 
   public void setTotalSupply(String totalSupply) {
     this.totalSupply = totalSupply;
+  }
+
+  public Kip7ContractMetadataResponse options(Kip7FeePayerOption options) {
+    this.options = options;
+    return this;
+  }
+
+   /**
+   * Get options
+   * @return options
+  **/
+  @Schema(description = "")
+  public Kip7FeePayerOption getOptions() {
+    return options;
+  }
+
+  public void setOptions(Kip7FeePayerOption options) {
+    this.options = options;
   }
 
 
@@ -146,12 +168,13 @@ public class Kip7ContractMetadataResponse {
         Objects.equals(this.decimals, kip7ContractMetadataResponse.decimals) &&
         Objects.equals(this.name, kip7ContractMetadataResponse.name) &&
         Objects.equals(this.symbol, kip7ContractMetadataResponse.symbol) &&
-        Objects.equals(this.totalSupply, kip7ContractMetadataResponse.totalSupply);
+        Objects.equals(this.totalSupply, kip7ContractMetadataResponse.totalSupply) &&
+        Objects.equals(this.options, kip7ContractMetadataResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, decimals, name, symbol, totalSupply);
+    return Objects.hash(address, decimals, name, symbol, totalSupply, options);
   }
 
 
@@ -165,6 +188,7 @@ public class Kip7ContractMetadataResponse {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
     sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }
