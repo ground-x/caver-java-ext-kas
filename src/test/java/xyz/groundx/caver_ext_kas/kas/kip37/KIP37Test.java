@@ -180,11 +180,6 @@ public class KIP37Test {
     }
 
     @Test
-    public void deployTest() {
-        Config.deployKIP37(caver, Config.getKlayProviderKeyring().getAddress());
-    }
-
-    @Test
     public void deploy() throws ApiException, InterruptedException {
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
