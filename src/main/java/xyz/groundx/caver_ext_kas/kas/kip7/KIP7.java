@@ -1265,8 +1265,30 @@ public class KIP7 {
         return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), null);
     }
 
-    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger amount, String from) throws ApiException {
-        return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), from);
+    /**
+     * Mints a new token for a given user. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, minter);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger amount, String minter) throws ApiException {
+        return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), minter);
     }
 
     /**
@@ -1297,8 +1319,35 @@ public class KIP7 {
         return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), null, callback);
     }
 
-    public Call mintAsync(String addressOrAlias, String to, BigInteger amount, String from, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
-        return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), from, callback);
+    /**
+     * Mints a new token for a given user asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, minter, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @param callback The callback to handle resposne.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, BigInteger amount, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), minter, callback);
     }
 
     /**
@@ -1325,10 +1374,32 @@ public class KIP7 {
         return mint(addressOrAlias, to, amount, null);
     }
 
-    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, String amount, String from) throws ApiException {
+    /**
+     * Mints a new token for a given user. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, minter);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, String amount, String minter) throws ApiException {
         MintKip7TokenRequest request = new MintKip7TokenRequest();
         request.setTo(to);
-        request.setFrom(from);
+        request.setFrom(minter);
         request.setAmount(amount);
 
         return kip7TokenApi.mintToken(chainId, addressOrAlias, request);
@@ -1363,10 +1434,37 @@ public class KIP7 {
         return mintAsync(addressOrAlias, to, amount, null, callback);
     }
 
-    public Call mintAsync(String addressOrAlias, String to, String amount, String from, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+    /**
+     * Mints a new token for a given user asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, minter, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create. (in hexadecimal with the 0x prefix)
+     * @param minter Klaytn account address to mint the token.
+     * @param callback
+     * @return
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, String amount, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
         MintKip7TokenRequest request = new MintKip7TokenRequest();
         request.setTo(to);
-        request.setFrom(from);
+        request.setFrom(minter);
         request.setAmount(amount);
 
         return kip7TokenApi.mintTokenAsync(chainId, addressOrAlias, request, callback);
