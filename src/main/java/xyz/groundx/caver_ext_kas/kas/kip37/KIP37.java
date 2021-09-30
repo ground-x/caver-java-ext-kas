@@ -783,7 +783,7 @@ public class KIP37 {
 
     /**
      * Pauses all operation for a specified contract asynchronously.<br>
-     * It sets a pauser to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/pause
      *
      *<pre>
@@ -835,7 +835,7 @@ public class KIP37 {
 
     /**
      * Resume the operations for a paused contract.<br>
-     * It sets a pauser to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
      *
      *<pre>
@@ -879,7 +879,7 @@ public class KIP37 {
 
     /**
      * Resume the operations for a paused contract asynchronously.<br>
-     * It sets a pauser to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/unpause
      *
      *<pre>
@@ -931,7 +931,7 @@ public class KIP37 {
 
     /**
      * Create a new token from a specified KIP-37 contract.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -955,7 +955,7 @@ public class KIP37 {
 
     /**
      * Create a new token from a specified KIP-37 contract.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1037,7 +1037,7 @@ public class KIP37 {
 
     /**
      * Create a new token from a specified KIP-37 contract asynchronously.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1068,7 +1068,7 @@ public class KIP37 {
 
     /**
      * Create a new token from a specified KIP-37 contract asynchronously.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * POST /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1251,7 +1251,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 token.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1274,7 +1274,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 token.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1297,7 +1297,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 token.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1322,7 +1322,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 tokens.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1347,7 +1347,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 tokens.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1373,7 +1373,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 tokens.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1452,7 +1452,7 @@ public class KIP37 {
 
     /**
      * Burns KIP-37 tokens asynchronously.<br>
-     * It sets a sender to contract deployer.<br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1481,8 +1481,8 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens asynchronously. <br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1509,8 +1509,8 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens asynchronously. <br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1540,8 +1540,8 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens asynchronously. <br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1571,8 +1571,8 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens asynchronously. <br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
@@ -1603,8 +1603,8 @@ public class KIP37 {
     }
 
     /**
-     * Burns KIP-37 tokens asynchronously.
-     * It sets a sender to contract deployer.
+     * Burns KIP-37 tokens asynchronously. <br>
+     * By default, this function sends the transaction by the deployer. <br>
      * DELETE /v1/contract/{contract-address-or-alias}/token
      *
      * <pre>{@code
