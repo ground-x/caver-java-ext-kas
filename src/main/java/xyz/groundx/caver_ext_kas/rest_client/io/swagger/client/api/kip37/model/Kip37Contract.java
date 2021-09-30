@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOption;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOptions;
 /**
  * Kip37Contract
  */
@@ -41,7 +41,7 @@ public class Kip37Contract {
   private String uri = null;
 
   @SerializedName("options")
-  private Kip37FeePayerOption options = null;
+  private Kip37FeePayerOptions options = null;
 
   public Kip37Contract address(String address) {
     this.address = address;
@@ -115,7 +115,7 @@ public class Kip37Contract {
     this.uri = uri;
   }
 
-  public Kip37Contract options(Kip37FeePayerOption options) {
+  public Kip37Contract options(Kip37FeePayerOptions options) {
     this.options = options;
     return this;
   }
@@ -125,17 +125,17 @@ public class Kip37Contract {
    * @return options
   **/
   @Schema(description = "")
-  public Kip37FeePayerOption getOptions() {
+  public Kip37FeePayerOptions getOptions() {
     return options;
   }
 
-  public void setOptions(Kip37FeePayerOption options) {
+  public void setOptions(Kip37FeePayerOptions options) {
     this.options = options;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -174,7 +174,7 @@ public class Kip37Contract {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

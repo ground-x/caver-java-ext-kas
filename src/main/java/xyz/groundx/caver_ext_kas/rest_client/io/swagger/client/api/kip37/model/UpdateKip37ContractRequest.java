@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOption;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.Kip37FeePayerOptions;
 /**
  * UpdateKip37ContractRequest
  */
@@ -29,9 +29,9 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip37.model.K
 
 public class UpdateKip37ContractRequest {
   @SerializedName("options")
-  private Kip37FeePayerOption options = null;
+  private Kip37FeePayerOptions options = null;
 
-  public UpdateKip37ContractRequest options(Kip37FeePayerOption options) {
+  public UpdateKip37ContractRequest options(Kip37FeePayerOptions options) {
     this.options = options;
     return this;
   }
@@ -41,17 +41,17 @@ public class UpdateKip37ContractRequest {
    * @return options
   **/
   @Schema(description = "")
-  public Kip37FeePayerOption getOptions() {
+  public Kip37FeePayerOptions getOptions() {
     return options;
   }
 
-  public void setOptions(Kip37FeePayerOption options) {
+  public void setOptions(Kip37FeePayerOptions options) {
     this.options = options;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -82,7 +82,7 @@ public class UpdateKip37ContractRequest {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }
