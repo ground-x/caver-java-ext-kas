@@ -21,60 +21,32 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetKip17TokenResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptions;
 /**
- * Kip17TokenListResponse
+ * UpdateKip17ContractRequest
  */
 
 
-public class Kip17TokenListResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class UpdateKip17ContractRequest {
+  @SerializedName("options")
+  private Kip17FeePayerOptions options = null;
 
-  @SerializedName("items")
-  private List<GetKip17TokenResponse> items = new ArrayList<GetKip17TokenResponse>();
-
-  public Kip17TokenListResponse cursor(String cursor) {
-    this.cursor = cursor;
+  public UpdateKip17ContractRequest options(Kip17FeePayerOptions options) {
+    this.options = options;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * Get options
+   * @return options
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(description = "")
+  public Kip17FeePayerOptions getOptions() {
+    return options;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
-  }
-
-  public Kip17TokenListResponse items(List<GetKip17TokenResponse> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Kip17TokenListResponse addItemsItem(GetKip17TokenResponse itemsItem) {
-    this.items.add(itemsItem);
-    return this;
-  }
-
-   /**
-   * Get items
-   * @return items
-  **/
-  @Schema(required = true, description = "")
-  public List<GetKip17TokenResponse> getItems() {
-    return items;
-  }
-
-  public void setItems(List<GetKip17TokenResponse> items) {
-    this.items = items;
+  public void setOptions(Kip17FeePayerOptions options) {
+    this.options = options;
   }
 
 
@@ -86,24 +58,22 @@ public class Kip17TokenListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip17TokenListResponse kip17TokenListResponse = (Kip17TokenListResponse) o;
-    return Objects.equals(this.cursor, kip17TokenListResponse.cursor) &&
-        Objects.equals(this.items, kip17TokenListResponse.items);
+    UpdateKip17ContractRequest updateKip17ContractRequest = (UpdateKip17ContractRequest) o;
+    return Objects.equals(this.options, updateKip17ContractRequest.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip17TokenListResponse {\n");
+    sb.append("class UpdateKip17ContractRequest {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }

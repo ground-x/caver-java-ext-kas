@@ -21,60 +21,53 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetKip17TokenResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptionsUserFeePayer;
 /**
- * Kip17TokenListResponse
+ * Kip17FeePayerOptions
  */
 
 
-public class Kip17TokenListResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class Kip17FeePayerOptions {
+  @SerializedName("enableGlobalFeePayer")
+  private Boolean enableGlobalFeePayer = null;
 
-  @SerializedName("items")
-  private List<GetKip17TokenResponse> items = new ArrayList<GetKip17TokenResponse>();
+  @SerializedName("userFeePayer")
+  private Kip17FeePayerOptionsUserFeePayer userFeePayer = null;
 
-  public Kip17TokenListResponse cursor(String cursor) {
-    this.cursor = cursor;
+  public Kip17FeePayerOptions enableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * The boolean value that indicates whether KAS global fee delegation is used. The default value is &#x60;true&#x60;.
+   * @return enableGlobalFeePayer
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(description = "The boolean value that indicates whether KAS global fee delegation is used. The default value is `true`.")
+  public Boolean isEnableGlobalFeePayer() {
+    return enableGlobalFeePayer;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setEnableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
   }
 
-  public Kip17TokenListResponse items(List<GetKip17TokenResponse> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Kip17TokenListResponse addItemsItem(GetKip17TokenResponse itemsItem) {
-    this.items.add(itemsItem);
+  public Kip17FeePayerOptions userFeePayer(Kip17FeePayerOptionsUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Get userFeePayer
+   * @return userFeePayer
   **/
-  @Schema(required = true, description = "")
-  public List<GetKip17TokenResponse> getItems() {
-    return items;
+  @Schema(description = "")
+  public Kip17FeePayerOptionsUserFeePayer getUserFeePayer() {
+    return userFeePayer;
   }
 
-  public void setItems(List<GetKip17TokenResponse> items) {
-    this.items = items;
+  public void setUserFeePayer(Kip17FeePayerOptionsUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
   }
 
 
@@ -86,24 +79,24 @@ public class Kip17TokenListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip17TokenListResponse kip17TokenListResponse = (Kip17TokenListResponse) o;
-    return Objects.equals(this.cursor, kip17TokenListResponse.cursor) &&
-        Objects.equals(this.items, kip17TokenListResponse.items);
+    Kip17FeePayerOptions kip17FeePayerOptions = (Kip17FeePayerOptions) o;
+    return Objects.equals(this.enableGlobalFeePayer, kip17FeePayerOptions.enableGlobalFeePayer) &&
+        Objects.equals(this.userFeePayer, kip17FeePayerOptions.userFeePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(enableGlobalFeePayer, userFeePayer);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip17TokenListResponse {\n");
+    sb.append("class Kip17FeePayerOptions {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    enableGlobalFeePayer: ").append(toIndentedString(enableGlobalFeePayer)).append("\n");
+    sb.append("    userFeePayer: ").append(toIndentedString(userFeePayer)).append("\n");
     sb.append("}");
     return sb.toString();
   }

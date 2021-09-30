@@ -21,60 +21,74 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.GetKip17TokenResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptions;
 /**
- * Kip17TokenListResponse
+ * Kip17DeployResponse
  */
 
 
-public class Kip17TokenListResponse {
-  @SerializedName("cursor")
-  private String cursor = null;
+public class Kip17DeployResponse {
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("items")
-  private List<GetKip17TokenResponse> items = new ArrayList<GetKip17TokenResponse>();
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
-  public Kip17TokenListResponse cursor(String cursor) {
-    this.cursor = cursor;
+  @SerializedName("options")
+  private Kip17FeePayerOptions options = null;
+
+  public Kip17DeployResponse status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * The pointer for the next request, after which the result will be returned.
-   * @return cursor
+   * Transaction status
+   * @return status
   **/
-  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
-  public String getCursor() {
-    return cursor;
+  @Schema(example = "Submitted", required = true, description = "Transaction status")
+  public String getStatus() {
+    return status;
   }
 
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public Kip17TokenListResponse items(List<GetKip17TokenResponse> items) {
-    this.items = items;
-    return this;
-  }
-
-  public Kip17TokenListResponse addItemsItem(GetKip17TokenResponse itemsItem) {
-    this.items.add(itemsItem);
+  public Kip17DeployResponse transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * Get items
-   * @return items
+   * Transaction hash
+   * @return transactionHash
   **/
-  @Schema(required = true, description = "")
-  public List<GetKip17TokenResponse> getItems() {
-    return items;
+  @Schema(example = "4663258735679063349023531882594378480699948849164964832626057066280066375387", required = true, description = "Transaction hash")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setItems(List<GetKip17TokenResponse> items) {
-    this.items = items;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public Kip17DeployResponse options(Kip17FeePayerOptions options) {
+    this.options = options;
+    return this;
+  }
+
+   /**
+   * Get options
+   * @return options
+  **/
+  @Schema(description = "")
+  public Kip17FeePayerOptions getOptions() {
+    return options;
+  }
+
+  public void setOptions(Kip17FeePayerOptions options) {
+    this.options = options;
   }
 
 
@@ -86,24 +100,26 @@ public class Kip17TokenListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip17TokenListResponse kip17TokenListResponse = (Kip17TokenListResponse) o;
-    return Objects.equals(this.cursor, kip17TokenListResponse.cursor) &&
-        Objects.equals(this.items, kip17TokenListResponse.items);
+    Kip17DeployResponse kip17DeployResponse = (Kip17DeployResponse) o;
+    return Objects.equals(this.status, kip17DeployResponse.status) &&
+        Objects.equals(this.transactionHash, kip17DeployResponse.transactionHash) &&
+        Objects.equals(this.options, kip17DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cursor, items);
+    return Objects.hash(status, transactionHash, options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip17TokenListResponse {\n");
+    sb.append("class Kip17DeployResponse {\n");
     
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }
