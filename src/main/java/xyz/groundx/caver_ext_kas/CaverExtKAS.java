@@ -552,7 +552,7 @@ public class CaverExtKAS extends Caver {
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param url An URL to request KIP17 API.
+     * @param url An URL to request KIP37 API.
      */
     public void initKIP37API(int chainId, String accessKeyId, String secretAccessKey, String url) {
         initKIP37API(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
@@ -563,7 +563,7 @@ public class CaverExtKAS extends Caver {
      * @param chainId The Klaytn network chain id.
      * @param accessKeyId The access key provided by KAS console.
      * @param secretAccessKey The secret key provided by KAS console.
-     * @param url An URL to request KIP17 API.
+     * @param url An URL to request KIP37 API.
      */
     public void initKIP37API(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initKIP37API(chainId, accessKeyId, secretAccessKey, url);
