@@ -24,6 +24,7 @@ import com.klaytn.caver.wallet.keyring.AbstractKeyring;
 import com.klaytn.caver.wallet.keyring.KeyringFactory;
 import com.squareup.okhttp.Call;
 import org.web3j.utils.Numeric;
+import xyz.groundx.caver_ext_kas.CaverExtKAS;
 import xyz.groundx.caver_ext_kas.kas.utils.KASUtils;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypeMultiSig;
 import xyz.groundx.caver_ext_kas.kas.wallet.accountkey.KeyTypePublic;
@@ -3544,6 +3545,10 @@ public class Wallet {
      * @throws ApiException
      */
     public FDTransactionWithCurrencyResultList getFDTransactionList(String from) throws ApiException {
+        if(!chainId.equals(CaverExtKAS.CHAIN_ID_CYPRESS)) {
+            throw new RuntimeException("This method only works Cypress network.");
+        }
+
         return this.transactionHistoryApi.getV2HistoryFdTx(chainId, from);
     }
 
@@ -3568,6 +3573,10 @@ public class Wallet {
      * @throws ApiException
      */
     public Call getFDTransactionListAsync(String from, ApiCallback<FDTransactionWithCurrencyResultList> callback) throws ApiException {
+        if(!chainId.equals(CaverExtKAS.CHAIN_ID_CYPRESS)) {
+            throw new RuntimeException("This method only works Cypress network.");
+        }
+
         return this.transactionHistoryApi.getV2HistoryFdTxAsync(chainId, from, callback);
     }
 
