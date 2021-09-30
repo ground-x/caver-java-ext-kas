@@ -43,9 +43,9 @@ public class KIP37QueryOptions {
          * @param kind The kind string to find enum defined in STATUS_TYPE
          * @return boolean
          */
-        public static boolean isExist(String kind) {
+        public static boolean isExist(String status) {
             for(STATUS_TYPE statusType : STATUS_TYPE.values()) {
-                if(statusType.getStatus().equals(kind)) {
+                if(statusType.getStatus().equals(status)) {
                     return true;
                 }
             }
