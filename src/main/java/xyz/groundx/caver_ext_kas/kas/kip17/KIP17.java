@@ -102,15 +102,16 @@ public class KIP17 {
      * @param name The KIP-17 contract name.
      * @param symbol The KIP-17 contract symbol.
      * @param alias The KIP-17 contract alias.
-     * @return Kip17TransactionStatusResponse
+     * @param options The feePayer options that config to pay transaction fee logic.
+     * @return Kip17DeployResponse
      * @throws ApiException
      */
-    public Kip17DeployResponse deploy(String name, String symbol, String alias, Kip17FeePayerOptions option) throws ApiException {
+    public Kip17DeployResponse deploy(String name, String symbol, String alias, Kip17FeePayerOptions options) throws ApiException {
         DeployKip17ContractRequest request = new DeployKip17ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
         request.setAlias(alias);
-        request.setOptions(option);
+        request.setOptions(options);
 
 
         return kip17ContractApi.deployContract(chainId, request);
@@ -173,12 +174,12 @@ public class KIP17 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, String alias, Kip17FeePayerOptions option, ApiCallback<Kip17DeployResponse> callback) throws ApiException {
+    public Call deployAsync(String name, String symbol, String alias, Kip17FeePayerOptions options, ApiCallback<Kip17DeployResponse> callback) throws ApiException {
         DeployKip17ContractRequest request = new DeployKip17ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
         request.setAlias(alias);
-        request.setOptions(option);
+        request.setOptions(options);
 
         return kip17ContractApi.deployContractAsync(chainId, request, callback);
     }
@@ -216,13 +217,13 @@ public class KIP17 {
      * }</pre>
      *
      * @param addressOrAlias The KIP-17 contract address or alias.
-     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param options The feePayer options that config to pay transaction fee logic.
      * @return Kip17ContractInfoResponse
      * @throws ApiException
      */
-    public Kip17ContractInfoResponse updateContractOptions(String addressOrAlias, Kip17FeePayerOptions option) throws ApiException {
+    public Kip17ContractInfoResponse updateContractOptions(String addressOrAlias, Kip17FeePayerOptions options) throws ApiException {
         UpdateKip17ContractRequest request = new UpdateKip17ContractRequest();
-        request.setOptions(option);
+        request.setOptions(options);
 
 
         return kip17ContractApi.updateContract(chainId, addressOrAlias, request);
@@ -269,14 +270,14 @@ public class KIP17 {
      * }</pre>
      *
      * @param addressOrAlias The KIP-17 contract address or alias.
-     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param options The feePayer options that config to pay transaction fee logic.
      * @param callback The callback to handle response.
      * @return Kip17ContractInfoResponse
      * @throws ApiException
      */
-    public Call updateContractOptionsAsync(String addressOrAlias, Kip17FeePayerOptions option, ApiCallback<Kip17ContractInfoResponse> callback) throws ApiException {
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip17FeePayerOptions options, ApiCallback<Kip17ContractInfoResponse> callback) throws ApiException {
         UpdateKip17ContractRequest request = new UpdateKip17ContractRequest();
-        request.setOptions(option);
+        request.setOptions(options);
 
         return kip17ContractApi.updateContractAsync(chainId, addressOrAlias, request, callback);
     }
