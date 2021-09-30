@@ -170,6 +170,7 @@ public class KIP17 {
      * @param name The KIP-17 contract name.
      * @param symbol The KIP-17 contract symbol.
      * @param alias The KIP-17 contract alias.
+     * @param options The feePayer options that config to pay transaction fee logic.
      * @param callback The callback function to handle response.
      * @return Call
      * @throws ApiException
