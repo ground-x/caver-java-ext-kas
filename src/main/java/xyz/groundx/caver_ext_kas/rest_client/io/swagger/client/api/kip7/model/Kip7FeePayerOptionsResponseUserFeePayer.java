@@ -22,18 +22,18 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Kip7FeePayerOptionResponseUserFeePayer
+ * Kip7FeePayerOptionsResponseUserFeePayer
  */
 
 
-public class Kip7FeePayerOptionResponseUserFeePayer {
+public class Kip7FeePayerOptionsResponseUserFeePayer {
   @SerializedName("krn")
   private String krn = null;
 
   @SerializedName("address")
   private String address = null;
 
-  public Kip7FeePayerOptionResponseUserFeePayer krn(String krn) {
+  public Kip7FeePayerOptionsResponseUserFeePayer krn(String krn) {
     this.krn = krn;
     return this;
   }
@@ -51,7 +51,7 @@ public class Kip7FeePayerOptionResponseUserFeePayer {
     this.krn = krn;
   }
 
-  public Kip7FeePayerOptionResponseUserFeePayer address(String address) {
+  public Kip7FeePayerOptionsResponseUserFeePayer address(String address) {
     this.address = address;
     return this;
   }
@@ -71,16 +71,16 @@ public class Kip7FeePayerOptionResponseUserFeePayer {
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7FeePayerOptionResponseUserFeePayer kip7FeePayerOptionResponseUserFeePayer = (Kip7FeePayerOptionResponseUserFeePayer) o;
-    return Objects.equals(this.krn, kip7FeePayerOptionResponseUserFeePayer.krn) &&
-        Objects.equals(this.address, kip7FeePayerOptionResponseUserFeePayer.address);
+    Kip7FeePayerOptionsResponseUserFeePayer kip7FeePayerOptionsResponseUserFeePayer = (Kip7FeePayerOptionsResponseUserFeePayer) o;
+    return Objects.equals(this.krn, kip7FeePayerOptionsResponseUserFeePayer.krn) &&
+        Objects.equals(this.address, kip7FeePayerOptionsResponseUserFeePayer.address);
   }
 
   @Override
@@ -92,7 +92,7 @@ public class Kip7FeePayerOptionResponseUserFeePayer {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7FeePayerOptionResponseUserFeePayer {\n");
+    sb.append("class Kip7FeePayerOptionsResponseUserFeePayer {\n");
     
     sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
@@ -104,7 +104,7 @@ public class Kip7FeePayerOptionResponseUserFeePayer {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

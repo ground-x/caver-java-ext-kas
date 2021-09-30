@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionResponse;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionsResponse;
 /**
  * Kip7DeployResponse
  */
@@ -35,7 +35,7 @@ public class Kip7DeployResponse {
   private String transactionHash = null;
 
   @SerializedName("options")
-  private Kip7FeePayerOptionResponse options = null;
+  private Kip7FeePayerOptionsResponse options = null;
 
   public Kip7DeployResponse status(String status) {
     this.status = status;
@@ -73,7 +73,7 @@ public class Kip7DeployResponse {
     this.transactionHash = transactionHash;
   }
 
-  public Kip7DeployResponse options(Kip7FeePayerOptionResponse options) {
+  public Kip7DeployResponse options(Kip7FeePayerOptionsResponse options) {
     this.options = options;
     return this;
   }
@@ -83,17 +83,17 @@ public class Kip7DeployResponse {
    * @return options
   **/
   @Schema(description = "")
-  public Kip7FeePayerOptionResponse getOptions() {
+  public Kip7FeePayerOptionsResponse getOptions() {
     return options;
   }
 
-  public void setOptions(Kip7FeePayerOptionResponse options) {
+  public void setOptions(Kip7FeePayerOptionsResponse options) {
     this.options = options;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -128,7 +128,7 @@ public class Kip7DeployResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }
