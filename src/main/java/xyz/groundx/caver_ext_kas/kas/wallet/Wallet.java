@@ -3086,7 +3086,7 @@ public class Wallet {
      * Create a Klaytn fee payer account.<br>
      * Generate a Klaytn account address and random private/public key pair and get ID of public key and private key returned.<br>
      * Klaytn fee payer account should be updated to AccountKeyRoleBased and can only be used for fee delegation.<br>
-     * It sets a withoutAccountUpdate field to false.<br>
+     * It sets the `withoutAccountUpdate` field as false.<br>
      * It means the feePayer account will be updated to Role-based account key type with all roles other than RoleFeePayer will be set to AccountKeyFail type.<br>
      * POST /v2/feepayer
      *
