@@ -576,9 +576,10 @@ public class CaverExtKAS extends Caver {
     }
 
     private void initNodeAPIWithWebSocket(String chainId, String accessKeyId, String secretAccessKey, String url) {
-        Pattern regex = Pattern.compile("^[a-zA-Z0-9]*$");
+        Pattern regexAccessKey = Pattern.compile("^[a-zA-Z0-9]*$"); // only A-Z, a-z, 0-9
+        Pattern regexSecretAccessKey = Pattern.compile("^[^?=&+\\s]+$"); // not allow to include ?, ,=,&,+
 
-        if(!regex.matcher(accessKeyId).matches() || !regex.matcher(secretAccessKey).matches()) {
+        if(!regexAccessKey.matcher(accessKeyId).matches() || !regexSecretAccessKey.matcher(secretAccessKey).matches()) {
             throw new InvalidParameterException("Invalid auth: To use the websocket provider, you must use an accessKey and secretAccessKey that do not contain special characters. Please obtain a new AccessKey through the KAS Console.");
         }
 
