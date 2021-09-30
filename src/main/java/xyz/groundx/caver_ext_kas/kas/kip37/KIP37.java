@@ -91,7 +91,7 @@ public class KIP37 {
      *
      * @param uri The URI that stores the contract's metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @return DeployerKip37ContractResponse
+     * @return Kip37DeployResponse
      * @throws ApiException
      */
     public Kip37DeployResponse deploy(String uri, String alias) throws ApiException {
@@ -128,7 +128,7 @@ public class KIP37 {
      * @param uri The URI that stores the contract's metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
-     * @return DeployerKip37ContractResponse
+     * @return Kip37DeployResponse
      * @throws ApiException
      */
     public Kip37DeployResponse deploy(String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
@@ -269,7 +269,7 @@ public class KIP37 {
      * }
      * </pre>
      *
-     * @return Kip37ContractListResponse
+     * @return Call
      * @throws ApiException
      */
     public Call getContractListAsync(ApiCallback<Kip37ContractListResponse> callback) throws ApiException {
@@ -297,7 +297,7 @@ public class KIP37 {
      * </pre>
      *
      * @param options Filters required when retrieving data. `size`, `cursor` and `status`
-     * @return Kip37ContractListResponse
+     * @return Call
      * @throws ApiException
      */
     public Call getContractListAsync(KIP37QueryOptions options, ApiCallback<Kip37ContractListResponse> callback) throws ApiException {
@@ -323,7 +323,7 @@ public class KIP37 {
      * @param contractAddress The contract address.
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException
      */
     public Kip37Contract importContract(String contractAddress, String uri, String alias) throws ApiException {
@@ -361,7 +361,7 @@ public class KIP37 {
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException
      */
     public Kip37Contract importContract(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
@@ -468,7 +468,7 @@ public class KIP37 {
      * </pre>
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException
      */
     public Kip37Contract getContract(String addressOrAlias) throws ApiException {
@@ -512,7 +512,7 @@ public class KIP37 {
      * </pre>
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException
      */
     public Kip37Contract updateContractOptions(String addressOrAlias) throws ApiException {
@@ -545,7 +545,7 @@ public class KIP37 {
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param feePayerOption The feePayer options that config to pay transaction fee logic.
-     * @return Kip37ContractListResponseItem
+     * @return Kip37Contract
      * @throws ApiException
      */
     public Kip37Contract updateContractOptions(String addressOrAlias, Kip37FeePayerOption feePayerOption) throws ApiException {
@@ -622,6 +622,7 @@ public class KIP37 {
 
     /**
      * Grants authorization to a third party to transfer all tokens for a specified contract.<br>
+     * This function executes the function with approved as true by default. <br>
      * POST /v1/contract/{contract-address-or-alias}/approveall<br>
      *
      * <pre>
@@ -674,7 +675,8 @@ public class KIP37 {
     }
 
     /**
-     * Grants authorization to a third party to transfer all tokens for a specified contract asynchronously.
+     * Grants authorization to a third party to transfer all tokens for a specified contract asynchronously. <br>
+     * This function executes the function with approved as true by default. <br>
      * POST /v1/contract/{contract-address-or-alias}/approveall
      *
      *<pre>
@@ -1057,7 +1059,7 @@ public class KIP37 {
      * @param initialSupply The initial supply of new token.
      * @param uri The token uri.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call createAsync(String addressOrAlias, BigInteger tokenId, BigInteger initialSupply, String uri, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1088,7 +1090,7 @@ public class KIP37 {
      * @param initialSupply The initial supply of new token.(in hex, with the 0x prefix)
      * @param uri The token uri.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call createAsync(String addressOrAlias, String tokenId, String initialSupply, String uri, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1120,7 +1122,7 @@ public class KIP37 {
      * @param uri The token uri.
      * @param sender The account to create the token.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call createAsync(String addressOrAlias, BigInteger tokenId, BigInteger initialSupply, String uri, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1152,7 +1154,7 @@ public class KIP37 {
      * @param uri The token uri.
      * @param sender The account to create the token.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call createAsync(String addressOrAlias, String tokenId, String initialSupply, String uri, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1215,7 +1217,7 @@ public class KIP37 {
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param callback The callback to handle response.
-     * @return Kip37TokenInfoListResponse
+     * @return Call
      * @throws ApiException
      */
     public Call getTokenListAsync(String addressOrAlias, ApiCallback<Kip37TokenInfoListResponse> callback) throws ApiException {
@@ -1471,7 +1473,7 @@ public class KIP37 {
      * @param id The token id to burn.
      * @param amount The token amount to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger id, BigInteger amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1499,7 +1501,7 @@ public class KIP37 {
      * @param id The token id to burn.(in hex, with the 0x prefix)
      * @param amount The token amount to burn.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, String id, String amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1530,7 +1532,7 @@ public class KIP37 {
      * @param amount The token amount to burn.
      * @param from The owner of the token or the account that authorized to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger id, BigInteger amount, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1561,7 +1563,7 @@ public class KIP37 {
      * @param amount The token amount to burn.(in hex, with the 0x prefix)
      * @param from The owner of the token or the account that authorized to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, String id, String amount, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1590,7 +1592,7 @@ public class KIP37 {
      * @param ids The array of token id to burn.
      * @param amounts The array of token amount to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1621,7 +1623,7 @@ public class KIP37 {
      * @param ids The array of token id to burn.(in hex, with the 0x prefix)
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, String[] ids, String[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1651,7 +1653,7 @@ public class KIP37 {
      * @param amounts The array of token amount to burn.
      * @param from The owner of the token or the account that authorized to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, BigInteger[] ids, BigInteger[] amounts, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -1683,7 +1685,7 @@ public class KIP37 {
      * @param amounts The array of token amount to burn.(in hex, with the 0x prefix)
      * @param from The owner of the token or the account that authorized to burn.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call burnAsync(String addressOrAlias, String[] ids, String[] amounts, String from, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2305,7 +2307,7 @@ public class KIP37 {
      * @param id The token id to send.
      * @param amount The amount of token to send.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call transferAsync(String addressOrAlias, String sender, String owner, String to, BigInteger id, BigInteger amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2339,7 +2341,7 @@ public class KIP37 {
      * @param id The token id to send.(in hex, with the 0x prefix)
      * @param amount The amount of token to send.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call transferAsync(String addressOrAlias, String sender, String owner, String to, String id, String amount, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2372,7 +2374,7 @@ public class KIP37 {
      * @param ids Array of token id to send.
      * @param amounts Array of token amount to send.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call transferAsync(String addressOrAlias, String sender, String owner, String to, BigInteger[] ids, BigInteger[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2408,7 +2410,7 @@ public class KIP37 {
      * @param ids Array of token id to send.(in hex, with the 0x prefix)
      * @param amounts Array of token amount to send.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call transferAsync(String addressOrAlias, String sender, String owner, String to, String[] ids, String[] amounts, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2728,7 +2730,7 @@ public class KIP37 {
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call unpauseTokenAsync(String addressOrAlias, BigInteger tokenId, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2754,7 +2756,7 @@ public class KIP37 {
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call unpauseTokenAsync(String addressOrAlias, String tokenId, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2781,7 +2783,7 @@ public class KIP37 {
      * @param tokenId The token id to pause operation.
      * @param sender The account address to execute token operations.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call unpauseTokenAsync(String addressOrAlias, BigInteger tokenId, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
@@ -2808,7 +2810,7 @@ public class KIP37 {
      * @param tokenId The token id to pause operation.(in hex, with the 0x prefix)
      * @param sender The account address to execute token operations.
      * @param callback The callback to handle response.
-     * @return Kip37TransactionStatusResponse
+     * @return Call
      * @throws ApiException
      */
     public Call unpauseTokenAsync(String addressOrAlias, String tokenId, String sender, ApiCallback<Kip37TransactionStatusResponse> callback) throws ApiException {
