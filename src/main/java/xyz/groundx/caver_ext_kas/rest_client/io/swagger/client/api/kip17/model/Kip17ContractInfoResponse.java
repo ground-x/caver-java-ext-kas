@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOption;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptions;
 /**
  * Kip17ContractInfoResponse
  */
@@ -41,7 +41,7 @@ public class Kip17ContractInfoResponse {
   private String symbol = null;
 
   @SerializedName("options")
-  private Kip17FeePayerOption options = null;
+  private Kip17FeePayerOptions options = null;
 
   public Kip17ContractInfoResponse address(String address) {
     this.address = address;
@@ -115,7 +115,7 @@ public class Kip17ContractInfoResponse {
     this.symbol = symbol;
   }
 
-  public Kip17ContractInfoResponse options(Kip17FeePayerOption options) {
+  public Kip17ContractInfoResponse options(Kip17FeePayerOptions options) {
     this.options = options;
     return this;
   }
@@ -125,17 +125,17 @@ public class Kip17ContractInfoResponse {
    * @return options
   **/
   @Schema(description = "")
-  public Kip17FeePayerOption getOptions() {
+  public Kip17FeePayerOptions getOptions() {
     return options;
   }
 
-  public void setOptions(Kip17FeePayerOption options) {
+  public void setOptions(Kip17FeePayerOptions options) {
     this.options = options;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -174,7 +174,7 @@ public class Kip17ContractInfoResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

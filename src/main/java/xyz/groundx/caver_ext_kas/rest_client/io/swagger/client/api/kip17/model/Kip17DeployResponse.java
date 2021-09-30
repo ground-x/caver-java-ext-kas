@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOption;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptions;
 /**
  * Kip17DeployResponse
  */
@@ -34,8 +34,8 @@ public class Kip17DeployResponse {
   @SerializedName("transactionHash")
   private String transactionHash = null;
 
-  @SerializedName("option")
-  private Kip17FeePayerOption option = null;
+  @SerializedName("options")
+  private Kip17FeePayerOptions options = null;
 
   public Kip17DeployResponse status(String status) {
     this.status = status;
@@ -73,27 +73,27 @@ public class Kip17DeployResponse {
     this.transactionHash = transactionHash;
   }
 
-  public Kip17DeployResponse option(Kip17FeePayerOption option) {
-    this.option = option;
+  public Kip17DeployResponse options(Kip17FeePayerOptions options) {
+    this.options = options;
     return this;
   }
 
    /**
-   * Get option
-   * @return option
+   * Get options
+   * @return options
   **/
   @Schema(description = "")
-  public Kip17FeePayerOption getOption() {
-    return option;
+  public Kip17FeePayerOptions getOptions() {
+    return options;
   }
 
-  public void setOption(Kip17FeePayerOption option) {
-    this.option = option;
+  public void setOptions(Kip17FeePayerOptions options) {
+    this.options = options;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -103,12 +103,12 @@ public class Kip17DeployResponse {
     Kip17DeployResponse kip17DeployResponse = (Kip17DeployResponse) o;
     return Objects.equals(this.status, kip17DeployResponse.status) &&
         Objects.equals(this.transactionHash, kip17DeployResponse.transactionHash) &&
-        Objects.equals(this.option, kip17DeployResponse.option);
+        Objects.equals(this.options, kip17DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, transactionHash, option);
+    return Objects.hash(status, transactionHash, options);
   }
 
 
@@ -119,7 +119,7 @@ public class Kip17DeployResponse {
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
-    sb.append("    option: ").append(toIndentedString(option)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -128,7 +128,7 @@ public class Kip17DeployResponse {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

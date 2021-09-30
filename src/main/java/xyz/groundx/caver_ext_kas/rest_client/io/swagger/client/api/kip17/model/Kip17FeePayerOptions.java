@@ -21,81 +21,82 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.Kip17FeePayerOptionsUserFeePayer;
 /**
- * Kip17FeePayerOptionUserFeePayer
+ * Kip17FeePayerOptions
  */
 
 
-public class Kip17FeePayerOptionUserFeePayer {
-  @SerializedName("krn")
-  private String krn = null;
+public class Kip17FeePayerOptions {
+  @SerializedName("enableGlobalFeePayer")
+  private Boolean enableGlobalFeePayer = null;
 
-  @SerializedName("address")
-  private String address = null;
+  @SerializedName("userFeePayer")
+  private Kip17FeePayerOptionsUserFeePayer userFeePayer = null;
 
-  public Kip17FeePayerOptionUserFeePayer krn(String krn) {
-    this.krn = krn;
+  public Kip17FeePayerOptions enableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
     return this;
   }
 
    /**
-   * The KRN of the FeePayer-Pool of the FeePayer.
-   * @return krn
+   * The boolean value that indicates whether KAS global fee delegation is used. The default value is &#x60;true&#x60;.
+   * @return enableGlobalFeePayer
   **/
-  @Schema(description = "The KRN of the FeePayer-Pool of the FeePayer.")
-  public String getKrn() {
-    return krn;
+  @Schema(description = "The boolean value that indicates whether KAS global fee delegation is used. The default value is `true`.")
+  public Boolean isEnableGlobalFeePayer() {
+    return enableGlobalFeePayer;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setEnableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
   }
 
-  public Kip17FeePayerOptionUserFeePayer address(String address) {
-    this.address = address;
+  public Kip17FeePayerOptions userFeePayer(Kip17FeePayerOptionsUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
     return this;
   }
 
    /**
-   * The Klaytn account address that will pay the transaction fee.
-   * @return address
+   * Get userFeePayer
+   * @return userFeePayer
   **/
-  @Schema(description = "The Klaytn account address that will pay the transaction fee.")
-  public String getAddress() {
-    return address;
+  @Schema(description = "")
+  public Kip17FeePayerOptionsUserFeePayer getUserFeePayer() {
+    return userFeePayer;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setUserFeePayer(Kip17FeePayerOptionsUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
   }
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip17FeePayerOptionUserFeePayer kip17FeePayerOptionUserFeePayer = (Kip17FeePayerOptionUserFeePayer) o;
-    return Objects.equals(this.krn, kip17FeePayerOptionUserFeePayer.krn) &&
-        Objects.equals(this.address, kip17FeePayerOptionUserFeePayer.address);
+    Kip17FeePayerOptions kip17FeePayerOptions = (Kip17FeePayerOptions) o;
+    return Objects.equals(this.enableGlobalFeePayer, kip17FeePayerOptions.enableGlobalFeePayer) &&
+        Objects.equals(this.userFeePayer, kip17FeePayerOptions.userFeePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(krn, address);
+    return Objects.hash(enableGlobalFeePayer, userFeePayer);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip17FeePayerOptionUserFeePayer {\n");
+    sb.append("class Kip17FeePayerOptions {\n");
     
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    enableGlobalFeePayer: ").append(toIndentedString(enableGlobalFeePayer)).append("\n");
+    sb.append("    userFeePayer: ").append(toIndentedString(userFeePayer)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -104,7 +105,7 @@ public class Kip17FeePayerOptionUserFeePayer {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }
