@@ -137,20 +137,20 @@ public class KIP37Test {
         return getReceipt(caver, response.getTransactionHash());
     }
 
-    private Kip37FeePayerOption setFeePayerOptions(int index) {
-        Kip37FeePayerOption option = new Kip37FeePayerOption();
+    private Kip37FeePayerOptions setFeePayerOptions(int index) {
+        Kip37FeePayerOptions option = new Kip37FeePayerOptions();
         if(index == 0) { // use global fee payer
             option.setEnableGlobalFeePayer(true);
         } else if(index == 1) { // use user fee payer
             option.setEnableGlobalFeePayer(false);
-            Kip37FeePayerOptionUserFeePayer userOptions = new Kip37FeePayerOptionUserFeePayer();
+            Kip37FeePayerOptionsUserFeePayer userOptions = new Kip37FeePayerOptionsUserFeePayer();
             userOptions.setAddress(userFeePayer.getAddress());
             userOptions.setKrn(userFeePayer.getKrn());
 
             option.setUserFeePayer(userOptions);
         } else if(index == 2) { // use both global fee payer and user fee payer.
             option.setEnableGlobalFeePayer(true);
-            Kip37FeePayerOptionUserFeePayer userOptions = new Kip37FeePayerOptionUserFeePayer();
+            Kip37FeePayerOptionsUserFeePayer userOptions = new Kip37FeePayerOptionsUserFeePayer();
             userOptions.setAddress(userFeePayer.getAddress());
             userOptions.setKrn(userFeePayer.getKrn());
 
@@ -195,7 +195,7 @@ public class KIP37Test {
     public void deploy_UserFeePayer() throws ApiException, InterruptedException {
         String uri = "https://token-cdn-domain/{id}.json";
         String alias = "kk-" + new Date().getTime();
-        Kip37FeePayerOption option = setFeePayerOptions(1);
+        Kip37FeePayerOptions option = setFeePayerOptions(1);
 
         Kip37DeployResponse deployResponse = caver.kas.kip37.deploy(uri, alias, option);
         assertNotNull(deployResponse);
@@ -211,7 +211,7 @@ public class KIP37Test {
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
 
-        Kip37FeePayerOption option = setFeePayerOptions(2);
+        Kip37FeePayerOptions option = setFeePayerOptions(2);
 
         Kip37DeployResponse deployResponse = caver.kas.kip37.deploy(uri, testContractAlias, option);
         assertNotNull(deployResponse);
@@ -227,7 +227,7 @@ public class KIP37Test {
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
 
-        Kip37FeePayerOption option = setFeePayerOptions(3);
+        Kip37FeePayerOptions option = setFeePayerOptions(3);
 
         Kip37DeployResponse deployResponse = caver.kas.kip37.deploy(uri, testContractAlias, option);
         assertNotNull(deployResponse);
@@ -388,7 +388,7 @@ public class KIP37Test {
 
     @Test
     public void updateContractOptions_withOptions() throws ApiException {
-        Kip37FeePayerOption option = setFeePayerOptions(1);
+        Kip37FeePayerOptions option = setFeePayerOptions(1);
         Kip37Contract response = caver.kas.kip37.updateContractOptions(testContractAddress, option);
         assertEquals(testContractAddress, response.getAddress());
         assertFalse(response.getOptions().isEnableGlobalFeePayer());
@@ -470,7 +470,7 @@ public class KIP37Test {
             }
         };
 
-        Kip37FeePayerOption option = setFeePayerOptions(1);
+        Kip37FeePayerOptions option = setFeePayerOptions(1);
         caver.kas.kip37.updateContractOptionsAsync(testContractAddress, option, callback);
 
         if(future.isCompletedExceptionally()) {

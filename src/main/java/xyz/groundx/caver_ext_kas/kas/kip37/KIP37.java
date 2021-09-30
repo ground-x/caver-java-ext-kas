@@ -117,25 +117,25 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
-     * Kip37DeployResponse response = caver.kas.kip37.deploy(uri, alias, option);
+     * Kip37DeployResponse response = caver.kas.kip37.deploy(uri, alias, options);
      * }
      * </pre>
      *
      * @param uri The URI that stores the contract's metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @return Kip37DeployResponse
      * @throws ApiException
      */
-    public Kip37DeployResponse deploy(String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37DeployResponse deploy(String uri, String alias, Kip37FeePayerOptions feePayerOptions) throws ApiException {
         DeployKip37ContractRequest request = new DeployKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.deployContract(chainId, request);
     }
@@ -190,26 +190,26 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
-     * option.setEnableGlobalFeePayer(false);
-     * option.setUserFeePayer(userFeePayerOption);
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
+     * options.setEnableGlobalFeePayer(false);
+     * options.setUserFeePayer(userFeePayerOption);
      *
-     * caver.kas.kip37.deployAsync(uri, alias, option, callback);
+     * caver.kas.kip37.deployAsync(uri, alias, options, callback);
      * }
      * </pre>
      *
      * @param uri The URI that stores the contract's metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @param callback The callback to handle response.
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37DeployResponse> callback) throws ApiException {
+    public Call deployAsync(String uri, String alias, Kip37FeePayerOptions feePayerOptions, ApiCallback<Kip37DeployResponse> callback) throws ApiException {
         DeployKip37ContractRequest request = new DeployKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.deployContractAsync(chainId, request, callback);
     }
@@ -345,31 +345,31 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
-     * option.setEnableGlobalFeePayer(false);
-     * option.setUserFeePayer(userFeePayerOption);
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
+     * options.setEnableGlobalFeePayer(false);
+     * options.setUserFeePayer(userFeePayerOption);
      *
      * String contractAddress = "0x{contractAddress}";
      * String uri = "https://token-cdn-domain/{id}.json";
      * String alias = "my-first-kip37";
      *
-     * Kip37Contract response = caver.kas.kip37.importContract(contractAddress, uri, alias, option);
+     * Kip37Contract response = caver.kas.kip37.importContract(contractAddress, uri, alias, options);
      * }
      * </pre>
      *
      * @param contractAddress The contract address.
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @return Kip37Contract
      * @throws ApiException
      */
-    public Kip37Contract importContract(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37Contract importContract(String contractAddress, String uri, String alias, Kip37FeePayerOptions feePayerOptions) throws ApiException {
         ImportKip37ContractRequest request = new ImportKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
         request.setAddress(contractAddress);
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.importContract(chainId, request);
     }
@@ -426,32 +426,32 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
-     * option.setEnableGlobalFeePayer(false);
-     * option.setUserFeePayer(userFeePayerOption);
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
+     * options.setEnableGlobalFeePayer(false);
+     * options.setUserFeePayer(userFeePayerOption);
      *
      * String contractAddress = "0x{contractAddress}";
      * String uri = "https://token-cdn-domain/{id}.json";
      * String alias = "my-first-kip37";
      *
-     * caver.kas.kip37.importContractAsync(contractAddress, uri, alias, option, callback);
+     * caver.kas.kip37.importContractAsync(contractAddress, uri, alias, options, callback);
      * }
      * </pre>
      *
      * @param contractAddress The contract address.
      * @param uri The URI for stroring contract metadata.
      * @param alias The alias of KIP-37 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @param callback The callback to handle response
      * @return Call
      * @throws ApiException
      */
-    public Call importContractAsync(String contractAddress, String uri, String alias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37Contract> callback) throws ApiException {
+    public Call importContractAsync(String contractAddress, String uri, String alias, Kip37FeePayerOptions feePayerOptions, ApiCallback<Kip37Contract> callback) throws ApiException {
         ImportKip37ContractRequest request = new ImportKip37ContractRequest();
         request.setAlias(alias);
         request.setUri(uri);
         request.setAddress(contractAddress);
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.importContractAsync(chainId, request, callback);
     }
@@ -535,22 +535,22 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
-     * option.setEnableGlobalFeePayer(false);
-     * option.setUserFeePayer(userFeePayerOption);
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
+     * options.setEnableGlobalFeePayer(false);
+     * options.setUserFeePayer(userFeePayerOption);
      *
-     * Kip37Contract response = caver.kas.kip37.updateContractOptions("0x{contractAddress}", option);
+     * Kip37Contract response = caver.kas.kip37.updateContractOptions("0x{contractAddress}", options);
      * }
      * </pre>
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @return Kip37Contract
      * @throws ApiException
      */
-    public Kip37Contract updateContractOptions(String addressOrAlias, Kip37FeePayerOption feePayerOption) throws ApiException {
+    public Kip37Contract updateContractOptions(String addressOrAlias, Kip37FeePayerOptions feePayerOptions) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.putContract(chainId, addressOrAlias, request);
     }
@@ -600,22 +600,22 @@ public class KIP37 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip37FeePayerOption option = new Kip37FeePayerOption();
-     * option.setEnableGlobalFeePayer(false);
-     * option.setUserFeePayer(userFeePayerOption);
+     * Kip37FeePayerOptions options = new Kip37FeePayerOptions();
+     * options.setEnableGlobalFeePayer(false);
+     * options.setUserFeePayer(userFeePayerOption);
      *
-     * caver.kas.kip37.updateContractOptionsAsync("0x{contractAddress}", option, callback);
+     * caver.kas.kip37.updateContractOptionsAsync("0x{contractAddress}", options, callback);
      * }</pre>
      *
      * @param addressOrAlias The contract address(in hex, with the 0x prefix) or alias.
-     * @param feePayerOption The feePayer options that config to pay transaction fee logic.
+     * @param feePayerOptions The feePayer options that config to pay transaction fee logic.
      * @param callback The callback to handle response.
      * @return Call
      * @throws ApiException
      */
-    public Call updateContractOptionsAsync(String addressOrAlias, Kip37FeePayerOption feePayerOption, ApiCallback<Kip37Contract> callback) throws ApiException {
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip37FeePayerOptions feePayerOptions, ApiCallback<Kip37Contract> callback) throws ApiException {
         UpdateKip37ContractRequest request = new UpdateKip37ContractRequest();
-        request.setOptions(feePayerOption);
+        request.setOptions(feePayerOptions);
 
         return contractApi.putContractAsync(chainId, addressOrAlias, request, callback);
     }
