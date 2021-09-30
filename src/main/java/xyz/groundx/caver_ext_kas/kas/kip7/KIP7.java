@@ -221,7 +221,7 @@ public class KIP7 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
@@ -238,7 +238,7 @@ public class KIP7 {
      * @return Kip7TransactionStatusResponse
      * @throws ApiException
      */
-    public Kip7DeployResponse deploy(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOption option) throws ApiException {
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOptions option) throws ApiException {
         return deploy(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, option);
     }
 
@@ -268,7 +268,7 @@ public class KIP7 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
@@ -286,7 +286,7 @@ public class KIP7 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOption option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+    public Call deployAsync(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOptions option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
         return deployAsync(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, option, callback);
     }
 
@@ -312,7 +312,7 @@ public class KIP7 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
@@ -329,7 +329,7 @@ public class KIP7 {
      * @return Kip7TransactionStatusResponse
      * @throws ApiException
      */
-    public Kip7DeployResponse deploy(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOption option) throws ApiException {
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOptions option) throws ApiException {
         DeployKip7ContractRequest request = new DeployKip7ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
@@ -386,7 +386,7 @@ public class KIP7 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOption option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+    public Call deployAsync(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOptions option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
         DeployKip7ContractRequest request = new DeployKip7ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
@@ -2355,7 +2355,7 @@ public class KIP7 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
@@ -2367,7 +2367,7 @@ public class KIP7 {
      * @return Kip7ContractMetadataResponse
      * @throws ApiException
      */
-    public Kip7ContractMetadataResponse updateContractOptions(String addressOrAlias, Kip7FeePayerOption option) throws ApiException {
+    public Kip7ContractMetadataResponse updateContractOptions(String addressOrAlias, Kip7FeePayerOptions option) throws ApiException {
         UpdateKip7ContractRequest request = new UpdateKip7ContractRequest();
         request.setOptions(option);
         return kip7ContractApi.updateContract(chainId, addressOrAlias, request);
@@ -2392,7 +2392,7 @@ public class KIP7 {
      * userFeePayerOption.setAddress(userFeePayer.getAddress());
      * userFeePayerOption.setKrn(userFeePayer.getKrn());
      *
-     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
      * option.setEnableGlobalFeePayer(false);
      * option.setUserFeePayer(userFeePayerOption);
      *
@@ -2405,7 +2405,7 @@ public class KIP7 {
      * @return Call
      * @throws ApiException
      */
-    public Call updateContractOptionsAsync(String addressOrAlias, Kip7FeePayerOption option, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip7FeePayerOptions option, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
         UpdateKip7ContractRequest request = new UpdateKip7ContractRequest();
         request.setOptions(option);
         return kip7ContractApi.updateContractAsync(chainId, addressOrAlias, request, callback);

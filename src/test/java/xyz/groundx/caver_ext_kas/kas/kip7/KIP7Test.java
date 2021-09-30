@@ -1056,7 +1056,7 @@ public class KIP7Test {
         int decimals = 18;
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
 
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias, option);
@@ -1074,7 +1074,7 @@ public class KIP7Test {
         int decimals = 18;
         String initial_supply = "0x152d02c7e14af6800000";
 
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias, option);
@@ -1115,7 +1115,7 @@ public class KIP7Test {
         int decimals = 18;
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
 
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, option, callback);
@@ -1160,7 +1160,7 @@ public class KIP7Test {
         int decimals = 18;
         String initial_supply = "0x152d02c7e14af6800000";
 
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, option, callback);
@@ -1182,7 +1182,7 @@ public class KIP7Test {
 
     @Test
     public void updateContractOptions_withFeePayerOptions() throws ApiException {
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         Kip7ContractMetadataResponse response = caver.kas.kip7.updateContractOptions(testContractAddress, option);
@@ -1249,7 +1249,7 @@ public class KIP7Test {
             }
         };
 
-        Kip7FeePayerOption option = new Kip7FeePayerOption();
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
         option.setEnableGlobalFeePayer(true);
 
         caver.kas.kip7.updateContractOptionsAsync(testContractAddress, option, callback);
