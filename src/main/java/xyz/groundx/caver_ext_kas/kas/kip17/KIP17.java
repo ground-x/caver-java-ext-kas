@@ -21,16 +21,22 @@ import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.api.Kip17Api;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.api.Kip17ContractApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.api.Kip17TokenApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.*;
 
 import java.math.BigInteger;
 
 public class KIP17 {
     /**
-     * KIP-17 rest-client object.
+     * KIP-17 contract API rest-client object.
      */
-    Kip17Api kip17Api;
+    Kip17ContractApi kip17ContractApi;
+
+    /**
+     * KIP-17 token API rest-client object.
+     */
+    Kip17TokenApi kip17TokenApi;
 
     /**
      * Klaytn network id.
@@ -58,9 +64,9 @@ public class KIP17 {
      *
      * <pre>Example :
      * {@code
-     * String name = "testKIP-17"
-     * String symbol = "TKIP17"
-     * String alias = "kip-17test"
+     * String name = "testKIP-17";
+     * String symbol = "TKIP17";
+     * String alias = "kip-17test";
      * Kip17TransactionStatusResponse res = caver.kas.kip17.deploy(name, symbol, alias);
      * }
      * </pre>
@@ -71,12 +77,43 @@ public class KIP17 {
      * @return Kip17TransactionStatusResponse
      * @throws ApiException
      */
-    public Kip17TransactionStatusResponse deploy(String name, String symbol, String alias) throws ApiException {
+    public Kip17DeployResponse deploy(String name, String symbol, String alias) throws ApiException {
+        return deploy(name, symbol, alias, null);
+    }
+
+    /**
+     * Deploys a new KIP-17 contract with user submitted parameters.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip17/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     * {@code
+     * String name = "testKIP-17";
+     * String symbol = "TKIP17";
+     * String alias = "kip-17test";
+     *
+     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+     * option.setEnableGlobalFeePayer(true);
+     *
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.deploy(name, symbol, alias, option);
+     * }
+     * </pre>
+     *
+     * @param name The KIP-17 contract name.
+     * @param symbol The KIP-17 contract symbol.
+     * @param alias The KIP-17 contract alias.
+     * @return Kip17TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip17DeployResponse deploy(String name, String symbol, String alias, Kip17FeePayerOptions option) throws ApiException {
         DeployKip17ContractRequest request = new DeployKip17ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
         request.setAlias(alias);
-        return kip17Api.deployContract(chainId, request);
+        request.setOptions(option);
+
+
+        return kip17ContractApi.deployContract(chainId, request);
     }
 
     /**
@@ -86,12 +123,12 @@ public class KIP17 {
      * <pre>Example :
      *
      * {@code
-     * ApiCallback<Kip17TransactionStatusResponse> callback = new ApiCallback<Kip17TransactionStatusResponse>() {
+     * ApiCallback<Kip17DeployResponse> callback = new ApiCallback<Kip17DeployResponse>() {
      *     ....implements callback method
      * };
-     * String name = "testKIP-17"
-     * String symbol = "TKIP17"
-     * String alias = "kip-17test"
+     * String name = "testKIP-17";
+     * String symbol = "TKIP17";
+     * String alias = "kip-17test";
      * caver.kas.kip17.deployAsync(name, symbol, alias, callback);
      * }
      * </pre>
@@ -103,13 +140,145 @@ public class KIP17 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, String alias, ApiCallback<Kip17TransactionStatusResponse> callback) throws ApiException {
+    public Call deployAsync(String name, String symbol, String alias, ApiCallback<Kip17DeployResponse> callback) throws ApiException {
+        return deployAsync(name, symbol, alias, null, callback);
+    }
+
+    /**
+     * Deploys a new KIP-17 contract with user submitted parameters asynchronously.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip17/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     *
+     * {@code
+     * ApiCallback<Kip17DeployResponse> callback = new ApiCallback<Kip17DeployResponse>() {
+     *     ....implements callback method
+     * };
+     * String name = "testKIP-17";
+     * String symbol = "TKIP17";
+     * String alias = "kip-17test";
+     *
+     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+     * option.setEnableGlobalFeePayer(true);
+     *
+     * caver.kas.kip17.deployAsync(name, symbol, alias, option, callback);
+     * }
+     * </pre>
+     *
+     * @param name The KIP-17 contract name.
+     * @param symbol The KIP-17 contract symbol.
+     * @param alias The KIP-17 contract alias.
+     * @param callback The callback function to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call deployAsync(String name, String symbol, String alias, Kip17FeePayerOptions option, ApiCallback<Kip17DeployResponse> callback) throws ApiException {
         DeployKip17ContractRequest request = new DeployKip17ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
         request.setAlias(alias);
+        request.setOptions(option);
 
-        return kip17Api.deployContractAsync(chainId, request, callback);
+        return kip17ContractApi.deployContractAsync(chainId, request, callback);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip17/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(contractAddress);
+     * }</pre>
+     *
+     * @param addressOrAlias The KIP-17 contract address or alias.
+     * @return Kip17ContractInfoResponse
+     * @throws ApiException
+     */
+    public Kip17ContractInfoResponse updateContractOptions(String addressOrAlias) throws ApiException {
+        return updateContractOptions(addressOrAlias, null);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip17/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+     * option.setEnableGlobalFeePayer(true);
+     *
+     * Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(contractAddress, option);
+     * }</pre>
+     *
+     * @param addressOrAlias The KIP-17 contract address or alias.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @return Kip17ContractInfoResponse
+     * @throws ApiException
+     */
+    public Kip17ContractInfoResponse updateContractOptions(String addressOrAlias, Kip17FeePayerOptions option) throws ApiException {
+        UpdateKip17ContractRequest request = new UpdateKip17ContractRequest();
+        request.setOptions(option);
+
+
+        return kip17ContractApi.updateContract(chainId, addressOrAlias, request);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip17ContractInfoResponse> callback = new ApiCallback<Kip17ContractInfoResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * caver.kas.kip17.updateContractOptionsAsync(contractAddress, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The KIP-17 contract address or alias.
+     * @param callback The callback to handle response.
+     * @return Kip17ContractInfoResponse
+     * @throws ApiException
+     */
+    public Call updateContractOptionsAsync(String addressOrAlias, ApiCallback<Kip17ContractInfoResponse> callback) throws ApiException {
+        return updateContractOptionsAsync(addressOrAlias, null, callback);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip17/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip17ContractInfoResponse> callback = new ApiCallback<Kip17ContractInfoResponse>() {
+     *   ....implements callback method
+     * };
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+     * option.setEnableGlobalFeePayer(true);
+     *
+     * caver.kas.kip17.updateContractOptionsAsync(contractAddress, option, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias The KIP-17 contract address or alias.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param callback The callback to handle response.
+     * @return Kip17ContractInfoResponse
+     * @throws ApiException
+     */
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip17FeePayerOptions option, ApiCallback<Kip17ContractInfoResponse> callback) throws ApiException {
+        UpdateKip17ContractRequest request = new UpdateKip17ContractRequest();
+        request.setOptions(option);
+
+        return kip17ContractApi.updateContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -149,7 +318,8 @@ public class KIP17 {
      * @throws ApiException
      */
     public Kip17ContractListResponse getContractList(KIP17QueryOptions options) throws ApiException {
-        return kip17Api.listContractsInDeployerPool(chainId, options.getSize(), options.getCursor());
+        String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
+        return kip17ContractApi.listContractsInDeployerPool(chainId, size, options.getCursor());
     }
 
     /**
@@ -198,7 +368,8 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getContractListAsync(KIP17QueryOptions options, ApiCallback<Kip17ContractListResponse> callback) throws ApiException {
-        return kip17Api.listContractsInDeployerPoolAsync(chainId, options.getSize(), options.getCursor(), callback);
+        String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
+        return kip17ContractApi.listContractsInDeployerPoolAsync(chainId, size, options.getCursor(), callback);
     }
 
     /**
@@ -217,7 +388,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Kip17ContractInfoResponse getContract(String addressOrAlias) throws ApiException {
-        return kip17Api.getContract(chainId, addressOrAlias);
+        return kip17ContractApi.getContract(chainId, addressOrAlias);
     }
 
     /**
@@ -241,7 +412,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getContractAsync(String addressOrAlias, ApiCallback<Kip17ContractInfoResponse> callback) throws ApiException {
-        return kip17Api.getContractAsync(chainId, addressOrAlias, callback);
+        return kip17ContractApi.getContractAsync(chainId, addressOrAlias, callback);
     }
 
     /**
@@ -298,7 +469,7 @@ public class KIP17 {
         request.setTo(to);
         request.setUri(uri);
 
-        return kip17Api.mintToken(chainId, addressOrAlias, request);
+        return kip17TokenApi.mintToken(chainId, addressOrAlias, request, null);
     }
 
     /**
@@ -365,7 +536,7 @@ public class KIP17 {
         request.setTo(to);
         request.setUri(uri);
 
-        return kip17Api.mintTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip17TokenApi.mintTokenAsync(chainId, addressOrAlias, request, null, callback);
     }
 
     /**
@@ -409,7 +580,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Kip17TokenListResponse getTokenList(String addressOrAlias, KIP17QueryOptions options) throws ApiException {
-        return kip17Api.listTokens(chainId, addressOrAlias, options.getSize(), options.getCursor());
+        return kip17TokenApi.listTokens(chainId, addressOrAlias, options.getSize(), options.getCursor());
     }
 
     /**
@@ -465,7 +636,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getTokenListAsync(String addressOrAlias, KIP17QueryOptions options, ApiCallback<Kip17TokenListResponse> callback) throws ApiException {
-        return kip17Api.listTokensAsync(chainId, addressOrAlias, options.getSize(), options.getCursor(), callback);
+        return kip17TokenApi.listTokensAsync(chainId, addressOrAlias, options.getSize(), options.getCursor(), callback);
     }
 
     /**
@@ -509,7 +680,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public GetKip17TokenResponse getToken(String addressOrAlias, String tokenId) throws ApiException {
-        return kip17Api.getToken(chainId, addressOrAlias, tokenId);
+        return kip17TokenApi.getToken(chainId, addressOrAlias, tokenId);
     }
 
     /**
@@ -563,7 +734,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getTokenAsync(String addressOrAlias, String tokenId, ApiCallback<GetKip17TokenResponse> callback) throws ApiException {
-        return kip17Api.getTokenAsync(chainId, addressOrAlias, tokenId, callback);
+        return kip17TokenApi.getTokenAsync(chainId, addressOrAlias, tokenId, callback);
     }
 
     /**
@@ -626,7 +797,7 @@ public class KIP17 {
         request.setOwner(owner);
         request.setTo(to);
 
-        return kip17Api.transferToken(chainId, addressOrAlias, tokenId, request);
+        return kip17TokenApi.transferToken(chainId, addressOrAlias, tokenId, request, null);
     }
 
     /**
@@ -697,7 +868,7 @@ public class KIP17 {
         request.setOwner(owner);
         request.setTo(to);
 
-        return kip17Api.transferTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
+        return kip17TokenApi.transferTokenAsync(chainId, addressOrAlias, tokenId, request, null, callback);
     }
 
     /**
@@ -747,7 +918,7 @@ public class KIP17 {
     public Kip17TransactionStatusResponse burn(String addressOrAlias, String from, String tokenId) throws ApiException {
         BurnKip17TokenRequest request = new BurnKip17TokenRequest();
         request.setFrom(from);
-        return kip17Api.burnToken(chainId, addressOrAlias, tokenId, request);
+        return kip17TokenApi.burnToken(chainId, addressOrAlias, tokenId, request, null);
     }
 
     /**
@@ -807,7 +978,7 @@ public class KIP17 {
     public Call burnAsync(String addressOrAlias, String from, String tokenId, ApiCallback<Kip17TransactionStatusResponse> callback) throws ApiException {
         BurnKip17TokenRequest request = new BurnKip17TokenRequest();
         request.setFrom(from);
-        return kip17Api.burnTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
+        return kip17TokenApi.burnTokenAsync(chainId, addressOrAlias, tokenId, request, null, callback);
     }
 
     /**
@@ -866,7 +1037,7 @@ public class KIP17 {
         request.setFrom(from);
         request.setTo(to);
 
-        return kip17Api.approveToken(chainId, addressOrAlias, tokenId, request);
+        return kip17TokenApi.approveToken(chainId, addressOrAlias, tokenId, request, null);
     }
 
     /**
@@ -934,7 +1105,7 @@ public class KIP17 {
         request.setFrom(from);
         request.setTo(to);
 
-        return kip17Api.approveTokenAsync(chainId, addressOrAlias, tokenId, request, callback);
+        return kip17TokenApi.approveTokenAsync(chainId, addressOrAlias, tokenId, request, null, callback);
     }
 
     /**
@@ -964,7 +1135,7 @@ public class KIP17 {
         request.setTo(to);
         request.setApproved(approved);
 
-        return kip17Api.approveAll(chainId, addressOrAlias, request);
+        return kip17TokenApi.approveAll(chainId, addressOrAlias, request, null);
     }
 
     /**
@@ -999,7 +1170,7 @@ public class KIP17 {
         request.setTo(to);
         request.setApproved(approved);
 
-        return kip17Api.approveAllAsync(chainId, addressOrAlias, request, callback);
+        return kip17TokenApi.approveAllAsync(chainId, addressOrAlias, request, null, callback);
     }
 
     /**
@@ -1048,7 +1219,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public GetOwnerKip17TokensResponse getTokenListByOwner(String addressOrAlias, String owner, KIP17QueryOptions options) throws ApiException {
-        return kip17Api.getOwnerTokens(chainId, addressOrAlias, owner, options.getSize(), options.getCursor());
+        return kip17TokenApi.getOwnerTokens(chainId, addressOrAlias, owner, options.getSize(), options.getCursor());
     }
 
     /**
@@ -1106,7 +1277,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getTokenListByOwnerAsync(String addressOrAlias, String owner, KIP17QueryOptions options, ApiCallback<GetOwnerKip17TokensResponse> callback) throws ApiException {
-        return kip17Api.getOwnerTokensAsync(chainId, addressOrAlias, owner, options.getSize(), options.getCursor(), callback);
+        return kip17TokenApi.getOwnerTokensAsync(chainId, addressOrAlias, owner, options.getSize(), options.getCursor(), callback);
     }
 
     /**
@@ -1155,7 +1326,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public GetKip17TokenHistoryResponse getTransferHistory(String addressOrAlias, BigInteger tokenId, KIP17QueryOptions options) throws ApiException {
-        return kip17Api.getTokenHistory(chainId, addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), options.getSize(), options.getCursor());
+        return kip17TokenApi.getTokenHistory(chainId, addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), options.getSize(), options.getCursor());
     }
 
     /**
@@ -1204,7 +1375,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public GetKip17TokenHistoryResponse getTransferHistory(String addressOrAlias, String tokenId, KIP17QueryOptions options) throws ApiException {
-        return kip17Api.getTokenHistory(chainId, addressOrAlias, tokenId, options.getSize(), options.getCursor());
+        return kip17TokenApi.getTokenHistory(chainId, addressOrAlias, tokenId, options.getSize(), options.getCursor());
     }
 
     /**
@@ -1263,7 +1434,7 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getTransferHistoryAsync(String addressOrAlias, BigInteger tokenId, KIP17QueryOptions options, ApiCallback<GetKip17TokenHistoryResponse> callback) throws ApiException {
-        return kip17Api.getTokenHistoryAsync(chainId, addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), options.getSize(), options.getCursor(), callback);
+        return kip17TokenApi.getTokenHistoryAsync(chainId, addressOrAlias, Numeric.toHexStringWithPrefix(tokenId), options.getSize(), options.getCursor(), callback);
     }
 
     /**
@@ -1322,23 +1493,39 @@ public class KIP17 {
      * @throws ApiException
      */
     public Call getTransferHistoryAsync(String addressOrAlias, String tokenId, KIP17QueryOptions options, ApiCallback<GetKip17TokenHistoryResponse> callback) throws ApiException {
-        return kip17Api.getTokenHistoryAsync(chainId, addressOrAlias, tokenId, options.getSize(), options.getCursor(), callback);
+        return kip17TokenApi.getTokenHistoryAsync(chainId, addressOrAlias, tokenId, options.getSize(), options.getCursor(), callback);
     }
 
     /**
-     * Getter function for Kip17Api instance.
-     * @return Kip17Api
+     * Getter function for kip17ContractApi
+     * @return Kip17ContractApi
      */
-    public Kip17Api getKip17Api() {
-        return kip17Api;
+    public Kip17ContractApi getKip17ContractApi() {
+        return kip17ContractApi;
     }
 
     /**
-     * Setter function for Kip17Api instance.
-     * @param kip17Api The Kip17Api instance.
+     * Setter function for kip17ContractApi
+     * @param kip17ContractApi The KIP-17 contract API rest-client object.
      */
-    public void setKip17Api(Kip17Api kip17Api) {
-        this.kip17Api = kip17Api;
+    public void setKip17ContractApi(Kip17ContractApi kip17ContractApi) {
+        this.kip17ContractApi = kip17ContractApi;
+    }
+
+    /**
+     * Getter function for kip17TokenApi
+     * @return Kip17TokenApi
+     */
+    public Kip17TokenApi getKip17TokenApi() {
+        return kip17TokenApi;
+    }
+
+    /**
+     * Setter function for kip17TokenApi
+     * @param kip17TokenApi The KIP-17 token API rest-client object.
+     */
+    public void setKip17TokenApi(Kip17TokenApi kip17TokenApi) {
+        this.kip17TokenApi = kip17TokenApi;
     }
 
     /**
@@ -1371,6 +1558,7 @@ public class KIP17 {
      */
     public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
-        setKip17Api(new Kip17Api(apiClient));
+        setKip17ContractApi(new Kip17ContractApi(apiClient));
+        setKip17TokenApi(new Kip17TokenApi(apiClient));
     }
 }
