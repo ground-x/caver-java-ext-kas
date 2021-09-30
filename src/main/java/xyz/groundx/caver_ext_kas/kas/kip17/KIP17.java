@@ -92,10 +92,10 @@ public class KIP17 {
      * String symbol = "TKIP17";
      * String alias = "kip-17test";
      *
-     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
-     * option.setEnableGlobalFeePayer(true);
+     * Kip17FeePayerOptions options = new Kip17FeePayerOptions();
+     * options.setEnableGlobalFeePayer(true);
      *
-     * Kip17TransactionStatusResponse res = caver.kas.kip17.deploy(name, symbol, alias, option);
+     * Kip17TransactionStatusResponse res = caver.kas.kip17.deploy(name, symbol, alias, options);
      * }
      * </pre>
      *
@@ -160,10 +160,10 @@ public class KIP17 {
      * String symbol = "TKIP17";
      * String alias = "kip-17test";
      *
-     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
-     * option.setEnableGlobalFeePayer(true);
+     * Kip17FeePayerOptions options = new Kip17FeePayerOptions();
+     * options.setEnableGlobalFeePayer(true);
      *
-     * caver.kas.kip17.deployAsync(name, symbol, alias, option, callback);
+     * caver.kas.kip17.deployAsync(name, symbol, alias, options, callback);
      * }
      * </pre>
      *
@@ -211,10 +211,10 @@ public class KIP17 {
      *
      * <pre>{@code
      * String contractAddress = "0x{contractAddress}";
-     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
-     * option.setEnableGlobalFeePayer(true);
+     * Kip17FeePayerOptions options = new Kip17FeePayerOptions();
+     * options.setEnableGlobalFeePayer(true);
      *
-     * Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(contractAddress, option);
+     * Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(contractAddress, options);
      * }</pre>
      *
      * @param addressOrAlias The KIP-17 contract address or alias.
@@ -264,10 +264,10 @@ public class KIP17 {
      * };
      *
      * String contractAddress = "0x{contractAddress}";
-     * Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+     * Kip17FeePayerOptions options = new Kip17FeePayerOptions();
      * option.setEnableGlobalFeePayer(true);
      *
-     * caver.kas.kip17.updateContractOptionsAsync(contractAddress, option, callback);
+     * caver.kas.kip17.updateContractOptionsAsync(contractAddress, options, callback);
      * }</pre>
      *
      * @param addressOrAlias The KIP-17 contract address or alias.
