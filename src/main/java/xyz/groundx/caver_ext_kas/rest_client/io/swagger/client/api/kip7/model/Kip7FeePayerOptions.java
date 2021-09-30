@@ -21,52 +21,53 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionsResponseUserFeePayer;
 /**
- * Kip7DeployerResponse
+ * Kip7FeePayerOptions
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
+public class Kip7FeePayerOptions {
+  @SerializedName("enableGlobalFeePayer")
+  private Boolean enableGlobalFeePayer = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("userFeePayer")
+  private Kip7FeePayerOptionsResponseUserFeePayer userFeePayer = null;
 
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
+  public Kip7FeePayerOptions enableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
     return this;
   }
 
    /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
+   * The boolean value indicating whether KAS Global Fee Delegation is being used. The default value is &#x60;true&#x60;.
+   * @return enableGlobalFeePayer
   **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
+  @Schema(description = "The boolean value indicating whether KAS Global Fee Delegation is being used. The default value is `true`.")
+  public Boolean isEnableGlobalFeePayer() {
+    return enableGlobalFeePayer;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setEnableGlobalFeePayer(Boolean enableGlobalFeePayer) {
+    this.enableGlobalFeePayer = enableGlobalFeePayer;
   }
 
-  public Kip7DeployerResponse krn(String krn) {
-    this.krn = krn;
+  public Kip7FeePayerOptions userFeePayer(Kip7FeePayerOptionsResponseUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
     return this;
   }
 
    /**
-   * KRN of the account
-   * @return krn
+   * Get userFeePayer
+   * @return userFeePayer
   **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
-  public String getKrn() {
-    return krn;
+  @Schema(description = "")
+  public Kip7FeePayerOptionsResponseUserFeePayer getUserFeePayer() {
+    return userFeePayer;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setUserFeePayer(Kip7FeePayerOptionsResponseUserFeePayer userFeePayer) {
+    this.userFeePayer = userFeePayer;
   }
 
 
@@ -78,24 +79,24 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    Kip7FeePayerOptions kip7FeePayerOptions = (Kip7FeePayerOptions) o;
+    return Objects.equals(this.enableGlobalFeePayer, kip7FeePayerOptions.enableGlobalFeePayer) &&
+        Objects.equals(this.userFeePayer, kip7FeePayerOptions.userFeePayer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(enableGlobalFeePayer, userFeePayer);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class Kip7FeePayerOptions {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    enableGlobalFeePayer: ").append(toIndentedString(enableGlobalFeePayer)).append("\n");
+    sb.append("    userFeePayer: ").append(toIndentedString(userFeePayer)).append("\n");
     sb.append("}");
     return sb.toString();
   }

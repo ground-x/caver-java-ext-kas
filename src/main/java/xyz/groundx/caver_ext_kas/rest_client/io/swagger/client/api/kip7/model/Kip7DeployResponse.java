@@ -21,52 +21,74 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptionsResponse;
 /**
- * Kip7DeployerResponse
+ * Kip7DeployResponse
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
+public class Kip7DeployResponse {
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("transactionHash")
+  private String transactionHash = null;
 
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
+  @SerializedName("options")
+  private Kip7FeePayerOptionsResponse options = null;
+
+  public Kip7DeployResponse status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
+   * Transaction status (&#x60;Submitted&#x60;, &#x60;Pending&#x60;)
+   * @return status
   **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
+  @Schema(required = true, description = "Transaction status (`Submitted`, `Pending`)")
+  public String getStatus() {
+    return status;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public Kip7DeployerResponse krn(String krn) {
-    this.krn = krn;
+  public Kip7DeployResponse transactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
     return this;
   }
 
    /**
-   * KRN of the account
-   * @return krn
+   * Transaction hash
+   * @return transactionHash
   **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
-  public String getKrn() {
-    return krn;
+  @Schema(required = true, description = "Transaction hash")
+  public String getTransactionHash() {
+    return transactionHash;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setTransactionHash(String transactionHash) {
+    this.transactionHash = transactionHash;
+  }
+
+  public Kip7DeployResponse options(Kip7FeePayerOptionsResponse options) {
+    this.options = options;
+    return this;
+  }
+
+   /**
+   * Get options
+   * @return options
+  **/
+  @Schema(description = "")
+  public Kip7FeePayerOptionsResponse getOptions() {
+    return options;
+  }
+
+  public void setOptions(Kip7FeePayerOptionsResponse options) {
+    this.options = options;
   }
 
 
@@ -78,24 +100,26 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    Kip7DeployResponse kip7DeployResponse = (Kip7DeployResponse) o;
+    return Objects.equals(this.status, kip7DeployResponse.status) &&
+        Objects.equals(this.transactionHash, kip7DeployResponse.transactionHash) &&
+        Objects.equals(this.options, kip7DeployResponse.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(status, transactionHash, options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class Kip7DeployResponse {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    transactionHash: ").append(toIndentedString(transactionHash)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }

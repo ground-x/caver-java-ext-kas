@@ -21,8 +21,9 @@ import org.web3j.utils.Numeric;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.api.Kip7Api;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.api.Kip7ContractApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.api.Kip7DeployerApi;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.api.Kip7TokenApi;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.*;
 
 import java.math.BigInteger;
@@ -35,7 +36,12 @@ public class KIP7 {
     /**
      * KIP-7 API rest-client object.
      */
-    Kip7Api kip7Api;
+    Kip7ContractApi kip7ContractApi;
+
+    /**
+     * KIP-7 token API rest-client object.
+     */
+    Kip7TokenApi kip7TokenApi;
 
     /**
      * KIP-7 deployer API rest-client object.
@@ -59,14 +65,13 @@ public class KIP7 {
      */
     public KIP7(String chainId, ApiClient apiClient) {
         this.chainId = chainId;
-        this.apiClient = apiClient;
-
-        setKip7Api(new Kip7Api(apiClient));
-        setKip7DeployerApi(new Kip7DeployerApi(apiClient));
+        setApiClient(apiClient);
     }
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * POST /v1/contract
      *
      * <pre>Example :
@@ -89,12 +94,14 @@ public class KIP7 {
      * @return Kip7TransactionStatusResponse
      * @throws ApiException
      */
-    public Kip7TransactionStatusResponse deploy(String name, String symbol, int decimals, BigInteger initialSupply, String alias) throws ApiException {
-        return deploy(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias);
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, BigInteger initialSupply, String alias) throws ApiException {
+        return deploy(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, null);
     }
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * POST /v1/contract
      *
      * <pre>Example :
@@ -122,12 +129,14 @@ public class KIP7 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, int decimals, BigInteger initialSupply, String alias, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
-        return deployAsync(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, callback);
+    public Call deployAsync(String name, String symbol, int decimals, BigInteger initialSupply, String alias, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+        return deployAsync(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, null, callback);
     }
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * POST /v1/contract
      *
      * <pre>Example :
@@ -150,19 +159,14 @@ public class KIP7 {
      * @return Kip7TransactionStatusResponse
      * @throws ApiException
      */
-    public Kip7TransactionStatusResponse deploy(String name, String symbol, int decimals, String initialSupply, String alias) throws ApiException {
-        DeployKip7ContractRequest request = new DeployKip7ContractRequest();
-        request.setName(name);
-        request.setSymbol(symbol);
-        request.setDecimals((long)decimals);
-        request.setInitialSupply(initialSupply);
-        request.setAlias(alias);
-
-        return kip7Api.deployContract(chainId, request);
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, String initialSupply, String alias) throws ApiException {
+        return deploy(name, symbol, decimals, initialSupply, alias, null);
     }
 
     /**
      * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
      * POST /v1/contract
      *
      * <pre>Example :
@@ -191,16 +195,209 @@ public class KIP7 {
      * @return Call
      * @throws ApiException
      */
-    public Call deployAsync(String name, String symbol, int decimals, String initialSupply, String alias, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+    public Call deployAsync(String name, String symbol, int decimals, String initialSupply, String alias, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+        return deployAsync(name, symbol, decimals, initialSupply, alias, null, callback);
+    }
+
+    /**
+     * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     * {@code
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initialSupply, testAlias, option);
+     * }
+     * </pre>
+     *
+     * @param name The name of KIP-7 token.
+     * @param symbol The symbol of KIP-7 token.
+     * @param decimals The number of decimal places the token uses.
+     * @param initialSupply The total amount of token to be supplied initially.
+     * @param alias The alias of KIP-7 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOptions option) throws ApiException {
+        return deploy(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, option);
+    }
+
+    /**
+     * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *      ....implements callback method.
+     * }
+     *
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * BigInteger initialSupply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * caver.kas.kip7.deployAsync(name, symbol, decimals, initialSupply, testAlias, option, callback);
+     * }
+     * </pre>
+     *
+     * @param name The name of KIP-7 token.
+     * @param symbol The symbol of KIP-7 token.
+     * @param decimals The number of decimal places the token uses.
+     * @param initialSupply The total amount of token to be supplied initially.
+     * @param alias The alias of KIP-7 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call deployAsync(String name, String symbol, int decimals, BigInteger initialSupply, String alias, Kip7FeePayerOptions option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+        return deployAsync(name, symbol, decimals, Numeric.toHexStringWithPrefix(initialSupply), alias, option, callback);
+    }
+
+    /**
+     * Deploy KIP-7 token contract with a Klaytn account in KAS.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     * {@code
+     * String testAlias = "test-contract";
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * String initialSupply = "0x152d02c7e14af6800000";
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initialSupply, testAlias, option);
+     * }
+     * </pre>
+     *
+     * @param name The name of KIP-7 token.
+     * @param symbol The symbol of KIP-7 token.
+     * @param decimals The number of decimal places the token uses.
+     * @param initialSupply The total amount(hex string) of token to be supplied initially.
+     * @param alias The alias of KIP-7 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7DeployResponse deploy(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOptions option) throws ApiException {
         DeployKip7ContractRequest request = new DeployKip7ContractRequest();
         request.setName(name);
         request.setSymbol(symbol);
         request.setDecimals((long)decimals);
         request.setInitialSupply(initialSupply);
         request.setAlias(alias);
+        request.setOptions(option);
 
-        return kip7Api.deployContractAsync(chainId, request, callback);
+        return kip7ContractApi.deployContract(chainId, request);
     }
+
+    /**
+     * Deploy KIP-7 token contract with a Klaytn account in KAS asynchronously.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * POST /v1/contract
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *      ....implements callback method.
+     * }
+     *
+     * String testAlias = "test-contract" + new Date().getTime();
+     * String name = "TEST_KIP7";
+     * String symbol = "TKIP7";
+     * int decimals = 18;
+     * String initial_supply = "0x152d02c7e14af6800000";
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOption option = new Kip7FeePayerOption();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, option, callback);
+     *
+     * }
+     * </pre>
+     *
+     * @param name The name of KIP-7 token.
+     * @param symbol The symbol of KIP-7 token.
+     * @param decimals The number of decimal places the token uses.
+     * @param initialSupply The total amount(hex string) of token to be supplied initially.
+     * @param alias The alias of KIP-7 token. Your `alias` must only contain lowercase alphabets, numbers and hyphens and begin with an alphabet.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call deployAsync(String name, String symbol, int decimals, String initialSupply, String alias, Kip7FeePayerOptions option, ApiCallback<Kip7DeployResponse> callback) throws ApiException {
+        DeployKip7ContractRequest request = new DeployKip7ContractRequest();
+        request.setName(name);
+        request.setSymbol(symbol);
+        request.setDecimals((long)decimals);
+        request.setInitialSupply(initialSupply);
+        request.setAlias(alias);
+        request.setOptions(option);
+
+        return kip7ContractApi.deployContractAsync(chainId, request, callback);
+    }
+
 
     /**
      * Retrieves KIP-7 contract information by either contract address or alias. <br>
@@ -219,7 +416,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7ContractMetadataResponse getContract(String addressOrAlias) throws ApiException {
-        return kip7Api.getContract(chainId, addressOrAlias);
+        return kip7ContractApi.getContract(chainId, addressOrAlias);
     }
 
     /**
@@ -243,7 +440,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call getContractAsync(String addressOrAlias, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
-        return kip7Api.getContractAsync(chainId, addressOrAlias, callback);
+        return kip7ContractApi.getContractAsync(chainId, addressOrAlias, callback);
     }
 
     /**
@@ -311,7 +508,7 @@ public class KIP7 {
             size = Integer.toString(options.getSize());
         }
 
-        return kip7Api.listContractsInDeployerPool(chainId, size, options.getCursor(), options.getStatus());
+        return kip7ContractApi.listContractsInDeployerPool(chainId, size, options.getCursor(), options.getStatus());
     }
 
     /**
@@ -344,7 +541,7 @@ public class KIP7 {
             size = Integer.toString(options.getSize());
         }
 
-        return kip7Api.listContractsInDeployerPoolAsync(chainId, size, options.getCursor(), options.getStatus(), callback);
+        return kip7ContractApi.listContractsInDeployerPoolAsync(chainId, size, options.getCursor(), options.getStatus(), callback);
     }
 
     /**
@@ -368,7 +565,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TokenBalanceResponse allowance(String addressOrAlias, String owner, String spender) throws ApiException {
-        return kip7Api.getTokenAllowance(chainId, addressOrAlias, owner, spender);
+        return kip7TokenApi.getTokenAllowance(chainId, addressOrAlias, owner, spender);
     }
 
     /**
@@ -397,7 +594,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call allowanceAsync(String addressOrAlias, String owner, String spender, ApiCallback<Kip7TokenBalanceResponse> callback) throws ApiException {
-        return kip7Api.getTokenAllowanceAsync(chainId, addressOrAlias, owner, spender, callback);
+        return kip7TokenApi.getTokenAllowanceAsync(chainId, addressOrAlias, owner, spender, callback);
     }
 
     /**
@@ -419,7 +616,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TokenBalanceResponse balance(String addressOrAlias, String owner) throws ApiException {
-        return kip7Api.getTokenBalance(chainId, addressOrAlias, owner);
+        return kip7TokenApi.getTokenBalance(chainId, addressOrAlias, owner);
     }
 
     /**
@@ -446,7 +643,7 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call balanceAsync(String addressOrAlias, String owner, ApiCallback<Kip7TokenBalanceResponse> callback) throws ApiException {
-        return kip7Api.getTokenBalanceAsync(chainId, addressOrAlias, owner, callback);
+        return kip7TokenApi.getTokenBalanceAsync(chainId, addressOrAlias, owner, callback);
     }
 
     /**
@@ -642,7 +839,7 @@ public class KIP7 {
         request.setSpender(spender);
         request.setAmount(amount);
 
-        return kip7Api.approveToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.approveToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -678,7 +875,7 @@ public class KIP7 {
         request.setSpender(spender);
         request.setAmount(amount);
 
-        return kip7Api.approveTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.approveTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -865,7 +1062,7 @@ public class KIP7 {
         request.setTo(to);
         request.setAmount(amount);
 
-        return kip7Api.transferToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.transferToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -901,7 +1098,7 @@ public class KIP7 {
         request.setTo(to);
         request.setAmount(amount);
 
-        return kip7Api.transferTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.transferTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1000,7 +1197,7 @@ public class KIP7 {
         request.setTo(to);
         request.setAmount(amount);
 
-        return kip7Api.transferFromToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.transferFromToken(chainId, addressOrAlias, request);
     }
 
 
@@ -1041,7 +1238,7 @@ public class KIP7 {
         request.setTo(to);
         request.setAmount(amount);
 
-        return kip7Api.transferFromTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.transferFromTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1065,7 +1262,33 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger amount) throws ApiException {
-        return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount));
+        return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), null);
+    }
+
+    /**
+     * Mints a new token for a given user. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, minter);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, BigInteger amount, String minter) throws ApiException {
+        return mint(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), minter);
     }
 
     /**
@@ -1093,7 +1316,38 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call mintAsync(String addressOrAlias, String to, BigInteger amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
-        return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), callback);
+        return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), null, callback);
+    }
+
+    /**
+     * Mints a new token for a given user asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, minter, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @param callback The callback to handle resposne.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, BigInteger amount, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, Numeric.toHexStringWithPrefix(amount), minter, callback);
     }
 
     /**
@@ -1117,11 +1371,38 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, String amount) throws ApiException {
+        return mint(addressOrAlias, to, amount, null);
+    }
+
+    /**
+     * Mints a new token for a given user. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, minter);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create.
+     * @param minter Klaytn account address to mint the token.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse mint(String addressOrAlias, String to, String amount, String minter) throws ApiException {
         MintKip7TokenRequest request = new MintKip7TokenRequest();
         request.setTo(to);
+        request.setFrom(minter);
         request.setAmount(amount);
 
-        return kip7Api.mintToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.mintToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1150,11 +1431,43 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call mintAsync(String addressOrAlias, String to, String amount, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return mintAsync(addressOrAlias, to, amount, null, callback);
+    }
+
+    /**
+     * Mints a new token for a given user asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/mint
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAlias = "{Contract alias}";
+     * String to = "{to address}";
+     * String amount = "0x8ac7230489e80000"; // 10 * 10^18
+     * String minter = "{minter address}";
+     *
+     * caver.kas.kip7.mintAsync(contractAlias, to, amount, minter, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param to Klaytn account address to receive the newly created token.
+     * @param amount Amount of tokens to create. (in hexadecimal with the 0x prefix)
+     * @param minter Klaytn account address to mint the token.
+     * @param callback
+     * @return
+     * @throws ApiException
+     */
+    public Call mintAsync(String addressOrAlias, String to, String amount, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
         MintKip7TokenRequest request = new MintKip7TokenRequest();
         request.setTo(to);
+        request.setFrom(minter);
         request.setAmount(amount);
 
-        return kip7Api.mintTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.mintTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1333,7 +1646,7 @@ public class KIP7 {
         request.setFrom(from);
         request.setAmount(amount);
 
-        return kip7Api.burnToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.burnToken(chainId, addressOrAlias, request);
     }
 
 
@@ -1368,7 +1681,7 @@ public class KIP7 {
         request.setFrom(from);
         request.setAmount(amount);
 
-        return kip7Api.burnTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.burnTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
 
@@ -1460,7 +1773,7 @@ public class KIP7 {
         request.setOwner(owner);
         request.setAmount(amount);
 
-        return kip7Api.burnFromToken(chainId, addressOrAlias, request);
+        return kip7TokenApi.burnFromToken(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1497,7 +1810,7 @@ public class KIP7 {
         request.setOwner(owner);
         request.setAmount(amount);
 
-        return kip7Api.burnFromTokenAsync(chainId, addressOrAlias, request, callback);
+        return kip7TokenApi.burnFromTokenAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1508,7 +1821,7 @@ public class KIP7 {
      * {@code
      * String contractAddress = "{Contract address}";
      *
-     * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(contractAddress);
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.pause(contractAddress);
      * }
      * </pre>
      *
@@ -1517,7 +1830,31 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TransactionStatusResponse pause(String addressOrAlias) throws ApiException {
-        return kip7Api.pauseContract(chainId, addressOrAlias);
+        return pause(addressOrAlias, null);
+    }
+
+    /**
+     * Pauses all token transfers and validations for a given contract. <br>
+     * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     * <pre>Example :
+     * {@code
+     * String contractAddress = "0x{Contract address}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.pause(contractAddress, pauser);
+     * }
+     * </pre>
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The account that sends the transaction to pause the contract.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse pause(String addressOrAlias, String pauser) throws ApiException {
+        PauseKip7Request request = new PauseKip7Request();
+        request.setPauser(pauser);
+
+        return kip7ContractApi.pauseContract(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1540,7 +1877,35 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call pauseAsync(String addressOrAlias, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
-        return kip7Api.pauseContractAsync(chainId, addressOrAlias, callback);
+        return pauseAsync(addressOrAlias, null, callback);
+    }
+
+    /**
+     * Pauses all token transfers and validations for a given contract asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/pause
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     * String contractAddress = "0x{Contract address}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * caver.kas.kip7.pauseAsync(contractAddress, pauser, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The account that sends the transaction to pause the contract.
+     * @param callback The callback function to handle response.
+     * @return
+     * @throws ApiException
+     */
+    public Call pauseAsync(String addressOrAlias, String pauser, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        PauseKip7Request request = new PauseKip7Request();
+        request.setPauser(pauser);
+        return kip7ContractApi.pauseContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1560,7 +1925,31 @@ public class KIP7 {
      * @throws ApiException
      */
     public Kip7TransactionStatusResponse unpause(String addressOrAlias) throws ApiException {
-        return kip7Api.unpauseContract(chainId, addressOrAlias);
+        return unpause(addressOrAlias, null);
+    }
+
+    /**
+     * Resumes token transfers and validations for a given contract. <br>
+     * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     * <pre>Example :
+     * {@code
+     * String testContractAlias = "contract-alias";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(testContractAlias, pauser);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The Klaytn account address whose authority to resume contract operation
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse unpause(String addressOrAlias, String pauser) throws ApiException {
+        UnpauseKip7Request request = new UnpauseKip7Request();
+        request.setPauser(pauser);
+        return kip7ContractApi.unpauseContract(chainId, addressOrAlias, request);
     }
 
     /**
@@ -1583,7 +1972,443 @@ public class KIP7 {
      * @throws ApiException
      */
     public Call unpauseAsync(String addressOrAlias, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
-        return kip7Api.unpauseContractAsync(chainId, addressOrAlias, callback);
+        return unpauseAsync(addressOrAlias, null, callback);
+    }
+
+    /**
+     * Resumes token transfers and validations for a given contract asynchronously. <br>
+     * POST /v1/contract/{contract-address-or-alias}/unpause
+     *
+     * <pre>Example :
+     * {@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     * String testContractAlias = "contract-alias";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * caver.kas.kip7.unpauseAsync(testContractAlias, pauser, callback);
+     * }
+     * </pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The Klaytn account address whose authority to resume contract operation
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call unpauseAsync(String addressOrAlias, String pauser, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        UnpauseKip7Request request = new UnpauseKip7Request();
+        request.setPauser(pauser);
+        return kip7ContractApi.unpauseContractAsync(chainId, addressOrAlias, request, callback);
+    }
+
+    /**
+     * Grants a specified account the authority to mint and burn tokens from a contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/minter
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBeMinter = "0x{accountAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.addMinter(contractAddress, accountToBeMinter);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBeMinter The Klaytn account to be granted authority to mint and burn tokens.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse addMinter(String addressOrAlias, String accountToBeMinter) throws ApiException {
+        return addMinter(addressOrAlias, accountToBeMinter, null);
+    }
+
+    /**
+     * Grants a specified account the authority to mint and burn tokens from a contract asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/minter
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBeMinter = "0x{accountAddress}";
+     *
+     * caver.kas.kip7.addMinterAsync(contractAddress, accountToBeMinter, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBeMinter The Klaytn account to be granted authority to mint and burn tokens.
+     * @param callback The callback to handler response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call addMinterAsync(String addressOrAlias, String accountToBeMinter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return addMinterAsync(addressOrAlias, accountToBeMinter, null, callback);
+    }
+
+    /**
+     * Grants a specified account the authority to mint and burn tokens from a contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/minter
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBeMinter = "0x{accountAddress}";
+     * String minter = "0x{minterAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.addMinter(contractAddress, accountToBeMinter, minter);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBeMinter The Klaytn account to be granted authority to mint and burn tokens.
+     * @param minter The Klaytn account that grants authority to mint and buran a token.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse addMinter(String addressOrAlias, String accountToBeMinter, String minter) throws ApiException {
+        AddMinterKip7Request request = new AddMinterKip7Request();
+        request.setMinter(accountToBeMinter);
+        request.setSender(minter);
+
+        return kip7TokenApi.addMinter(chainId, addressOrAlias, request);
+    }
+
+    /**
+     * Grants a specified account the authority to mint and burn tokens from a contract asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/minter
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBeMinter = "0x{accountAddress}";
+     * String minter = "0x{minterAddress}";
+     *
+     * caver.kas.kip7.addMinterAsync(contractAddress, accountToBeMinter, minter, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBeMinter The Klaytn account to be granted authority to mint and burn tokens.
+     * @param minter The Klaytn account that grants authority to mint and buran a token.
+     * @param callback The callback to handle response.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Call addMinterAsync(String addressOrAlias, String accountToBeMinter, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        AddMinterKip7Request request = new AddMinterKip7Request();
+        request.setMinter(accountToBeMinter);
+        request.setSender(minter);
+
+        return kip7TokenApi.addMinterAsync(chainId, addressOrAlias, request, callback);
+    }
+
+    /**
+     * Removes the authority given to a certain account to mint and burn tokens from a contract.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/minter/{minter-address}
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String minter = "0x{minterAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.renounceMinter(contractAddress, minter);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param minter The Klaytn account address whose authority to mint and burn tokens will be removed.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse renounceMinter(String addressOrAlias, String minter) throws ApiException {
+        return kip7TokenApi.renounceMinter(addressOrAlias, minter, chainId);
+    }
+
+    /**
+     * Removes the authority given to a certain account to mint and burn tokens from a contract asynchronously.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/minter/{minter-address}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String minter = "0x{minterAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.renounceMinterAsync(contractAddress, minter, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param minter The Klaytn account address whose authority to mint and burn tokens will be removed.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call renounceMinterAsync(String addressOrAlias, String minter, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return kip7TokenApi.renounceMinterAsync(addressOrAlias, minter, chainId, callback);
+    }
+
+    /**
+     * Grants a specified account the authority to pause the actions of a contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/pauser
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBePauser = "0x{senderAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.addPauser(contractAddress, accountToBePauser);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBePauser The Klaytn account address to be granted authority to send and pause a contract.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse addPauser(String addressOrAlias, String accountToBePauser) throws ApiException {
+        return addPauser(addressOrAlias, accountToBePauser, null);
+    }
+
+    /**
+     * Grants a specified account the authority to pause the actions of a contract asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/pauser
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBePauser = "0x{senderAddress}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * caver.kas.kip7.addPauserAsync(contractAddress, accountToBePauser, pauser, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBePauser The Klaytn account address to be granted authority to send and pause a contract.
+     * @param callback The callback to handle response
+     * @return Call
+     * @throws ApiException
+     */
+    public Call addPauserAsync(String addressOrAlias, String accountToBePauser, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return addPauserAsync(addressOrAlias, accountToBePauser, null, callback);
+    }
+
+
+    /**
+     * Grants a specified account the authority to pause the actions of a contract.<br>
+     * POST /v1/contract/{contract-address-or-alias}/pauser
+     *
+     * <pre>{@code
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBePauser = "0x{senderAddress}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.addPauser(contractAddress, accountToBePauser, pauser);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBePauser The Klaytn account address to be granted authority to send and pause a contract.
+     * @param pauser The Klaytn account that grants the autority.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse addPauser(String addressOrAlias, String accountToBePauser, String pauser) throws ApiException {
+        AddPauserKip7Request request = new AddPauserKip7Request();
+        request.setSender(pauser);
+        request.setPauser(accountToBePauser);
+
+        return kip7ContractApi.addPauser(chainId, addressOrAlias, request);
+    }
+
+    /**
+     * Grants a specified account the authority to pause the actions of a contract asynchronously.<br>
+     * POST /v1/contract/{contract-address-or-alias}/pauser
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String contractAddress = "0x{contractAddress}";
+     * String accountToBePauser = "0x{senderAddress}";
+     * String pauser = "0x{pauserAddress}";
+     *
+     * caver.kas.kip7.addPauserAsync(contractAddress, accountToBePauser, pauser, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param accountToBePauser The Klaytn account address to be granted authority to send and pause a contract.
+     * @param pauser The Klaytn account that grants the autority.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call addPauserAsync(String addressOrAlias, String accountToBePauser, String pauser, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        AddPauserKip7Request request = new AddPauserKip7Request();
+        request.setSender(pauser);
+        request.setPauser(accountToBePauser);
+
+        return kip7ContractApi.addPauserAsync(chainId, addressOrAlias, request, callback);
+    }
+
+    /**
+     * Removes the authority given to a certain account to pause the actions of specified contract.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/pauser/{pauser-address}
+     *
+     * <pre>{@code
+     * String address = "0x{contract-address}";
+     * String pauser = "0x{pauser-address}";
+     *
+     * Kip7TransactionStatusResponse response = caver.kas.kip7.renouncePauser(address, pauser);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The Klaytn account address whose authoriy to pause contract will be removed.
+     * @return Kip7TransactionStatusResponse
+     * @throws ApiException
+     */
+    public Kip7TransactionStatusResponse renouncePauser(String addressOrAlias, String pauser) throws ApiException {
+        return kip7ContractApi.renouncePauser(addressOrAlias, pauser, chainId);
+    }
+
+    /**
+     * Removes the authority given to a certain account to pause the actions of specified contract asynchronously.<br>
+     * DELETE /v1/contract/{contract-address-or-alias}/pauser/{pauser-address}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7TransactionStatusResponse> callback = new ApiCallback<Kip7TransactionStatusResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * String address = "0x{contract-address}";
+     * String pauser = "0x{pauser-address}";
+     *
+     * caver.kas.kip7.renouncePauserAsync(address, pauser, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param pauser The Klaytn account address whose authoriy to pause contract will be removed.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call renouncePauserAsync(String addressOrAlias, String pauser, ApiCallback<Kip7TransactionStatusResponse> callback) throws ApiException {
+        return kip7ContractApi.renouncePauserAsync(addressOrAlias, pauser, chainId, callback);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * Kip7ContractMetadataResponse response = caver.kas.kip7.updateContract("0x{contractAddress}");
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @return Kip7ContractMetadataResponse
+     * @throws ApiException
+     */
+    public Kip7ContractMetadataResponse updateContractOptions(String addressOrAlias) throws ApiException {
+        return updateContractOptions(addressOrAlias, null);
+    }
+
+    /**
+     * Updates the fee payment method for a contract asynchronously.<br>
+     * It sets a fee payer options that config to pay transaction fee to using only Global fee payer account.<br>
+     * To see more detail, see <a href="https://refs.klaytnapi.com/en/kip7/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7ContractMetadataResponse> callback = new ApiCallback<Kip7ContractMetadataResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * caver.kas.kip7.updateContractOptionsAsync("0x{contractAddress}", callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call updateContractOptionsAsync(String addressOrAlias, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
+        return updateContractOptionsAsync(addressOrAlias, null, callback);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * Kip7ContractMetadataResponse response = caver.kas.kip7.updateContract("0x{contractAddress}", option);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @return Kip7ContractMetadataResponse
+     * @throws ApiException
+     */
+    public Kip7ContractMetadataResponse updateContractOptions(String addressOrAlias, Kip7FeePayerOptions option) throws ApiException {
+        UpdateKip7ContractRequest request = new UpdateKip7ContractRequest();
+        request.setOptions(option);
+        return kip7ContractApi.updateContract(chainId, addressOrAlias, request);
+    }
+
+    /**
+     * Updates the fee payment method for a contract.<br>
+     * If you want to see more detail about configuring fee payer option, see <a href="https://refs.klaytnapi.com/en/kip37/latest#section/Fee-Payer-Options">Fee payer options</a><br>
+     * PUT /v1/contract/{contract-address-or-alias}
+     *
+     * <pre>{@code
+     * ApiCallback<Kip7ContractMetadataResponse> callback = new ApiCallback<Kip7ContractMetadataResponse>() {
+     *     ....implements callback method.
+     * }
+     *
+     * // Using a user fee payer options.
+     * // It needs to have userFeePayer account and KRN created by KAS Wallet API.
+     * String feePayer = "0x{feePayer}";
+     * String feePayer_krn = "krn";
+     *
+     * Kip7FeePayerOptionResponseUserFeePayer userFeePayerOption = new Kip7FeePayerOptionResponseUserFeePayer();
+     * userFeePayerOption.setAddress(userFeePayer.getAddress());
+     * userFeePayerOption.setKrn(userFeePayer.getKrn());
+     *
+     * Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+     * option.setEnableGlobalFeePayer(false);
+     * option.setUserFeePayer(userFeePayerOption);
+     *
+     * caver.kas.kip7.updateContractAsync("0x{contractAddress}", option, callback);
+     * }</pre>
+     *
+     * @param addressOrAlias Contract address (in hexadecimal with the 0x prefix) or an alias.
+     * @param option The feePayer options that config to pay transaction fee logic.
+     * @param callback The callback to handle response.
+     * @return Call
+     * @throws ApiException
+     */
+    public Call updateContractOptionsAsync(String addressOrAlias, Kip7FeePayerOptions option, ApiCallback<Kip7ContractMetadataResponse> callback) throws ApiException {
+        UpdateKip7ContractRequest request = new UpdateKip7ContractRequest();
+        request.setOptions(option);
+        return kip7ContractApi.updateContractAsync(chainId, addressOrAlias, request, callback);
     }
 
     /**
@@ -1642,19 +2467,35 @@ public class KIP7 {
     }
 
     /**
-     * Getter for kip7Api
-     * @return Kip7Api
+     * Getter for kip7ContractApi
+     * @return Kip7ContractApi
      */
-    public Kip7Api getKip7Api() {
-        return kip7Api;
+    public Kip7ContractApi getKip7ContractApi() {
+        return kip7ContractApi;
     }
 
     /**
-     * Setter for kip7Api
-     * @param kip7Api KIP-7 API rest-client object.
+     * Setter for kip7ContractApi
+     * @param kip7ContractApi KIP-7 contract API rest-client object
      */
-    public void setKip7Api(Kip7Api kip7Api) {
-        this.kip7Api = kip7Api;
+    public void setKip7ContractApi(Kip7ContractApi kip7ContractApi) {
+        this.kip7ContractApi = kip7ContractApi;
+    }
+
+    /**
+     * Getter for kip7TokenApi
+     * @return Kip7TokenApi
+     */
+    public Kip7TokenApi getKip7TokenApi() {
+        return kip7TokenApi;
+    }
+
+    /**
+     * Setter for Kip7TokenApi
+     * @param kip7TokenApi KIP-7 token API rest-client object.
+     */
+    public void setKip7TokenApi(Kip7TokenApi kip7TokenApi) {
+        this.kip7TokenApi = kip7TokenApi;
     }
 
     /**
@@ -1687,7 +2528,8 @@ public class KIP7 {
      */
     public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
-        setKip7Api(new Kip7Api(apiClient));
-        setKip7DeployerApi(new Kip7DeployerApi());
+        setKip7ContractApi(new Kip7ContractApi(apiClient));
+        setKip7TokenApi(new Kip7TokenApi(apiClient));
+        setKip7DeployerApi(new Kip7DeployerApi(apiClient));
     }
 }

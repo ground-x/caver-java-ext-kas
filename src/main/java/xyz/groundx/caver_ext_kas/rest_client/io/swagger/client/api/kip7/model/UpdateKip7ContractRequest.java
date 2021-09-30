@@ -21,52 +21,32 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip7.model.Kip7FeePayerOptions;
 /**
- * Kip7DeployerResponse
+ * UpdateKip7ContractRequest
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
+public class UpdateKip7ContractRequest {
+  @SerializedName("options")
+  private Kip7FeePayerOptions options = null;
 
-  @SerializedName("krn")
-  private String krn = null;
-
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
+  public UpdateKip7ContractRequest options(Kip7FeePayerOptions options) {
+    this.options = options;
     return this;
   }
 
    /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
+   * Get options
+   * @return options
   **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
+  @Schema(description = "")
+  public Kip7FeePayerOptions getOptions() {
+    return options;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public Kip7DeployerResponse krn(String krn) {
-    this.krn = krn;
-    return this;
-  }
-
-   /**
-   * KRN of the account
-   * @return krn
-  **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
-  public String getKrn() {
-    return krn;
-  }
-
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setOptions(Kip7FeePayerOptions options) {
+    this.options = options;
   }
 
 
@@ -78,24 +58,22 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    UpdateKip7ContractRequest updateKip7ContractRequest = (UpdateKip7ContractRequest) o;
+    return Objects.equals(this.options, updateKip7ContractRequest.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(options);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class UpdateKip7ContractRequest {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
   }

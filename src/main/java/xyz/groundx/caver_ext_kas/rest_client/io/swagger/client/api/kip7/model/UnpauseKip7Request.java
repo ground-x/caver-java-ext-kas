@@ -22,51 +22,30 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Kip7DeployerResponse
+ * UnpauseKip7Request
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
+public class UnpauseKip7Request {
+  @SerializedName("pauser")
+  private String pauser = null;
 
-  @SerializedName("krn")
-  private String krn = null;
-
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
+  public UnpauseKip7Request pauser(String pauser) {
+    this.pauser = pauser;
     return this;
   }
 
    /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
+   * The Klaytn account address whose authority to carry out contract operations - transfer and authorization of tokens, etc. -  will be recovered. The default value is the &#x60;deployer&#x60;&#x27;s address.
+   * @return pauser
   **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
+  @Schema(description = "The Klaytn account address whose authority to carry out contract operations - transfer and authorization of tokens, etc. -  will be recovered. The default value is the `deployer`'s address.")
+  public String getPauser() {
+    return pauser;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public Kip7DeployerResponse krn(String krn) {
-    this.krn = krn;
-    return this;
-  }
-
-   /**
-   * KRN of the account
-   * @return krn
-  **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
-  public String getKrn() {
-    return krn;
-  }
-
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setPauser(String pauser) {
+    this.pauser = pauser;
   }
 
 
@@ -78,24 +57,22 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    UnpauseKip7Request unpauseKip7Request = (UnpauseKip7Request) o;
+    return Objects.equals(this.pauser, unpauseKip7Request.pauser);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(pauser);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class UnpauseKip7Request {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    pauser: ").append(toIndentedString(pauser)).append("\n");
     sb.append("}");
     return sb.toString();
   }

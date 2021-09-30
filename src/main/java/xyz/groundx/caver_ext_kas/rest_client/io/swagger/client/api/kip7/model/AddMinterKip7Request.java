@@ -22,51 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Kip7DeployerResponse
+ * AddMinterKip7Request
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
+public class AddMinterKip7Request {
+  @SerializedName("sender")
+  private String sender = null;
 
-  @SerializedName("krn")
-  private String krn = null;
+  @SerializedName("minter")
+  private String minter = null;
 
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
+  public AddMinterKip7Request sender(String sender) {
+    this.sender = sender;
     return this;
   }
 
    /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
+   * Klaytn account address that grants authority to mint and burn a token. The default value is the &#x60;deployer&#x60;&#x27;s address&#x27;.
+   * @return sender
   **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
+  @Schema(example = "175224902929872758239811531255736711146941009517", description = "Klaytn account address that grants authority to mint and burn a token. The default value is the `deployer`'s address'.")
+  public String getSender() {
+    return sender;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setSender(String sender) {
+    this.sender = sender;
   }
 
-  public Kip7DeployerResponse krn(String krn) {
-    this.krn = krn;
+  public AddMinterKip7Request minter(String minter) {
+    this.minter = minter;
     return this;
   }
 
    /**
-   * KRN of the account
-   * @return krn
+   * The Klaytn account address to be granted authority to mint and burn tokens.
+   * @return minter
   **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
-  public String getKrn() {
-    return krn;
+  @Schema(example = "905926021062573029082840825013416120695539447028", required = true, description = "The Klaytn account address to be granted authority to mint and burn tokens.")
+  public String getMinter() {
+    return minter;
   }
 
-  public void setKrn(String krn) {
-    this.krn = krn;
+  public void setMinter(String minter) {
+    this.minter = minter;
   }
 
 
@@ -78,24 +78,24 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    AddMinterKip7Request addMinterKip7Request = (AddMinterKip7Request) o;
+    return Objects.equals(this.sender, addMinterKip7Request.sender) &&
+        Objects.equals(this.minter, addMinterKip7Request.minter);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(sender, minter);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class AddMinterKip7Request {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    sender: ").append(toIndentedString(sender)).append("\n");
+    sb.append("    minter: ").append(toIndentedString(minter)).append("\n");
     sb.append("}");
     return sb.toString();
   }

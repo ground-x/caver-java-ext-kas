@@ -1,6 +1,6 @@
 /*
  * KIP-7 API
- * # Introduction KIP-7 API is a RESTful API for managing KIP-7 contracts and tokens that follow the [KIP-7 Fungible Token Standard](https://kips.klaytn.com/KIPs/kip-7).   You can deploy contracts and send tokens using the default contract managing account (`deployer`) and an `alias`. And by using SDK like caver,  you can manage your contracts and tokens using [Wallet API](https://refs.klaytnapi.com/en/wallet/latest) for contracts created on the Klaytn Network.     # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |  | 1130050 | incorrect request; spender 1130107 | incorrect bookmark 1134410 | invalid address; to</br>invalid address; owner</br>invalid address; address 1134411 | invalid amount; amount |  ## 404: Not Found   | Code | Messages |  | --- | --- |  | 1134504 | contract not found 1134506 | deployer not found |   ## 409: Conflict   | Code | Messages |   | --- | --- |   | 1134900 | duplicate alias 1134902 | contract already paused 1134903 | contract already unpaused |  
+ * # Introduction The KIP-17 API helps BApp (Blockchain Application) developers to manage contracts and tokens created in accordance with the [KIP-7](https://docs.klaytnapi.com/v/en/api#kip-7-api) standard, which is Klaytn's technical speficication for Fungible Tokens.  The functionality of the multiple endpoints enables you to do the following actions: - deploy smart contracts - manage the entire life cycle of an FT from minting, to sending and burning - get contract or token data - authorize a third party to execute token transfers - send tokens on behalf of the owner   For more details on KAS, please refer to [KAS Docs](https://docs.klaytnapi.com/). If you have any questions or comments, please leave them in the [Klaytn Developers Forum](http://forum.klaytn.com).    **alias**  When a method of the KIP-17 API requires a contract address, you can use the contract **alias**. You can give the contract an alias when deploying, and use it in place of the complicated address.  **deployer**  When you create a contract, you will be assigned one `deployer` address per Credential, which is the account address used for managing contracts. In KIP-7 API, this address is used in many different token-related operations. You can find the `deployer` address with [KIP7Deployer](#operation/GetDefaultDeployer).  Even with contracts created using SDKs like \"caver\", you can still use the contract address and [Wallet API](https://refs.klaytnapi.com/en/wallet/latest) account to manage your contracts and tokens.  # Fee Payer Options  KAS KIP-17 supports four ways to pay the transaction fees.<br />  **1. Only using KAS Global FeePayer Account** <br /> Sends all transactions using KAS Global FeePayer Account. ``` {     \"options\": {       \"enableGlobalFeePayer\": true     } } ```  <br />  **2. Using User FeePayer Account** <br /> Sends all transactions using User FeePayer Account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ```  <br />  **3. Using both KAS Global FeePayer Account + User FeePayer Account** <br /> Sends transactions using User FeePayer Account by default, and switches to the KAS Global FeePayer Account when balances are insufficient. ``` {   \"options\": {     \"enableGlobalFeePayer\": true,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ```  <br />  **4. Not using FeePayer Account** <br /> Sends transactions the default way, paying the transaction fee from the user's account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false   } } ```  # Error Code This section contains the errors that might occur when using the KIP-17 API. KAS uses HTTP status codes. More details can be found in this [link](https://developer.mozilla.org/en/docs/Web/HTTP/Status). 
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -56,7 +56,7 @@ public class Kip7DeployerApi {
 
     /**
      * Build call for getDefaultDeployer
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -92,7 +92,7 @@ public class Kip7DeployerApi {
         if(progressListener != null) {
             apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
                 @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
                     com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
                     return originalResponse.newBuilder()
                     .body(new ProgressResponseBody(originalResponse.body(), progressListener))
@@ -122,9 +122,9 @@ public class Kip7DeployerApi {
     }
 
     /**
-     * Retrieves the default contract deployer account
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * Get Deployer Address
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @return Kip7DeployerResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -134,9 +134,9 @@ public class Kip7DeployerApi {
     }
 
     /**
-     * Retrieves the default contract deployer account
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * Get Deployer Address
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @return ApiResponse&lt;Kip7DeployerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -147,9 +147,9 @@ public class Kip7DeployerApi {
     }
 
     /**
-     * Retrieves the default contract deployer account (asynchronously)
-     * Queries the account that deploys and manages the KIP-7 contracts.  &#x60;deployer&#x60; will automatically be created during the initial contract deployment.<p></p>  
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
+     * Get Deployer Address (asynchronously)
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

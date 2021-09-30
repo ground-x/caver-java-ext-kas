@@ -22,51 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Kip7DeployerResponse
+ * Kip7FeePayerOptionsResponseUserFeePayer
  */
 
 
-public class Kip7DeployerResponse {
-  @SerializedName("address")
-  private String address = null;
-
+public class Kip7FeePayerOptionsResponseUserFeePayer {
   @SerializedName("krn")
   private String krn = null;
 
-  public Kip7DeployerResponse address(String address) {
-    this.address = address;
-    return this;
-  }
+  @SerializedName("address")
+  private String address = null;
 
-   /**
-   * The default Klaytn account address (&#x60;deployer&#x60;) that manages contracts.
-   * @return address
-  **/
-  @Schema(example = "939503546684984478007064713435074187155134588533", required = true, description = "The default Klaytn account address (`deployer`) that manages contracts.")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public Kip7DeployerResponse krn(String krn) {
+  public Kip7FeePayerOptionsResponseUserFeePayer krn(String krn) {
     this.krn = krn;
     return this;
   }
 
    /**
-   * KRN of the account
+   * The KRN of the Fee-payer Pool
    * @return krn
   **/
-  @Schema(example = "krn:1001:kip7:88c1223c-66af-4122-9818-069b2e3c6b30:account-pool:default", required = true, description = "KRN of the account")
+  @Schema(description = "The KRN of the Fee-payer Pool")
   public String getKrn() {
     return krn;
   }
 
   public void setKrn(String krn) {
     this.krn = krn;
+  }
+
+  public Kip7FeePayerOptionsResponseUserFeePayer address(String address) {
+    this.address = address;
+    return this;
+  }
+
+   /**
+   * The Klaytn account address of the FeePayer
+   * @return address
+  **/
+  @Schema(description = "The Klaytn account address of the FeePayer")
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -78,24 +78,24 @@ public class Kip7DeployerResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Kip7DeployerResponse kip7DeployerResponse = (Kip7DeployerResponse) o;
-    return Objects.equals(this.address, kip7DeployerResponse.address) &&
-        Objects.equals(this.krn, kip7DeployerResponse.krn);
+    Kip7FeePayerOptionsResponseUserFeePayer kip7FeePayerOptionsResponseUserFeePayer = (Kip7FeePayerOptionsResponseUserFeePayer) o;
+    return Objects.equals(this.krn, kip7FeePayerOptionsResponseUserFeePayer.krn) &&
+        Objects.equals(this.address, kip7FeePayerOptionsResponseUserFeePayer.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, krn);
+    return Objects.hash(krn, address);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Kip7DeployerResponse {\n");
+    sb.append("class Kip7FeePayerOptionsResponseUserFeePayer {\n");
     
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }
