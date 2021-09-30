@@ -3574,7 +3574,7 @@ public class Wallet {
      */
     public Call getFDTransactionListAsync(String from, ApiCallback<FDTransactionWithCurrencyResultList> callback) throws ApiException {
         if(!chainId.equals(CaverExtKAS.CHAIN_ID_CYPRESS)) {
-            throw new RuntimeException("This method only works Cypress network.");
+            throw new RuntimeException("This API is only supported on the Cypress network. Please change network to use this.");
         }
 
         return this.transactionHistoryApi.getV2HistoryFdTxAsync(chainId, from, callback);
