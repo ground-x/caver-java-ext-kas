@@ -3462,7 +3462,7 @@ public class Wallet {
      */
     public KeyList getKeyListByKRN(String krn, WalletQueryOptions options) throws ApiException {
         String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
-        return this.keyApi.retrieveKeys(krn, chainId, options.getCursor(), size);
+        return this.keyApi.retrieveKeys(chainId, krn, options.getCursor(), size);
     }
 
     /**
@@ -3489,7 +3489,7 @@ public class Wallet {
      */
     public Call getKeyListByKRNAsync(String krn, WalletQueryOptions options, ApiCallback<KeyList> callback) throws ApiException {
         String size = options.getSize() != null ? Long.toString(options.getSize()) : null;
-        return this.keyApi.retrieveKeysAsync(krn, chainId, options.getCursor(), size, callback);
+        return this.keyApi.retrieveKeysAsync(chainId, krn, options.getCursor(), size, callback);
     }
 
     /**
