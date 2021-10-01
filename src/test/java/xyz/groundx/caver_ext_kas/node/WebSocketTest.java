@@ -56,7 +56,7 @@ public class WebSocketTest {
         CaverExtKAS caver = new CaverExtKAS();
 
         String id = "KASFAKEACCESSKEYID";
-        String pwd = "KASFAKESECRETACCESSKEY!@@#$$%";
+        String pwd = "KASFAKESECRETACCESSKEY=";
 
         caver.initNodeAPI(Config.CHAIN_ID_BAOBOB, id, pwd, Config.URL_NODE_API, false);
     }
