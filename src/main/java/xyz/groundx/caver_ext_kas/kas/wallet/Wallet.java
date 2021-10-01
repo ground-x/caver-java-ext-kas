@@ -3595,6 +3595,10 @@ public class Wallet {
      * @throws ApiException
      */
     public FDTransactionWithCurrencyResult getFDTransaction(String txHash) throws ApiException {
+        if(!chainId.equals(CaverExtKAS.CHAIN_ID_CYPRESS)) {
+            throw new RuntimeException("This API is only supported on the Cypress network. Please change network to use this.");
+        }
+
         return this.transactionHistoryApi.getV2HistoryFdTxTransactionHash(txHash, chainId);
     }
 
@@ -3618,6 +3622,10 @@ public class Wallet {
      * @throws ApiException
      */
     public Call getFDTransactionAsync(String txHash, ApiCallback<FDTransactionWithCurrencyResult> callback) throws ApiException {
+        if(!chainId.equals(CaverExtKAS.CHAIN_ID_CYPRESS)) {
+            throw new RuntimeException("This API is only supported on the Cypress network. Please change network to use this.");
+        }
+
         return this.transactionHistoryApi.getV2HistoryFdTxTransactionHashAsync(txHash, chainId, callback);
     }
 
