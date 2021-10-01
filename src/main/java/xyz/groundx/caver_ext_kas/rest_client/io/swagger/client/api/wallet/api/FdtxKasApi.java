@@ -42,14 +42,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FeeDelegatedTransactionPaidByKasApi {
+public class FdtxKasApi {
     private ApiClient apiClient;
 
-    public FeeDelegatedTransactionPaidByKasApi() {
+    public FdtxKasApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public FeeDelegatedTransactionPaidByKasApi(ApiClient apiClient) {
+    public FdtxKasApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 

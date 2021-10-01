@@ -37,14 +37,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MultisigTransactionManagementApi {
+public class MultisigTxApi {
     private ApiClient apiClient;
 
-    public MultisigTransactionManagementApi() {
+    public MultisigTxApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public MultisigTransactionManagementApi(ApiClient apiClient) {
+    public MultisigTxApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 

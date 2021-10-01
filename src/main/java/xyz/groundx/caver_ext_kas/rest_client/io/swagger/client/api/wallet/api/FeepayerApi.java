@@ -29,7 +29,7 @@ import java.io.IOException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Account;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.AccountStatus;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.V2FeepayerBody;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.CreateFeePayerAccountRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class FeepayerApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call creatFeePayerAccountCall(String xChainId, V2FeepayerBody body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call creatFeePayerAccountCall(String xChainId, CreateFeePayerAccountRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -109,7 +109,7 @@ public class FeepayerApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call creatFeePayerAccountValidateBeforeCall(String xChainId, V2FeepayerBody body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call creatFeePayerAccountValidateBeforeCall(String xChainId, CreateFeePayerAccountRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'xChainId' is set
         if (xChainId == null) {
             throw new ApiException("Missing the required parameter 'xChainId' when calling creatFeePayerAccount(Async)");
@@ -132,7 +132,7 @@ public class FeepayerApi {
      * @return Account
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Account creatFeePayerAccount(String xChainId, V2FeepayerBody body) throws ApiException {
+    public Account creatFeePayerAccount(String xChainId, CreateFeePayerAccountRequest body) throws ApiException {
         ApiResponse<Account> resp = creatFeePayerAccountWithHttpInfo(xChainId, body);
         return resp.getData();
     }
@@ -145,7 +145,7 @@ public class FeepayerApi {
      * @return ApiResponse&lt;Account&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Account> creatFeePayerAccountWithHttpInfo(String xChainId, V2FeepayerBody body) throws ApiException {
+    public ApiResponse<Account> creatFeePayerAccountWithHttpInfo(String xChainId, CreateFeePayerAccountRequest body) throws ApiException {
         com.squareup.okhttp.Call call = creatFeePayerAccountValidateBeforeCall(xChainId, body, null, null);
         Type localVarReturnType = new TypeToken<Account>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -160,7 +160,7 @@ public class FeepayerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call creatFeePayerAccountAsync(String xChainId, V2FeepayerBody body, final ApiCallback<Account> callback) throws ApiException {
+    public com.squareup.okhttp.Call creatFeePayerAccountAsync(String xChainId, CreateFeePayerAccountRequest body, final ApiCallback<Account> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

@@ -600,8 +600,8 @@ public class KeyApi {
     }
     /**
      * Build call for retrieveKeys
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param krn KAS resource name (required)
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (optional)
      * @param cursor Last cursor record (optional)
      * @param size Maximum query size (optional)
      * @param progressListener Progress listener
@@ -609,7 +609,7 @@ public class KeyApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call retrieveKeysCall(String krn, String xChainId, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call retrieveKeysCall(String xChainId, String krn, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -659,13 +659,17 @@ public class KeyApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call retrieveKeysValidateBeforeCall(String krn, String xChainId, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call retrieveKeysValidateBeforeCall(String xChainId, String krn, String cursor, String size, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling retrieveKeys(Async)");
+        }
         // verify the required parameter 'krn' is set
         if (krn == null) {
             throw new ApiException("Missing the required parameter 'krn' when calling retrieveKeys(Async)");
         }
         
-        com.squareup.okhttp.Call call = retrieveKeysCall(krn, xChainId, cursor, size, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retrieveKeysCall(xChainId, krn, cursor, size, progressListener, progressRequestListener);
         return call;
 
         
@@ -677,30 +681,30 @@ public class KeyApi {
     /**
      * Retrieve a list of keys.
      * Returns a list of keys
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param krn KAS resource name (required)
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (optional)
      * @param cursor Last cursor record (optional)
      * @param size Maximum query size (optional)
      * @return KeyList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public KeyList retrieveKeys(String krn, String xChainId, String cursor, String size) throws ApiException {
-        ApiResponse<KeyList> resp = retrieveKeysWithHttpInfo(krn, xChainId, cursor, size);
+    public KeyList retrieveKeys(String xChainId, String krn, String cursor, String size) throws ApiException {
+        ApiResponse<KeyList> resp = retrieveKeysWithHttpInfo(xChainId, krn, cursor, size);
         return resp.getData();
     }
 
     /**
      * Retrieve a list of keys.
      * Returns a list of keys
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param krn KAS resource name (required)
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (optional)
      * @param cursor Last cursor record (optional)
      * @param size Maximum query size (optional)
      * @return ApiResponse&lt;KeyList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<KeyList> retrieveKeysWithHttpInfo(String krn, String xChainId, String cursor, String size) throws ApiException {
-        com.squareup.okhttp.Call call = retrieveKeysValidateBeforeCall(krn, xChainId, cursor, size, null, null);
+    public ApiResponse<KeyList> retrieveKeysWithHttpInfo(String xChainId, String krn, String cursor, String size) throws ApiException {
+        com.squareup.okhttp.Call call = retrieveKeysValidateBeforeCall(xChainId, krn, cursor, size, null, null);
         Type localVarReturnType = new TypeToken<KeyList>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -708,15 +712,15 @@ public class KeyApi {
     /**
      * Retrieve a list of keys. (asynchronously)
      * Returns a list of keys
+     * @param xChainId Klaytn chain network ID (1001 or 8217) (required)
      * @param krn KAS resource name (required)
-     * @param xChainId Klaytn chain network ID (1001 or 8217) (optional)
      * @param cursor Last cursor record (optional)
      * @param size Maximum query size (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call retrieveKeysAsync(String krn, String xChainId, String cursor, String size, final ApiCallback<KeyList> callback) throws ApiException {
+    public com.squareup.okhttp.Call retrieveKeysAsync(String xChainId, String krn, String cursor, String size, final ApiCallback<KeyList> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -737,7 +741,7 @@ public class KeyApi {
             };
         }
 
-        com.squareup.okhttp.Call call = retrieveKeysValidateBeforeCall(krn, xChainId, cursor, size, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = retrieveKeysValidateBeforeCall(xChainId, krn, cursor, size, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<KeyList>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

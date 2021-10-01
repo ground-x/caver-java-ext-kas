@@ -46,14 +46,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BasicTransactionApi {
+public class BasicTxApi {
     private ApiClient apiClient;
 
-    public BasicTransactionApi() {
+    public BasicTxApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public BasicTransactionApi(ApiClient apiClient) {
+    public BasicTxApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 

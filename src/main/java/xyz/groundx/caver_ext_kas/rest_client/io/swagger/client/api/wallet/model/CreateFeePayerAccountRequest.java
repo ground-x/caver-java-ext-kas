@@ -22,15 +22,15 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * V2FeepayerBody
+ * Create fee payer account request
  */
+@Schema(description = "Create fee payer account request")
 
-
-public class V2FeepayerBody {
+public class CreateFeePayerAccountRequest {
   @SerializedName("withoutAccountUpdate")
   private Boolean withoutAccountUpdate = null;
 
-  public V2FeepayerBody withoutAccountUpdate(Boolean withoutAccountUpdate) {
+  public CreateFeePayerAccountRequest withoutAccountUpdate(Boolean withoutAccountUpdate) {
     this.withoutAccountUpdate = withoutAccountUpdate;
     return this;
   }
@@ -39,7 +39,7 @@ public class V2FeepayerBody {
    * Get withoutAccountUpdate
    * @return withoutAccountUpdate
   **/
-  @Schema(description = "")
+  @Schema(example = "true", description = "")
   public Boolean isWithoutAccountUpdate() {
     return withoutAccountUpdate;
   }
@@ -57,8 +57,8 @@ public class V2FeepayerBody {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    V2FeepayerBody v2FeepayerBody = (V2FeepayerBody) o;
-    return Objects.equals(this.withoutAccountUpdate, v2FeepayerBody.withoutAccountUpdate);
+    CreateFeePayerAccountRequest createFeePayerAccountRequest = (CreateFeePayerAccountRequest) o;
+    return Objects.equals(this.withoutAccountUpdate, createFeePayerAccountRequest.withoutAccountUpdate);
   }
 
   @Override
@@ -70,7 +70,7 @@ public class V2FeepayerBody {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class V2FeepayerBody {\n");
+    sb.append("class CreateFeePayerAccountRequest {\n");
     
     sb.append("    withoutAccountUpdate: ").append(toIndentedString(withoutAccountUpdate)).append("\n");
     sb.append("}");

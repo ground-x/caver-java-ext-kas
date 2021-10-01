@@ -26,9 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.ErrorResponse;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResult;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResultList;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.InlineResponse400;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,14 +36,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TransactionHistoryApi {
+public class TxHistoryApi {
     private ApiClient apiClient;
 
-    public TransactionHistoryApi() {
+    public TxHistoryApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public TransactionHistoryApi(ApiClient apiClient) {
+    public TxHistoryApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -57,7 +57,7 @@ public class TransactionHistoryApi {
 
     /**
      * Build call for getV2HistoryFdTx
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param from The Klaytn account address of the sender (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
@@ -111,6 +111,10 @@ public class TransactionHistoryApi {
     
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getV2HistoryFdTxValidateBeforeCall(String xChainId, String from, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getV2HistoryFdTx(Async)");
+        }
         
         com.squareup.okhttp.Call call = getV2HistoryFdTxCall(xChainId, from, progressListener, progressRequestListener);
         return call;
@@ -124,7 +128,7 @@ public class TransactionHistoryApi {
     /**
      * Get Fee Delegation Transaction History
      * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param from The Klaytn account address of the sender (optional)
      * @return FDTransactionWithCurrencyResultList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -137,7 +141,7 @@ public class TransactionHistoryApi {
     /**
      * Get Fee Delegation Transaction History
      * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param from The Klaytn account address of the sender (optional)
      * @return ApiResponse&lt;FDTransactionWithCurrencyResultList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -151,7 +155,7 @@ public class TransactionHistoryApi {
     /**
      * Get Fee Delegation Transaction History (asynchronously)
      * Returns the history of fee delegation transactions. You can find out the KRW and USD price of the fees at the time of sending the transaction. If you add the &#x60;from&#x60; query parameter, only the transactions from a certain address will be returned.
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param from The Klaytn account address of the sender (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
@@ -186,7 +190,7 @@ public class TransactionHistoryApi {
     /**
      * Build call for getV2HistoryFdTxTransactionHash
      * @param transactionHash Transaction hash (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -242,6 +246,10 @@ public class TransactionHistoryApi {
         if (transactionHash == null) {
             throw new ApiException("Missing the required parameter 'transactionHash' when calling getV2HistoryFdTxTransactionHash(Async)");
         }
+        // verify the required parameter 'xChainId' is set
+        if (xChainId == null) {
+            throw new ApiException("Missing the required parameter 'xChainId' when calling getV2HistoryFdTxTransactionHash(Async)");
+        }
         
         com.squareup.okhttp.Call call = getV2HistoryFdTxTransactionHashCall(transactionHash, xChainId, progressListener, progressRequestListener);
         return call;
@@ -256,7 +264,7 @@ public class TransactionHistoryApi {
      * Get Fee Delegation Transaction History
      * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
      * @param transactionHash Transaction hash (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return FDTransactionWithCurrencyResult
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -269,7 +277,7 @@ public class TransactionHistoryApi {
      * Get Fee Delegation Transaction History
      * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
      * @param transactionHash Transaction hash (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @return ApiResponse&lt;FDTransactionWithCurrencyResult&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -283,7 +291,7 @@ public class TransactionHistoryApi {
      * Get Fee Delegation Transaction History (asynchronously)
      * Returns a single fee delegation transaction. You can find out the KRW and USD price of the fees at the time of sending the transaction.
      * @param transactionHash Transaction hash (required)
-     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (optional)
+     * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

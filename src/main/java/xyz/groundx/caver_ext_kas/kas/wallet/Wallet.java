@@ -55,22 +55,22 @@ public class Wallet {
     /**
      * Basic transaction API rest client object.
      */
-    BasicTransactionApi basicTransactionApi;
+    BasicTxApi basicTransactionApi;
 
     /**
      * Fee delegated transaction(fee paid by KAS) API rest client object.
      */
-    FeeDelegatedTransactionPaidByKasApi feeDelegatedTransactionPaidByKasApi;
+    FdtxKasApi feeDelegatedTransactionPaidByKasApi;
 
     /**
      * Fee delegated transaction(fee paid by user) API rest client object.
      */
-    FeeDelegatedTransactionPaidByUserApi feeDelegatedTransactionPaidByUserApi;
+    FdtxUserApi feeDelegatedTransactionPaidByUserApi;
 
     /**
      * Multiple signature transaction management API rest client object.
      */
-    MultisigTransactionManagementApi multisigTransactionManagementApi;
+    MultisigTxApi multisigTransactionManagementApi;
 
     /**
      * Statistics API rest client object.
@@ -95,7 +95,7 @@ public class Wallet {
     /**
      * Transaction history API rest client object.
      */
-    TransactionHistoryApi transactionHistoryApi;
+    TxHistoryApi transactionHistoryApi;
 
     /**
      * Klaytn network id.
@@ -3120,7 +3120,7 @@ public class Wallet {
      * @throws ApiException
      */
     public Account createFeePayer(boolean withoutAccountUpdate) throws ApiException {
-        V2FeepayerBody body = new V2FeepayerBody();
+        CreateFeePayerAccountRequest body = new CreateFeePayerAccountRequest();
         body.setWithoutAccountUpdate(withoutAccountUpdate);
         return getFeepayerApi().creatFeePayerAccount(chainId, body);
     }
@@ -3173,7 +3173,7 @@ public class Wallet {
      * @throws ApiException
      */
     public Call createFeePayerAsync(boolean withoutAccountUpdate, ApiCallback<Account> callback) throws ApiException {
-        V2FeepayerBody body = new V2FeepayerBody();
+        CreateFeePayerAccountRequest body = new CreateFeePayerAccountRequest();
         body.setWithoutAccountUpdate(withoutAccountUpdate);
         return getFeepayerApi().creatFeePayerAccountAsync(chainId, body, callback);
     }
@@ -3633,7 +3633,7 @@ public class Wallet {
      * Getter function for basicTransactionApi
      * @return BasicTransactionApi
      */
-    public BasicTransactionApi getBasicTransactionApi() {
+    public BasicTxApi getBasicTransactionApi() {
         return basicTransactionApi;
     }
 
@@ -3641,7 +3641,7 @@ public class Wallet {
      * Getter function for feeDelegatedTransactionPaidByKasApi
      * @return FeeDelegatedTransactionPaidByKasApi
      */
-    public FeeDelegatedTransactionPaidByKasApi getFeeDelegatedTransactionPaidByKasApi() {
+    public FdtxKasApi getFeeDelegatedTransactionPaidByKasApi() {
         return feeDelegatedTransactionPaidByKasApi;
     }
 
@@ -3649,7 +3649,7 @@ public class Wallet {
      * Getter function for feeDelegatedTransactionPaidByUserApi
      * @return FeeDelegatedTransactionPaidByUserApi
      */
-    public FeeDelegatedTransactionPaidByUserApi getFeeDelegatedTransactionPaidByUserApi() {
+    public FdtxUserApi getFeeDelegatedTransactionPaidByUserApi() {
         return feeDelegatedTransactionPaidByUserApi;
     }
 
@@ -3657,7 +3657,7 @@ public class Wallet {
      * Getter function for multisigTransactionManagementApi
      * @return MultisigTransactionManagementApi
      */
-    public MultisigTransactionManagementApi getMultisigTransactionManagementApi() {
+    public MultisigTxApi getMultisigTransactionManagementApi() {
         return multisigTransactionManagementApi;
     }
 
@@ -3697,7 +3697,7 @@ public class Wallet {
      * Getter function for transactionHistoryApi
      * @return transactionHistoryApi
      */
-    public TransactionHistoryApi getTransactionHistoryApi() {
+    public TxHistoryApi getTransactionHistoryApi() {
         return transactionHistoryApi;
     }
 
@@ -3729,7 +3729,7 @@ public class Wallet {
      * Setter function for basicTransactionApi
      * @param basicTransactionApi Basic transaction API rest client object.
      */
-    public void setBasicTransactionApi(BasicTransactionApi basicTransactionApi) {
+    public void setBasicTransactionApi(BasicTxApi basicTransactionApi) {
         this.basicTransactionApi = basicTransactionApi;
     }
 
@@ -3737,7 +3737,7 @@ public class Wallet {
      * Setter function for feeDelegatedTransactionPaidByKasApi
      * @param feeDelegatedTransactionPaidByKasApi Fee delegated transaction(fee paid by KAS) API rest client object.
      */
-    public void setFeeDelegatedTransactionPaidByKasApi(FeeDelegatedTransactionPaidByKasApi feeDelegatedTransactionPaidByKasApi) {
+    public void setFeeDelegatedTransactionPaidByKasApi(FdtxKasApi feeDelegatedTransactionPaidByKasApi) {
         this.feeDelegatedTransactionPaidByKasApi = feeDelegatedTransactionPaidByKasApi;
     }
 
@@ -3745,7 +3745,7 @@ public class Wallet {
      * Setter function for feeDelegatedTransactionPaidByUserApi
      * @param feeDelegatedTransactionPaidByUserApi Fee delegated transaction(fee paid by user) API rest client object.
      */
-    public void setFeeDelegatedTransactionPaidByUserApi(FeeDelegatedTransactionPaidByUserApi feeDelegatedTransactionPaidByUserApi) {
+    public void setFeeDelegatedTransactionPaidByUserApi(FdtxUserApi feeDelegatedTransactionPaidByUserApi) {
         this.feeDelegatedTransactionPaidByUserApi = feeDelegatedTransactionPaidByUserApi;
     }
 
@@ -3753,7 +3753,7 @@ public class Wallet {
      * Setter function for multisigTransactionManagementApi
      * @param multisigTransactionManagementApi Multiple signature transaction management API rest client object.
      */
-    public void setMultisigTransactionManagementApi(MultisigTransactionManagementApi multisigTransactionManagementApi) {
+    public void setMultisigTransactionManagementApi(MultisigTxApi multisigTransactionManagementApi) {
         this.multisigTransactionManagementApi = multisigTransactionManagementApi;
     }
 
@@ -3793,7 +3793,7 @@ public class Wallet {
      * Setter function for transactionHistoryApi
      * @param transactionHistoryApi Transaction History API rest client object.
      */
-    public void setTransactionHistoryApi(TransactionHistoryApi transactionHistoryApi) {
+    public void setTransactionHistoryApi(TxHistoryApi transactionHistoryApi) {
         this.transactionHistoryApi = transactionHistoryApi;
     }
 
@@ -3812,15 +3812,15 @@ public class Wallet {
     public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
         setAccountApi(new AccountApi(apiClient));
-        setBasicTransactionApi(new BasicTransactionApi(apiClient));
-        setFeeDelegatedTransactionPaidByKasApi(new FeeDelegatedTransactionPaidByKasApi(apiClient));
-        setFeeDelegatedTransactionPaidByUserApi(new FeeDelegatedTransactionPaidByUserApi(apiClient));
-        setMultisigTransactionManagementApi(new MultisigTransactionManagementApi(apiClient));
+        setBasicTransactionApi(new BasicTxApi(apiClient));
+        setFeeDelegatedTransactionPaidByKasApi(new FdtxKasApi(apiClient));
+        setFeeDelegatedTransactionPaidByUserApi(new FdtxUserApi(apiClient));
+        setMultisigTransactionManagementApi(new MultisigTxApi(apiClient));
         setStatisticsApi(new StatisticsApi(apiClient));
         setKeyApi(new KeyApi(apiClient));
         setRegistrationApi(new RegistrationApi(apiClient));
         setFeepayerApi(new FeepayerApi(apiClient));
-        setTransactionHistoryApi(new TransactionHistoryApi(apiClient));
+        setTransactionHistoryApi(new TxHistoryApi(apiClient));
     }
 
 
