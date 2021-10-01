@@ -21,60 +21,73 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigKey;
 /**
- * Request schema for updating to a multisig account
+ * KeyListItems
  */
-@Schema(description = "Request schema for updating to a multisig account")
 
-public class MultisigAccountUpdateRequest {
-  @SerializedName("threshold")
-  private Long threshold = null;
 
-  @SerializedName("weightedKeys")
-  private List<MultisigKey> weightedKeys = new ArrayList<MultisigKey>();
+public class KeyListItems {
+  @SerializedName("keyId")
+  private String keyId = null;
 
-  public MultisigAccountUpdateRequest threshold(Long threshold) {
-    this.threshold = threshold;
+  @SerializedName("krn")
+  private String krn = null;
+
+  @SerializedName("publicKey")
+  private String publicKey = null;
+
+  public KeyListItems keyId(String keyId) {
+    this.keyId = keyId;
     return this;
   }
 
    /**
-   * Threshold for validating total weighed values.
-   * @return threshold
+   * key ID
+   * @return keyId
   **/
-  @Schema(example = "4", required = true, description = "Threshold for validating total weighed values.")
-  public Long getThreshold() {
-    return threshold;
+  @Schema(required = true, description = "key ID")
+  public String getKeyId() {
+    return keyId;
   }
 
-  public void setThreshold(Long threshold) {
-    this.threshold = threshold;
+  public void setKeyId(String keyId) {
+    this.keyId = keyId;
   }
 
-  public MultisigAccountUpdateRequest weightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
-    return this;
-  }
-
-  public MultisigAccountUpdateRequest addWeightedKeysItem(MultisigKey weightedKeysItem) {
-    this.weightedKeys.add(weightedKeysItem);
+  public KeyListItems krn(String krn) {
+    this.krn = krn;
     return this;
   }
 
    /**
-   * Get weightedKeys
-   * @return weightedKeys
+   * KAS resource name
+   * @return krn
   **/
-  @Schema(required = true, description = "")
-  public List<MultisigKey> getWeightedKeys() {
-    return weightedKeys;
+  @Schema(required = true, description = "KAS resource name")
+  public String getKrn() {
+    return krn;
   }
 
-  public void setWeightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
+  public void setKrn(String krn) {
+    this.krn = krn;
+  }
+
+  public KeyListItems publicKey(String publicKey) {
+    this.publicKey = publicKey;
+    return this;
+  }
+
+   /**
+   * Public key
+   * @return publicKey
+  **/
+  @Schema(required = true, description = "Public key")
+  public String getPublicKey() {
+    return publicKey;
+  }
+
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
   }
 
 
@@ -86,24 +99,26 @@ public class MultisigAccountUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigAccountUpdateRequest multisigAccountUpdateRequest = (MultisigAccountUpdateRequest) o;
-    return Objects.equals(this.threshold, multisigAccountUpdateRequest.threshold) &&
-        Objects.equals(this.weightedKeys, multisigAccountUpdateRequest.weightedKeys);
+    KeyListItems keyListItems = (KeyListItems) o;
+    return Objects.equals(this.keyId, keyListItems.keyId) &&
+        Objects.equals(this.krn, keyListItems.krn) &&
+        Objects.equals(this.publicKey, keyListItems.publicKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(threshold, weightedKeys);
+    return Objects.hash(keyId, krn, publicKey);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigAccountUpdateRequest {\n");
+    sb.append("class KeyListItems {\n");
     
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    weightedKeys: ").append(toIndentedString(weightedKeys)).append("\n");
+    sb.append("    keyId: ").append(toIndentedString(keyId)).append("\n");
+    sb.append("    krn: ").append(toIndentedString(krn)).append("\n");
+    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

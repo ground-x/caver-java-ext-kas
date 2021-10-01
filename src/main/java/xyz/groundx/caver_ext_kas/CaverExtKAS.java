@@ -45,6 +45,9 @@ public class CaverExtKAS extends Caver {
     private static final String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
     private static final String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
 
+    public static final String CHAIN_ID_BAOBOB = "1001";
+    public static final String CHAIN_ID_CYPRESS = "8217";
+
     /**
      * The KAS instance.
      */

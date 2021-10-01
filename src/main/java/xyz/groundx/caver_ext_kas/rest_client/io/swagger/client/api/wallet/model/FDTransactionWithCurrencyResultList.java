@@ -23,58 +23,58 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.FDTransactionWithCurrencyResult;
 /**
- * Request schema for updating to a multisig account
+ * List of results of fee delegation transactions and KLAY converted into different currencies based on the rates at the time of sending the transaction.
  */
-@Schema(description = "Request schema for updating to a multisig account")
+@Schema(description = "List of results of fee delegation transactions and KLAY converted into different currencies based on the rates at the time of sending the transaction.")
 
-public class MultisigAccountUpdateRequest {
-  @SerializedName("threshold")
-  private Long threshold = null;
+public class FDTransactionWithCurrencyResultList {
+  @SerializedName("cursor")
+  private String cursor = null;
 
-  @SerializedName("weightedKeys")
-  private List<MultisigKey> weightedKeys = new ArrayList<MultisigKey>();
+  @SerializedName("items")
+  private List<FDTransactionWithCurrencyResult> items = new ArrayList<FDTransactionWithCurrencyResult>();
 
-  public MultisigAccountUpdateRequest threshold(Long threshold) {
-    this.threshold = threshold;
+  public FDTransactionWithCurrencyResultList cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
-   * Threshold for validating total weighed values.
-   * @return threshold
+   * The pointer for the next request, after which the result will be returned.
+   * @return cursor
   **/
-  @Schema(example = "4", required = true, description = "Threshold for validating total weighed values.")
-  public Long getThreshold() {
-    return threshold;
+  @Schema(required = true, description = "The pointer for the next request, after which the result will be returned.")
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setThreshold(Long threshold) {
-    this.threshold = threshold;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
-  public MultisigAccountUpdateRequest weightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
+  public FDTransactionWithCurrencyResultList items(List<FDTransactionWithCurrencyResult> items) {
+    this.items = items;
     return this;
   }
 
-  public MultisigAccountUpdateRequest addWeightedKeysItem(MultisigKey weightedKeysItem) {
-    this.weightedKeys.add(weightedKeysItem);
+  public FDTransactionWithCurrencyResultList addItemsItem(FDTransactionWithCurrencyResult itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * Get weightedKeys
-   * @return weightedKeys
+   * The result of fee delegation transactions and the fee amount
+   * @return items
   **/
-  @Schema(required = true, description = "")
-  public List<MultisigKey> getWeightedKeys() {
-    return weightedKeys;
+  @Schema(required = true, description = "The result of fee delegation transactions and the fee amount")
+  public List<FDTransactionWithCurrencyResult> getItems() {
+    return items;
   }
 
-  public void setWeightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
+  public void setItems(List<FDTransactionWithCurrencyResult> items) {
+    this.items = items;
   }
 
 
@@ -86,24 +86,24 @@ public class MultisigAccountUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigAccountUpdateRequest multisigAccountUpdateRequest = (MultisigAccountUpdateRequest) o;
-    return Objects.equals(this.threshold, multisigAccountUpdateRequest.threshold) &&
-        Objects.equals(this.weightedKeys, multisigAccountUpdateRequest.weightedKeys);
+    FDTransactionWithCurrencyResultList fdTransactionWithCurrencyResultList = (FDTransactionWithCurrencyResultList) o;
+    return Objects.equals(this.cursor, fdTransactionWithCurrencyResultList.cursor) &&
+        Objects.equals(this.items, fdTransactionWithCurrencyResultList.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(threshold, weightedKeys);
+    return Objects.hash(cursor, items);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigAccountUpdateRequest {\n");
+    sb.append("class FDTransactionWithCurrencyResultList {\n");
     
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    weightedKeys: ").append(toIndentedString(weightedKeys)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }

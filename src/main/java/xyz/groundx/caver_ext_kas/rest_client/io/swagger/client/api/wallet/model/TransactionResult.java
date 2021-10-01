@@ -1,6 +1,6 @@
 /*
  * Wallet API
- * # Introduction Wallet API is an API for creating and managing Klaytn accounts as well as sending transactions. If you create your Klaytn account using Wallet API, you don't have to manage your private key yourself. Wallet API provides a wallet for safe storage of your Klaytn account private keys that you would need to use BApps. For more details on how to use Wallet API, please refer to this [tutorial](https://docs.klaytnapi.com/v/en/tutorial). Wallet API can be divided into the Account part, which creates and manages Klaytn accounts, and the Transaction part, which sends different kinds of transactions. Wallet API creates, deletes and monitors Klaytn accounts and updates the accounts to multisig, and manages all private keys for all accounts registered on KAS. Wallet API can also create transaction to send it to Klaytn. These include transactions sent from multisig accounts. In case of muiltisig accounts, a transaction will automatically be sent to Klaytn once \\(Threshold\\) is met. For more detail, please refer to this [tutorial](https://docs.klaytnapi.com/v/en/tutorial). There are mainly two types of transactions: basic transactions and fee delegation transactions. Fee delegation transactions include Global Fee Delegation transaction and user fee deletation transaction. With the Global Fee Delegation transaction scheme, the transaction fee will initially be paid by GroundX and then be charged to you at a later date. With the User Fee Delegation transaction scheme, you create an account that pays the transaction fees on behalf of the users when a transaction. The functionalities and limits of Wallet API are shown below: | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | Limits | Supports Cypress(Mainnet), Baobab(Testnet) \\ Doesn't support (Service Chain \\) | |  |  | Doesn't support account management for external custodial keys | |  |  | Doesn't support multisig for RLP encoded transactions | |  | Account management | Create, retrieve and delete account | |  |  | Multisig account update | |  | Managing transaction | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) creating and sending transaction | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) creating and sending transaction | |  |  | RLP encoded transaction\\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation)\\) creating and sending | |  |  | Managing and sending multisig transactions | |  | Administrator | Manage resource pool\\(create, query pool, delete, retrieve account \\) | # Error Codes ## 400: Bad Request  | Code | Messages |   | --- | --- |   | 1061010 | data don't exist</br>data don't exist; krn:1001:wallet:68ec0e4b-0f61-4e6f-ae35-be865ab23187:account-pool:default:0x9b2f4d85d7f7abb14db229b5a81f1bdca0aa24c8ff0c4c100b3f25098b7a6152 1061510 | account has been already deleted or disabled 1061511 | account has been already deleted or enabled 1061512 | account is invalid to sign the transaction; 0x18925BDD724614bF13Bd5d53a74adFd228903796</br>account is invalid to sign the transaction; 0x6d06e7cA9F26d6D30B3b4Dff6084E74C51908fef 1061515 | the requested account must be a legacy account; if the account is multisig account, use `PUT /v2/tx/{fd|fd-user}/account` API for multisig transaction and /v2/multisig/_**_/_** APIs 1061607 | it has to start with '0x' and allows [0-9a-fA-F]; input</br>it has to start with '0x' and allows [0-9a-fA-F]; transaction-id 1061608 | cannot be empty or zero value; to</br>cannot be empty or zero value; keyId</br>cannot be empty or zero value; address 1061609 | it just allow Klaytn address form; to 1061615 | its value is out of range; size 1061616 | fee ratio must be between 1 and 99; feeRatio 1061903 | failed to decode account keys; runtime error: slice bounds out of range [:64] with length 4 1061905 | failed to get feepayer 1061912 | rlp value and request value are not same; feeRatio</br>rlp value and request value are not same; feePayer 1061914 | already submitted transaction. Confirm transaction hash; 0x6f2e9235a48a86c3a7912b4237f83e760609c7ca609bbccbf648c8617a3a980c</br>already submitted transaction. Confirm transaction hash; 0xfb1fae863da42bcefdde3d572404bf5fcb89c1809e9253d5fff7c07a4bb5210f 1061917 | AccountKeyLegacy type is not supported in AccountKeyRoleBased type 1061918 | it just allow (Partial)FeeDelegation transaction type 1061919 | PartialFeeDelegation transaction must set fee ratio to non-zero value 1061920 | FeeDelegation transaction cannot set fee ratio, use PartialFeeDelegation transaction type 1061921 | it just allow Basic transaction type 1065000 | failed to retrieve a transaction from klaytn node 1065001 | failed to send a raw transaction to klaytn node; -32000::insufficient funds of the sender for value </br>failed to send a raw transaction to klaytn node; -32000::not a program account (e.g., an account having code and storage)</br>failed to send a raw transaction to klaytn node; -32000::nonce too low</br>failed to send a raw transaction to klaytn node; -32000::insufficient funds of the fee payer for gas * price 1065100 | failed to get an account</br>failed to get an account; data don't exist</br>failed to get an account; account key corrupted. can not use this account 1065102 | account key corrupted. can not use this account |  
+ * # Introduction Wallet API is an API for creating and managing Klaytn accounts as well as sending transactions. If you create your Klaytn account using Wallet API, you don't have to manage your private key yourself. Wallet API provides a wallet for safe storage of your Klaytn account private keys that you would need to use BApps. For more details on how to use Wallet API, please refer to this [tutorial](https://docs.klaytnapi.com/v/en/tutorial).  Wallet API can be divided into the Account part, which creates and manages Klaytn accounts, and the Transaction part, which sends different kinds of transactions.  Wallet API creates, deletes and monitors Klaytn accounts and updates the accounts to multisig, and manages all private keys for all accounts registered on KAS.  Wallet API can also create transaction to send it to Klaytn. These include transactions sent from multisig accounts. In case of muiltisig accounts, a transaction will automatically be sent to Klaytn once \\(Threshold\\) is met. For more detail, please refer to this [tutorial](https://docs.klaytnapi.com/v/en/tutorial).  There are mainly two types of transactions: basic transactions and fee delegation transactions. Fee delegation transactions include Global Fee Delegation transaction and user fee deletation transaction. With the Global Fee Delegation transaction scheme, the transaction fee will initially be paid by GroundX and then be charged to you at a later date. With the User Fee Delegation transaction scheme, you create an account that pays the transaction fees on behalf of the users when a transaction.  The functionalities and limits of Wallet API are shown below:  | Version | Item | Description | | :--- | :--- | :--- | | 2.0 | Limits | Supports Cypress(Mainnet), Baobab(Testnet) \\ Doesn't support (Service Chain \\) | |  |  | Doesn't support account management for external custodial keys | |  |  | Doesn't support multisig for RLP encoded transactions | |  | Account management | Create, retrieve and delete account | |  |  | Multisig account update | |  | Managing transaction | [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic) creating and sending transaction | |  |  | [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation) creating and sending transaction | |  |  | RLP encoded transaction\\([Legacy](https://ko.docs.klaytn.com/klaytn/design/transactions/basic#txtypelegacytransaction), [Basic](https://ko.docs.klaytn.com/klaytn/design/transactions/basic), [FeeDelegatedWithRatio](https://ko.docs.klaytn.com/klaytn/design/transactions/partial-fee-delegation)\\) creating and sending | |  |  | Managing and sending multisig transactions | |  | Administrator | Manage resource pool\\(create, query pool, delete, retrieve account \\) | 
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -90,7 +90,7 @@ public class TransactionResult {
    * Klaytn account address that sent the transaction.
    * @return from
   **/
-  @Schema(example = "0x60d0902c428d0e197f97a756011fd4893c1e57b0", required = true, description = "Klaytn account address that sent the transaction.")
+  @Schema(example = "552714228230442729489415054454372803633806727088", required = true, description = "Klaytn account address that sent the transaction.")
   public String getFrom() {
     return from;
   }
@@ -126,7 +126,7 @@ public class TransactionResult {
    * Cost of gas fee for sending the transaction.
    * @return gasPrice
   **/
-  @Schema(example = "0x5d21dba00", required = true, description = "Cost of gas fee for sending the transaction.")
+  @Schema(example = "25000000000", required = true, description = "Cost of gas fee for sending the transaction.")
   public String getGasPrice() {
     return gasPrice;
   }
@@ -180,7 +180,7 @@ public class TransactionResult {
    * RLP serialization value for the transaction.
    * @return rlp
   **/
-  @Schema(example = "0xf8558205608505d21dba00830f42408080808207f6a0ddb4fe7dcd0b8adc8a35a4f184e5432c1f84938be50117a177366703e365e150a01dcf2e755836674a4f9de71fb14e40cbd3ab73a373a7f186a895d75251b6f4ae", required = true, description = "RLP serialization value for the transaction.")
+  @Schema(example = "318913737548327855678547148709189740555255578662765518962064477971033264818739737233733865458687147144330277409900962996999740279056253608312942190592868136507109945755195725675918434464152002629603766507599022", required = true, description = "RLP serialization value for the transaction.")
   public String getRlp() {
     return rlp;
   }
@@ -242,7 +242,7 @@ public class TransactionResult {
    * Hash value for the transaction.
    * @return transactionHash
   **/
-  @Schema(example = "0xd0fee21dc7f40d562019cefc3f162961f20ef07da0c24791455530f0009938de", description = "Hash value for the transaction.")
+  @Schema(example = "94531412257343489667002005200116064506288713654068768443223663636282552695006", description = "Hash value for the transaction.")
   public String getTransactionHash() {
     return transactionHash;
   }
@@ -278,7 +278,7 @@ public class TransactionResult {
    * KLAY converted into PEB
    * @return value
   **/
-  @Schema(example = "0x0", description = "KLAY converted into PEB")
+  @Schema(example = "0", description = "KLAY converted into PEB")
   public String getValue() {
     return value;
   }
@@ -296,7 +296,7 @@ public class TransactionResult {
    * KLAY receiver&#x27;s Klaytn account address
    * @return to
   **/
-  @Schema(example = "0x5053e2f0dde795c423a2b7f551c873f6ef6f4daa", description = "KLAY receiver's Klaytn account address")
+  @Schema(example = "458589992856735687761939783085233253254964399530", description = "KLAY receiver's Klaytn account address")
   public String getTo() {
     return to;
   }
@@ -368,7 +368,7 @@ public class TransactionResult {
    * Multisig transaction ID
    * @return transactionId
   **/
-  @Schema(example = "0x3b67ef4ce5c97249443da16e6b188220e2efc91c703154f8b810ffeca0171202", description = "Multisig transaction ID")
+  @Schema(example = "26870094904617105195110743147042126959649948730277961140158813703280988197378", description = "Multisig transaction ID")
   public String getTransactionId() {
     return transactionId;
   }
@@ -386,7 +386,7 @@ public class TransactionResult {
    * Newly updated account key.
    * @return accountKey
   **/
-  @Schema(example = "0x02a10204037e014e98d15905d404c06742f78df441c962e4ec58f39b0300b99b411c86", description = "Newly updated account key.")
+  @Schema(example = "19949820870118798113794361858927904195605027402474680352642247651879146314973387910", description = "Newly updated account key.")
   public String getAccountKey() {
     return accountKey;
   }

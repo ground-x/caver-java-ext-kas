@@ -21,60 +21,31 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigKey;
 /**
- * Request schema for updating to a multisig account
+ * Create fee payer account request
  */
-@Schema(description = "Request schema for updating to a multisig account")
+@Schema(description = "Create fee payer account request")
 
-public class MultisigAccountUpdateRequest {
-  @SerializedName("threshold")
-  private Long threshold = null;
+public class CreateFeePayerAccountRequest {
+  @SerializedName("withoutAccountUpdate")
+  private Boolean withoutAccountUpdate = null;
 
-  @SerializedName("weightedKeys")
-  private List<MultisigKey> weightedKeys = new ArrayList<MultisigKey>();
-
-  public MultisigAccountUpdateRequest threshold(Long threshold) {
-    this.threshold = threshold;
+  public CreateFeePayerAccountRequest withoutAccountUpdate(Boolean withoutAccountUpdate) {
+    this.withoutAccountUpdate = withoutAccountUpdate;
     return this;
   }
 
    /**
-   * Threshold for validating total weighed values.
-   * @return threshold
+   * Get withoutAccountUpdate
+   * @return withoutAccountUpdate
   **/
-  @Schema(example = "4", required = true, description = "Threshold for validating total weighed values.")
-  public Long getThreshold() {
-    return threshold;
+  @Schema(example = "true", description = "")
+  public Boolean isWithoutAccountUpdate() {
+    return withoutAccountUpdate;
   }
 
-  public void setThreshold(Long threshold) {
-    this.threshold = threshold;
-  }
-
-  public MultisigAccountUpdateRequest weightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
-    return this;
-  }
-
-  public MultisigAccountUpdateRequest addWeightedKeysItem(MultisigKey weightedKeysItem) {
-    this.weightedKeys.add(weightedKeysItem);
-    return this;
-  }
-
-   /**
-   * Get weightedKeys
-   * @return weightedKeys
-  **/
-  @Schema(required = true, description = "")
-  public List<MultisigKey> getWeightedKeys() {
-    return weightedKeys;
-  }
-
-  public void setWeightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
+  public void setWithoutAccountUpdate(Boolean withoutAccountUpdate) {
+    this.withoutAccountUpdate = withoutAccountUpdate;
   }
 
 
@@ -86,24 +57,22 @@ public class MultisigAccountUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigAccountUpdateRequest multisigAccountUpdateRequest = (MultisigAccountUpdateRequest) o;
-    return Objects.equals(this.threshold, multisigAccountUpdateRequest.threshold) &&
-        Objects.equals(this.weightedKeys, multisigAccountUpdateRequest.weightedKeys);
+    CreateFeePayerAccountRequest createFeePayerAccountRequest = (CreateFeePayerAccountRequest) o;
+    return Objects.equals(this.withoutAccountUpdate, createFeePayerAccountRequest.withoutAccountUpdate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(threshold, weightedKeys);
+    return Objects.hash(withoutAccountUpdate);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigAccountUpdateRequest {\n");
+    sb.append("class CreateFeePayerAccountRequest {\n");
     
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    weightedKeys: ").append(toIndentedString(weightedKeys)).append("\n");
+    sb.append("    withoutAccountUpdate: ").append(toIndentedString(withoutAccountUpdate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

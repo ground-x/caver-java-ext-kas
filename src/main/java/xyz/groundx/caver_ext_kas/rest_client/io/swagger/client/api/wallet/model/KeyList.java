@@ -23,58 +23,58 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.MultisigKey;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.KeyListItems;
 /**
- * Request schema for updating to a multisig account
+ * List of keys
  */
-@Schema(description = "Request schema for updating to a multisig account")
+@Schema(description = "List of keys")
 
-public class MultisigAccountUpdateRequest {
-  @SerializedName("threshold")
-  private Long threshold = null;
+public class KeyList {
+  @SerializedName("items")
+  private List<KeyListItems> items = new ArrayList<KeyListItems>();
 
-  @SerializedName("weightedKeys")
-  private List<MultisigKey> weightedKeys = new ArrayList<MultisigKey>();
+  @SerializedName("cursor")
+  private String cursor = null;
 
-  public MultisigAccountUpdateRequest threshold(Long threshold) {
-    this.threshold = threshold;
+  public KeyList items(List<KeyListItems> items) {
+    this.items = items;
+    return this;
+  }
+
+  public KeyList addItemsItem(KeyListItems itemsItem) {
+    this.items.add(itemsItem);
     return this;
   }
 
    /**
-   * Threshold for validating total weighed values.
-   * @return threshold
+   * List of keys
+   * @return items
   **/
-  @Schema(example = "4", required = true, description = "Threshold for validating total weighed values.")
-  public Long getThreshold() {
-    return threshold;
+  @Schema(required = true, description = "List of keys")
+  public List<KeyListItems> getItems() {
+    return items;
   }
 
-  public void setThreshold(Long threshold) {
-    this.threshold = threshold;
+  public void setItems(List<KeyListItems> items) {
+    this.items = items;
   }
 
-  public MultisigAccountUpdateRequest weightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
-    return this;
-  }
-
-  public MultisigAccountUpdateRequest addWeightedKeysItem(MultisigKey weightedKeysItem) {
-    this.weightedKeys.add(weightedKeysItem);
+  public KeyList cursor(String cursor) {
+    this.cursor = cursor;
     return this;
   }
 
    /**
-   * Get weightedKeys
-   * @return weightedKeys
+   * Last cursor record
+   * @return cursor
   **/
-  @Schema(required = true, description = "")
-  public List<MultisigKey> getWeightedKeys() {
-    return weightedKeys;
+  @Schema(required = true, description = "Last cursor record")
+  public String getCursor() {
+    return cursor;
   }
 
-  public void setWeightedKeys(List<MultisigKey> weightedKeys) {
-    this.weightedKeys = weightedKeys;
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
   }
 
 
@@ -86,24 +86,24 @@ public class MultisigAccountUpdateRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MultisigAccountUpdateRequest multisigAccountUpdateRequest = (MultisigAccountUpdateRequest) o;
-    return Objects.equals(this.threshold, multisigAccountUpdateRequest.threshold) &&
-        Objects.equals(this.weightedKeys, multisigAccountUpdateRequest.weightedKeys);
+    KeyList keyList = (KeyList) o;
+    return Objects.equals(this.items, keyList.items) &&
+        Objects.equals(this.cursor, keyList.cursor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(threshold, weightedKeys);
+    return Objects.hash(items, cursor);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MultisigAccountUpdateRequest {\n");
+    sb.append("class KeyList {\n");
     
-    sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
-    sb.append("    weightedKeys: ").append(toIndentedString(weightedKeys)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();
   }
