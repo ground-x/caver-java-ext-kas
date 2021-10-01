@@ -13,9 +13,9 @@ import xyz.groundx.caver_ext_kas.ConfigOptions;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class WebSocketTest {
     @Rule
@@ -56,7 +56,7 @@ public class WebSocketTest {
         CaverExtKAS caver = new CaverExtKAS();
 
         String id = "KASFAKEACCESSKEYID";
-        String pwd = "KASFAKESECRETACCESSKEY!@@#$$%";
+        String pwd = "KASFAKESECRETACCESSKEY=";
 
         caver.initNodeAPI(Config.CHAIN_ID_BAOBOB, id, pwd, Config.URL_NODE_API, false);
     }
@@ -70,5 +70,26 @@ public class WebSocketTest {
         assertNotNull(blockNumberRes.getValue());
 
         caver.currentProvider.close();
+    }
+
+    @Test
+    public void checkSecretAccessKeyRegex() {
+        Pattern regexSecretAccessKey = Pattern.compile("^[^?=&+\\s]+$"); // allow to include ?, ,=,&,+
+
+        String pwd = "KASFAKESECRETACCESSKEY";
+        assertEquals(true, !regexSecretAccessKey.matcher(pwd+"=").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"[").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"]").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"$").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"_").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"-").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"~").matches());
+        assertEquals(true, !regexSecretAccessKey.matcher(pwd+"?").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"<").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"\\").matches());
+        assertEquals(false, !regexSecretAccessKey.matcher(pwd+"/").matches());
+        assertEquals(true, !regexSecretAccessKey.matcher(pwd+" ").matches());
+        assertEquals(true, !regexSecretAccessKey.matcher(pwd+"+").matches());
+        assertEquals(true, !regexSecretAccessKey.matcher(pwd+"&").matches());
     }
 }
