@@ -12,8 +12,8 @@ for i in ${DIRS};do
 
 		for j in ${FILES};do
 
-			sed -i '' "s/&lt;p&gt;&lt;\/p&gt;/<p><\/p>/g" $j
-			sed -i '' "s/&lt;br&gt;/<br>/g" $j
+			sed -i "s/&lt;p&gt;&lt;\/p&gt;/<p><\/p>/g" $j
+			sed -i "s/&lt;br&gt;/<br>/g" $j
 		done
 
       cd ../../;
@@ -24,8 +24,8 @@ for i in ${DIRS};do
 	  FILES=`ls`
 
 		for j in ${FILES};do
-			sed -i '' "s/&lt;p&gt;&lt;\/p&gt;/<p><\/p>/g" $j
-			sed -i '' "s/&lt;br&gt;/<br>/g" $j
+			sed -i "s/&lt;p&gt;&lt;\/p&gt;/<p><\/p>/g" $j
+			sed -i "s/&lt;br&gt;/<br>/g" $j
 		done
 	  cd ../../;
 
