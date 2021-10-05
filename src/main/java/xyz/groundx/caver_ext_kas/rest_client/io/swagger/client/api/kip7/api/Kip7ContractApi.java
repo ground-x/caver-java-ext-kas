@@ -271,7 +271,7 @@ public class Kip7ContractApi {
 
     /**
      * Deploy Contract
-     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.&lt;p&gt;&lt;/p&gt;  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.<p></p>  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param body  (optional)
      * @return Kip7DeployResponse
@@ -284,7 +284,7 @@ public class Kip7ContractApi {
 
     /**
      * Deploy Contract
-     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.&lt;p&gt;&lt;/p&gt;  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.<p></p>  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;Kip7DeployResponse&gt;
@@ -298,7 +298,7 @@ public class Kip7ContractApi {
 
     /**
      * Deploy Contract (asynchronously)
-     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.&lt;p&gt;&lt;/p&gt;  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
+     * Deploys a new KIP-7 contract with the given parameters. You will automatically be assigned a &#x60;deployer&#x60; address, which cannot be changed. You can find the &#x60;deployer&#x60; address using [KIP7Deployer](#operation/GetDefaultDeployer).  The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.<p></p>  ##### Options With &#x60;options&#x60; you can set the transaction fee payment method. You can find more details in [Fee Payer Options](#section/Fee-Payer-Options).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -406,7 +406,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract
-     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @return Kip7ContractMetadataResponse
@@ -419,7 +419,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract
-     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @return ApiResponse&lt;Kip7ContractMetadataResponse&gt;
@@ -433,7 +433,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract (asynchronously)
-     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-7 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param callback The callback to be executed when the API call finishes
@@ -544,7 +544,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract List
-     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.&lt;p&gt;&lt;/p&gt;   The &#x60;status&#x60; field in the request has the following meanings:&lt;p&gt;&lt;/p&gt;   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed&lt;p&gt;&lt;/p&gt;
+     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.<p></p>   The &#x60;status&#x60; field in the request has the following meanings:<p></p>   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)
@@ -559,7 +559,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract List
-     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.&lt;p&gt;&lt;/p&gt;   The &#x60;status&#x60; field in the request has the following meanings:&lt;p&gt;&lt;/p&gt;   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed&lt;p&gt;&lt;/p&gt;
+     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.<p></p>   The &#x60;status&#x60; field in the request has the following meanings:<p></p>   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)
@@ -575,7 +575,7 @@ public class Kip7ContractApi {
 
     /**
      * Get Contract List (asynchronously)
-     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.&lt;p&gt;&lt;/p&gt;   The &#x60;status&#x60; field in the request has the following meanings:&lt;p&gt;&lt;/p&gt;   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed&lt;p&gt;&lt;/p&gt;
+     * Returns a list of all KIP-7 contracts deployed by the user in chronological order of contract creation request.<p></p>   The &#x60;status&#x60; field in the request has the following meanings:<p></p>   - &#x60;init&#x60;: The initial state before sending the transaction  - &#x60;submitted&#x60;: After the contract deployment transaction has been sent  - &#x60;deployed&#x60;: The state in which the contract is deployed<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)
@@ -686,7 +686,7 @@ public class Kip7ContractApi {
 
     /**
      * Pause Contract
-     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).&lt;p&gt;&lt;/p&gt;  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).<p></p>  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -700,7 +700,7 @@ public class Kip7ContractApi {
 
     /**
      * Pause Contract
-     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).&lt;p&gt;&lt;/p&gt;  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).<p></p>  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -715,7 +715,7 @@ public class Kip7ContractApi {
 
     /**
      * Pause Contract (asynchronously)
-     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).&lt;p&gt;&lt;/p&gt;  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Pauses all actions of a specified contract. The actions of a contract here refer to sending tokens and sending tokens on the owner&#x27;s behalf. You can resume the contract by using [Resume Contract](#operation/UnpauseContract).<p></p>  ##### Pauser The account that sends the transaction to pause the contract. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;pauser&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)

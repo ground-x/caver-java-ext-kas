@@ -40,7 +40,7 @@ public class KIP37QueryOptions {
 
         /**
          * Check if there is an enum mapped to the given status string.
-         * @param kind The kind string to find enum defined in STATUS_TYPE
+         * @param status The kind string to find enum defined in STATUS_TYPE
          * @return boolean
          */
         public static boolean isExist(String status) {

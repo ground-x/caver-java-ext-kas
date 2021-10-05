@@ -263,7 +263,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract
-     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @return Kip17ContractInfoResponse
@@ -276,7 +276,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract
-     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @return ApiResponse&lt;Kip17ContractInfoResponse&gt;
@@ -290,7 +290,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract (asynchronously)
-     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data for a specified KIP-17 contract. You can use either the contract alias or contract address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param callback The callback to be executed when the API call finishes
@@ -398,7 +398,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract List
-     * Returns a list of KIP-17 contracts created from a KAS account.&lt;p&gt;&lt;/p&gt;
+     * Returns a list of KIP-17 contracts created from a KAS account.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)
@@ -412,7 +412,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract List
-     * Returns a list of KIP-17 contracts created from a KAS account.&lt;p&gt;&lt;/p&gt;
+     * Returns a list of KIP-17 contracts created from a KAS account.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)
@@ -427,7 +427,7 @@ public class Kip17ContractApi {
 
     /**
      * Get Contract List (asynchronously)
-     * Returns a list of KIP-17 contracts created from a KAS account.&lt;p&gt;&lt;/p&gt;
+     * Returns a list of KIP-17 contracts created from a KAS account.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param size The number of items to return (min&#x3D;1, max&#x3D;1000, default&#x3D;100). (optional)
      * @param cursor The pointer for the next request, after which the result will be returned. (optional)

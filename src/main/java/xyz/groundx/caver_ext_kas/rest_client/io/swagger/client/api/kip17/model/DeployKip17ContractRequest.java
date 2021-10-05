@@ -46,7 +46,7 @@ public class DeployKip17ContractRequest {
   }
 
    /**
-   * The alias of the contract. When using KIP-17 API, you can use the contract alias in place of the address. The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.&lt;p&gt;&lt;/p&gt;
+   * The alias of the contract. When using KIP-17 API, you can use the contract alias in place of the address. The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.<p></p>
    * @return alias
   **/
   @Schema(example = "test-contract", required = true, description = "The alias of the contract. When using KIP-17 API, you can use the contract alias in place of the address. The alias must only consist of lowercase letters, numbers and hyphens, and the first letter is restricted to a lowercase letter.<p></p>")

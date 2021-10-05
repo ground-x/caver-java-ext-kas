@@ -123,7 +123,7 @@ public class Kip7DeployerApi {
 
     /**
      * Get Deployer Address
-     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @return Kip7DeployerResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -135,7 +135,7 @@ public class Kip7DeployerApi {
 
     /**
      * Get Deployer Address
-     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @return ApiResponse&lt;Kip7DeployerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -148,7 +148,7 @@ public class Kip7DeployerApi {
 
     /**
      * Get Deployer Address (asynchronously)
-     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.&lt;p&gt;&lt;/p&gt;
+     * Retrieves the &#x60;deployer&#x60; address automatically created when deploying a contract. You will get one &#x60;deployer&#x60; address per Credential.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
