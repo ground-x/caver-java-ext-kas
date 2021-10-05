@@ -131,7 +131,7 @@ public class FdtxKasApi {
 
     /**
      * Global fee delegation account update transaction
-     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt;  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
+     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).<p></p>  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return FDTransactionResult
@@ -144,7 +144,7 @@ public class FdtxKasApi {
 
     /**
      * Global fee delegation account update transaction
-     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt;  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
+     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).<p></p>  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @return ApiResponse&lt;FDTransactionResult&gt;
@@ -158,7 +158,7 @@ public class FdtxKasApi {
 
     /**
      * Global fee delegation account update transaction (asynchronously)
-     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).&lt;p&gt;&lt;/p&gt;  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
+     * Create a transaction that updates Klaytn account keys. You can find Klaytn account key types in  [Klaytn docs](https://docs.klaytn.com/klaytn/design/accounts).<p></p>  If you update the account to Legacy key type (1), you can start using your account once it is enabled. If you update the account to Public key type (2), the account cannot be used within the wallet. To restore your account, use Global Fee Delegation RLP API, or update to legacy externally and before enabling the account. If you update the key to Fail key type (3), the account will automatically be disabled.
      * @param xChainId Klaytn Chain Network ID (1001 or 8217) (required)
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes

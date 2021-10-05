@@ -142,7 +142,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Transfers of All Token
-     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.&lt;p&gt;&lt;/p&gt;   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;
+     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.<p></p>   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -157,7 +157,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Transfers of All Token
-     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.&lt;p&gt;&lt;/p&gt;   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;
+     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.<p></p>   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -173,7 +173,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Transfers of All Token (asynchronously)
-     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.&lt;p&gt;&lt;/p&gt;   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;
+     * Grant or deny authorization to &#x60;to&#x60; to send all tokens owned by &#x60;from&#x60; in a specified contract.<p></p>   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong address or token ID, or when the &#x60;from&#x60; and &#x60;owner&#x60; are different. But that does not mean that it is successfully &#x60;Committed&#x60;). To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -293,7 +293,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Authorization for Token Transfers
-     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token that the &#x60;to&#x60; will be authorized to send. (required)
@@ -309,7 +309,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Authorization for Token Transfers
-     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token that the &#x60;to&#x60; will be authorized to send. (required)
@@ -326,7 +326,7 @@ public class Kip17TokenApi {
 
     /**
      * Approve/Deny Authorization for Token Transfers (asynchronously)
-     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grant or deny authorization to &#x60;to&#x60; to send a specified token. To deny authorization, enter &#x60;0x0000000000000000000000000000000000000000&#x60; for &#x60;to&#x60;.   You will see in &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are differet. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>  ##### From  &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token that the &#x60;to&#x60; will be authorized to send. (required)
@@ -447,7 +447,7 @@ public class Kip17TokenApi {
 
     /**
      * Burn Token
-     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
+     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token to burn. (required)
@@ -463,7 +463,7 @@ public class Kip17TokenApi {
 
     /**
      * Burn Token
-     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
+     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token to burn. (required)
@@ -480,7 +480,7 @@ public class Kip17TokenApi {
 
     /**
      * Burn Token (asynchronously)
-     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).&lt;p&gt;&lt;/p&gt;   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
+     * Burns a token.   You will see &#x60;Submitted&#x60; in the response even when you enter the wrong token ID, the &#x60;from&#x60; and &#x60;owner&#x60; are different, or when &#x60;from&#x60; is not authorized to burn the token. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).<p></p>   ##### From &#x60;from&#x60; is the address that sends the transaction. If &#x60;from&#x60; is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;). 
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the token to burn. (required)
@@ -753,7 +753,7 @@ public class Kip17TokenApi {
 
     /**
      * Get Token Data
-     * Returns the data of a specified token. You can use the contract alias in place of the address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data of a specified token. You can use the contract alias in place of the address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the desired token. (required)
@@ -767,7 +767,7 @@ public class Kip17TokenApi {
 
     /**
      * Get Token Data
-     * Returns the data of a specified token. You can use the contract alias in place of the address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data of a specified token. You can use the contract alias in place of the address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the desired token. (required)
@@ -782,7 +782,7 @@ public class Kip17TokenApi {
 
     /**
      * Get Token Data (asynchronously)
-     * Returns the data of a specified token. You can use the contract alias in place of the address.&lt;p&gt;&lt;/p&gt;
+     * Returns the data of a specified token. You can use the contract alias in place of the address.<p></p>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId The ID of the desired token. (required)
@@ -1349,7 +1349,7 @@ public class Kip17TokenApi {
 
     /**
      * Transfer Token
-     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).&lt;p&gt;&lt;/p&gt;   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).<p></p>   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId Token ID (required)
@@ -1365,7 +1365,7 @@ public class Kip17TokenApi {
 
     /**
      * Transfer Token
-     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).&lt;p&gt;&lt;/p&gt;   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).<p></p>   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId Token ID (required)
@@ -1382,7 +1382,7 @@ public class Kip17TokenApi {
 
     /**
      * Transfer Token (asynchronously)
-     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).&lt;p&gt;&lt;/p&gt;   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token to a specified address. If the token has a different &#x60;sender&#x60; and &#x60;owner&#x60;, the &#x60;sender&#x60; must be authorized to send the token. You can authorize an account to send tokens via [v1/contract/{contract-address-or-alias}/approve/{token-id}](#operation/ApproveToken).<p></p>   You will see &#x60;Submitted&#x60; in the response even when you enter a wrong token ID. But that does not mean that it is successfully &#x60;Committed&#x60;. To confirm transaction status, use Get Transaction Receipt from the Wallet API [/v2/tx/{transaction-hash}](https://refs.klaytnapi.com/en/wallet/latest#operation/TransactionReceipt).   ##### Sender  &#x60;sender&#x60; is the address that sends the transaction. If it is an account in the default &#x60;account-pool&#x60; of KIP-17 or Wallet Service, you can omit the KRN header. &lt;br /&gt; Otherwise you need to include the KRN header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param tokenId Token ID (required)

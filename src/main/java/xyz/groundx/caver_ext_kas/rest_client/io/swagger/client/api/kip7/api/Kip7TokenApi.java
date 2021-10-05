@@ -277,7 +277,7 @@ public class Kip7TokenApi {
 
     /**
      * Authorize to Send Token
-     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).&lt;p&gt;&lt;/p&gt;  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).<p></p>  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -291,7 +291,7 @@ public class Kip7TokenApi {
 
     /**
      * Authorize to Send Token
-     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).&lt;p&gt;&lt;/p&gt;  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).<p></p>  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -306,7 +306,7 @@ public class Kip7TokenApi {
 
     /**
      * Authorize to Send Token (asynchronously)
-     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).&lt;p&gt;&lt;/p&gt;  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Grants authority to &#x60;spender&#x60; to send a certain amount of tokens from the &#x60;owner&#x60;&#x27;s account.  To send the token as an authorized &#x60;spender&#x60;, use [Send Token on Behalf of Owner](#operation/TransferFromToken).<p></p>  &gt; **NOTE**  &gt; &gt; &#x60;spender&#x60; is the address that will be granted the authority. It needs to be managed by Wallet API in order to be use [Send Token on Behalf of Owner](#operation/TransferFromToken).  ##### Owner The account that owns the token, and grants authority to &#x60;spender&#x60;. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;owner&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -416,7 +416,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Authorized Tokens
-     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).<p></p>  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -430,7 +430,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Authorized Tokens
-     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).<p></p>  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -445,7 +445,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Authorized Tokens (asynchronously)
-     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns the tokens from the amount that the &#x60;spender&#x60; is authorized to send, as specified by the &#x60;owner&#x60;. The remaining balance of the tokens that the &#x60;sender&#x60; is allowed to send can be found via [Get Token Balance](#operation/GetTokenBalance).<p></p>  ##### Spender The account that sends the transaction.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -555,7 +555,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Token
-     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). &lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). <p></p>  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -569,7 +569,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Token
-     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). &lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). <p></p>  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -584,7 +584,7 @@ public class Kip7TokenApi {
 
     /**
      * Burn Token (asynchronously)
-     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). &lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Burns tokens. The contract&#x27;s &#x60;totalSupply&#x60; will be reduced accordingly. You can find the &#x60;totalSupply&#x60; by using [Get Contract](#operation/GetContract). <p></p>  ##### From The account that sends the transaction to burn tokens. If you leave it blank, it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).    You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -705,7 +705,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Approved Balance
-     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.&lt;p&gt;&lt;/p&gt;
+     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address of the token&#x27;s owner. (required)
@@ -720,7 +720,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Approved Balance
-     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.&lt;p&gt;&lt;/p&gt;
+     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address of the token&#x27;s owner. (required)
@@ -736,7 +736,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Approved Balance (asynchronously)
-     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.&lt;p&gt;&lt;/p&gt;
+     * Returns the remaining balance of the tokens that the &#x60;owner&#x60; authorized the &#x60;spender&#x60; to send.<p></p>
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address of the token&#x27;s owner. (required)
@@ -852,7 +852,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Token Balance
-     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. &lt;p&gt;&lt;/p&gt;  \\n\&quot;
+     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. <p></p>  \\n\&quot;
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address whose balance is requested. (required)
@@ -866,7 +866,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Token Balance
-     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. &lt;p&gt;&lt;/p&gt;  \\n\&quot;
+     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. <p></p>  \\n\&quot;
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address whose balance is requested. (required)
@@ -881,7 +881,7 @@ public class Kip7TokenApi {
 
     /**
      * Get Token Balance (asynchronously)
-     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. &lt;p&gt;&lt;/p&gt;  \\n\&quot;
+     * \&quot;Returns the &#x60;owner&#x60;&#x27;s balance of the tokens from a specified  KIP-7 contract. <p></p>  \\n\&quot;
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param owner The Klaytn account address whose balance is requested. (required)
@@ -991,7 +991,7 @@ public class Kip7TokenApi {
 
     /**
      * Mint Token
-     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.&lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
+     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.<p></p>  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -1005,7 +1005,7 @@ public class Kip7TokenApi {
 
     /**
      * Mint Token
-     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.&lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
+     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.<p></p>  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -1020,7 +1020,7 @@ public class Kip7TokenApi {
 
     /**
      * Mint Token (asynchronously)
-     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.&lt;p&gt;&lt;/p&gt;  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
+     * Mints a specified amount of tokens to a specified account address.  The contract&#x27;s &#x60;totalSupply&#x60; will increase accordingly.<p></p>  ##### From The account that sends the transaction. You can enter the Klaytn account address of an authorized Minter, or leave it blank, so it will automatically be set to the &#x60;deployer&#x60; address as default . You can find the &#x60;deployer&#x60; address by [KIP7Deployer](#operation/GetDefaultDeployer).  You can omit the KRN if the &#x60;from&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).   &gt; **NOTE** &gt; &gt; Remember that a contract address is not an account address managed by Wallet Service, so it can&#x27;t in &#x60;from&#x60;.
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -1274,7 +1274,7 @@ public class Kip7TokenApi {
 
     /**
      * Send Token on Behalf of Owner
-     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).<p></p>  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -1288,7 +1288,7 @@ public class Kip7TokenApi {
 
     /**
      * Send Token on Behalf of Owner
-     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).<p></p>  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)
@@ -1303,7 +1303,7 @@ public class Kip7TokenApi {
 
     /**
      * Send Token on Behalf of Owner (asynchronously)
-     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).&lt;p&gt;&lt;/p&gt;  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
+     * Sends a token with an account authorized via [Approve Token Transfer](#operation/ApproveToken). You can view the remaining balance of authorized tokens by using [Get Approved Balance](#operation/GetTokenAllowance).<p></p>  ##### Spender The account that has been granted the authority from the &#x60;owner&#x60; to send tokens on his/her behalf.  You can omit the KRN if the &#x60;spender&#x60; address is managed by the KIP-7 or Wallet Service &#x60;account-pool&#x60;.&lt;br /&gt; Otherwise you have to provide the KRN object in the header (&#x60;x-krn: krn:{chain-id}:wallet:{account-id}:account-pool:{pool name}&#x60;).
      * @param xChainId Klaytn Network Chain ID(1001 or 8217) (required)
      * @param contractAddressOrAlias Contract address (in hex.) or alias. (required)
      * @param body  (optional)

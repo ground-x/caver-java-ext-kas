@@ -140,7 +140,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get contract data by  EOA
-     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
@@ -156,7 +156,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get contract data by  EOA
-     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
@@ -173,7 +173,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get contract data by  EOA (asynchronously)
-     * Selecting an EOA will fetch data of all contracts of tokens by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will fetch data of all contracts of tokens by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
@@ -296,7 +296,7 @@ public class TokenOwnershipApi {
 
     /**
      * Query ownership change history for certain NFTs
-     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Get ownership change history of certain NFTs.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param nftAddress NFT Contract address to query (required)
      * @param tokenId NFT ID to query (in hexadecimal) (required)
@@ -312,7 +312,7 @@ public class TokenOwnershipApi {
 
     /**
      * Query ownership change history for certain NFTs
-     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Get ownership change history of certain NFTs.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param nftAddress NFT Contract address to query (required)
      * @param tokenId NFT ID to query (in hexadecimal) (required)
@@ -329,7 +329,7 @@ public class TokenOwnershipApi {
 
     /**
      * Query ownership change history for certain NFTs (asynchronously)
-     * Get ownership change history of certain NFTs.&lt;p&gt;&lt;/p&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Get ownership change history of certain NFTs.<p></p>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param nftAddress NFT Contract address to query (required)
      * @param tokenId NFT ID to query (in hexadecimal) (required)
@@ -452,7 +452,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get data of certain tokens for certain EOAs
-     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will get all token data by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
@@ -469,7 +469,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get data of certain tokens for certain EOAs
-     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will get all token data by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
@@ -487,7 +487,7 @@ public class TokenOwnershipApi {
 
     /**
      * Get data of certain tokens for certain EOAs (asynchronously)
-     * Selecting an EOA will get all token data by EOA.&lt;p&gt;&lt;/p&gt;  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response&lt;br&gt; * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response&lt;br&gt; * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response&lt;p&gt;&lt;/p&gt;&lt;br&gt;  ## Size&lt;p&gt;&lt;/p&gt;  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)&lt;br&gt; * Returns an error when given a negative number&lt;br&gt; * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0&lt;br&gt; * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000&lt;br&gt;
+     * Selecting an EOA will get all token data by EOA.<p></p>  * &#x60;ft&#x60;: &#x60;ft&#x60; balances existing in the contract will be included in the response<br> * &#x60;nft&#x60;: Tokens existing in the contract will be included in the response<br> * &#x60;mt&#x60;: Token balances existing in the contract will be included in the response<p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param address EOA to query (required)
      * @param kind (csv) Types to include [\&quot;ft\&quot;, \&quot;nft\&quot;, \&quot;mt\&quot;], query all types when not specified (optional)
