@@ -10,8 +10,9 @@ caver-java-ext-kas is [caver-java](https://github.com/klaytn/caver-java)'s exten
     * [Use Token History API](#use-token-history-api)
     * [Use Wallet API](#use-wallet-api)
     * [Use Anchor API](#use-anchor-api)  
-    * [User KIP-17 API](#use-kip-17-api)
-    * [User KIP-7 API](#use-kip-7-api)
+    * [Use KIP-17 API](#use-kip-17-api)
+    * [Use KIP-7 API](#use-kip-7-api)
+    * [Use KIP-37 API](#use-kip-37-api)
     * [Introduced KASWallet](#introduced-kaswallet)
   * [Test](#test)
 
@@ -251,6 +252,30 @@ For defining query options, you can use `KIP7QueryOptions` class.
 
 ```java
 KIP7QueryOptions options = new KIP7QueryOptions();
+options.setSize();
+options.setCursor();
+options.setStatus();
+```
+
+### Use KIP-37 API
+
+You can use KIP-37 API through caver-java-ext-kas. You can send a KIP-37 API request to the KAS as shown below.
+
+```java
+public void getContractList() {
+    try {
+        Kip37ContractListResponse response = caver.kas.kip37.getContractList();
+    } catch(ApiException e) {
+        //handle error
+    }
+}
+```
+
+You can find query options required each KIP-37 API in KAS Docs.
+For defining query options, you can use `KIP37QueryOptions` class.
+
+```java
+KIP37QueryOptions options = new KIP37QueryOptions();
 options.setSize();
 options.setCursor();
 options.setStatus();
