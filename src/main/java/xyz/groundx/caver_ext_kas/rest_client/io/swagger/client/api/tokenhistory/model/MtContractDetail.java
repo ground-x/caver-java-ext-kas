@@ -54,7 +54,7 @@ public class MtContractDetail {
    * Contract address (20-byte)
    * @return address
   **/
-  @Schema(example = "0xaD15bCa7D0f1e077f43eC18ACBA7eE2a347ADE87", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "988140153216339146931061266587822162750899674759", required = true, description = "Contract address (20-byte)")
   public String getAddress() {
     return address;
   }

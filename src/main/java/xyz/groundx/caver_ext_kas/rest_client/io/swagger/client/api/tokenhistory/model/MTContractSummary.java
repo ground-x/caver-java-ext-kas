@@ -13,16 +13,21 @@
 package xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.io.IOException;
+import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.MTContractSummaryExtras;
 /**
  * MTContractSummary
  */
 
 
-public class MTContractSummary implements AnyOfPageableContractSummaryItems {
+public class MTContractSummary implements AnyOfContractSummaryArrayItems {
   @SerializedName("kind")
   private String kind = null;
 
@@ -65,7 +70,7 @@ public class MTContractSummary implements AnyOfPageableContractSummaryItems {
    * Contract address (20-byte)
    * @return contractAddress
   **/
-  @Schema(example = "0x2b2e50e8c8e0d097f22ac9389af2f354d18d2882", required = true, description = "Contract address (20-byte)")
+  @Schema(example = "246519485619954079116883255872674815712502294658", required = true, description = "Contract address (20-byte)")
   public String getContractAddress() {
     return contractAddress;
   }
@@ -101,7 +106,7 @@ public class MTContractSummary implements AnyOfPageableContractSummaryItems {
    * Total balance of tokens (in hexadecimal)
    * @return totalBalance
   **/
-  @Schema(example = "0x1c2", required = true, description = "Total balance of tokens (in hexadecimal)")
+  @Schema(example = "450", required = true, description = "Total balance of tokens (in hexadecimal)")
   public String getTotalBalance() {
     return totalBalance;
   }

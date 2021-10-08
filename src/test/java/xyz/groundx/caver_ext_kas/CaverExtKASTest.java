@@ -41,6 +41,7 @@ public class CaverExtKASTest {
         assertNotNull(caver.kas.anchor);
         assertNotNull(caver.kas.kip17);
         assertNotNull(caver.kas.kip7);
+        assertNotNull(caver.kas.kip37);
 
         ConfigOptions options = new ConfigOptions();
         options.setUseNodeAPIWithHttp(true);
@@ -52,6 +53,7 @@ public class CaverExtKASTest {
         assertNotNull(caver.kas.anchor);
         assertNotNull(caver.kas.kip17);
         assertNotNull(caver.kas.kip7);
+        assertNotNull(caver.kas.kip37);
     }
 
     @Test
@@ -68,5 +70,6 @@ public class CaverExtKASTest {
         assertNotNull(caver.kas.anchor);
         assertNotNull(caver.kas.kip17);
         assertNotNull(caver.kas.kip7);
+        assertNotNull(caver.kas.kip37);
     }
 }

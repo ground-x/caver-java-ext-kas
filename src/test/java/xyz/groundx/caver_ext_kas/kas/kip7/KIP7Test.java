@@ -106,7 +106,7 @@ public class KIP7Test {
     public static void prepareKIP7Contract() throws ApiException, TransactionException, IOException, InterruptedException {
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
         testContractAlias = "kk-" + new Date().getTime();
-        Kip7TransactionStatusResponse response = caver.kas.kip7.deploy("TEST-KIP7", "TKIP7", 18, initial_supply, testContractAlias);
+        Kip7DeployResponse response = caver.kas.kip7.deploy("TEST-KIP7", "TKIP7", 18, initial_supply, testContractAlias);
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         Thread.sleep(5000);
@@ -163,6 +163,7 @@ public class KIP7Test {
             assertNotNull(future.get());
             assertTrue(Utils.isAddress(future.get().getAddress()));
         }
+        Thread.sleep(5000);
     }
 
     @Test
@@ -173,14 +174,35 @@ public class KIP7Test {
         int decimals = 18;
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
 
-        Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
+        Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
     }
 
     @Test
     public void deployAsync() throws ApiException, ExecutionException, InterruptedException {
-        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+        CompletableFuture<Kip7DeployResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7DeployResponse> callback = new ApiCallback<Kip7DeployResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
 
         String testAlias = "test-contract" + new Date().getTime();
         String name = "TEST_KIP7";
@@ -188,26 +210,56 @@ public class KIP7Test {
         int decimals = 18;
         BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
 
-        Call call = caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
-        callback.checkResponse();
+        caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void deploy_withHexStringSupply() throws ApiException {
+    public void deploy_withHexStringSupply() throws ApiException, InterruptedException {
         String testAlias = "test-contract" + new Date().getTime();
         String name = "TEST_KIP7";
         String symbol = "TKIP7";
         int decimals = 18;
         String initial_supply = "0x152d02c7e14af6800000";
 
-        Kip7TransactionStatusResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
+        Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
     public void deployAsync_withHexStringSupply() throws ApiException, ExecutionException, InterruptedException {
-        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+        CompletableFuture<Kip7DeployResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7DeployResponse> callback = new ApiCallback<Kip7DeployResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
 
         String testAlias = "test-contract" + new Date().getTime();
         String name = "TEST_KIP7";
@@ -216,7 +268,13 @@ public class KIP7Test {
         String initial_supply = "0x152d02c7e14af6800000";
 
         Call call = caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, callback);
-        callback.checkResponse();
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -387,7 +445,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void approve() throws ApiException {
+    public void approve() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -396,6 +454,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -408,10 +468,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approve_withHexStringAmount() throws ApiException {
+    public void approve_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -420,6 +482,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -432,10 +496,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, owner, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approveWithOutOwner() throws ApiException {
+    public void approveWithOutOwner() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -443,6 +509,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -454,10 +522,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void approveWithOutOwner_withHexStringAmount() throws ApiException {
+    public void approveWithOutOwner_withHexStringAmount() throws ApiException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
@@ -465,6 +535,8 @@ public class KIP7Test {
         Kip7TransactionStatusResponse response = caver.kas.kip7.approve(contractAlias, spender, amount);
         assertNotNull(response);
         assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -476,10 +548,12 @@ public class KIP7Test {
 
         caver.kas.kip7.approveAsync(contractAlias, spender, amount, callback);
         callback.checkResponse();
+
+        Thread.sleep(5000);
     }
 
     @Test
-    public void transfer() throws ApiException, TransactionException, IOException {
+    public void transfer() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -491,6 +565,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -509,7 +585,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException {
+    public void transferWithHexStringAmount() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String owner = deployerAddress;
         String spender = account;
@@ -521,6 +597,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -539,7 +617,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithOutOwner() throws ApiException, TransactionException, IOException {
+    public void transferWithOutOwner() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
@@ -550,6 +628,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -567,7 +647,7 @@ public class KIP7Test {
     }
 
     @Test
-    public void transferWithOutOwner_WithHexStringAmount() throws ApiException, TransactionException, IOException {
+    public void transferWithOutOwner_WithHexStringAmount() throws ApiException, TransactionException, IOException, InterruptedException {
         String contractAlias = testContractAlias;
         String spender = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
@@ -578,6 +658,8 @@ public class KIP7Test {
 
         TransactionReceipt.TransactionReceiptData receiptData = getReceipt(caver, response.getTransactionHash());
         assertNotNull(receiptData);
+
+        Thread.sleep(5000);
     }
 
     @Test
@@ -602,7 +684,7 @@ public class KIP7Test {
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -623,7 +705,7 @@ public class KIP7Test {
         String to = account;
         BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -641,7 +723,7 @@ public class KIP7Test {
         String to = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -662,7 +744,7 @@ public class KIP7Test {
         String to = account;
         String amount = "0x8ac7230489e80000"; // 10 * 10^18
 
-        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, spender, owner, amount);
+        Kip7TransactionStatusResponse approveRes = caver.kas.kip7.approve(contractAlias, owner, spender, amount);
         getReceipt(caver, approveRes.getTransactionHash());
         Thread.sleep(3000);
 
@@ -964,6 +1046,489 @@ public class KIP7Test {
         caver.kas.kip7.unpauseAsync(testContractAlias, callback);
         Thread.sleep(3000);
         callback.checkResponse();
+    }
+
+    @Test
+    public void deploy_BigInteger_withFeePayerOption() throws ApiException, InterruptedException {
+        String testAlias = "test-contract" + new Date().getTime();
+        String name = "TEST_KIP7";
+        String symbol = "TKIP7";
+        int decimals = 18;
+        BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias, option);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeepayer());
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void deploy_hexString_withFeePayerOption() throws ApiException, InterruptedException {
+        String testAlias = "test-contract" + new Date().getTime();
+        String name = "TEST_KIP7";
+        String symbol = "TKIP7";
+        int decimals = 18;
+        String initial_supply = "0x152d02c7e14af6800000";
+
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        Kip7DeployResponse response = caver.kas.kip7.deploy(name, symbol, decimals, initial_supply, testAlias, option);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeepayer());
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void deployAsync_BigInteger_withFeePayerOption() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip7DeployResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7DeployResponse> callback = new ApiCallback<Kip7DeployResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        String testAlias = "test-contract" + new Date().getTime();
+        String name = "TEST_KIP7";
+        String symbol = "TKIP7";
+        int decimals = 18;
+        BigInteger initial_supply = BigInteger.valueOf(100_000).multiply(BigInteger.TEN.pow(18)); // 100000 * 10^18
+
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, option, callback);
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void deployAsync_hexString_withFeePayerOption() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip7DeployResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7DeployResponse> callback = new ApiCallback<Kip7DeployResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        String testAlias = "test-contract" + new Date().getTime();
+        String name = "TEST_KIP7";
+        String symbol = "TKIP7";
+        int decimals = 18;
+        String initial_supply = "0x152d02c7e14af6800000";
+
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        caver.kas.kip7.deployAsync(name, symbol, decimals, initial_supply, testAlias, option, callback);
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void updateContractOptions() throws ApiException {
+        Kip7ContractMetadataResponse response = caver.kas.kip7.updateContractOptions(testContractAddress);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeePayer());
+    }
+
+    @Test
+    public void updateContractOptions_withFeePayerOptions() throws ApiException {
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        Kip7ContractMetadataResponse response = caver.kas.kip7.updateContractOptions(testContractAddress, option);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeePayer());
+    }
+
+    @Test
+    public void updateContractOptionsAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip7ContractMetadataResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7ContractMetadataResponse> callback = new ApiCallback<Kip7ContractMetadataResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7ContractMetadataResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        caver.kas.kip7.updateContractOptionsAsync(testContractAddress, callback);
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void updateContractOptionsAsync_withFeePayerOption() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip7ContractMetadataResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip7ContractMetadataResponse> callback = new ApiCallback<Kip7ContractMetadataResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip7ContractMetadataResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        Kip7FeePayerOptions option = new Kip7FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        caver.kas.kip7.updateContractOptionsAsync(testContractAddress, option, callback);
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void pause_withPauser() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ApiException, InterruptedException {
+        if(isPaused()) {
+            caver.kas.kip7.unpause(testContractAlias);
+            Thread.sleep(3000);
+        }
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.pause(testContractAlias, deployerAddress);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(3000);
+        assertTrue(isPaused());
+
+        caver.kas.kip7.unpause(testContractAlias);
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void pauseAsync_withPauser() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ApiException, InterruptedException, ExecutionException {
+        if(isPaused()) {
+            caver.kas.kip7.unpause(testContractAlias);
+            Thread.sleep(3000);
+        }
+
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+        caver.kas.kip7.pauseAsync(testContractAlias, deployerAddress, callback);
+        Thread.sleep(3000);
+        callback.checkResponse();
+        assertTrue(isPaused());
+
+        caver.kas.kip7.unpause(testContractAlias);
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void unpause_withPauser() throws ApiException, InterruptedException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        if(!isPaused()) {
+            caver.kas.kip7.pause(testContractAlias);
+            Thread.sleep(3000);
+        }
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.unpause(testContractAlias, deployerAddress);
+        assertNotNull(response);
+        assertNotNull(response.getTransactionHash());
+
+        Thread.sleep(3000);
+        assertTrue(!isPaused());
+    }
+
+    @Test
+    public void unpauseAsync_withPauser() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ApiException, InterruptedException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        if(!isPaused()) {
+            caver.kas.kip7.pause(testContractAlias);
+            Thread.sleep(3000);
+        }
+
+        caver.kas.kip7.unpauseAsync(testContractAlias, deployerAddress, callback);
+        Thread.sleep(3000);
+        callback.checkResponse();
+    }
+
+    @Test
+    public void mint_withMinter() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String to = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, deployerAddress);
+        assertNotNull(response);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void mintAsync_withMinter() throws ApiException, InterruptedException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String to = account;
+        BigInteger amount = BigInteger.valueOf(10).multiply(BigInteger.TEN.pow(18)); // 10 * 10^18
+
+        caver.kas.kip7.mintAsync(contractAlias, to, amount, deployerAddress, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void mint_withHexStringAmount_withMinter() throws InterruptedException, ApiException {
+        String contractAlias = testContractAlias;
+        String to = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.mint(contractAlias, to, amount, deployerAddress);
+        assertNotNull(response);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void mintAsync_withHexStringAmount_withMinter() throws InterruptedException, ApiException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String to = account;
+        String amount = "0x8ac7230489e80000"; // 10 * 10^18
+
+        caver.kas.kip7.mintAsync(contractAlias, to, amount, deployerAddress, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addMinter() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.addMinter(contractAlias, accountToBeMinter);
+        assertNotNull(response);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addMinter_withMinter() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse response = caver.kas.kip7.addMinter(contractAlias, accountToBeMinter, deployerAddress);
+        assertNotNull(response);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addMinterAsync() throws InterruptedException, ApiException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        caver.kas.kip7.addMinterAsync(contractAlias, accountToBeMinter, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addMinterAsync_withMinter() throws InterruptedException, ApiException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        caver.kas.kip7.addMinterAsync(contractAlias, accountToBeMinter, deployerAddress, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void renounceMinter() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addMinter(contractAlias, accountToBeMinter);
+        Thread.sleep(3000);
+
+        Kip7TransactionStatusResponse renounceResponse = caver.kas.kip7.renounceMinter(contractAlias, accountToBeMinter);
+        assertNotNull(renounceResponse);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void renounceMinterAsync() throws ApiException, InterruptedException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBeMinter = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addMinter(contractAlias, accountToBeMinter);
+        Thread.sleep(3000);
+
+        caver.kas.kip7.renounceMinterAsync(contractAlias, accountToBeMinter, callback);
+        Thread.sleep(3000);
+
+        callback.checkResponse();
+    }
+
+    @Test
+    public void addPauser() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addPauser(contractAlias, accountToBePauser);
+        assertNotNull(addResponse);
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addPauser_withPauser() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addPauser(contractAlias, accountToBePauser, deployerAddress);
+        assertNotNull(addResponse);
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void addPauserAsync() throws ExecutionException, InterruptedException, ApiException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        caver.kas.kip7.addPauserAsync(contractAlias, accountToBePauser, callback);
+        Thread.sleep(3000);
+
+        callback.checkResponse();
+    }
+
+    @Test
+    public void addPauserAsync_withPauser() throws ApiException, InterruptedException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        caver.kas.kip7.addPauserAsync(contractAlias, accountToBePauser, deployerAddress, callback);
+        Thread.sleep(3000);
+
+        callback.checkResponse();
+    }
+
+    @Test
+    public void renouncePauser() throws ApiException, InterruptedException {
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addPauser(contractAlias, accountToBePauser);
+        Thread.sleep(3000);
+
+        Kip7TransactionStatusResponse renounceResponse = caver.kas.kip7.renouncePauser(contractAlias, accountToBePauser);
+        assertNotNull(renounceResponse);
+
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void renouncePauserAsync() throws ApiException, InterruptedException, ExecutionException {
+        Kip7TransactionStatusCallback callback = new Kip7TransactionStatusCallback();
+
+        String contractAlias = testContractAlias;
+        String accountToBePauser = caver.kas.wallet.createAccount().getAddress();
+
+        Kip7TransactionStatusResponse addResponse = caver.kas.kip7.addPauser(contractAlias, accountToBePauser);
+        Thread.sleep(3000);
+
+        caver.kas.kip7.renouncePauserAsync(contractAlias, accountToBePauser, callback);
+        callback.checkResponse();
+
+        Thread.sleep(3000);
     }
 
 }

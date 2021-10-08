@@ -43,6 +43,10 @@ public class CaverExtKAS extends Caver {
     private static final String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
     private static final String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
     private static final String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
+    private static final String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
+
+    public static final String CHAIN_ID_BAOBOB = "1001";
+    public static final String CHAIN_ID_CYPRESS = "8217";
 
     /**
      * The KAS instance.
@@ -53,6 +57,11 @@ public class CaverExtKAS extends Caver {
      * The KAS wallet instance.
      */
     public KASWallet wallet;
+
+    /**
+     * The boolean to check whether NodeApi is initialized or not.
+     */
+    private boolean nodeAPIInitialized;
 
     /**
      * Creates a CaverExtKAS instance.<br>
@@ -167,6 +176,7 @@ public class CaverExtKAS extends Caver {
         initWalletAPI(chainId, accessKeyId, secretAccessKey);
         initKIP17API(chainId, accessKeyId, secretAccessKey);
         initKIP7API(chainId, accessKeyId, secretAccessKey);
+        initKIP37API(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
@@ -299,6 +309,10 @@ public class CaverExtKAS extends Caver {
         } else {
             initNodeAPIWithWebSocket(chainId, accessKeyId, secretAccessKey, url);
         }
+        this.nodeAPIInitialized = true;
+        if (this.kas.wallet != null) {
+            kas.wallet.setNodeAPIInitialized(this.nodeAPIInitialized);
+        }
     }
 
     /**
@@ -388,6 +402,7 @@ public class CaverExtKAS extends Caver {
     public void initWalletAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initWalletAPI(chainId, accessKeyId, secretAccessKey, url);
         kas.wallet.setRPC(this.rpc);
+        kas.wallet.setNodeAPIInitialized(this.nodeAPIInitialized);
         setWallet(new KASWallet(this.kas.wallet));
     }
 
@@ -523,6 +538,49 @@ public class CaverExtKAS extends Caver {
         kas.initKIP7API(chainId, accessKeyId, secretAccessKey, url);
     }
 
+    /**
+     * Initialize KIP37 API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKIP37API(int chainId, String accessKeyId, String secretAccessKey) {
+        initKIP37API(chainId, accessKeyId, secretAccessKey, URL_KIP37_API);
+    }
+
+    /**
+     * Initialize KIP37 API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initKIP37API(String chainId, String accessKeyId, String secretAccessKey) {
+        initKIP37API(chainId, accessKeyId, secretAccessKey, URL_KIP37_API);
+    }
+
+    /**
+     * Initialize KIP37 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP37 API.
+     */
+    public void initKIP37API(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initKIP37API(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize KIP37 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP37 API.
+     */
+    public void initKIP37API(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initKIP37API(chainId, accessKeyId, secretAccessKey, url);
+    }
 
     /**
      * Getter function for KAS instance.
@@ -530,11 +588,6 @@ public class CaverExtKAS extends Caver {
      */
     public KAS getKas() {
         return kas;
-    }
-
-    @Override
-    public IWallet getWallet() {
-        return this.wallet;
     }
 
     /**
@@ -545,6 +598,19 @@ public class CaverExtKAS extends Caver {
         this.kas = kas;
     }
 
+    /**
+     * Getter function for wallet
+     * @return IWallet
+     */
+    @Override
+    public IWallet getWallet() {
+        return this.wallet;
+    }
+
+    /**
+     * Setter function for wallet
+     * @param wallet The KAS wallet instance.
+     */
     public void setWallet(KASWallet wallet) {
         this.wallet = wallet;
     }
@@ -566,9 +632,10 @@ public class CaverExtKAS extends Caver {
     }
 
     private void initNodeAPIWithWebSocket(String chainId, String accessKeyId, String secretAccessKey, String url) {
-        Pattern regex = Pattern.compile("^[a-zA-Z0-9]*$");
+        Pattern regexAccessKey = Pattern.compile("^[a-zA-Z0-9]*$"); // only A-Z, a-z, 0-9
+        Pattern regexSecretAccessKey = Pattern.compile("^[^?=&+\\s]+$"); // not allow to include ?, ,=,&,+
 
-        if(!regex.matcher(accessKeyId).matches() || !regex.matcher(secretAccessKey).matches()) {
+        if(!regexAccessKey.matcher(accessKeyId).matches() || !regexSecretAccessKey.matcher(secretAccessKey).matches()) {
             throw new InvalidParameterException("Invalid auth: To use the websocket provider, you must use an accessKey and secretAccessKey that do not contain special characters. Please obtain a new AccessKey through the KAS Console.");
         }
 
@@ -582,6 +649,9 @@ public class CaverExtKAS extends Caver {
             WebSocketService webSocketService = new WebSocketService(webSocketClient, false);
 
             this.setCurrentProvider(webSocketService);
+            if (this.kas.wallet != null) {
+                this.kas.wallet.setRPC(this.rpc);
+            }
             webSocketService.connect();
         } catch(URISyntaxException e) {
             throw new RuntimeException(String.format("Failed to parse URL: '%s'", websocketUrl), e);

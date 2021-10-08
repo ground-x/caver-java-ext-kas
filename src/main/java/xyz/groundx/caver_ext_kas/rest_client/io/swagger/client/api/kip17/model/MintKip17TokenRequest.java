@@ -1,6 +1,6 @@
 /*
  * KIP-17 API
- *   # Error Codes  ## 400: Bad Request   | Code | Messages |   | --- | --- |   | 1100050 | incorrect request 1100101 | data don't exist 1100251 | its value is out of range; size 1104401 | failed to get an account |   ## 404: Not Found   | Code | Messages |   | --- | --- |   | 1104404 | Token not found |   ## 409: Conflict   | Code | Messages |   | --- | --- |   | 1104400 | Duplicate alias - test |  
+ * # Introduction The KIP-17 API helps BApp (Blockchain Application) developers to manage contracts and tokens created in accordance with the [KIP-17](https://docs.klaytnapi.com/v/en/api#kip-17-api) standard, which is Klaytn's technical speficication for Non-Fungible Tokens.  The functionality of the multiple endpoints enables you to do the following actions: - deploy smart contracts - manage the entire life cycle of an NFT from minting, to sending and burning - get contract or token data - authorize a third party to execute token transfers - view token ownership history  For more details on KAS, please refer to [KAS Docs](https://docs.klaytnapi.com/). If you have any questions or comments, please leave them in the [Klaytn Developers Forum](http://forum.klaytn.com).    **alias**  When a method of the KIP-17 API requires a contract address, you can use the contract **alias**. You can give the contract an alias when deploying, and use it in place of the complicated address.  # Fee Payer Options KAS KIP-17 supports four ways to pay the transaction fees.<br />  **1. Only using KAS Global FeePayer Account** <br /> Sends all transactions using KAS Global FeePayer Account. ``` {     \"options\": {       \"enableGlobalFeePayer\": true     } } ``` <br />  **2. Using User FeePayer Account** <br /> Sends all transactions using User FeePayer Account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ``` <br />  **3. Using both KAS Global FeePayer Account + User FeePayer Account** <br /> Sends transactions using User FeePayer Account by default, and switches to the KAS Global FeePayer Account when balances are insufficient. ``` {   \"options\": {     \"enableGlobalFeePayer\": true,     \"userFeePayer\": {       \"krn\": \"krn:1001:wallet:20bab367-141b-439a-8b4c-ae8788b86316:feepayer-pool:default\",       \"address\": \"0xd6905b98E4Ba43a24E842d2b66c1410173791cab\"     }   } } ``` <br />  **4. Not using FeePayer Account** <br /> Sends transactions the default way, paying the transaction fee from the user's account. ``` {   \"options\": {     \"enableGlobalFeePayer\": false   } } ``` <br />  # Error Code This section contains the errors that might occur when using the KIP-17 API. KAS uses HTTP status codes. More details can be found in this [link](https://developer.mozilla.org/en/docs/Web/HTTP/Status).
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -30,11 +30,11 @@ public class MintKip17TokenRequest {
   @SerializedName("to")
   private String to = null;
 
-  @SerializedName("uri")
-  private String uri = null;
-
   @SerializedName("id")
   private String id = null;
+
+  @SerializedName("uri")
+  private String uri = null;
 
   public MintKip17TokenRequest to(String to) {
     this.to = to;
@@ -42,10 +42,10 @@ public class MintKip17TokenRequest {
   }
 
    /**
-   * Recipient EOA address for the newly minted token
+   * The Klaytn accound address of the new token&#x27;s owner.
    * @return to
   **/
-  @Schema(example = "0xDc277E2D89b92336A4ee80be3c7142443FDaDE47", description = "Recipient EOA address for the newly minted token")
+  @Schema(example = "905926021062573029082840825013416120695539447028", required = true, description = "The Klaytn accound address of the new token's owner.")
   public String getTo() {
     return to;
   }
@@ -54,34 +54,16 @@ public class MintKip17TokenRequest {
     this.to = to;
   }
 
-  public MintKip17TokenRequest uri(String uri) {
-    this.uri = uri;
-    return this;
-  }
-
-   /**
-   * Token URI for the newly minted token
-   * @return uri
-  **/
-  @Schema(example = "https://metastore.kip17.com/0xbe02aba/0x1", description = "Token URI for the newly minted token")
-  public String getUri() {
-    return uri;
-  }
-
-  public void setUri(String uri) {
-    this.uri = uri;
-  }
-
   public MintKip17TokenRequest id(String id) {
     this.id = id;
     return this;
   }
 
    /**
-   * Token ID for the newly minted token; cannot be overlapped with an existing ID
+   * The ID of the new token; it must not be a duplicate of an existing ID.
    * @return id
   **/
-  @Schema(example = "0x13", required = true, description = "Token ID for the newly minted token; cannot be overlapped with an existing ID")
+  @Schema(example = "19", required = true, description = "The ID of the new token; it must not be a duplicate of an existing ID.")
   public String getId() {
     return id;
   }
@@ -90,9 +72,27 @@ public class MintKip17TokenRequest {
     this.id = id;
   }
 
+  public MintKip17TokenRequest uri(String uri) {
+    this.uri = uri;
+    return this;
+  }
+
+   /**
+   * The URI of the new token.
+   * @return uri
+  **/
+  @Schema(example = "https://metastore.kip17.com/0xbe02aba/0x1", required = true, description = "The URI of the new token.")
+  public String getUri() {
+    return uri;
+  }
+
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
+
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -101,13 +101,13 @@ public class MintKip17TokenRequest {
     }
     MintKip17TokenRequest mintKip17TokenRequest = (MintKip17TokenRequest) o;
     return Objects.equals(this.to, mintKip17TokenRequest.to) &&
-        Objects.equals(this.uri, mintKip17TokenRequest.uri) &&
-        Objects.equals(this.id, mintKip17TokenRequest.id);
+        Objects.equals(this.id, mintKip17TokenRequest.id) &&
+        Objects.equals(this.uri, mintKip17TokenRequest.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, uri, id);
+    return Objects.hash(to, id, uri);
   }
 
 
@@ -117,8 +117,8 @@ public class MintKip17TokenRequest {
     sb.append("class MintKip17TokenRequest {\n");
     
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -127,7 +127,7 @@ public class MintKip17TokenRequest {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

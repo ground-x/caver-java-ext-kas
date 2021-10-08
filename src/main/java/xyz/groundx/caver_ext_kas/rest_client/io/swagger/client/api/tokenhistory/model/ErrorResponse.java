@@ -42,10 +42,10 @@ public class ErrorResponse {
   }
 
    /**
-   * KAS error code
+   * Error Code
    * @return code
   **/
-  @Schema(required = true, description = "KAS error code")
+  @Schema(required = true, description = "Error Code")
   public Integer getCode() {
     return code;
   }
@@ -60,10 +60,10 @@ public class ErrorResponse {
   }
 
    /**
-   * KAS error message
+   * Error Message
    * @return message
   **/
-  @Schema(required = true, description = "KAS error message")
+  @Schema(required = true, description = "Error Message")
   public String getMessage() {
     return message;
   }

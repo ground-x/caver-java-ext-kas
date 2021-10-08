@@ -24,6 +24,7 @@ import com.klaytn.caver.contract.SendOptions;
 import com.klaytn.caver.kct.kip17.KIP17;
 import com.klaytn.caver.kct.kip17.KIP17ConstantData;
 import com.klaytn.caver.kct.kip17.KIP17DeployParams;
+import com.klaytn.caver.kct.kip37.KIP37;
 import com.klaytn.caver.kct.kip7.KIP7;
 import com.klaytn.caver.kct.kip7.KIP7ConstantData;
 import com.klaytn.caver.kct.kip7.KIP7DeployParams;
@@ -61,6 +62,7 @@ public class Config {
     public static String URL_WALLET_API = "https://wallet-api.klaytnapi.com";
     public static String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
     public static String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
+    public static String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
@@ -105,6 +107,7 @@ public class Config {
         caver.initTokenHistoryAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_TH_API);
         caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
         caver.initKIP7API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP7_API);
+        caver.initKIP37API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP37_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
@@ -136,6 +139,7 @@ public class Config {
             URL_ANCHOR_API = loadEnvData(env, "URL_ANCHOR_API" + identifier);
             URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
             URL_KIP7_API = loadEnvData(env, "URL_KIP7_API" + identifier);
+            URL_KIP37_API = loadEnvData(env, "URL_KIP37_API" + identifier);
         }
 
         accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
@@ -271,26 +275,9 @@ public class Config {
 
     public static String deployKIP37(Caver caver, String deployer) {
         try {
-            Contract contract = new Contract(caver, KIP37ConstantData.ABI);
-            ContractDeployParams contractDeployParams = new ContractDeployParams(KIP37ConstantData.BINARY, "uri");
+            KIP37 kip37 = KIP37.deploy(caver, "uri", deployer, keyringContainer);
 
-            String input = ABI.encodeContractDeploy(contract.getConstructor(), contractDeployParams.getBytecode(), contractDeployParams.getDeployParams());
-
-            SmartContractDeploy deployTx = new SmartContractDeploy.Builder()
-                    .setKlaytnCall(caver.rpc.klay)
-                    .setFrom(deployer)
-                    .setInput(input)
-                    .setCodeFormat(CodeFormat.EVM)
-                    .setHumanReadable(false)
-                    .setGas(BigInteger.valueOf(7500000))
-                    .build();
-
-            keyringContainer.sign(deployer, deployTx);
-            Bytes32 res = caver.rpc.klay.sendRawTransaction(deployTx).send();
-            PollingTransactionReceiptProcessor processor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
-            TransactionReceipt.TransactionReceiptData receiptData = processor.waitForTransactionReceipt(res.getResult());
-
-            return receiptData.getContractAddress();
+            return kip37.getContractAddress();
         } catch (IOException | ReflectiveOperationException | TransactionException e) {
             e.printStackTrace();
         }

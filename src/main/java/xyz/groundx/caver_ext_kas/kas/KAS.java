@@ -19,6 +19,7 @@ package xyz.groundx.caver_ext_kas.kas;
 import com.klaytn.caver.rpc.RPC;
 import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
 import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
+import xyz.groundx.caver_ext_kas.kas.kip37.KIP37;
 import xyz.groundx.caver_ext_kas.kas.kip7.KIP7;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
@@ -52,6 +53,11 @@ public class KAS {
      * The KIP7 API instance.
      */
     public KIP7 kip7;
+
+    /**
+     * The KIP37 API instance.
+     */
+    public KIP37 kip37;
 
     /**
      * Creates a KAS instance.
@@ -148,6 +154,24 @@ public class KAS {
     }
 
     /**
+     * Initialize KIP37 API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request KIP37 API.
+     */
+    public KAS initKIP37API(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
+
+        setKip37(new KIP37(chainId, apiClient));
+
+        return this;
+    }
+
+    /**
      * Getter function for anchor.
      * @return Anchor API
      */
@@ -225,5 +249,21 @@ public class KAS {
      */
     public void setKip7(KIP7 kip7) {
         this.kip7 = kip7;
+    }
+
+    /**
+     * Getter function for kip37.
+     * @return KIP37
+     */
+    public KIP37 getKip37() {
+        return kip37;
+    }
+
+    /**
+     * Setter function for KIP37.
+     * @param kip37 The KIP37 API instance.
+     */
+    public void setKip37(KIP37 kip37) {
+        this.kip37 = kip37;
     }
 }

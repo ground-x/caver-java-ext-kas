@@ -604,7 +604,7 @@ public class TokenApi {
     }
 
     /**
-     * Query data of all tokens for certain MT contracts
+     * 
      * Selecting an MT contract will fetch all data of tokens issued by the contract.<p></p>  ## Sort<p></p>  * The items in the response will be listed in lexicographical order of the token IDs. <p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress NFT Contract address to query (required)
@@ -619,7 +619,7 @@ public class TokenApi {
     }
 
     /**
-     * Query data of all tokens for certain MT contracts
+     * 
      * Selecting an MT contract will fetch all data of tokens issued by the contract.<p></p>  ## Sort<p></p>  * The items in the response will be listed in lexicographical order of the token IDs. <p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress NFT Contract address to query (required)
@@ -635,7 +635,7 @@ public class TokenApi {
     }
 
     /**
-     * Query data of all tokens for certain MT contracts (asynchronously)
+     *  (asynchronously)
      * Selecting an MT contract will fetch all data of tokens issued by the contract.<p></p>  ## Sort<p></p>  * The items in the response will be listed in lexicographical order of the token IDs. <p></p><br>  ## Size<p></p>  * The query parameter &#x60;size&#x60; is optional. (Min &#x3D; 1, Max &#x3D; 1000, Default &#x3D; 100)<br> * Returns an error when given a negative number<br> * Uses default (&#x60;size&#x3D;100&#x60;) when given a 0<br> * Uses the maximum value (&#x60;size&#x3D;1000&#x60;) when given a value higher than 1000<br>
      * @param xChainId Klaytn Network Chain ID (1001 or 8217) (required)
      * @param mtAddress NFT Contract address to query (required)

@@ -42,7 +42,7 @@ public class NFTTokenSummaryExtras {
    * Token ID (in hexadecimal)
    * @return tokenId
   **/
-  @Schema(example = "0x1", description = "Token ID (in hexadecimal)")
+  @Schema(example = "1", description = "Token ID (in hexadecimal)")
   public String getTokenId() {
     return tokenId;
   }

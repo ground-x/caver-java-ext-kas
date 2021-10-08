@@ -20,9 +20,7 @@ import com.klaytn.caver.methods.response.TransactionReceipt;
 import com.klaytn.caver.transaction.response.PollingTransactionReceiptProcessor;
 import com.klaytn.caver.transaction.response.TransactionReceiptProcessor;
 import com.squareup.okhttp.Call;
-import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.utils.Numeric;
@@ -31,7 +29,6 @@ import xyz.groundx.caver_ext_kas.Config;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.kip17.model.*;
-import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.wallet.model.Accounts;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -60,14 +57,9 @@ public class KIP17Test {
 
     public static void prepareKIP17Contract() throws ApiException, IOException, TransactionException, InterruptedException {
         testContractAlias = "kk-" + new Date().getTime();
-        Kip17TransactionStatusResponse deployStatus = caver.kas.kip17.deploy("KIP17", "KCTT", testContractAlias);
+        Kip17DeployResponse deployStatus = caver.kas.kip17.deploy("KIP17", "KCTT", testContractAlias);
         TransactionReceiptProcessor receiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         receiptProcessor.waitForTransactionReceipt(deployStatus.getTransactionHash());
-
-        Thread.sleep(5000);
-        for(int i=0; i<2; i++) {
-            mintToken(testContractAlias, account, BigInteger.valueOf(new Date().getTime()));
-        }
 
         Thread.sleep(5000);
     }
@@ -86,22 +78,22 @@ public class KIP17Test {
 
     @Test
     public void deploy() throws ApiException, InterruptedException {
-        Kip17TransactionStatusResponse response = caver.kas.kip17.deploy("KIP17", "KCT17", "kk-" + new Date().getTime());
+        Kip17DeployResponse response = caver.kas.kip17.deploy("KIP17", "KCT17", "kk-" + new Date().getTime());
         assertNotNull(response);
         Thread.sleep(5000);
     }
 
     @Test
     public void deployAsync() throws ApiException, ExecutionException, InterruptedException {
-        CompletableFuture<Kip17TransactionStatusResponse> future = new CompletableFuture<>();
-        Call result = caver.kas.kip17.deployAsync("KIP17", "KCT17", "kk-" + new Date().getTime(), new ApiCallback<Kip17TransactionStatusResponse>() {
+        CompletableFuture<Kip17DeployResponse> future = new CompletableFuture<>();
+        Call result = caver.kas.kip17.deployAsync("KIP17", "KCT17", "kk-" + new Date().getTime(), new ApiCallback<Kip17DeployResponse>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.completeExceptionally(e);
             }
 
             @Override
-            public void onSuccess(Kip17TransactionStatusResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+            public void onSuccess(Kip17DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
                 future.complete(result);
             }
 
@@ -473,25 +465,32 @@ public class KIP17Test {
     }
 
     @Test
-    public void approve() throws ApiException, InterruptedException {
+    public void approve() throws ApiException, InterruptedException, TransactionException, IOException {
         String from = account;
         String to = caver.kas.wallet.createAccount().getAddress();
 
-        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
-        Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, res.getItems().get(0).getTokenId());
+        BigInteger tokenId = BigInteger.valueOf(new Date().getTime());
+        mintToken(testContractAlias, account, tokenId);
+
+        Thread.sleep(3000);
+
+        Kip17TransactionStatusResponse response = caver.kas.kip17.approve(testContractAlias, from, to, tokenId);
         assertNotNull(response);
         Thread.sleep(5000);
     }
 
     @Test
-    public void approveAsync() throws ApiException, ExecutionException, InterruptedException {
+    public void approveAsync() throws ApiException, ExecutionException, InterruptedException, TransactionException, IOException {
         String from = account;
         String to = caver.kas.wallet.createAccount().getAddress();
 
-        Kip17TokenListResponse res = caver.kas.kip17.getTokenList(testContractAlias);
+        BigInteger tokenId = BigInteger.valueOf(new Date().getTime());
+        mintToken(testContractAlias, account, tokenId);
+
+        Thread.sleep(3000);
 
         CompletableFuture<Kip17TransactionStatusResponse> completableFuture = new CompletableFuture<>();
-        Call result = caver.kas.kip17.approveAsync(testContractAlias, from, to, res.getItems().get(0).getTokenId(), new ApiCallback<Kip17TransactionStatusResponse>() {
+        Call result = caver.kas.kip17.approveAsync(testContractAlias, from, to, tokenId, new ApiCallback<Kip17TransactionStatusResponse>() {
             @Override
             public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                 completableFuture.completeExceptionally(e);
@@ -664,6 +663,140 @@ public class KIP17Test {
 
             }
         });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void deploy_withFeePayerOptions() throws ApiException {
+        Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        Kip17DeployResponse response = caver.kas.kip17.deploy("KIP17", "KCT17", "kk-" + new Date().getTime(), option);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeePayer());
+    }
+
+    @Test
+    public void deployAsync_withFeePayerOptions() throws ExecutionException, InterruptedException, ApiException {
+        Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        CompletableFuture<Kip17DeployResponse> future = new CompletableFuture<>();
+        Call result = caver.kas.kip17.deployAsync("KIP17", "KCT17", "kk-" + new Date().getTime(), option, new ApiCallback<Kip17DeployResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip17DeployResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        });
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void updateContractOptions() throws ApiException {
+        Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(testContractAlias);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeePayer());
+    }
+
+    @Test
+    public void updateContractOptions_withFeePayerOptions() throws ApiException {
+        Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        Kip17ContractInfoResponse response = caver.kas.kip17.updateContractOptions(testContractAlias, option);
+        assertNotNull(response);
+        assertTrue(response.getOptions().isEnableGlobalFeePayer());
+    }
+
+
+    @Test
+    public void updateContractOptionsAsync() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip17ContractInfoResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip17ContractInfoResponse> callback = new ApiCallback<Kip17ContractInfoResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip17ContractInfoResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        caver.kas.kip17.updateContractOptionsAsync(testContractAlias, callback);
+
+        if(future.isCompletedExceptionally()) {
+            fail();
+        } else {
+            assertNotNull(future.get());
+        }
+    }
+
+    @Test
+    public void updateContractOptionsAsync_withFeePayerOptions() throws ApiException, ExecutionException, InterruptedException {
+        CompletableFuture<Kip17ContractInfoResponse> future = new CompletableFuture<>();
+        ApiCallback<Kip17ContractInfoResponse> callback = new ApiCallback<Kip17ContractInfoResponse>() {
+            @Override
+            public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onSuccess(Kip17ContractInfoResponse result, int statusCode, Map<String, List<String>> responseHeaders) {
+                future.complete(result);
+            }
+
+            @Override
+            public void onUploadProgress(long bytesWritten, long contentLength, boolean done) {
+
+            }
+
+            @Override
+            public void onDownloadProgress(long bytesRead, long contentLength, boolean done) {
+
+            }
+        };
+
+        Kip17FeePayerOptions option = new Kip17FeePayerOptions();
+        option.setEnableGlobalFeePayer(true);
+
+        caver.kas.kip17.updateContractOptionsAsync(testContractAlias, option, callback);
 
         if(future.isCompletedExceptionally()) {
             fail();
