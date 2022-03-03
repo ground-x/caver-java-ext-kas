@@ -335,7 +335,7 @@ public class NodeAPITest {
                     account,
                     kip17Contract,
                     new BigInteger("100000000", 16),
-                    new BigInteger("5d21dba00", 16),
+                    new BigInteger("ae9f7bcc00", 16),
                     new BigInteger("0", 16),
                     encoded
             );
@@ -358,7 +358,7 @@ public class NodeAPITest {
                 account,
                 kip17.getContractAddress(),
                 new BigInteger("100000000", 16),
-                new BigInteger("5d21dba00", 16),
+                new BigInteger("ae9f7bcc00", 16),
                 new BigInteger("0", 16),
                 encoded
         );
@@ -376,7 +376,7 @@ public class NodeAPITest {
                 account,
                 kip17.getContractAddress(),
                 new BigInteger("100000000", 16),
-                new BigInteger("5d21dba00", 16),
+                new BigInteger("ae9f7bcc00", 16),
                 new BigInteger("0", 16),
                 encoded
         );
@@ -446,14 +446,14 @@ public class NodeAPITest {
     public void getGasPriceTest() throws Exception {
         Quantity response = caver.rpc.klay.getGasPrice().send();
         BigInteger result = response.getValue();
-        assertEquals(new BigInteger("5d21dba00", 16), result); // 25,000,000,000 peb = 25 Gpeb
+        assertEquals(new BigInteger("ae9f7bcc00", 16), result); // 25,000,000,000 peb = 25 Gpeb
     }
 
     @Test
     public void getGasPriceAtTest() throws IOException {
         Quantity response = caver.rpc.klay.getGasPriceAt().send();
         BigInteger result = response.getValue();
-        assertEquals(new BigInteger("5d21dba00", 16), result); // 25,000,000,000 peb = 25 Gpeb
+        assertEquals(new BigInteger("ae9f7bcc00", 16), result); // 25,000,000,000 peb = 25 Gpeb
     }
 
 
