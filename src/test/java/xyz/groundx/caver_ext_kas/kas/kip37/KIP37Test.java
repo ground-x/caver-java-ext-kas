@@ -227,7 +227,7 @@ public class KIP37Test {
         String uri = "https://token-cdn-domain/{id}.json";
         testContractAlias = "kk-" + new Date().getTime();
 
-        Kip37FeePayerOptions option = setFeePayerOptions(3);
+        Kip37FeePayerOptions option = setFeePayerOptions(1);
 
         Kip37DeployResponse deployResponse = caver.kas.kip37.deploy(uri, testContractAlias, option);
         assertNotNull(deployResponse);
@@ -402,9 +402,13 @@ public class KIP37Test {
         assertEquals(option.getUserFeePayer().getAddress(), response.getOptions().getUserFeePayer().getAddress());
         assertEquals(option.getUserFeePayer().getKrn(), response.getOptions().getUserFeePayer().getKrn());
 
-        option = setFeePayerOptions(3);
-        response = caver.kas.kip37.updateContractOptions(testContractAddress, option);
-        assertFalse(response.getOptions().isEnableGlobalFeePayer());
+        try {
+            option = setFeePayerOptions(3);
+            caver.kas.kip37.updateContractOptions(testContractAddress, option);
+            fail("'invalid feepayer option' exception was not thrown");
+        } catch (Exception e) {
+            assertNotNull(e);
+        }
 
         option = setFeePayerOptions(0);
         response = caver.kas.kip37.updateContractOptions(testContractAddress, option);

@@ -154,7 +154,7 @@ public class Config {
     public static TransactionReceipt.TransactionReceiptData sendValue(String toAddress) throws IOException, TransactionException {
         init();
 
-        BigInteger value = new BigInteger(Utils.convertToPeb("1", Utils.KlayUnit.KLAY));
+        BigInteger value = new BigInteger(Utils.convertToPeb("30", Utils.KlayUnit.KLAY));
 
         ValueTransfer valueTransfer = new ValueTransfer.Builder()
                 .setKlaytnCall(caver.rpc.getKlay())

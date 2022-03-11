@@ -86,6 +86,7 @@ public class WalletAPITest {
         //Send balance to baseAccount
         com.klaytn.caver.methods.response.TransactionReceipt.TransactionReceiptData receiptData = Config.sendValue(baseAccount);
         txHash = receiptData.getTransactionHash();
+//        java.lang.RuntimeException: insufficient funds of the sender for value
 
         //Send balance to multiSig address
         Config.sendValue(multiSigAddress);
