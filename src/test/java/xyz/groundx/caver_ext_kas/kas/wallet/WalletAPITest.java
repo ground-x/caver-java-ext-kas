@@ -759,6 +759,7 @@ public class WalletAPITest {
 
         try {
             Account account = makeAccount();
+            Thread.sleep(3000);
             AccountsByPubkey accounts = caver.kas.wallet.getAccountListByPublicKey(account.getPublicKey());
             caver.kas.wallet.getAccountListByPublicKeyAsync(account.getPublicKey(), new ApiCallback<AccountsByPubkey>() {
                 @Override
