@@ -1418,10 +1418,11 @@ public class KIP37Test {
         BigInteger[] amountArray = new BigInteger[]{BigInteger.ONE, BigInteger.ONE};
 
         Kip37TransactionStatusResponse response = caver.kas.kip37.transfer(testContractAddress, deployerAddress, deployerAddress, account.getAddress(), tokenIdArray, amountArray);
+        Thread.sleep(2000);
         assertNotNull(response);
         getReceipt(caver, response.getTransactionHash());
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
 
     @Test

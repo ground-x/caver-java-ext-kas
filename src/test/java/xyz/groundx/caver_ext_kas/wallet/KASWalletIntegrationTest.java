@@ -562,8 +562,9 @@ public class KASWalletIntegrationTest {
                         .build();
 
                 caver.wallet.sign(baseAccount, tx);
+                Thread.sleep(3000);
                 assertEquals(2, tx.getSignatures().size());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 fail();
             }

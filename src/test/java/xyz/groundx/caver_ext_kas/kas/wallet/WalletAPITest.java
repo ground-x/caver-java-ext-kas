@@ -744,9 +744,10 @@ public class WalletAPITest {
     public void getAccountByPublicKey() {
         try {
             Account account = makeAccount();
+            Thread.sleep(1500);
             AccountsByPubkey accounts = caver.kas.wallet.getAccountListByPublicKey(account.getPublicKey());
             assertNotNull(accounts);
-        } catch (ApiException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
@@ -1265,7 +1266,7 @@ public class WalletAPITest {
             Config.sendValue(account.getAddress());
 
             KeyTypeMultiSig updateKeyType = createWeightedMultiSigKeyType(account);
-
+            Thread.sleep(2000);
             AccountUpdateTransactionRequest request = new AccountUpdateTransactionRequest();
             request.setFrom(account.getAddress());
             request.setAccountKey(updateKeyType);
@@ -2212,7 +2213,7 @@ public class WalletAPITest {
 
         try {
             Account account = makeAccount();
-
+            Thread.sleep(3000);
             KeyTypeMultiSig updateKeyType = createWeightedMultiSigKeyType(account);
 
             FDUserAccountUpdateTransactionRequest request = new FDUserAccountUpdateTransactionRequest();
@@ -2244,6 +2245,7 @@ public class WalletAPITest {
             request.setSubmit(true);
 
             FDTransactionResult result = caver.kas.wallet.requestFDAccountUpdatePaidByUser(request);
+            Thread.sleep(5000);
             assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
