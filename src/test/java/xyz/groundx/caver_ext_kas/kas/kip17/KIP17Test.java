@@ -57,6 +57,7 @@ public class KIP17Test {
 
     public static void prepareKIP17Contract() throws ApiException, IOException, TransactionException, InterruptedException {
         testContractAlias = "kk-" + new Date().getTime();
+
         Kip17DeployResponse deployStatus = caver.kas.kip17.deploy("KIP17", "KCTT", testContractAlias);
         TransactionReceiptProcessor receiptProcessor = new PollingTransactionReceiptProcessor(caver, 1000, 15);
         receiptProcessor.waitForTransactionReceipt(deployStatus.getTransactionHash());

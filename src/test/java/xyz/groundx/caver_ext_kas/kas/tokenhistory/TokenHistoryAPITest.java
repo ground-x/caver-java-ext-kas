@@ -28,6 +28,7 @@ import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiCallback;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiException;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.api.tokenhistory.model.*;
 
+import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Date;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
@@ -95,7 +97,7 @@ public class TokenHistoryAPITest {
         try {
             PageableTransfers transfersData = caver.kas.tokenHistory.getTransferHistory(preset);
             assertNotNull(transfersData.getItems());
-        } catch (ApiException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
@@ -577,7 +579,7 @@ public class TokenHistoryAPITest {
 
                 }
             });
-
+            Thread.sleep(3000);
             if(future.isCompletedExceptionally()) {
                 fail();
             } else {
@@ -1287,9 +1289,15 @@ public class TokenHistoryAPITest {
     public void getTransferHistoryWithExcludeZeroKlayOptions() throws ApiException {
         TokenHistoryQueryOptions options = new TokenHistoryQueryOptions();
         options.setExcludeZeroKlay(true);
-
-        PageableTransfers res = caver.kas.tokenHistory.getTransferHistory(preset, options);
-        assertNotNull(res);
+        try {
+            PageableTransfers res = caver.kas.tokenHistory.getTransferHistory(preset, options);
+            Thread.sleep(3000);
+            assertNotNull(res);
+        } catch(Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+        
     }
 
     @Test

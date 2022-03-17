@@ -26,14 +26,14 @@ public class TokenHistoryTestData {
     public String account = "";
 
     public static TokenHistoryTestData loadDevData() {
-        String ftAddress = "0xa904b57f567e07348186a3687cafc3b9d05d8608";
-        String nftAddress = "0x8386ea0a21dcf47d489bf1505a84942babadb3b0";
-        String mtAddress = "0xDbE9c814B10882bBEE42cbc75CE16A1620F5F042";
+        String ftAddress = "0x3b0b487fe1acebb220f8b4e14f1aa048e3457a67";
+        String nftAddress = "0x8ac844fdd2d43130c7fc85d8d808a99bef6077e4";
+        String mtAddress = "0x3b617f80d5aeaeb2b498addf9f3eca7f922aa711";
         String tokenId = "0x0";
-        String transactionHash = "0xd7ca606d531ee9afc5aed7b43d9476be3776ca06e03e0db8f21c121436962fbb";
+        String transactionHash = "0x9151d81367b289283dc41284e184993f56ae430b48922263df95bff0be24eb9a";
         String fromRange = "1611804103";
         String toRange = "1611904103";
-        String account = "0x76c6b1f34562ed7a843786e1d7f57d0d7948a6f1";
+        String account = "0x65f37fc65358b93e59b1c629298bf26c0b8331c2";
 
         return new TokenHistoryTestData(ftAddress, nftAddress, mtAddress, tokenId, transactionHash, fromRange, toRange, account);
     }

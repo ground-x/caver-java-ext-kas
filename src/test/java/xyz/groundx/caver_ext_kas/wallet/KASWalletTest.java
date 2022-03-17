@@ -211,7 +211,7 @@ public class KASWalletTest {
     public static class signTest {
         static String from = "0x758473e68179c446437b74ca8a74b58706792806";
         static String to = "0x76c6b1f34562ed7a843786e1d7f57d0d7948a6f1";
-        static String gasPrice = "0x5d21dba00";
+        static String gasPrice = "0xae9f7bcc00";
         static BigInteger gas = BigInteger.valueOf(25000);
         static BigInteger nonce = BigInteger.valueOf(1);
         static BigInteger chainId = BigInteger.valueOf(1001);
@@ -538,7 +538,7 @@ public class KASWalletTest {
                     .setAccount(com.klaytn.caver.account.Account.createWithAccountKeyLegacy(from))
                     .setGas(BigInteger.valueOf(50000))
                     .setNonce(BigInteger.ONE)
-                    .setGasPrice("0x5d21dba00")
+                    .setGasPrice("0xae9f7bcc00")
                     .setChainId(BigInteger.valueOf(1001))
                     .build();
 
@@ -578,7 +578,7 @@ public class KASWalletTest {
                     .setAccount(com.klaytn.caver.account.Account.createWithAccountKeyLegacy(from))
                     .setGas(BigInteger.valueOf(50000))
                     .setNonce(BigInteger.ONE)
-                    .setGasPrice("0x5d21dba00")
+                    .setGasPrice("0xae9f7bcc00")
                     .setChainId(BigInteger.valueOf(1001))
                     .build();
 
@@ -604,7 +604,7 @@ public class KASWalletTest {
         static String value = "0x1";
         static BigInteger gas = BigInteger.valueOf(25000);
         static BigInteger nonce = BigInteger.ONE;
-        static String gasPrice = "0x5d21dba00";
+        static String gasPrice = "0xae9f7bcc00";
         static BigInteger chainId = BigInteger.valueOf(1001);
 
         @Rule
@@ -791,7 +791,7 @@ public class KASWalletTest {
         static String from = "0xac3bd4b108f56ffcec6339fda14f649be01819c8";
         static String to = "0x76c6b1f34562ed7a843786e1d7f57d0d7948a6f1";
         static String feePayer = "0x1b71a63903e35371e2fc41c6012effb99b9a2c0f";
-        static String gasPrice = "0x5d21dba00";
+        static String gasPrice = "0xae9f7bcc00";
         static BigInteger gas = BigInteger.valueOf(50000);
         static BigInteger nonce = BigInteger.valueOf(3);
         static BigInteger chainId = BigInteger.valueOf(1001);
