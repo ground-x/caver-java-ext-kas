@@ -446,14 +446,14 @@ public class NodeAPITest {
     public void getGasPriceTest() throws Exception {
         Quantity response = caver.rpc.klay.getGasPrice().send();
         BigInteger result = response.getValue();
-        assertEquals(new BigInteger("ae9f7bcc00", 16), result); // 25,000,000,000 peb = 25 Gpeb
+        assertEquals(new BigInteger("3a35294400", 16), result); // 25,000,000,000 peb = 25 Gpeb
     }
 
     @Test
     public void getGasPriceAtTest() throws IOException {
         Quantity response = caver.rpc.klay.getGasPriceAt().send();
         BigInteger result = response.getValue();
-        assertEquals(new BigInteger("ae9f7bcc00", 16), result); // 25,000,000,000 peb = 25 Gpeb
+        assertEquals(new BigInteger("3a35294400", 16), result); // 25,000,000,000 peb = 25 Gpeb
     }
 
 

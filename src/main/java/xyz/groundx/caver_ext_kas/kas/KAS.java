@@ -21,6 +21,7 @@ import xyz.groundx.caver_ext_kas.kas.anchor.Anchor;
 import xyz.groundx.caver_ext_kas.kas.kip17.KIP17;
 import xyz.groundx.caver_ext_kas.kas.kip37.KIP37;
 import xyz.groundx.caver_ext_kas.kas.kip7.KIP7;
+import xyz.groundx.caver_ext_kas.kas.metadata.Metadata;
 import xyz.groundx.caver_ext_kas.kas.tokenhistory.TokenHistory;
 import xyz.groundx.caver_ext_kas.kas.wallet.Wallet;
 import xyz.groundx.caver_ext_kas.rest_client.io.swagger.client.ApiClient;
@@ -38,6 +39,11 @@ public class KAS {
      * The Token history API instance.
      */
     public TokenHistory tokenHistory;
+
+    /**
+     * The Metadata API instance.
+     */
+    public Metadata metadata;
 
     /**
      * The Wallet API instance.
@@ -172,6 +178,24 @@ public class KAS {
     }
 
     /**
+     * Initialize Metadata API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Metadata API.
+     */
+    public KAS initMetadataAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(url);
+        apiClient.setUsername(accessKeyId);
+        apiClient.setPassword(secretAccessKey);
+
+        setMetadata(new Metadata(chainId, apiClient));
+
+        return this;
+    }
+
+    /**
      * Getter function for anchor.
      * @return Anchor API
      */
@@ -265,5 +289,21 @@ public class KAS {
      */
     public void setKip37(KIP37 kip37) {
         this.kip37 = kip37;
+    }
+
+    /**
+     * Getter function for metadata.
+     * @return Metadata
+     */
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    /**
+     * Setter function for metadata.
+     * @param metadata The Metadata API instance.
+     */
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 }
