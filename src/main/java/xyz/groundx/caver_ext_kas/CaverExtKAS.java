@@ -44,7 +44,7 @@ public class CaverExtKAS extends Caver {
     private static final String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
     private static final String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
     private static final String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
-
+    private static final String URL_METADATA_API = "https://metadata-api.klaytnapi.com";
     public static final String CHAIN_ID_BAOBOB = "1001";
     public static final String CHAIN_ID_CYPRESS = "8217";
 
@@ -177,6 +177,7 @@ public class CaverExtKAS extends Caver {
         initKIP17API(chainId, accessKeyId, secretAccessKey);
         initKIP7API(chainId, accessKeyId, secretAccessKey);
         initKIP37API(chainId, accessKeyId, secretAccessKey);
+        initMetadataAPI(chainId, accessKeyId, secretAccessKey);
     }
 
     /**
@@ -357,6 +358,50 @@ public class CaverExtKAS extends Caver {
      */
     public void initAnchorAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
         kas.initAnchorAPI(chainId, accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Metadata API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initMetadataAPI(int chainId, String accessKeyId, String secretAccessKey) {
+        initMetadataAPI(chainId, accessKeyId, secretAccessKey, URL_METADATA_API);
+    }
+
+    /**
+     * Initialize Metadata API.
+     * It sets a url to default endpoint automatically.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     */
+    public void initMetadataAPI(String chainId, String accessKeyId, String secretAccessKey) {
+        initMetadataAPI(chainId, accessKeyId, secretAccessKey, URL_METADATA_API);
+    }
+
+    /**
+     * Initialize Metadata API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Metadata API.
+     */
+    public void initMetadataAPI(int chainId, String accessKeyId, String secretAccessKey, String url) {
+        initMetadataAPI(String.valueOf(chainId), accessKeyId, secretAccessKey, url);
+    }
+
+    /**
+     * Initialize Metadata API.
+     * @param chainId The Klaytn network chain id.
+     * @param accessKeyId The access key provided by KAS console.
+     * @param secretAccessKey The secret key provided by KAS console.
+     * @param url An URL to request Metadata API.
+     */
+    public void initMetadataAPI(String chainId, String accessKeyId, String secretAccessKey, String url) {
+        kas.initMetadataAPI(chainId, accessKeyId, secretAccessKey, url);
     }
 
     /**

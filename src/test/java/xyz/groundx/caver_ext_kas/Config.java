@@ -63,11 +63,15 @@ public class Config {
     public static String URL_KIP17_API = "https://kip17-api.klaytnapi.com";
     public static String URL_KIP7_API = "https://kip7-api.klaytnapi.com";
     public static String URL_KIP37_API = "https://kip37-api.klaytnapi.com";
+    public static String URL_METADATA_API = "https://metadata-api.klaytnapi.com";
 
     public static final String CHAIN_ID_BAOBOB = "1001";
 
     static String accessKey = "";
     static String secretAccessKey = "";
+
+    static String accountId = "";
+    static String storageKrn = "";
 
     public static String feePayerAddress = "";
     public static String operatorAddress = "";
@@ -108,6 +112,7 @@ public class Config {
         caver.initKIP17API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP17_API);
         caver.initKIP7API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP7_API);
         caver.initKIP37API(CHAIN_ID_BAOBOB, accessKey, secretAccessKey, URL_KIP37_API);
+        caver.initMetadataAPI(CHAIN_ID_BAOBOB, accessKey, secretAccessKey,URL_METADATA_API);
 
         keyringContainer = new KeyringContainer();
         klayProviderKeyring = (SingleKeyring)keyringContainer.add(KeyringFactory.createFromPrivateKey(klayProviderPrivateKey));
@@ -140,6 +145,7 @@ public class Config {
             URL_KIP17_API = loadEnvData(env, "URL_KIP17_API" + identifier);
             URL_KIP7_API = loadEnvData(env, "URL_KIP7_API" + identifier);
             URL_KIP37_API = loadEnvData(env, "URL_KIP37_API" + identifier);
+            URL_METADATA_API = loadEnvData(env, "URL_METADATA_API" + identifier);
         }
 
         accessKey = accessKey.equals("") ? loadEnvData(env, "ACCESS_KEY" + identifier) : accessKey;
@@ -147,6 +153,9 @@ public class Config {
         feePayerAddress = feePayerAddress.equals("") ? loadEnvData(env, "FEE_PAYER_ADDR" + identifier) : feePayerAddress;
         operatorAddress = operatorAddress.equals("") ? loadEnvData(env, "OPERATOR" + identifier) : operatorAddress;
         klayProviderPrivateKey = klayProviderPrivateKey.equals("") ? loadEnvData(env, "SENDER_PRV_KEY" + identifier) : klayProviderPrivateKey;
+
+        accountId = accountId.equals("") ? loadEnvData(env, "ACCOUNT_ID") : accountId;
+        storageKrn = storageKrn.equals("") ? loadEnvData(env, "STORAGE_KRN") : storageKrn;
 
         presetID = presetID == null ? Integer.parseInt(loadEnvData(env, "PRESET" + identifier)) : presetID;
     }
@@ -378,5 +387,13 @@ public class Config {
 
     public static String getSecretAccessKey() {
         return secretAccessKey;
+    }
+
+    public static String getAccountId() {
+        return accountId;
+    }
+
+    public static String getStorageKrn() {
+        return storageKrn;
     }
 }
